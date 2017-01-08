@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace CloudCoin_SafeScan
 {
@@ -61,7 +63,13 @@ namespace CloudCoin_SafeScan
             Image CLicked_Image = sender as Image;
             String ImageName = CLicked_Image.Name;
 
-            MessageBox.Show("Here will be implementation of the click to " + ImageName);
+            OpenFileDialog FD = new OpenFileDialog();
+
+            FD.ShowDialog();
+            Stream FileStream = FD.OpenFile();
+            FileStream.Close();
+
+            MessageBox.Show("You chose " + FD.FileName);
         }
     }
 }
