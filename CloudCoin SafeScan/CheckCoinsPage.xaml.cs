@@ -18,18 +18,23 @@ namespace CloudCoin_SafeScan
     /// <summary>
     /// Interaction logic for CheckCoinsPage.xaml
     /// </summary>
-    public partial class CheckCoinsPage : Page
+    public partial class CheckCoinsPage : Window
     {
         public CheckCoinsPage()
         {
             InitializeComponent();
         }
 
-        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        public double ProgressBar
         {
-
+            set
+            {
+                this.CheckProgress.Minimum = 0;
+                this.CheckProgress.Maximum = 100;
+                if (value >=0 && value <= 100)
+                    this.CheckProgress.Value = value;
+            }
         }
-
-       
+ 
     }
 }

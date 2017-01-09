@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 
 namespace CloudCoin_SafeScan
@@ -20,7 +22,7 @@ namespace CloudCoin_SafeScan
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class MainWindow : Window
     {
         public MainWindow()
         {
@@ -58,7 +60,39 @@ namespace CloudCoin_SafeScan
             MessageBox.Show(message);
         }
 
+        private void ImageCheck_Selected(object sender, InputEventArgs e)
+        {
+            OpenFileDialog FD = new OpenFileDialog();
 
-      
+            FD.ShowDialog();
+
+            CloudCoin coin = new CloudCoin(FD.FileName);
+
+            CheckCoinsPage checkCoinsPage = new CheckCoinsPage();
+            checkCoinsPage.Show();
+//            this.Hide();
+
+            double loadProgress = 0;
+            while (loadProgress < 100)
+            {
+                loadProgress++;
+                Thread.Sleep(20);
+                checkCoinsPage.ProgressBar = loadProgress;
+                checkCoinsPage.CheckLoadPercent.Text = loadProgress.ToString() + "%";
+            }
+
+            MessageBox.Show("You chose " + FD.FileName);
+        }
+
+        private void ImageSafe_Selected(object sender, InputEventArgs e)
+        {
+
+        }
+
+        private void ImagePay_Selected(object sender, InputEventArgs e)
+        {
+
+        }
+
     }
 }
