@@ -58,18 +58,30 @@ namespace CloudCoin_SafeScan
             MessageBox.Show(message);
         }
 
-        private void Image_Selected(object sender, InputEventArgs e)
-        {
-            Image CLicked_Image = sender as Image;
-            String ImageName = CLicked_Image.Name;
-
+        private void ImageCheck_Selected(object sender, InputEventArgs e)
+        {            
             OpenFileDialog FD = new OpenFileDialog();
 
             FD.ShowDialog();
-            Stream FileStream = FD.OpenFile();
-            FileStream.Close();
+
+            CloudCoin coin = new CloudCoin(FD.FileName);
+//            Stream FileStream = FD.OpenFile();
+            //Read operations here
+//            FileStream.Close();
 
             MessageBox.Show("You chose " + FD.FileName);
         }
+
+        private void ImageSafe_Selected(object sender, InputEventArgs e)
+        {
+
+        }
+
+        private void ImagePay_Selected(object sender, InputEventArgs e)
+        {
+
+        }
+
+      
     }
 }
