@@ -13,14 +13,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Win32;
+
 
 namespace CloudCoin_SafeScan
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : NavigationWindow
     {
         public MainWindow()
         {
@@ -58,29 +58,6 @@ namespace CloudCoin_SafeScan
             MessageBox.Show(message);
         }
 
-        private void ImageCheck_Selected(object sender, InputEventArgs e)
-        {            
-            OpenFileDialog FD = new OpenFileDialog();
-
-            FD.ShowDialog();
-
-            CloudCoin coin = new CloudCoin(FD.FileName);
-//            Stream FileStream = FD.OpenFile();
-            //Read operations here
-//            FileStream.Close();
-
-            MessageBox.Show("You chose " + FD.FileName);
-        }
-
-        private void ImageSafe_Selected(object sender, InputEventArgs e)
-        {
-
-        }
-
-        private void ImagePay_Selected(object sender, InputEventArgs e)
-        {
-
-        }
 
       
     }

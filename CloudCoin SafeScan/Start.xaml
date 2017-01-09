@@ -1,0 +1,24 @@
+﻿<Page x:Class="CloudCoin_SafeScan.Start"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CloudCoin_SafeScan"
+      xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Name="CloudCoin_Scan_Safe"
+      mc:Ignorable="d" 
+      d:DesignHeight="350" d:DesignWidth="525" Background="White"
+      Title="CloudCoin Scan&amp;Safe - Start">
+
+    <Grid>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="48" Margin="90,10,0,0" TextWrapping="Wrap" Text="CloudCoin Scan&amp;Safe" VerticalAlignment="Top" Width="314" FontSize="32" Cursor="Arrow"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="57" Margin="52,73,0,0" TextWrapping="Wrap" Text="You get cloudcoins in form of files from anywhere - sites, emails, USB Sticks, Smartphones. This app just checks them for counterfeit, loads and keeps 'em in safe and makes stacks for payments or gifts." VerticalAlignment="Top" Width="423" FontWeight="Bold" BorderThickness="0" Cursor="Arrow"/>
+        <Label x:Name="labelCheck" Content="Check" HorizontalAlignment="Left" Margin="70,0,0,51" VerticalAlignment="Bottom" Width="65" Height="39" FontSize="20"/>
+        <Label x:Name="labelStore" Content="Store" Margin="247,0,205,51" VerticalAlignment="Bottom" Height="39" FontSize="20"/>
+        <Label x:Name="labelPay" Content="Pay" Margin="0,0,70,51" VerticalAlignment="Bottom" Height="39" FontSize="20" HorizontalAlignment="Right" Width="40"/>
+        <Image x:Name="CounterImage" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="100" Source="pack://siteoforigin:,,,/Resources/CashCount.png" Margin="0,0,373,101" MouseDown="ImageCheck_Selected" Cursor="Hand"/>
+        <Image x:Name="SafeImage" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Source="pack://siteoforigin:,,,/Resources/Safe.png" Margin="230,149,0,0" Cursor="Hand"/>
+        <Image x:Name="StackCoins" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Source="pack://siteoforigin:,,,/Resources/CoinPayment.png" Margin="385,149,0,0" Cursor="Hand"/>
+        <ed:BlockArrow Fill="#FFF4F4F5" Orientation="Right" Stroke="Black" RenderTransformOrigin="0.85,0.652" Margin="165,174,310,125" Cursor="Arrow"/>
+        <ed:BlockArrow Fill="#FFF4F4F5" Orientation="Right" Stroke="Black" Margin="335,174,140,125" Cursor="Arrow"/>
+    </Grid>
+</Page>
