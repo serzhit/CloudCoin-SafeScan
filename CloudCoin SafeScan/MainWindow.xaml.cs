@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace CloudCoin_SafeScan
     /// </summary>
     public partial class MainWindow : Window
     {
+        CheckCoinsPage checkCoinsPage = new CheckCoinsPage();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -68,20 +71,32 @@ namespace CloudCoin_SafeScan
 
             CloudCoin coin = new CloudCoin(FD.FileName);
 
-            CheckCoinsPage checkCoinsPage = new CheckCoinsPage();
             checkCoinsPage.Show();
-//            this.Hide();
+            //            this.Hide();
 
-            double loadProgress = 0;
-            while (loadProgress < 100)
-            {
-                loadProgress++;
-                Thread.Sleep(20);
-                checkCoinsPage.ProgressBar = loadProgress;
-                checkCoinsPage.CheckLoadPercent.Text = loadProgress.ToString() + "%";
-            }
+            BackgroundWorker worker = new BackgroundWorker();
+
+            worker.WorkerReportsProgress = true;
+            worker.DoWork += worker_DoWork;
+            worker.ProgressChanged += worker_ProgressChanged;
+
+            worker.RunWorkerAsync();
 
             MessageBox.Show("You chose " + FD.FileName);
+        }
+
+        private void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            checkCoinsPage.CheckProgress.Value = e.ProgressPercentage;
+        }
+
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                (sender as BackgroundWorker).ReportProgress(i);
+                Thread.Sleep(100);
+            }
         }
 
         private void ImageSafe_Selected(object sender, InputEventArgs e)
