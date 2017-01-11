@@ -16,6 +16,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using RestSharp;
+using Newtonsoft.Json;
 
 
 namespace CloudCoin_SafeScan
@@ -74,29 +76,55 @@ namespace CloudCoin_SafeScan
             checkCoinsPage.Show();
             //            this.Hide();
 
-            BackgroundWorker worker = new BackgroundWorker();
-
-            worker.WorkerReportsProgress = true;
-            worker.DoWork += worker_DoWork;
-            worker.ProgressChanged += worker_ProgressChanged;
-
-            worker.RunWorkerAsync();
-
             MessageBox.Show("You chose " + FD.FileName);
-        }
 
-        private void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            checkCoinsPage.CheckProgress.Value = e.ProgressPercentage;
-        }
-
-        private void worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            for (int i = 0; i < 100; i++)
+            BackgroundWorker[] workerList = new BackgroundWorker[25];
+            for (int i = 0; i < 25; i++)
             {
-                (sender as BackgroundWorker).ReportProgress(i);
-                Thread.Sleep(100);
+                workerList[i] = new BackgroundWorker();
+                workerList[i].DoWork += worker_DoWork;
+                workerList[i].RunWorkerCompleted += worker_RunWorkerCompleted;
+                workerList[i].RunWorkerAsync(i);
             }
+        }
+
+        private void worker_DoWork(object sender, DoWorkEventArgs e )
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            var client = new RestClient();
+            client.BaseUrl = new Uri("https://RAIDA" + e.Argument + ".cloudcoin.global/service");
+            var request = new RestRequest("echo");
+
+            try
+            {
+                RAIDA.Echo r = new RAIDA.Echo();
+                e.Result = JsonConvert.DeserializeAnonymousType<RAIDA.Echo>(client.Execute(request).Content, r);
+                
+            }
+            catch (JsonException)
+            {
+                e.Result = "Invalid response";
+                
+            }
+            
+            
+        }
+
+        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Result.GetType().Equals(typeof(string))) {
+                string result = e.Result as string;
+                checkCoinsPage.RAIDA_Check_Log.Text += "Server responded " + result + "\n";
+                
+            }
+            else {
+                RAIDA.Echo result = e.Result as RAIDA.Echo;
+                checkCoinsPage.RAIDA_Check_Log.Text += "Server  " + result.server + " responded " + result.status + "\n";
+            }
+
+            checkCoinsPage.CheckProgress.Value += 4;
+            
         }
 
         private void ImageSafe_Selected(object sender, InputEventArgs e)
