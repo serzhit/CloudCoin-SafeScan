@@ -13,6 +13,6 @@
         <ProgressBar Minimum="0" Maximum="100" x:Name="CheckProgress" Margin="235,55,10,214"/>
         <TextBox x:Name="CheckLoadPercent" HorizontalAlignment="Left" Height="40" Margin="355,120,0,0" TextWrapping="Wrap" Text="{Binding ElementName=CheckProgress, Path=Value, StringFormat={}{0:0}%}" VerticalAlignment="Top" Width="65" FontSize="24" BorderThickness="0"/>
         <Label x:Name="CheckingCoins" Content="Checking your CloudCoins&#xD;&#xA;" HorizontalAlignment="Left" Height="40" Margin="267,10,0,0" VerticalAlignment="Top" Width="225" FontSize="18"/>
-        <TextBox x:Name="RAIDA_Check_Log" HorizontalAlignment="Left" Height="114" Margin="10,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497"/>
+        <TextBox x:Name="RAIDA_Check_Log" HorizontalAlignment="Left" Height="114" Margin="10,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190"/>
     </Grid>
 </Window>
