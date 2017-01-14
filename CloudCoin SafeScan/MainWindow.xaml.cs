@@ -76,13 +76,17 @@ namespace CloudCoin_SafeScan
             FD.Title = "Choose file with Cloudcoin(s)";
             FD.ShowDialog();
 
+
             CloudCoin coin = new CloudCoin(FD.FileName);
+            checkCoinsPage.Filename.Text = coin.filename;
 
             foreach (RAIDA.Node node in raida.NodesArray)
             {
                 Task<RAIDA.EchoResponse> task = Task.Run(() => node.Echo());
                 Task cont = task.ContinueWith( delegate { ShowEchoProgress(task.Result); });
             }
+            checkCoinsPage.CoinImage.Source = coin.coinImage;
+            
             checkCoinsPage.Show();
 
         }
@@ -93,6 +97,8 @@ namespace CloudCoin_SafeScan
             {
                 checkCoinsPage.RAIDA_Check_Log.Text += "Server " + result.server + " responded " + result.status + "\n";
                 checkCoinsPage.CheckProgress.Value += 100 / RAIDA.NODEQNTY;
+                if (checkCoinsPage.CheckProgress.Value == 100)
+                    checkCoinsPage.LabelStatus.Visibility = Visibility.Visible;
             });
         }
 

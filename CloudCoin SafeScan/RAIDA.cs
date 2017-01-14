@@ -109,10 +109,18 @@ namespace CloudCoin_SafeScan
                 var client = new RestClient();
                 client.BaseUrl = BaseUri;
                 var request = new RestRequest("echo");
-
-                EchoResponse getEcho = SimpleJson.DeserializeObject<EchoResponse>(client.Execute(request).Content);
-                if (getEcho.ErrorException != null)
+                EchoResponse getEcho = new EchoResponse();
+                try
+                {
+                    getEcho = JsonConvert.DeserializeObject<EchoResponse>(client.Execute(request).Content);
+                }
+                catch (JsonException e)
+                {
                     getEcho = new EchoResponse(Name, "Network problem", getEcho.ErrorMessage, DateTime.Now.ToString());
+                    
+                }
+                if (getEcho.ErrorException != null)
+                        getEcho = new EchoResponse(Name, "Network problem", getEcho.ErrorMessage, DateTime.Now.ToString());
 
                 return getEcho;
             }

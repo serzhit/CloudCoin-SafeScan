@@ -177,6 +177,16 @@
   <ItemGroup>
     <Resource Include="Resources\tasty_gold_2307.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\100coin.png" />
+    <Resource Include="Resources\1coin.png" />
+    <Resource Include="Resources\250coin.png" />
+    <Resource Include="Resources\25coin.png" />
+    <Resource Include="Resources\5coin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\stackcoins.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

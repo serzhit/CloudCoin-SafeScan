@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +27,27 @@ namespace CloudCoin_SafeScan
                 else if (serial < 14680065) return Denomination.Hundred;
                 else if (serial < 16777217) return Denomination.KiloQuarter;
                 else return Denomination.Unknown;
+            }
+        }
+        public ImageSource coinImage
+        {
+            get
+            {
+                switch (denomination)
+                {
+                    case Denomination.One:
+                        return  new BitmapImage(new Uri(@"Resources/1coin.png", UriKind.Relative));
+                    case Denomination.Five:
+                        return new BitmapImage(new Uri(@"Resources/5coin.png", UriKind.Relative));
+                    case Denomination.Quarter:
+                        return new BitmapImage(new Uri(@"Resources/25coin.png", UriKind.Relative));
+                    case Denomination.Hundred:
+                        return new BitmapImage(new Uri(@"Resources/100coin.png", UriKind.Relative));
+                    case Denomination.KiloQuarter:
+                        return new BitmapImage(new Uri(@"Resources/250coin.png", UriKind.Relative));
+                    default:
+                        return new BitmapImage(new Uri(@"Resources/stackcoins.png", UriKind.Relative));
+                }
             }
         }
         public int serial { set; get; }

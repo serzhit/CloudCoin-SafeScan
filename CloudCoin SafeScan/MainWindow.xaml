@@ -19,6 +19,6 @@
         <Image x:Name="SafeImage" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Source="pack://siteoforigin:,,,/Resources/Safe.png" Margin="217,143,0,0" Cursor="Hand"/>
         <Image x:Name="StackCoins" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Source="pack://siteoforigin:,,,/Resources/CoinPayment.png" Margin="387,143,0,0" Cursor="Hand"/>
         <ed:BlockArrow Fill="#FFF4F4F5" Orientation="Right" Stroke="Black" RenderTransformOrigin="0.85,0.652" Margin="170,185,305,114" Cursor="Arrow"/>
-        <ed:BlockArrow Fill="#FFF4F4F5" Orientation="Right" Stroke="Black" Margin="333,185,142,114" Cursor="Arrow"/>
+        <ed:BlockArrow Fill="#FFF4F4F5" Orientation="Right" Stroke="Black" Margin="340,185,135,114" Cursor="Arrow"/>
     </Grid>
 </Window>    
