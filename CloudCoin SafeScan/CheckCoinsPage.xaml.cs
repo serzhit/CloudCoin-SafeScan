@@ -29,10 +29,10 @@ namespace CloudCoin_SafeScan
         {
             set
             {
-                this.CheckProgress.Minimum = 0;
-                this.CheckProgress.Maximum = 100;
+                CheckProgress.Minimum = 0;
+                CheckProgress.Maximum = 100;
                 if (value >=0 && value <= 100)
-                    this.CheckProgress.Value = value;
+                    CheckProgress.Value = value;
             }
         }
  

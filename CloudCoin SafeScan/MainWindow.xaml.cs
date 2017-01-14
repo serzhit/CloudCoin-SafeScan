@@ -31,6 +31,8 @@ namespace CloudCoin_SafeScan
 
         public MainWindow()
         {
+            
+
             InitializeComponent();
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
@@ -67,64 +69,31 @@ namespace CloudCoin_SafeScan
 
         private void ImageCheck_Selected(object sender, InputEventArgs e)
         {
-            OpenFileDialog FD = new OpenFileDialog();
+            
+            RAIDA raida = new RAIDA();
 
+            OpenFileDialog FD = new OpenFileDialog();
+            FD.Title = "Choose file with Cloudcoin(s)";
             FD.ShowDialog();
 
             CloudCoin coin = new CloudCoin(FD.FileName);
 
+            foreach (RAIDA.Node node in raida.NodesArray)
+            {
+                Task<RAIDA.EchoResponse> task = Task.Run(() => node.Echo());
+                Task cont = task.ContinueWith( delegate { ShowEchoProgress(task.Result); });
+            }
             checkCoinsPage.Show();
-            //            this.Hide();
 
-            MessageBox.Show("You chose " + FD.FileName);
-
-            BackgroundWorker[] workerList = new BackgroundWorker[25];
-            for (int i = 0; i < 25; i++)
-            {
-                workerList[i] = new BackgroundWorker();
-                workerList[i].DoWork += worker_DoWork;
-                workerList[i].RunWorkerCompleted += worker_RunWorkerCompleted;
-                workerList[i].RunWorkerAsync(i);
-            }
         }
 
-        private void worker_DoWork(object sender, DoWorkEventArgs e )
+        private void ShowEchoProgress(RAIDA.EchoResponse result)
         {
-            BackgroundWorker worker = sender as BackgroundWorker;
-
-            var client = new RestClient();
-            client.BaseUrl = new Uri("https://RAIDA" + e.Argument + ".cloudcoin.global/service");
-            var request = new RestRequest("echo");
-
-            try
+            Dispatcher.Invoke(() =>
             {
-                RAIDA.Echo r = new RAIDA.Echo();
-                e.Result = JsonConvert.DeserializeAnonymousType<RAIDA.Echo>(client.Execute(request).Content, r);
-                
-            }
-            catch (JsonException)
-            {
-                e.Result = "Invalid response";
-                
-            }
-            
-            
-        }
-
-        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Result.GetType().Equals(typeof(string))) {
-                string result = e.Result as string;
-                checkCoinsPage.RAIDA_Check_Log.Text += "Server responded " + result + "\n";
-                
-            }
-            else {
-                RAIDA.Echo result = e.Result as RAIDA.Echo;
-                checkCoinsPage.RAIDA_Check_Log.Text += "Server  " + result.server + " responded " + result.status + "\n";
-            }
-
-            checkCoinsPage.CheckProgress.Value += 4;
-            
+                checkCoinsPage.RAIDA_Check_Log.Text += "Server " + result.server + " responded " + result.status + "\n";
+                checkCoinsPage.CheckProgress.Value += 100 / RAIDA.NODEQNTY;
+            });
         }
 
         private void ImageSafe_Selected(object sender, InputEventArgs e)

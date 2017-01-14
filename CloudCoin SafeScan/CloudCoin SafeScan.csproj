@@ -98,6 +98,7 @@
     <Compile Include="CheckCoinsPage.xaml.cs">
       <DependentUpon>CheckCoinsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Convert.cs" />
     <Compile Include="RAIDA.cs" />
     <Page Include="CheckCoinsPage.xaml">
       <SubType>Designer</SubType>
