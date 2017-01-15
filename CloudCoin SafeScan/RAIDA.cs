@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,10 +28,13 @@ namespace CloudCoin_SafeScan
             Punjab,
             Banglore,
             Texas,
-            USA,
+            USA1,
+            USA2,
+            USA3,
             Romania,
             Taiwan,
-            Russia,
+            Russia1,
+            Russia2,
             Columbia,
             Singapore,
             Germany,
@@ -69,21 +73,21 @@ namespace CloudCoin_SafeScan
                         case 8: return Countries.Punjab;
                         case 9: return Countries.Banglore;
                         case 10: return Countries.Texas;
-                        case 11: return Countries.USA;
+                        case 11: return Countries.USA1;
                         case 12: return Countries.Romania;
                         case 13: return Countries.Taiwan;
-                        case 14: return Countries.Russia;
-                        case 15: return Countries.Russia;
+                        case 14: return Countries.Russia1;
+                        case 15: return Countries.Russia2;
                         case 16: return Countries.Columbia;
                         case 17: return Countries.Singapore;
                         case 18: return Countries.Germany;
                         case 19: return Countries.Canada;
                         case 20: return Countries.Venezuela;
                         case 21: return Countries.Hyperbad;
-                        case 22: return Countries.USA;
+                        case 22: return Countries.USA2;
                         case 23: return Countries.Switzerland;
                         case 24: return Countries.Luxenburg;
-                        default: return Countries.USA;
+                        default: return Countries.USA3;
                     }
                 }
             }
@@ -96,6 +100,67 @@ namespace CloudCoin_SafeScan
             public Uri BackupUri
             {
                 get { return new Uri("https://RAIDA" + Number.ToString() + ".cloudcoin.ch/service"); }
+            }
+            public EchoResponse LastEchoStatus;
+            public string Location
+            {
+                get
+                {
+                    switch (Country)
+                    {
+                        case RAIDA.Countries.Australia:
+                            return "Australia";
+                        case RAIDA.Countries.Macedonia:
+                            return "Macedonia";
+                        case RAIDA.Countries.Philippines:
+                            return "Philippines";
+                        case RAIDA.Countries.Serbia:
+                            return "Serbia";
+                        case RAIDA.Countries.Bulgaria:
+                            return "Bulgaria";
+                        case RAIDA.Countries.Sweden:
+                            return "Sweden";
+                        case RAIDA.Countries.California:
+                            return "California";
+                        case RAIDA.Countries.UK:
+                            return "UK";
+                        case RAIDA.Countries.Punjab:
+                            return "Punjab";
+                        case RAIDA.Countries.Banglore:
+                            return "Banglore";
+                        case RAIDA.Countries.Texas:
+                            return "Texas";
+                        case RAIDA.Countries.USA1:
+                            return "USA";
+                        case RAIDA.Countries.Romania:
+                            return "Romaina";
+                        case RAIDA.Countries.Taiwan:
+                            return "Taiwan";
+                        case RAIDA.Countries.Russia1:
+                            return "Russia";
+                        case RAIDA.Countries.Russia2:
+                            return "Russia";
+                        case RAIDA.Countries.Columbia:
+                            return "Columbia";
+                        case RAIDA.Countries.Singapore:
+                            return "Singapore";
+                        case RAIDA.Countries.Germany:
+                            return "Germany";
+                        case RAIDA.Countries.Canada:
+                            return "Canada";
+                        case RAIDA.Countries.Venezuela:
+                            return "Venezuela";
+                        case RAIDA.Countries.Hyperbad:
+                            return "Hyderabad";
+                        case RAIDA.Countries.USA2:
+                            return "USA";
+                        case RAIDA.Countries.Switzerland:
+                            return "Switzerland";
+                        case RAIDA.Countries.Luxenburg:
+                            return "Luxenburg";
+                    }
+                    return "Unknown";
+                }
             }
 
             public Node(int number)
@@ -110,19 +175,34 @@ namespace CloudCoin_SafeScan
                 client.BaseUrl = BaseUri;
                 var request = new RestRequest("echo");
                 EchoResponse getEcho = new EchoResponse();
+
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
                 try
                 {
                     getEcho = JsonConvert.DeserializeObject<EchoResponse>(client.Execute(request).Content);
                 }
                 catch (JsonException e)
                 {
-                    getEcho = new EchoResponse(Name, "Network problem", getEcho.ErrorMessage, DateTime.Now.ToString());
+                    getEcho = new EchoResponse(Name, "Invalid respose", getEcho.ErrorMessage, DateTime.Now.ToString());
                     
                 }
                 if (getEcho.ErrorException != null)
                         getEcho = new EchoResponse(Name, "Network problem", getEcho.ErrorMessage, DateTime.Now.ToString());
 
+                sw.Stop();
+                getEcho.echo = sw.Elapsed;
+                
                 return getEcho;
+            }
+
+            public override string ToString()
+            {
+                string result = "Server: " + Name + 
+                    "\nLocation: " + Location + 
+                    "\nStatus: " + LastEchoStatus.status + 
+                    "\nEcho: " + LastEchoStatus.echo.ToString("sfff") + "ms";
+                return result;
             }
         }
 
@@ -132,6 +212,7 @@ namespace CloudCoin_SafeScan
             public string status { get; set; }
             public string message { get; set; }
             public string time { get; set; }
+            public TimeSpan echo { get; set; }
 
             public EchoResponse()
             {
