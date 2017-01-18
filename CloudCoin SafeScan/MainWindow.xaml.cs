@@ -32,8 +32,6 @@ namespace CloudCoin_SafeScan
 
         public MainWindow()
         {
-
-
             InitializeComponent();
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
@@ -84,18 +82,50 @@ namespace CloudCoin_SafeScan
         {
             OpenFileDialog FD = new OpenFileDialog();
             FD.Title = "Choose file with Cloudcoin(s)";
-            FD.ShowDialog();
+            if(FD.ShowDialog() != true)
+            {
+                
+            } else
+            {
+                try
+                {
+                    using (FileStream fsSource = File.Open(FD.FileName, FileMode.Open))
+                    //new FileStream(FD.FileName, FileMode.Open, FileAccess.Read))
+                    {
+                        byte[] signature = new byte[3];
+                        fsSource.Read(signature, 0, 3);
 
-
-            CloudCoin coin = new CloudCoin(FD.FileName);
-            checkCoinsPage.Filename.Text = coin.filename;
-
-            
-
-            checkCoinsPage.CoinImage.Source = coin.coinImage;
-            
-            checkCoinsPage.Show();
-
+                        if (Enumerable.SequenceEqual(signature, new byte[] { 255, 216, 255 })) //JPEG
+                        {
+                            fsSource.Position = 0;
+                            CloudCoin coin = new CloudCoin(fsSource);
+                            checkCoinsPage.Filename.Text = coin.filename;
+                            checkCoinsPage.CoinImage.Source = coin.coinImage;
+                        }
+                        else if (Enumerable.SequenceEqual(signature, new byte[] { 123, 32, 34 }))  //JSON
+                        {
+                            fsSource.Position = 0;
+                            StreamReader sr = new StreamReader(fsSource);
+   
+                            try
+                            {
+                                CoinStack stack = JsonConvert.DeserializeObject<CoinStack>(sr.ReadToEnd());
+                            }
+                            catch (Exception jsonex)
+                            {
+                                MessageBox.Show("Error in file format: " + jsonex.Message);
+                            }
+                        }
+                        else
+                            MessageBox.Show("Unknown file format. Try find CloudCoin file.");
+                    }
+                }
+                catch (InvalidOperationException ex)
+                {
+                    MessageBox.Show("Error reading " + FD.FileName + " from disk!\n" + ex.Message);
+                }
+                
+            }
         }
 
         private void AllEchoesCompleted()

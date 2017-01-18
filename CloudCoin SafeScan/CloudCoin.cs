@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Collections;
+using Newtonsoft.Json;
 
 namespace CloudCoin_SafeScan
 {
@@ -14,18 +16,18 @@ namespace CloudCoin_SafeScan
     {
         public enum Type { json, jpeg, unknown }
         public enum Status { fail, pass, error, unknown }
-        public enum Denomination {  Unknown, One, Five, Quarter, Hundred, KiloQuarter}
+        public enum Denomination { Unknown, One, Five, Quarter, Hundred, KiloQuarter }
 
         public Denomination denomination
         {
             get
             {
-                if (serial < 1) return Denomination.Unknown;
-                else if (serial < 2097153) return Denomination.One;
-                else if (serial < 4194305) return Denomination.Five;
-                else if (serial < 6291457) return Denomination.Quarter;
-                else if (serial < 14680065) return Denomination.Hundred;
-                else if (serial < 16777217) return Denomination.KiloQuarter;
+                if (sn < 1) return Denomination.Unknown;
+                else if (sn < 2097153) return Denomination.One;
+                else if (sn < 4194305) return Denomination.Five;
+                else if (sn < 6291457) return Denomination.Quarter;
+                else if (sn < 14680065) return Denomination.Hundred;
+                else if (sn < 16777217) return Denomination.KiloQuarter;
                 else return Denomination.Unknown;
             }
         }
@@ -36,7 +38,7 @@ namespace CloudCoin_SafeScan
                 switch (denomination)
                 {
                     case Denomination.One:
-                        return  new BitmapImage(new Uri(@"Resources/1coin.png", UriKind.Relative));
+                        return new BitmapImage(new Uri(@"Resources/1coin.png", UriKind.Relative));
                     case Denomination.Five:
                         return new BitmapImage(new Uri(@"Resources/5coin.png", UriKind.Relative));
                     case Denomination.Quarter:
@@ -50,87 +52,65 @@ namespace CloudCoin_SafeScan
                 }
             }
         }
-        public int serial { set; get; }
-        public int netnumber { set; get; }
-        public string[] ans = new string[25];
+        public int sn { set; get; }
+        public int nn { set; get; }
+        public string[] an = new string[25];
         public string[] pans = new string[25];
         public Status[] lastCheckStatus = new Status[25];
-        public string[] aoidHex = new string[1];//Account or Owner ID
+        public string[] aoid = new string[1];//Account or Owner ID
         public string filename;
         public Type filetype;
-        public string expiredHexOn; //expiration in the form of Date expressed as a hex string like 97e2 Sep 2018
+        public string ed; //expiration in the form of Date expressed as a hex string like 97e2 Sep 2018
 
         // Constructor from args
+        [JsonConstructor]
         public CloudCoin(int nn, int sn, string[] ans, string expired, string[] aoid)
         {
-            serial = sn;
-            netnumber = nn;
-            ans.CopyTo(this.ans, 0);
-            expiredHexOn = expired;
-            aoidHex = aoid;
-            filetype = Type.unknown;
+            this.sn = sn;
+            this.nn = nn;
+            ans = an;
+            ed = expired;
+            this.aoid = aoid;
+            filetype = Type.json;
             filename = null;
             pans = generatePans();
-            for(int i =0; i<RAIDA.NODEQNTY; i++) lastCheckStatus[i] = Status.unknown;
+            for (int i = 0; i < RAIDA.NODEQNTY; i++) lastCheckStatus[i] = Status.unknown;
         }
 
         //Constructor from file with Coin
-        public CloudCoin(string filename)
+        public CloudCoin(FileStream jpegFS)
         {
-            FileStream ccfile = null;
-            this.filename = filename;
-
-            try
-            {
-                ccfile = File.OpenRead(filename);
-            }
-            catch (FileNotFoundException e)
-            {
-                MessageBox.Show("File " + filename + " was not found!\n" + e.Message );
-            }
-            catch (IOException e)
-            {
-                MessageBox.Show("IO error catched: " + e.Message);
-                throw;
-            }
-
-            byte[] signature = new byte[3];
-            ccfile.Read(signature, 0, 3);
-
-            if (Enumerable.SequenceEqual(signature, new byte[] { 255, 216, 255 }))
-            {
-                filetype = Type.jpeg;
-                ccfile.Position = 0;
-                ReadFromJpeg(ccfile);
-
-            }
-            else if (Enumerable.SequenceEqual(signature, new byte[] { 255, 254, 120 }))
-            {
-                filetype = Type.json;
-                
-                
-            }
-            else filetype = Type.unknown;
-
-            ccfile.Close();
-        }
-
-        private void ReadFromJpeg(FileStream fs)
-        {
+            filetype = Type.jpeg;
             byte[] fileByteContent = new byte[455];
-            string jpegHexContent = "";
-            
-            fs.Read(fileByteContent, 0, fileByteContent.Length);
-            jpegHexContent = Convert.ToHexString(fileByteContent);
-            
-            for(int i=0; i < RAIDA.NODEQNTY; i++)
+            int numBytesToRead = (int)fileByteContent.Length;
+            int numBytesRead = 0;
+            while (numBytesToRead > 0)
             {
-                ans[i] = jpegHexContent.Substring(40 + i * 32, 32);
+                // Read may return anything from 0 to numBytesToRead.
+                int n = jpegFS.Read(fileByteContent, numBytesRead, numBytesToRead);
+
+                // Break when the end of the file is reached.
+                if (n == 0)
+                    break;
+
+                numBytesRead += n;
+                numBytesToRead -= n;
             }
-            aoidHex[0] = jpegHexContent.Substring(840, 55);
-            expiredHexOn = jpegHexContent.Substring(898, 4);
-            netnumber = Int16.Parse(jpegHexContent.Substring(902, 2), System.Globalization.NumberStyles.AllowHexSpecifier );
-            serial = Int32.Parse(jpegHexContent.Substring(904, 6), System.Globalization.NumberStyles.AllowHexSpecifier);
+
+            string jpegHexContent = "";
+            jpegHexContent = Convert.ToHexString(fileByteContent);
+
+            for (int i = 0; i < RAIDA.NODEQNTY; i++)
+            {
+                an[i] = jpegHexContent.Substring(40 + i * 32, 32);
+            }
+            aoid[0] = jpegHexContent.Substring(840, 55);
+            ed = jpegHexContent.Substring(898, 4);
+            nn = Int16.Parse(jpegHexContent.Substring(902, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
+            sn = Int32.Parse(jpegHexContent.Substring(904, 6), System.Globalization.NumberStyles.AllowHexSpecifier);
+
+            pans = generatePans();
+            for (int i = 0; i < RAIDA.NODEQNTY; i++) lastCheckStatus[i] = Status.unknown;
         }
 
         
@@ -150,6 +130,75 @@ namespace CloudCoin_SafeScan
                 result[i] = aaa;
             }
             return result;
+        }
+    }
+
+    [JsonObject]
+    public class CoinStack : IEnumerable<CloudCoin>
+    {
+        public IList<CloudCoin> cloudcoin { get; set; }
+
+        public CoinStack()
+        {
+            cloudcoin = new List<CloudCoin>();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public IEnumerator<CloudCoin> GetEnumerator()
+        {
+            return cloudcoin.GetEnumerator();
+        }
+    }
+
+    public class CoinStackEnum : IEnumerator
+    {
+        public CloudCoin[] _coins;
+
+        // Enumerators are positioned before the first element
+        // until the first MoveNext() call.
+        int position = -1;
+
+        public CoinStackEnum(List<CloudCoin> list)
+        {
+            list.CopyTo(_coins,0);
+        }
+
+        public bool MoveNext()
+        {
+            position++;
+            return (position < _coins.Length);
+        }
+
+        public void Reset()
+        {
+            position = -1;
+        }
+
+        object IEnumerator.Current
+        {
+            get
+            {
+                return Current;
+            }
+        }
+
+        public CloudCoin Current
+        {
+            get
+            {
+                try
+                {
+                    return _coins[position];
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    throw new InvalidOperationException();
+                }
+            }
         }
     }
 }
