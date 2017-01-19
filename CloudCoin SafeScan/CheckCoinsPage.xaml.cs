@@ -35,6 +35,10 @@ namespace CloudCoin_SafeScan
                     CheckProgress.Value = value;
             }
         }
- 
+
+        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

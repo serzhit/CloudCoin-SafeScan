@@ -82,7 +82,7 @@ namespace CloudCoin_SafeScan
         {
             filetype = Type.jpeg;
             byte[] fileByteContent = new byte[455];
-            int numBytesToRead = (int)fileByteContent.Length;
+            int numBytesToRead = fileByteContent.Length;
             int numBytesRead = 0;
             while (numBytesToRead > 0)
             {
@@ -137,6 +137,30 @@ namespace CloudCoin_SafeScan
     public class CoinStack : IEnumerable<CloudCoin>
     {
         public IList<CloudCoin> cloudcoin { get; set; }
+        public int coinsInStack
+        {
+            get
+            {
+                int s = 0;
+                foreach (CloudCoin coin in cloudcoin)
+                {
+                    s++;
+                }
+                return s;
+            }
+        }
+        public int SumInStack
+        {
+            get
+            {
+                int s = 0;
+                foreach (CloudCoin coin in cloudcoin)
+                {
+                    s += Convert.Denomination2Int(coin.denomination);
+                }
+                return s;
+            }
+        }
 
         public CoinStack()
         {
@@ -151,54 +175,6 @@ namespace CloudCoin_SafeScan
         public IEnumerator<CloudCoin> GetEnumerator()
         {
             return cloudcoin.GetEnumerator();
-        }
-    }
-
-    public class CoinStackEnum : IEnumerator
-    {
-        public CloudCoin[] _coins;
-
-        // Enumerators are positioned before the first element
-        // until the first MoveNext() call.
-        int position = -1;
-
-        public CoinStackEnum(List<CloudCoin> list)
-        {
-            list.CopyTo(_coins,0);
-        }
-
-        public bool MoveNext()
-        {
-            position++;
-            return (position < _coins.Length);
-        }
-
-        public void Reset()
-        {
-            position = -1;
-        }
-
-        object IEnumerator.Current
-        {
-            get
-            {
-                return Current;
-            }
-        }
-
-        public CloudCoin Current
-        {
-            get
-            {
-                try
-                {
-                    return _coins[position];
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    throw new InvalidOperationException();
-                }
-            }
         }
     }
 }

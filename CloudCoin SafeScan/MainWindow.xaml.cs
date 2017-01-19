@@ -27,7 +27,7 @@ namespace CloudCoin_SafeScan
     /// </summary>
     public partial class MainWindow : Window
     {
-        CheckCoinsPage checkCoinsPage = new CheckCoinsPage();
+        
         RAIDA raida = new RAIDA();
 
         public MainWindow()
@@ -67,13 +67,7 @@ namespace CloudCoin_SafeScan
 
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            string message = "ВСЁ ПРОПАЛО!!! Произошло не обработанное исключение. Сейчас нужно сделать следущее: \r ";
-            message += "1) Сохранить изображение этого окна, нажав PrintScrin на клавиатуре и вставить изображение в Paint  \r ";
-            message += "2) Написать подробности произошедшего инцидента. При каких обстоятельствах программа упала  \r ";
-            message += "3) Выслать изображение этого окна и описание ситуации на адрес: alexey@o-s-a.net \r ";
-            message += "4) Если ситуация повториться, вероятно будет нужно очистить папку Engine и QuikTrades что рядом с роботом  \r ";
-            message += "5) Возможно придётся удалить процесс Os.Engine из диспетчера задач руками.  \r ";
-            message += "6) Ошибка:  " + e.ExceptionObject;
+            string message = "Unhandled exception catched: " + e.ExceptionObject;
 
             MessageBox.Show(message);
         }
@@ -82,13 +76,11 @@ namespace CloudCoin_SafeScan
         {
             OpenFileDialog FD = new OpenFileDialog();
             FD.Title = "Choose file with Cloudcoin(s)";
-            if(FD.ShowDialog() != true)
-            {
-                
-            } else
+            if(FD.ShowDialog() == true)
             {
                 try
                 {
+                    CheckCoinsPage checkCoinsPage = new CheckCoinsPage();
                     using (FileStream fsSource = File.Open(FD.FileName, FileMode.Open))
                     //new FileStream(FD.FileName, FileMode.Open, FileAccess.Read))
                     {
@@ -99,22 +91,30 @@ namespace CloudCoin_SafeScan
                         {
                             fsSource.Position = 0;
                             CloudCoin coin = new CloudCoin(fsSource);
-                            checkCoinsPage.Filename.Text = coin.filename;
+                            checkCoinsPage.Filename.Text = FD.FileName;
                             checkCoinsPage.CoinImage.Source = coin.coinImage;
+                            checkCoinsPage.Show();
                         }
                         else if (Enumerable.SequenceEqual(signature, new byte[] { 123, 32, 34 }))  //JSON
                         {
                             fsSource.Position = 0;
                             StreamReader sr = new StreamReader(fsSource);
-   
+                            CoinStack stack = null;
+
                             try
                             {
-                                CoinStack stack = JsonConvert.DeserializeObject<CoinStack>(sr.ReadToEnd());
+                                stack = JsonConvert.DeserializeObject<CoinStack>(sr.ReadToEnd());
+                                checkCoinsPage.Filename.Text = FD.FileName;
+                                checkCoinsPage.CoinImage.Source = new BitmapImage(new Uri(@"Resources/stackcoins.png", UriKind.Relative));
+                                checkCoinsPage.Show();
                             }
                             catch (Exception jsonex)
                             {
                                 MessageBox.Show("Error in file format: " + jsonex.Message);
                             }
+                            if (stack != null)
+                                MessageBox.Show("You have " + stack.coinsInStack + " coins in stack.\nTotal stack value = " + stack.SumInStack);
+
                         }
                         else
                             MessageBox.Show("Unknown file format. Try find CloudCoin file.");
@@ -125,7 +125,7 @@ namespace CloudCoin_SafeScan
                     MessageBox.Show("Error reading " + FD.FileName + " from disk!\n" + ex.Message);
                 }
                 
-            }
+            }   
         }
 
         private void AllEchoesCompleted()
@@ -141,9 +141,7 @@ namespace CloudCoin_SafeScan
             Dispatcher.Invoke(() =>
             {
                 node.LastEchoStatus = result; //recording Echo status to instance
-                //        checkCoinsPage.RAIDA_Check_Log.Text += "Server " + result.server + " responded " + result.status + "\n";
-                //        checkCoinsPage.CheckProgress.Value += 100 / RAIDA.NODEQNTY;
-               
+                
                 Brush color;
                 var tt = new ToolTip();
                 tt.Content = node.ToString();

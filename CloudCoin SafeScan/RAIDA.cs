@@ -196,12 +196,44 @@ namespace CloudCoin_SafeScan
                 return getEcho;
             }
 
+            public DetectResponse Detect (CloudCoin coin)
+            {
+                var client = new RestClient();
+                client.BaseUrl = BaseUri;
+                var request = new RestRequest("detect");
+                request.AddQueryParameter("nn", coin.nn.ToString());
+                request.AddQueryParameter("sn", coin.sn.ToString());
+                request.AddQueryParameter("an", coin.an[Number]);
+                request.AddQueryParameter("pan", coin.pans[Number]);
+                request.AddQueryParameter("denomination", Convert.Denomination2Int(coin.denomination).ToString());
+                DetectResponse getDetectResult = new DetectResponse();
+
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                try
+                {
+                    getDetectResult = JsonConvert.DeserializeObject<DetectResponse>(client.Execute(request).Content);
+                }
+                catch (JsonException e)
+                {
+                    getDetectResult = new EchoResponse(Name, coin.sn, "Invalid respose", getEcho.ErrorMessage, DateTime.Now.ToString());
+
+                }
+                if (getDetectResult.ErrorException != null)
+                    getDetectResult = new DetectResponse(Name, coin.sn, "Network problem", getEcho.ErrorMessage, DateTime.Now.ToString());
+
+                sw.Stop();
+                getDetectResult.responseTime = sw.Elapsed;
+
+                return getDetectResult;
+            }
+
             public override string ToString()
             {
                 string result = "Server: " + Name + 
                     "\nLocation: " + Location + 
                     "\nStatus: " + LastEchoStatus.status + 
-                    "\nEcho: " + LastEchoStatus.echo.ToString("sfff") + "ms";
+                    "\nEcho: " + LastEchoStatus.responseTime.ToString("sfff") + "ms";
                 return result;
             }
         }
@@ -212,7 +244,7 @@ namespace CloudCoin_SafeScan
             public string status { get; set; }
             public string message { get; set; }
             public string time { get; set; }
-            public TimeSpan echo { get; set; }
+            public TimeSpan responseTime { get; set; }
 
             public EchoResponse()
             {
@@ -226,6 +258,35 @@ namespace CloudCoin_SafeScan
             public EchoResponse(string server, string status, string message, string time)
             {
                 this.server = server;
+                this.status = status;
+                this.message = message;
+                this.time = time;
+            }
+
+        }
+
+        public class DetectResponse : RestResponse<DetectResponse>
+        {
+            public string server { get; set; }
+            public string status { get; set; }
+            public string sn { get; set; }
+            public string message { get; set; }
+            public string time { get; set; }
+            public TimeSpan responseTime { get; set; }
+
+            public DetectResponse()
+            {
+
+                server = "unknown";
+                status = "unknown";
+                message = "empty";
+                time = "";
+            }
+
+            public DetectResponse(string server, string sn, string status, string message, string time)
+            {
+                this.server = server;
+                this.sn = sn;
                 this.status = status;
                 this.message = message;
                 this.time = time;
