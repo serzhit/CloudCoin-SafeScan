@@ -91,8 +91,9 @@ namespace CloudCoin_SafeScan
                         {
                             fsSource.Position = 0;
                             CloudCoin coin = new CloudCoin(fsSource);
-                            checkCoinsPage.Filename.Text = FD.FileName;
+                            checkCoinsPage.Filename.Text = FD.SafeFileName;
                             checkCoinsPage.CoinImage.Source = coin.coinImage;
+                            checkCoinsPage.coinsToDetect = 1;
                             checkCoinsPage.Show();
 
                             Task<RAIDA.DetectResponse>[] tasks = new Task<RAIDA.DetectResponse>[RAIDA.NODEQNTY];
@@ -116,9 +117,24 @@ namespace CloudCoin_SafeScan
                             try
                             {
                                 stack = JsonConvert.DeserializeObject<CoinStack>(sr.ReadToEnd());
-                                checkCoinsPage.Filename.Text = FD.FileName;
+                                checkCoinsPage.Filename.Text = FD.SafeFileName;
                                 checkCoinsPage.CoinImage.Source = new BitmapImage(new Uri(@"Resources/stackcoins.png", UriKind.Relative));
+                                checkCoinsPage.coinsToDetect = stack.coinsInStack;
                                 checkCoinsPage.Show();
+
+                                foreach(CloudCoin coin in stack)
+                                {
+                                    Task<RAIDA.DetectResponse>[] tasks = new Task<RAIDA.DetectResponse>[RAIDA.NODEQNTY];
+                                    int i = 0;
+                                    List<RAIDA.DetectResponse> res = new List<RAIDA.DetectResponse>(1);
+                                    foreach (RAIDA.Node node in raida.NodesArray)
+                                    {
+                                        tasks[i] = Task.Factory.StartNew(() => node.Detect(coin));
+                                        Task cont = tasks[i].ContinueWith(ancestor => { checkCoinsPage.ShowDetectProgress(ancestor.Result, node); });
+                                        i++;
+                                    }
+                                    Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllDetectCompleted(res); });
+                                }
                             }
                             catch (Exception jsonex)
                             {

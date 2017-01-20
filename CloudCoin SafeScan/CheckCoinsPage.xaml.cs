@@ -25,7 +25,8 @@ namespace CloudCoin_SafeScan
             InitializeComponent();
         }
 
-        public int PercentDetected = 0;
+        public int coinsToDetect;
+        public double PercentDetected = 0;
         public double ProgressBar
         {
             get
@@ -35,8 +36,8 @@ namespace CloudCoin_SafeScan
             set
             {
                 CheckProgress.Minimum = 0;
-                CheckProgress.Maximum = 100;
-                if (value >=0 && value <= 100)
+                CheckProgress.Maximum = coinsToDetect * 100;
+                if (value >=0 && value <= coinsToDetect * 100)
                     CheckProgress.Value = value;
             }
         }
@@ -48,8 +49,8 @@ namespace CloudCoin_SafeScan
                 node.LastDetectResult = result;
                 RAIDA_Check_Log.Text += "RAIDA" + node.Number + " check " + result.status + ".\n";
                 ProgressBar += 4;
-                PercentDetected += 4;
-                percentBox.Text = PercentDetected.ToString() + "%";
+                PercentDetected += (double)4/(double)coinsToDetect;
+                percentBox.Text = PercentDetected.ToString("F2") + "%";
 
                 Brush color;
                 var tt = new ToolTip();
