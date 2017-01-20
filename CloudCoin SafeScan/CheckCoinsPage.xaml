@@ -9,11 +9,47 @@
       Title="CloudCoin Scan&amp;Safe - CheckCoins" Width="525" Height="350" Background="White">
 
     <Grid Background="White">
-        <Image x:Name="Checking_Gold" HorizontalAlignment="Left" Height="180" Margin="10,10,0,0" VerticalAlignment="Top" Width="190" Source="Resources/tasty_gold_2307.png"/>
-        <ProgressBar Minimum="0" Maximum="100" x:Name="CheckProgress" Margin="222,182,23,117"/>
-        <TextBox x:Name="RAIDA_Check_Log" HorizontalAlignment="Left" Height="114" Margin="10,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190"/>
-        <Image x:Name="CoinImage" HorizontalAlignment="Left" Height="129" Margin="296,38,0,0" VerticalAlignment="Top" Width="130"/>
+        <ProgressBar Minimum="0" Maximum="100" x:Name="CheckProgress" Margin="235,10,10,289"/>
+        <TextBox x:Name="RAIDA_Check_Log" HorizontalAlignment="Left" Height="114" Margin="10,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="208"/>
+        <Image x:Name="CoinImage" HorizontalAlignment="Left" Height="129" Margin="47,53,0,0" VerticalAlignment="Top" Width="130">
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+        </Image>
         <Label x:Name="LabelStatus" Content="OK!" HorizontalAlignment="Left" Height="95" Margin="365,70,0,0" VerticalAlignment="Top" Width="122" FontSize="48" Foreground="#FF00C800" Visibility="Hidden"/>
-        <TextBlock x:Name="Filename" HorizontalAlignment="Left" Height="22" Margin="215,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="292" ScrollViewer.VerticalScrollBarVisibility="Disabled" Text="Checking "/>
+        <TextBlock x:Name="Filename" HorizontalAlignment="Left" Height="43" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" ScrollViewer.VerticalScrollBarVisibility="Disabled" Text="Checking..."/>
+        <TextBox x:Name="percentBox" HorizontalAlignment="Left" Height="20" Margin="361,10,0,0" TextWrapping="Wrap" Text="100%" VerticalAlignment="Top" Width="38" TextChanged="textBox_TextChanged" BorderThickness="0">
+            <TextBox.Background>
+                <SolidColorBrush Color="White" Opacity="0"/>
+            </TextBox.Background>
+        </TextBox>
+        <Image x:Name="WorldMAp" HorizontalAlignment="Left" Height="154" Margin="254,35,0,0" VerticalAlignment="Top" Width="237" Source="Resources/world_map.png"/>
+        <RadioButton x:Name="AUstraliaRadioButton" HorizontalAlignment="Left" Margin="459,144,0,0" VerticalAlignment="Top" Height="8" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="PhilippinesRadioButton" HorizontalAlignment="Left" Margin="450,125,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="BangloreRadioButton" HorizontalAlignment="Left" Margin="412,114,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="PenjabRadioButton" HorizontalAlignment="Left" Margin="412,108,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="StPetersburgRadioButton" HorizontalAlignment="Left" Margin="381,77,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="TaiwanRadioButton" HorizontalAlignment="Left" Margin="440,106,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="MoscowRadioButton" HorizontalAlignment="Left" Margin="387,81,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="14" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="BulgariaRadioButton" HorizontalAlignment="Left" Margin="381,89,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="8" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="UKRadioButton" HorizontalAlignment="Left" Margin="355,85,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="SwedenRadioButton" HorizontalAlignment="Left" Margin="369,75,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="MacedoniaRadioButton" HorizontalAlignment="Left" Margin="377,95,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="12" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="GermanyRadioButton" HorizontalAlignment="Left" Margin="366,83,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="12" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="LuxemburgRadioButton" HorizontalAlignment="Left" Margin="363,88,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="SerbiaRadioButton" HorizontalAlignment="Left" Margin="373,86,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="RomaniaRadioButton" HorizontalAlignment="Left" Margin="383,85,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="SwitzerlandRadioButton" HorizontalAlignment="Left" Margin="370,91,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="HyperbadRadioButton" HorizontalAlignment="Left" Margin="362,99,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="8" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="CanadaRadioButton" HorizontalAlignment="Left" Margin="305,85,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="8" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="TexasRadioButton" HorizontalAlignment="Left" Margin="298,100,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="8" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="CaliforniaRadioButton" HorizontalAlignment="Left" Margin="279,92,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="8" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="USA3RadioButton" HorizontalAlignment="Left" Margin="291,93,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="8" Width="14" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="USA1RadioButton" HorizontalAlignment="Left" Margin="304,95,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="8" Width="14" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="SingaporeRadioButton" HorizontalAlignment="Left" Margin="432,109,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="VenezuelaRadioButton" HorizontalAlignment="Left" Margin="301,114,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <RadioButton x:Name="ColumbiaRadioButton" HorizontalAlignment="Left" Margin="313,116,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
+        <TextBox x:Name="checkWMapTextBox" HorizontalAlignment="Left" Height="18" Margin="326,152,0,0" TextWrapping="Wrap" Text="Detecting authenticity..." VerticalAlignment="Top" Width="146" BorderThickness="0"/>
+        <DataGrid x:Name="AuthResultsGrid" HorizontalAlignment="Left" Height="114" Margin="235,195,0,0" VerticalAlignment="Top" Width="272" AutoGenerateColumns="False"/>
     </Grid>
 </Window>

@@ -94,6 +94,18 @@ namespace CloudCoin_SafeScan
                             checkCoinsPage.Filename.Text = FD.FileName;
                             checkCoinsPage.CoinImage.Source = coin.coinImage;
                             checkCoinsPage.Show();
+
+                            Task<RAIDA.DetectResponse>[] tasks = new Task<RAIDA.DetectResponse>[RAIDA.NODEQNTY];
+                            int i = 0;
+                            List<RAIDA.DetectResponse> res = new List<RAIDA.DetectResponse>(1);
+                            foreach (RAIDA.Node node in raida.NodesArray)
+                            {
+                                tasks[i] = Task.Factory.StartNew(() => node.Detect(coin));
+                                Task cont = tasks[i].ContinueWith(ancestor => { checkCoinsPage.ShowDetectProgress(ancestor.Result, node); });
+                                i++;
+                            }
+                            Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllDetectCompleted(res); });
+
                         }
                         else if (Enumerable.SequenceEqual(signature, new byte[] { 123, 32, 34 }))  //JSON
                         {
@@ -132,7 +144,7 @@ namespace CloudCoin_SafeScan
         {
             Dispatcher.Invoke(() =>
             {
-                
+                WorkdMapTextBox.Text = "Done. Hover for status";
             });
         }
 
@@ -254,6 +266,8 @@ namespace CloudCoin_SafeScan
                 }
             });
         }
+
+
 
         private void ImageSafe_Selected(object sender, InputEventArgs e)
         {

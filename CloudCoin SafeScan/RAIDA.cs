@@ -102,6 +102,7 @@ namespace CloudCoin_SafeScan
                 get { return new Uri("https://RAIDA" + Number.ToString() + ".cloudcoin.ch/service"); }
             }
             public EchoResponse LastEchoStatus;
+            public DetectResponse LastDetectResult;
             public string Location
             {
                 get
@@ -191,7 +192,7 @@ namespace CloudCoin_SafeScan
                         getEcho = new EchoResponse(Name, "Network problem", getEcho.ErrorMessage, DateTime.Now.ToString());
 
                 sw.Stop();
-                getEcho.echo = sw.Elapsed;
+                getEcho.responseTime = sw.Elapsed;
                 
                 return getEcho;
             }
@@ -216,11 +217,11 @@ namespace CloudCoin_SafeScan
                 }
                 catch (JsonException e)
                 {
-                    getDetectResult = new EchoResponse(Name, coin.sn, "Invalid respose", getEcho.ErrorMessage, DateTime.Now.ToString());
+                    getDetectResult = new DetectResponse(Name, coin.sn.ToString(), "Invalid respose", getDetectResult.ErrorMessage, DateTime.Now.ToString());
 
                 }
                 if (getDetectResult.ErrorException != null)
-                    getDetectResult = new DetectResponse(Name, coin.sn, "Network problem", getEcho.ErrorMessage, DateTime.Now.ToString());
+                    getDetectResult = new DetectResponse(Name, coin.sn.ToString(), "Network problem", getDetectResult.ErrorMessage, DateTime.Now.ToString());
 
                 sw.Stop();
                 getDetectResult.responseTime = sw.Elapsed;
@@ -234,6 +235,15 @@ namespace CloudCoin_SafeScan
                     "\nLocation: " + Location + 
                     "\nStatus: " + LastEchoStatus.status + 
                     "\nEcho: " + LastEchoStatus.responseTime.ToString("sfff") + "ms";
+                return result;
+            }
+
+            public string ToString(DetectResponse res)
+            {
+                string result = "Server: " + Number +
+                    "\nLocation: " + Location +
+                    "\nStatus: " + res.status +
+                    "\nEcho: " + res.responseTime.ToString("sfff") + "ms";
                 return result;
             }
         }
