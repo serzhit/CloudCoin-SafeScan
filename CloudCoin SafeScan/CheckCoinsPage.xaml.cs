@@ -280,11 +280,11 @@ namespace CloudCoin_SafeScan
             });
         }
 
-        public void AllDetectCompleted()
+        public void AllDetectCompleted(CoinStack stack)
         {
             Dispatcher.Invoke(() =>
             {
-                AuthResultsGrid.ItemsSource = ;
+                AuthResultsGrid.ItemsSource = stack;
                 checkWMapTextBox.Text = "Hover for auth status";
             });
         }

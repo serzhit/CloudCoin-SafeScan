@@ -188,6 +188,7 @@ namespace CloudCoin_SafeScan
                     getEcho = new EchoResponse(Name, "Invalid respose", getEcho.ErrorMessage, DateTime.Now.ToString());
                     
                 }
+                getEcho = getEcho ?? new EchoResponse(Name, "Network problem", "Node not found", DateTime.Now.ToString());
                 if (getEcho.ErrorException != null)
                         getEcho = new EchoResponse(Name, "Network problem", getEcho.ErrorMessage, DateTime.Now.ToString());
 
@@ -220,6 +221,7 @@ namespace CloudCoin_SafeScan
                     getDetectResult = new DetectResponse(Name, coin.sn.ToString(), "Invalid respose", getDetectResult.ErrorMessage, DateTime.Now.ToString());
 
                 }
+                getDetectResult = getDetectResult ?? new DetectResponse(Name, coin.sn.ToString(), "Network problem", "Node not found", DateTime.Now.ToString());
                 if (getDetectResult.ErrorException != null)
                     getDetectResult = new DetectResponse(Name, coin.sn.ToString(), "Network problem", getDetectResult.ErrorMessage, DateTime.Now.ToString());
 

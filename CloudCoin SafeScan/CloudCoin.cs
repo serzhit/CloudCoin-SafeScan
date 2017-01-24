@@ -17,7 +17,7 @@ namespace CloudCoin_SafeScan
         public enum Type { json, jpeg, unknown }
         public enum Denomination { Unknown, One, Five, Quarter, Hundred, KiloQuarter }
         public enum Status { Authenticated, Counterfeit, Fractioned, Unknown }
-        public enum raidaNodeResponse { pass, fail, error }
+        public enum raidaNodeResponse { pass, fail, error, unknown }
 
         public Denomination denomination
         {
@@ -101,7 +101,7 @@ namespace CloudCoin_SafeScan
             filetype = Type.json;
             filename = null;
             pans = generatePans();
-            for (int i = 0; i < RAIDA.NODEQNTY; i++) lastCheckStatus[i] = Status.Unknown;
+            for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = raidaNodeResponse.unknown;
         }
 
         //Constructor from file with Coin
@@ -137,7 +137,7 @@ namespace CloudCoin_SafeScan
             sn = Int32.Parse(jpegHexContent.Substring(904, 6), System.Globalization.NumberStyles.AllowHexSpecifier);
 
             pans = generatePans();
-            for (int i = 0; i < RAIDA.NODEQNTY; i++) lastCheckStatus[i] = Status.unknown;
+            for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = raidaNodeResponse.unknown;
         }
 
         
@@ -194,6 +194,13 @@ namespace CloudCoin_SafeScan
         public CoinStack()
         {
             cloudcoin = new List<CloudCoin>();
+        }
+
+        public CoinStack(CloudCoin coin)
+        {
+            CloudCoin[] _collection = { coin };
+            cloudcoin = new List<CloudCoin>(_collection);
+//            cloudcoin[0] = coin;
         }
 
         IEnumerator IEnumerable.GetEnumerator()

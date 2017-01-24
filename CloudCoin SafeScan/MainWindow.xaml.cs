@@ -91,6 +91,7 @@ namespace CloudCoin_SafeScan
                         {
                             fsSource.Position = 0;
                             CloudCoin coin = new CloudCoin(fsSource);
+                            CoinStack stack = new CoinStack(coin);
                             checkCoinsPage.Filename.Text = FD.SafeFileName;
                             checkCoinsPage.CoinImage.Source = coin.coinImage;
                             checkCoinsPage.coinsToDetect = 1;
@@ -105,7 +106,7 @@ namespace CloudCoin_SafeScan
                                 Task cont = tasks[i].ContinueWith(ancestor => { checkCoinsPage.ShowDetectProgress(ancestor.Result, node, coin); });
                                 i++;
                             }
-                            Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllDetectCompleted(); });
+                            Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllDetectCompleted(stack); });
 
                         }
                         else if (Enumerable.SequenceEqual(signature, new byte[] { 123, 32, 34 }))  //JSON
@@ -126,14 +127,13 @@ namespace CloudCoin_SafeScan
                                 {
                                     Task<RAIDA.DetectResponse>[] tasks = new Task<RAIDA.DetectResponse>[RAIDA.NODEQNTY];
                                     int i = 0;
-                                    List<RAIDA.DetectResponse> res = new List<RAIDA.DetectResponse>(1);
                                     foreach (RAIDA.Node node in raida.NodesArray)
                                     {
                                         tasks[i] = Task.Factory.StartNew(() => node.Detect(coin));
-                                        Task cont = tasks[i].ContinueWith(ancestor => { checkCoinsPage.ShowDetectProgress(ancestor.Result, node); });
+                                        Task cont = tasks[i].ContinueWith(ancestor => { checkCoinsPage.ShowDetectProgress(ancestor.Result, node, coin); });
                                         i++;
                                     }
-                                    Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllDetectCompleted(res); });
+                                    Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllDetectCompleted(stack); });
                                 }
                             }
                             catch (Exception jsonex)
