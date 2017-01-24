@@ -98,14 +98,14 @@ namespace CloudCoin_SafeScan
 
                             Task<RAIDA.DetectResponse>[] tasks = new Task<RAIDA.DetectResponse>[RAIDA.NODEQNTY];
                             int i = 0;
-                            List<RAIDA.DetectResponse> res = new List<RAIDA.DetectResponse>(1);
+//                            List<RAIDA.DetectResponse> res = new List<RAIDA.DetectResponse>(1);
                             foreach (RAIDA.Node node in raida.NodesArray)
                             {
                                 tasks[i] = Task.Factory.StartNew(() => node.Detect(coin));
-                                Task cont = tasks[i].ContinueWith(ancestor => { checkCoinsPage.ShowDetectProgress(ancestor.Result, node); });
+                                Task cont = tasks[i].ContinueWith(ancestor => { checkCoinsPage.ShowDetectProgress(ancestor.Result, node, coin); });
                                 i++;
                             }
-                            Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllDetectCompleted(res); });
+                            Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllDetectCompleted(); });
 
                         }
                         else if (Enumerable.SequenceEqual(signature, new byte[] { 123, 32, 34 }))  //JSON

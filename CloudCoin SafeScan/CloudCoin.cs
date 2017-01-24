@@ -15,8 +15,9 @@ namespace CloudCoin_SafeScan
     public class CloudCoin
     {
         public enum Type { json, jpeg, unknown }
-        public enum Status { fail, pass, error, unknown }
         public enum Denomination { Unknown, One, Five, Quarter, Hundred, KiloQuarter }
+        public enum Status { Authenticated, Counterfeit, Fractioned, Unknown }
+        public enum raidaNodeResponse { pass, fail, error }
 
         public Denomination denomination
         {
@@ -54,13 +55,39 @@ namespace CloudCoin_SafeScan
         }
         public int sn { set; get; }
         public int nn { set; get; }
-        public string[] an = new string[25];
-        public string[] pans = new string[25];
-        public Status[] lastCheckStatus = new Status[25];
+        public string[] an = new string[RAIDA.NODEQNTY];
+        public string[] pans = new string[RAIDA.NODEQNTY];
+        public raidaNodeResponse[] detectStatus = new raidaNodeResponse[RAIDA.NODEQNTY];
         public string[] aoid = new string[1];//Account or Owner ID
         public string filename;
         public Type filetype;
         public string ed; //expiration in the form of Date expressed as a hex string like 97e2 Sep 2018
+        public int percentOfRAIDAPass
+        {
+            get
+            {
+                return detectStatus.Count(element => element == raidaNodeResponse.pass) / detectStatus.Count();
+            }
+        }
+
+        CloudCoin.Status status
+        {
+            get
+            {
+                if (percentOfRAIDAPass != 1)
+                    return isPassed ? CloudCoin.Status.Fractioned : CloudCoin.Status.Counterfeit;
+                else
+                    return isPassed ? CloudCoin.Status.Authenticated : CloudCoin.Status.Counterfeit;
+            }
+        }
+
+        bool isPassed
+        {
+            get
+            {
+                return (detectStatus.Count(element => element == raidaNodeResponse.pass) > 3) ? true : false;
+            }
+        }
 
         // Constructor from args
         [JsonConstructor]
@@ -74,7 +101,7 @@ namespace CloudCoin_SafeScan
             filetype = Type.json;
             filename = null;
             pans = generatePans();
-            for (int i = 0; i < RAIDA.NODEQNTY; i++) lastCheckStatus[i] = Status.unknown;
+            for (int i = 0; i < RAIDA.NODEQNTY; i++) lastCheckStatus[i] = Status.Unknown;
         }
 
         //Constructor from file with Coin
@@ -131,6 +158,8 @@ namespace CloudCoin_SafeScan
             }
             return result;
         }
+
+
     }
 
     [JsonObject]

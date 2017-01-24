@@ -26,7 +26,7 @@ namespace CloudCoin_SafeScan
         }
 
         public int coinsToDetect;
-        public double PercentDetected = 0;
+        public double PercentDetected;
         public double ProgressBar
         {
             get
@@ -42,15 +42,22 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        public void ShowDetectProgress(RAIDA.DetectResponse result, RAIDA.Node node)
+        public void ShowDetectProgress(RAIDA.DetectResponse result, RAIDA.Node node, CloudCoin coin)
         {
             Dispatcher.Invoke(() =>
             {
+                if (result.status == "pass")
+                    coin.detectStatus[node.Number] = CloudCoin.raidaNodeResponse.pass;
+                else if (result.status == "fail")
+                    coin.detectStatus[node.Number] = CloudCoin.raidaNodeResponse.fail;
+                else
+                    coin.detectStatus[node.Number] = CloudCoin.raidaNodeResponse.error;
                 node.LastDetectResult = result;
                 RAIDA_Check_Log.Text += "RAIDA" + node.Number + " check " + result.status + ".\n";
                 ProgressBar += 4;
                 PercentDetected += (double)4/(double)coinsToDetect;
                 percentBox.Text = PercentDetected.ToString("F2") + "%";
+                
 
                 Brush color;
                 var tt = new ToolTip();
@@ -269,16 +276,15 @@ namespace CloudCoin_SafeScan
                             break;
                     }
                 }
-
-
+              
             });
         }
 
-        public void AllDetectCompleted(List<RAIDA.DetectResponse> res)
+        public void AllDetectCompleted()
         {
             Dispatcher.Invoke(() =>
             {
-                AuthResultsGrid.ItemsSource = res;
+                AuthResultsGrid.ItemsSource = ;
                 checkWMapTextBox.Text = "Hover for auth status";
             });
         }
