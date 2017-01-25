@@ -62,26 +62,25 @@ namespace CloudCoin_SafeScan
         public string filename;
         public Type filetype;
         public string ed; //expiration in the form of Date expressed as a hex string like 97e2 Sep 2018
-        public int percentOfRAIDAPass
+        public Status Verdict
         {
             get
             {
-                return detectStatus.Count(element => element == raidaNodeResponse.pass) / detectStatus.Count();
-            }
-        }
-
-        CloudCoin.Status status
-        {
-            get
-            {
-                if (percentOfRAIDAPass != 1)
+                if (percentOfRAIDAPass != 100)
                     return isPassed ? CloudCoin.Status.Fractioned : CloudCoin.Status.Counterfeit;
                 else
                     return isPassed ? CloudCoin.Status.Authenticated : CloudCoin.Status.Counterfeit;
             }
         }
+        public int percentOfRAIDAPass
+        {
+            get
+            {
+                return detectStatus.Count(element => element == raidaNodeResponse.pass) * 100 / detectStatus.Count();
+            }
+        }
 
-        bool isPassed
+        public bool isPassed
         {
             get
             {
@@ -165,7 +164,7 @@ namespace CloudCoin_SafeScan
     [JsonObject]
     public class CoinStack : IEnumerable<CloudCoin>
     {
-        public IList<CloudCoin> cloudcoin { get; set; }
+        public List<CloudCoin> cloudcoin { get; set; }
         public int coinsInStack
         {
             get

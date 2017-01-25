@@ -50,6 +50,6 @@
         <RadioButton x:Name="VenezuelaRadioButton" HorizontalAlignment="Left" Margin="301,114,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
         <RadioButton x:Name="ColumbiaRadioButton" HorizontalAlignment="Left" Margin="313,116,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
         <TextBox x:Name="checkWMapTextBox" HorizontalAlignment="Left" Height="18" Margin="326,152,0,0" TextWrapping="Wrap" Text="Detecting authenticity..." VerticalAlignment="Top" Width="146" BorderThickness="0"/>
-        <DataGrid x:Name="AuthResultsGrid" HorizontalAlignment="Left" Height="114" Margin="235,195,0,0" VerticalAlignment="Top" Width="272" AutoGenerateColumns="False"/>
+        <DataGrid x:Name="AuthResultsGrid" HorizontalAlignment="Left" Height="114" Margin="235,195,0,0" VerticalAlignment="Top" Width="272"/>
     </Grid>
 </Window>

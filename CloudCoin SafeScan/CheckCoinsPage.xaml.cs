@@ -42,6 +42,14 @@ namespace CloudCoin_SafeScan
             }
         }
 
+        public struct Coin4Display
+        {
+            public string serial;
+            public string value;
+            public bool auth;
+            public string comment;
+        }
+
         public void ShowDetectProgress(RAIDA.DetectResponse result, RAIDA.Node node, CloudCoin coin)
         {
             Dispatcher.Invoke(() =>
@@ -284,7 +292,20 @@ namespace CloudCoin_SafeScan
         {
             Dispatcher.Invoke(() =>
             {
-                AuthResultsGrid.ItemsSource = stack;
+                List<Coin4Display> items = new List<Coin4Display>();
+                AuthResultsGrid.ItemsSource = items;
+
+                for (int i=0;i<stack.cloudcoin.Count();i++)
+                {
+                    var coin = stack.cloudcoin[i];
+                    Coin4Display s;
+                    s.serial = coin.sn.ToString();
+                    s.value = Convert.Denomination2Int(coin.denomination).ToString();
+                    s.auth = coin.isPassed;
+                    s.comment = coin.percentOfRAIDAPass.ToString() + "% of RAIDA servers uthenticated this coin";
+                    items.Add(s);
+                }
+                
                 checkWMapTextBox.Text = "Hover for auth status";
             });
         }

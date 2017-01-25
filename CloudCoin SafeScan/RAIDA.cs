@@ -218,12 +218,12 @@ namespace CloudCoin_SafeScan
                 }
                 catch (JsonException e)
                 {
-                    getDetectResult = new DetectResponse(Name, coin.sn.ToString(), "Invalid respose", getDetectResult.ErrorMessage, DateTime.Now.ToString());
+                    getDetectResult = new DetectResponse(Name, coin.sn.ToString(), "Invalid response", "THe server does not respond or returns invalid data", DateTime.Now.ToString());
 
                 }
                 getDetectResult = getDetectResult ?? new DetectResponse(Name, coin.sn.ToString(), "Network problem", "Node not found", DateTime.Now.ToString());
                 if (getDetectResult.ErrorException != null)
-                    getDetectResult = new DetectResponse(Name, coin.sn.ToString(), "Network problem", getDetectResult.ErrorMessage, DateTime.Now.ToString());
+                    getDetectResult = new DetectResponse(Name, coin.sn.ToString(), "Network problem", "Problems with network connection", DateTime.Now.ToString());
 
                 sw.Stop();
                 getDetectResult.responseTime = sw.Elapsed;
