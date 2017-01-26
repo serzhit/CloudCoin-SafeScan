@@ -302,7 +302,7 @@ namespace CloudCoin_SafeScan
                     s.serial = coin.sn.ToString();
                     s.value = Convert.Denomination2Int(coin.denomination).ToString();
                     s.auth = coin.isPassed;
-                    s.comment = coin.percentOfRAIDAPass.ToString() + "% of RAIDA servers uthenticated this coin";
+                    s.comment = coin.percentOfRAIDAPass.ToString() + "% of RAIDA servers authenticated this coin";
                     items.Add(s);
                 }
                 
