@@ -279,6 +279,112 @@ namespace CloudCoin_SafeScan
                             LuxemburgRadioButton.ToolTip = tt;
                             break;
                     }
+                } else
+                {
+                    color = Brushes.DarkRed;
+                    switch (node.Country)
+                    {
+                        case RAIDA.Countries.Australia:
+                            AUstraliaRadioButton.Background = color;
+                            AUstraliaRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Macedonia:
+                            MacedoniaRadioButton.Background = color;
+                            MacedoniaRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Philippines:
+                            PhilippinesRadioButton.Background = color;
+                            PhilippinesRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Serbia:
+                            SerbiaRadioButton.Background = color;
+                            SerbiaRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Bulgaria:
+                            BulgariaRadioButton.Background = color;
+                            BulgariaRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Sweden:
+                            SwedenRadioButton.Background = color;
+                            SwedenRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.California:
+                            CaliforniaRadioButton.Background = color;
+                            CaliforniaRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.UK:
+                            UKRadioButton.Background = color;
+                            UKRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Punjab:
+                            PenjabRadioButton.Background = color;
+                            PenjabRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Banglore:
+                            BangloreRadioButton.Background = color;
+                            BangloreRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Texas:
+                            TexasRadioButton.Background = color;
+                            TexasRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.USA1:
+                            USA1RadioButton.Background = color;
+                            USA1RadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Romania:
+                            RomaniaRadioButton.Background = color;
+                            RomaniaRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Taiwan:
+                            TaiwanRadioButton.Background = color;
+                            TaiwanRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Russia1:
+                            MoscowRadioButton.Background = color;
+                            MoscowRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Russia2:
+                            StPetersburgRadioButton.Background = color;
+                            StPetersburgRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Columbia:
+                            ColumbiaRadioButton.Background = color;
+                            ColumbiaRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Singapore:
+                            SingaporeRadioButton.Background = color;
+                            SingaporeRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Germany:
+                            GermanyRadioButton.Background = color;
+                            GermanyRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Canada:
+                            CanadaRadioButton.Background = color;
+                            CanadaRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Venezuela:
+                            VenezuelaRadioButton.Background = color;
+                            VenezuelaRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Hyperbad:
+                            HyperbadRadioButton.Background = color;
+                            HyperbadRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.USA2:
+                            USA3RadioButton.Background = color;
+                            USA3RadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Switzerland:
+                            SwitzerlandRadioButton.Background = color;
+                            SwitzerlandRadioButton.ToolTip = tt;
+                            break;
+                        case RAIDA.Countries.Luxenburg:
+                            LuxemburgRadioButton.Background = color;
+                            LuxemburgRadioButton.ToolTip = tt;
+                            break;
+                    }
                 }
             });
         }

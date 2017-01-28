@@ -7,10 +7,12 @@
       mc:Ignorable="d" 
       d:DesignHeight="350" d:DesignWidth="525"
       Title="CloudCoin Scan&amp;Safe - CheckCoins" Width="525" Height="350" Background="White">
+    <Window.Resources>
+        <ControlTemplate x:Key="DataGridControlTemplate1" TargetType="{x:Type DataGrid}"/>
+    </Window.Resources>
 
     <Grid Background="White">
         <ProgressBar Minimum="0" Maximum="100" x:Name="CheckProgress" Margin="235,10,10,289"/>
-        <TextBox x:Name="RAIDA_Check_Log" HorizontalAlignment="Left" Height="114" Margin="10,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="208"/>
         <Image x:Name="CoinImage" HorizontalAlignment="Left" Height="129" Margin="47,53,0,0" VerticalAlignment="Top" Width="130">
             <Image.Effect>
                 <DropShadowEffect/>
@@ -50,6 +52,15 @@
         <RadioButton x:Name="VenezuelaRadioButton" HorizontalAlignment="Left" Margin="301,114,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
         <RadioButton x:Name="ColumbiaRadioButton" HorizontalAlignment="Left" Margin="313,116,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
         <TextBox x:Name="checkWMapTextBox" HorizontalAlignment="Left" Height="18" Margin="326,152,0,0" TextWrapping="Wrap" Text="Detecting authenticity..." VerticalAlignment="Top" Width="146" BorderThickness="0"/>
-        <DataGrid x:Name="AuthResultsGrid" HorizontalAlignment="Left" Height="114" Margin="235,195,0,0" VerticalAlignment="Top" Width="272"/>
+        <ListView x:Name="AuthResultsGrid" HorizontalAlignment="Left" Height="114" Margin="10,195,0,0" VerticalAlignment="Top" Width="497">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Serial" DisplayMemberBinding="{Binding Serial}" Width="80"/>
+                    <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="50"/>
+                    <GridViewColumn Header="Authenticated" DisplayMemberBinding="{Binding Check}" Width="100"/>
+                    <GridViewColumn Header="Comment" DisplayMemberBinding="{Binding Comment}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

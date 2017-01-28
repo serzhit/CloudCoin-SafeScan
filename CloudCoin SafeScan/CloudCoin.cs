@@ -72,6 +72,7 @@ namespace CloudCoin_SafeScan
                     return isPassed ? CloudCoin.Status.Authenticated : CloudCoin.Status.Counterfeit;
             }
         }
+
         public int percentOfRAIDAPass
         {
             get

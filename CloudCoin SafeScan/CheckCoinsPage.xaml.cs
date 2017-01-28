@@ -42,12 +42,12 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        public struct Coin4Display
+        public class Coin4Display
         {
-            public string serial;
-            public string value;
-            public bool auth;
-            public string comment;
+            public int Serial { get; set; }
+            public int Value { get; set; }
+            public bool Check { get; set; }
+            public string Comment { get; set; }
         }
 
         public void ShowDetectProgress(RAIDA.DetectResponse result, RAIDA.Node node, CloudCoin coin)
@@ -61,7 +61,6 @@ namespace CloudCoin_SafeScan
                 else
                     coin.detectStatus[node.Number] = CloudCoin.raidaNodeResponse.error;
                 node.LastDetectResult = result;
-                RAIDA_Check_Log.Text += "RAIDA" + node.Number + " check " + result.status + ".\n";
                 ProgressBar += 4;
                 PercentDetected += (double)4/(double)coinsToDetect;
                 percentBox.Text = PercentDetected.ToString("F2") + "%";
@@ -292,20 +291,19 @@ namespace CloudCoin_SafeScan
         {
             Dispatcher.Invoke(() =>
             {
-                List<Coin4Display> items = new List<Coin4Display>();
-                AuthResultsGrid.ItemsSource = items;
-
-                for (int i=0;i<stack.cloudcoin.Count();i++)
+                var coinsInfo = new List<Coin4Display>();
+                for (int i = 0; i < stack.cloudcoin.Count(); i++)
                 {
                     var coin = stack.cloudcoin[i];
-                    Coin4Display s;
-                    s.serial = coin.sn.ToString();
-                    s.value = Convert.Denomination2Int(coin.denomination).ToString();
-                    s.auth = coin.isPassed;
-                    s.comment = coin.percentOfRAIDAPass.ToString() + "% of RAIDA servers authenticated this coin";
-                    items.Add(s);
+                    coinsInfo.Add( new Coin4Display()
+                    {
+                        Serial = coin.sn,
+                        Value = Convert.Denomination2Int(coin.denomination),
+                        Check = coin.isPassed,
+                        Comment = coin.Verdict.ToString() + ": " + coin.percentOfRAIDAPass.ToString() + "% of servers authenticated"
+                    });
                 }
-                
+                AuthResultsGrid.ItemsSource = coinsInfo;
                 checkWMapTextBox.Text = "Hover for auth status";
             });
         }
