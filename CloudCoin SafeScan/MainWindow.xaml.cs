@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -86,9 +87,9 @@ namespace CloudCoin_SafeScan
                     {
                         byte[] signature = new byte[3];
                         fsSource.Read(signature, 0, 3);
-
                         if (Enumerable.SequenceEqual(signature, new byte[] { 255, 216, 255 })) //JPEG
                         {
+                            Stopwatch sw = new Stopwatch();
                             fsSource.Position = 0;
                             CloudCoin coin = new CloudCoin(fsSource);
                             CoinStack stack = new CoinStack(coin);
@@ -99,18 +100,19 @@ namespace CloudCoin_SafeScan
 
                             Task<RAIDA.DetectResponse>[] tasks = new Task<RAIDA.DetectResponse>[RAIDA.NODEQNTY];
                             int i = 0;
-//                            List<RAIDA.DetectResponse> res = new List<RAIDA.DetectResponse>(1);
+                            sw.Start();
                             foreach (RAIDA.Node node in raida.NodesArray)
                             {
                                 tasks[i] = Task.Factory.StartNew(() => node.Detect(coin));
                                 Task cont = tasks[i].ContinueWith(ancestor => { checkCoinsPage.ShowDetectProgress(ancestor.Result, node, coin); });
                                 i++;
                             }
-                            Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllDetectCompleted(stack); });
 
+                            Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllDetectCompleted(stack, sw); });
                         }
                         else if (Enumerable.SequenceEqual(signature, new byte[] { 123, 32, 34 }))  //JSON
                         {
+                            Stopwatch sw =new Stopwatch();
                             fsSource.Position = 0;
                             StreamReader sr = new StreamReader(fsSource);
                             CoinStack stack = null;
@@ -122,19 +124,21 @@ namespace CloudCoin_SafeScan
                                 checkCoinsPage.CoinImage.Source = new BitmapImage(new Uri(@"Resources/stackcoins.png", UriKind.Relative));
                                 checkCoinsPage.coinsToDetect = stack.coinsInStack;
                                 checkCoinsPage.Show();
-
+                                sw.Start();
                                 foreach(CloudCoin coin in stack)
                                 {
                                     Task<RAIDA.DetectResponse>[] tasks = new Task<RAIDA.DetectResponse>[RAIDA.NODEQNTY];
                                     int i = 0;
+
                                     foreach (RAIDA.Node node in raida.NodesArray)
                                     {
                                         tasks[i] = Task.Factory.StartNew(() => node.Detect(coin));
                                         Task cont = tasks[i].ContinueWith(ancestor => { checkCoinsPage.ShowDetectProgress(ancestor.Result, node, coin); });
                                         i++;
                                     }
-                                    Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllDetectCompleted(stack); });
+                                    Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllDetectCompleted(stack, sw); });
                                 }
+                                sr.Close();
                             }
                             catch (Exception jsonex)
                             {
@@ -146,7 +150,9 @@ namespace CloudCoin_SafeScan
                         }
                         else
                             MessageBox.Show("Unknown file format. Try find CloudCoin file.");
+                        fsSource.Close();
                     }
+                   
                 }
                 catch (InvalidOperationException ex)
                 {

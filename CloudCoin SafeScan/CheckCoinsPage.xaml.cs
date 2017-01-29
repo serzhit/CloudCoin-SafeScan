@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -287,20 +288,22 @@ namespace CloudCoin_SafeScan
             });
         }
 
-        public void AllDetectCompleted(CoinStack stack)
+        public void AllDetectCompleted(CoinStack stack, Stopwatch sw)
         {
             Dispatcher.Invoke(() =>
             {
                 var coinsInfo = new List<Coin4Display>();
+                sw.Stop();
                 for (int i = 0; i < stack.cloudcoin.Count(); i++)
                 {
                     var coin = stack.cloudcoin[i];
-                    coinsInfo.Add( new Coin4Display()
+                    coinsInfo.Add(new Coin4Display()
                     {
                         Serial = coin.sn,
                         Value = Convert.Denomination2Int(coin.denomination),
                         Check = coin.isPassed,
-                        Comment = coin.Verdict.ToString() + ": " + coin.percentOfRAIDAPass.ToString() + "% of servers authenticated"
+                        Comment = coin.Verdict.ToString() + ": " + 
+                        coin.percentOfRAIDAPass.ToString() + "% good. Checked in " + sw.ElapsedMilliseconds.ToString()+" ms."
                     });
                 }
                 AuthResultsGrid.ItemsSource = coinsInfo;
