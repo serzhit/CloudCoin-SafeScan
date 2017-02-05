@@ -14,6 +14,7 @@ namespace CloudCoin_SafeScan
     public class RAIDA
     {
         public const short NODEQNTY = 25;
+        public const short MINTRUSTEDNODES4AUTH = 8;
         public Node[] NodesArray = new Node[NODEQNTY];
         public enum Countries
         {
@@ -107,60 +108,7 @@ namespace CloudCoin_SafeScan
             {
                 get
                 {
-                    switch (Country)
-                    {
-                        case RAIDA.Countries.Australia:
-                            return "Australia";
-                        case RAIDA.Countries.Macedonia:
-                            return "Macedonia";
-                        case RAIDA.Countries.Philippines:
-                            return "Philippines";
-                        case RAIDA.Countries.Serbia:
-                            return "Serbia";
-                        case RAIDA.Countries.Bulgaria:
-                            return "Bulgaria";
-                        case RAIDA.Countries.Sweden:
-                            return "Sweden";
-                        case RAIDA.Countries.California:
-                            return "California";
-                        case RAIDA.Countries.UK:
-                            return "UK";
-                        case RAIDA.Countries.Punjab:
-                            return "Punjab";
-                        case RAIDA.Countries.Banglore:
-                            return "Banglore";
-                        case RAIDA.Countries.Texas:
-                            return "Texas";
-                        case RAIDA.Countries.USA1:
-                            return "USA";
-                        case RAIDA.Countries.Romania:
-                            return "Romaina";
-                        case RAIDA.Countries.Taiwan:
-                            return "Taiwan";
-                        case RAIDA.Countries.Russia1:
-                            return "Russia";
-                        case RAIDA.Countries.Russia2:
-                            return "Russia";
-                        case RAIDA.Countries.Columbia:
-                            return "Columbia";
-                        case RAIDA.Countries.Singapore:
-                            return "Singapore";
-                        case RAIDA.Countries.Germany:
-                            return "Germany";
-                        case RAIDA.Countries.Canada:
-                            return "Canada";
-                        case RAIDA.Countries.Venezuela:
-                            return "Venezuela";
-                        case RAIDA.Countries.Hyperbad:
-                            return "Hyderabad";
-                        case RAIDA.Countries.USA2:
-                            return "USA";
-                        case RAIDA.Countries.Switzerland:
-                            return "Switzerland";
-                        case RAIDA.Countries.Luxenburg:
-                            return "Luxenburg";
-                    }
-                    return "Unknown";
+                    return Country.ToString();
                 }
             }
 

@@ -288,26 +288,41 @@ namespace CloudCoin_SafeScan
             });
         }
 
-        public void AllDetectCompleted(CoinStack stack, Stopwatch sw)
+        public void AllCoinDetectCompleted(CloudCoin coin, Stopwatch sw)
         {
             Dispatcher.Invoke(() =>
-            {
-                var coinsInfo = new List<Coin4Display>();
+            { 
                 sw.Stop();
-                for (int i = 0; i < stack.cloudcoin.Count(); i++)
-                {
-                    var coin = stack.cloudcoin[i];
-                    coinsInfo.Add(new Coin4Display()
+                
+                AuthResultsGrid.Items.Add(new Coin4Display()
                     {
                         Serial = coin.sn,
                         Value = Convert.Denomination2Int(coin.denomination),
                         Check = coin.isPassed,
                         Comment = coin.Verdict.ToString() + ": " + 
-                        coin.percentOfRAIDAPass.ToString() + "% good. Checked in " + sw.ElapsedMilliseconds.ToString()+" ms."
+                        coin.percentOfRAIDAPass + "% good. Checked in " + sw.ElapsedMilliseconds + " ms."
                     });
-                }
-                AuthResultsGrid.ItemsSource = coinsInfo;
+                sw.Reset();
                 checkWMapTextBox.Text = "Hover for auth status";
+            });
+        }
+
+        public void AllStackDetectCompleted(CoinStack stack, Stopwatch sw)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                sw.Stop();
+            var result = MessageBox.Show("Total " + stack.SumInStack + " CC in " + stack.coinsInStack + " coin(s).\n" +
+                          "100% Good - " + stack.AuthenticatedQuantity + "\n" +
+                          "Good, but fractioned - " + stack.FractionedQuantity + "\n" +
+                          "Counterfeit - " + stack.CounterfeitedQuantity + "\n" +
+                          "Stack checked in " + sw.ElapsedMilliseconds + " ms\n" +
+                          "Do you want to save them in your Safe attempting to fix fractioned ones?", "Save coins in Safe?", MessageBoxButton.OKCancel);
+                if(result == MessageBoxResult.OK)
+                {
+                    var safe = new Safe();
+                    safe.save(stack);
+                }
             });
         }
 

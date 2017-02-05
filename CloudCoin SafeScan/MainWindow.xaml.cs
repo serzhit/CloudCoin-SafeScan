@@ -77,7 +77,8 @@ namespace CloudCoin_SafeScan
         {
             OpenFileDialog FD = new OpenFileDialog();
             FD.Title = "Choose file with Cloudcoin(s)";
-            if(FD.ShowDialog() == true)
+            FD.InitialDirectory = @"C:\Users\Sergey\Documents\Cloudcoin\testing SW";
+            if (FD.ShowDialog() == true)
             {
                 try
                 {
@@ -104,19 +105,18 @@ namespace CloudCoin_SafeScan
                             foreach (RAIDA.Node node in raida.NodesArray)
                             {
                                 tasks[i] = Task.Factory.StartNew(() => node.Detect(coin));
-                                Task cont = tasks[i].ContinueWith(ancestor => { checkCoinsPage.ShowDetectProgress(ancestor.Result, node, coin); });
+                                tasks[i].ContinueWith(ancestor => { checkCoinsPage.ShowDetectProgress(ancestor.Result, node, coin); });
                                 i++;
                             }
 
-                            Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllDetectCompleted(stack, sw); });
+                            Task checkCompleted = Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllCoinDetectCompleted(coin, sw); });
+                            checkCompleted.ContinueWith(delegate { checkCoinsPage.AllStackDetectCompleted(stack, sw); });
                         }
                         else if (Enumerable.SequenceEqual(signature, new byte[] { 123, 32, 34 }))  //JSON
                         {
-                            Stopwatch sw =new Stopwatch();
                             fsSource.Position = 0;
                             StreamReader sr = new StreamReader(fsSource);
                             CoinStack stack = null;
-
                             try
                             {
                                 stack = JsonConvert.DeserializeObject<CoinStack>(sr.ReadToEnd());
@@ -124,29 +124,31 @@ namespace CloudCoin_SafeScan
                                 checkCoinsPage.CoinImage.Source = new BitmapImage(new Uri(@"Resources/stackcoins.png", UriKind.Relative));
                                 checkCoinsPage.coinsToDetect = stack.coinsInStack;
                                 checkCoinsPage.Show();
-                                sw.Start();
-                                foreach(CloudCoin coin in stack)
+                                
+                                Task[] checkStackTasks = new Task[stack.cloudcoin.Count()];
+                                Stopwatch stackCheckTime = new Stopwatch();
+                                stackCheckTime.Start();
+                                Stopwatch[] tw = new Stopwatch[stack.cloudcoin.Count()];
+                                for (int k = 0; k < stack.cloudcoin.Count(); k++)
                                 {
-                                    Task<RAIDA.DetectResponse>[] tasks = new Task<RAIDA.DetectResponse>[RAIDA.NODEQNTY];
-                                    int i = 0;
-
+                                    var coin = stack.cloudcoin[k];
+                                    Task<RAIDA.DetectResponse>[] checkCoinTasks = new Task<RAIDA.DetectResponse>[RAIDA.NODEQNTY];
+                                    var t = tw[k] = new Stopwatch();
+                                    t.Start();
                                     foreach (RAIDA.Node node in raida.NodesArray)
                                     {
-                                        tasks[i] = Task.Factory.StartNew(() => node.Detect(coin));
-                                        Task cont = tasks[i].ContinueWith(ancestor => { checkCoinsPage.ShowDetectProgress(ancestor.Result, node, coin); });
-                                        i++;
+                                        checkCoinTasks[node.Number] = Task.Factory.StartNew(() => node.Detect(coin));
+                                        checkCoinTasks[node.Number].ContinueWith(ancestor => { checkCoinsPage.ShowDetectProgress(ancestor.Result, node, coin); });
                                     }
-                                    Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllDetectCompleted(stack, sw); });
+                                    checkStackTasks[k] = Task.Factory.ContinueWhenAll(checkCoinTasks, delegate { checkCoinsPage.AllCoinDetectCompleted(coin, t); });
                                 }
+                                Task.Factory.ContinueWhenAll(checkStackTasks, delegate { checkCoinsPage.AllStackDetectCompleted(stack, stackCheckTime); });
                                 sr.Close();
                             }
                             catch (Exception jsonex)
                             {
                                 MessageBox.Show("Error in file format: " + jsonex.Message);
                             }
-                            if (stack != null)
-                                MessageBox.Show("You have " + stack.coinsInStack + " coins in stack.\nTotal stack value = " + stack.SumInStack);
-
                         }
                         else
                             MessageBox.Show("Unknown file format. Try find CloudCoin file.");

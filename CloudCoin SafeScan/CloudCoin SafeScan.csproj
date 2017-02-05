@@ -100,6 +100,7 @@
     </Compile>
     <Compile Include="Convert.cs" />
     <Compile Include="RAIDA.cs" />
+    <Compile Include="Safe.cs" />
     <Page Include="CheckCoinsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

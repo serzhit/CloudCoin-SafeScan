@@ -57,7 +57,7 @@ namespace CloudCoin_SafeScan
         public int nn { set; get; }
         public string[] an = new string[RAIDA.NODEQNTY];
         public string[] pans = new string[RAIDA.NODEQNTY];
-        public raidaNodeResponse[] detectStatus = new raidaNodeResponse[RAIDA.NODEQNTY];
+        public raidaNodeResponse[] detectStatus;
         public string[] aoid = new string[1];//Account or Owner ID
         public string filename;
         public Type filetype;
@@ -85,7 +85,7 @@ namespace CloudCoin_SafeScan
         {
             get
             {
-                return (detectStatus.Count(element => element == raidaNodeResponse.pass) > 3) ? true : false;
+                return (detectStatus.Count(element => element == raidaNodeResponse.pass) > RAIDA.MINTRUSTEDNODES4AUTH) ? true : false;
             }
         }
 
@@ -101,12 +101,14 @@ namespace CloudCoin_SafeScan
             filetype = Type.json;
             filename = null;
             pans = generatePans();
+            detectStatus = new raidaNodeResponse[RAIDA.NODEQNTY];
             for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = raidaNodeResponse.unknown;
         }
 
         //Constructor from file with Coin
         public CloudCoin(FileStream jpegFS)
         {
+            // TODO: catch exception for wrong file format
             filetype = Type.jpeg;
             byte[] fileByteContent = new byte[455];
             int numBytesToRead = fileByteContent.Length;
@@ -137,6 +139,7 @@ namespace CloudCoin_SafeScan
             sn = Int32.Parse(jpegHexContent.Substring(904, 6), System.Globalization.NumberStyles.AllowHexSpecifier);
 
             pans = generatePans();
+            detectStatus = new raidaNodeResponse[RAIDA.NODEQNTY];
             for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = raidaNodeResponse.unknown;
         }
 
@@ -190,7 +193,45 @@ namespace CloudCoin_SafeScan
                 return s;
             }
         }
-
+        public int AuthenticatedQuantity
+        {
+            get
+            {
+                int s = 0;
+                foreach (CloudCoin coin in cloudcoin)
+                {
+                    if (coin.Verdict == CloudCoin.Status.Authenticated)
+                        s++;
+                }
+                return s;
+            }
+        }
+        public int FractionedQuantity
+        {
+            get
+            {
+                int s = 0;
+                foreach (CloudCoin coin in cloudcoin)
+                {
+                    if (coin.Verdict == CloudCoin.Status.Fractioned)
+                        s++;
+                }
+                return s;
+            }
+        }
+        public int CounterfeitedQuantity
+        {
+            get
+            {
+                int s = 0;
+                foreach (CloudCoin coin in cloudcoin)
+                {
+                    if (coin.Verdict == CloudCoin.Status.Counterfeit)
+                        s++;
+                }
+                return s;
+            }
+        }
         public CoinStack()
         {
             cloudcoin = new List<CloudCoin>();
