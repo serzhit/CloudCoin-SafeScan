@@ -5,6 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Security.Cryptography;
+using System.Security.AccessControl;
+using CryptSharp;
+using Newtonsoft.Json;
 
 namespace CloudCoin_SafeScan
 {
@@ -13,6 +17,8 @@ namespace CloudCoin_SafeScan
         public string password;
         public string safeFilePath;
         public FileInfo safeFileInfo;
+        private string cryptedPass;
+        private CoinStack Contents;
         
         public Safe()
         {
@@ -21,14 +27,101 @@ namespace CloudCoin_SafeScan
             safeFileInfo = new FileInfo(safeFilePath);
             if(!safeFileInfo.Exists)
             {
-                MessageBox.Show("File " + safeFilePath + " does not exist!");
+                var passwordWindow = new SetPassword();
+                passwordWindow.ShowDialog();
+                password = passwordWindow.Password.Password;
+                byte[] passbytes = Encoding.UTF8.GetBytes(password);
+                cryptedPass = Crypter.Blowfish.Crypt(passbytes);
+                byte[] cryptedpassbytes = Encoding.UTF8.GetBytes(cryptedPass);
+//                var dirsecurity = new DirectorySecurity();
+//                dirsecurity.SetAccessRule()
+                Directory.CreateDirectory(safeFileInfo.DirectoryName);
+                Contents = new CoinStack();
+                var json = JsonConvert.SerializeObject(Contents);
+                var cryptedjson = Convert.Encrypt(Encoding.UTF8.GetBytes(json), password, cryptedpassbytes.Take(16).ToArray());
+                using (var fs = safeFileInfo.Create())
+                {
+                    fs.Write(cryptedpassbytes,0,60);
+                    fs.Write(cryptedjson, 0, cryptedjson.Length);
+                    fs.Close();
+                }
+                
             }
-             
+            else
+            {
+                using (var fs = safeFileInfo.Open(FileMode.Open))
+                {
+                    byte[] buffer = new byte[60];
+                    fs.Read(buffer, 0, 60);
+                    string cryptedPassSafe = new string(Encoding.UTF8.GetChars(buffer));
+                    var enterPassword = new EnterPassword();
+                    enterPassword.ShowDialog();
+                    var testpassword = enterPassword.passwordBox.Password;
+                    byte[] passbytes = Encoding.UTF8.GetBytes(testpassword);
+                    while (!Crypter.CheckPassword(passbytes, cryptedPassSafe))
+                    {
+                        MessageBox.Show("Wrong password from safe.\nTry again.");
+                        enterPassword.ShowDialog();
+                        testpassword = enterPassword.passwordBox.Password;
+                        passbytes = Encoding.UTF8.GetBytes(testpassword);
+                    }
+                    password = testpassword;
+                    cryptedPass = cryptedPassSafe;
+                    byte[] cryptedjson = new byte[(int)(fs.Length - 60)];
+                    try
+                    {
+                        var numbytestoread = fs.Length - 60;
+                        int numbytesread = 0;
+                        while (true)
+                        {
+                            var n = fs.Read(cryptedjson, numbytesread, (int)numbytestoread);
+                            if (n == 0) break;
+                            numbytesread += n;
+                            numbytestoread -= n;
+                        }
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show("Exception: " + ex.Message);
+                    }
+                    var jsonbytes = Convert.Decrypt(cryptedjson, password, Encoding.UTF8.GetBytes(cryptedPass).Take(16).ToArray());
+                    var json = Encoding.UTF8.GetString(jsonbytes);
+                    try
+                    {
+                        Contents = JsonConvert.DeserializeObject<CoinStack>(json);
+                    }
+                    catch (JsonException ex)
+                    {
+                        MessageBox.Show("Exception: " + ex.Message);
+                    }
+                    fs.Close();
+                }
+            }
         }
 
         public void save(CoinStack stack)
         {
-            //To be implemented
+            if (!safeFileInfo.Exists)
+                return;
+            using (var fs = safeFileInfo.Open(FileMode.Open))
+            {
+                Contents.Add(stack);
+                Contents.cloudcoin.Sort(new CloudCoin.CoinComparer());
+                string jsonstring = "";
+                try
+                {
+                    jsonstring = JsonConvert.SerializeObject(Contents);
+                }
+                catch (JsonException e)
+                {
+                    MessageBox.Show("Exception: " + e.Message);
+                }
+                byte[] jsonbytes = Encoding.UTF8.GetBytes(jsonstring);
+                var cryptedjsonbytes = Convert.Encrypt(jsonbytes, password, Encoding.UTF8.GetBytes(cryptedPass));
+                fs.Write(Encoding.UTF8.GetBytes(cryptedPass), 0, 60);
+                fs.Write(cryptedjsonbytes, 0, cryptedjsonbytes.Length);
+                fs.Close();
+            }
         }
     }
 }

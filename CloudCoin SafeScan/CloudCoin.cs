@@ -19,6 +19,14 @@ namespace CloudCoin_SafeScan
         public enum Status { Authenticated, Counterfeit, Fractioned, Unknown }
         public enum raidaNodeResponse { pass, fail, error, unknown }
 
+        public class CoinComparer : IComparer<CloudCoin>
+        {
+            int IComparer<CloudCoin>.Compare(CloudCoin coin1, CloudCoin coin2)
+            {
+                return (Convert.Denomination2Int(coin1.denomination).CompareTo(Convert.Denomination2Int(coin2.denomination)));
+            }
+        }
+
         public Denomination denomination
         {
             get
@@ -193,6 +201,71 @@ namespace CloudCoin_SafeScan
                 return s;
             }
         }
+        public int Ones
+        {
+            get
+            {
+                int s = 0;
+                foreach (CloudCoin coin in cloudcoin)
+                {
+                    if(coin.denomination == CloudCoin.Denomination.One)
+                        s++;
+                }
+                return s;
+            }
+        }
+        public int Fives
+        {
+            get
+            {
+                int s = 0;
+                foreach (CloudCoin coin in cloudcoin)
+                {
+                    if (coin.denomination == CloudCoin.Denomination.Five)
+                        s++;
+                }
+                return s;
+            }
+        }
+        public int Quarters
+        {
+            get
+            {
+                int s = 0;
+                foreach (CloudCoin coin in cloudcoin)
+                {
+                    if (coin.denomination == CloudCoin.Denomination.Quarter)
+                        s++;
+                }
+                return s;
+            }
+        }
+        public int Hundreds
+        {
+            get
+            {
+                int s = 0;
+                foreach (CloudCoin coin in cloudcoin)
+                {
+                    if (coin.denomination == CloudCoin.Denomination.Hundred)
+                        s++;
+                }
+                return s;
+            }
+        }
+        public int KiloQuarters
+        {
+            get
+            {
+                int s = 0;
+                foreach (CloudCoin coin in cloudcoin)
+                {
+                    if (coin.denomination == CloudCoin.Denomination.KiloQuarter)
+                        s++;
+                }
+                return s;
+            }
+        }
         public int AuthenticatedQuantity
         {
             get
@@ -232,26 +305,28 @@ namespace CloudCoin_SafeScan
                 return s;
             }
         }
+
         public CoinStack()
         {
             cloudcoin = new List<CloudCoin>();
         }
-
         public CoinStack(CloudCoin coin)
         {
             CloudCoin[] _collection = { coin };
             cloudcoin = new List<CloudCoin>(_collection);
 //            cloudcoin[0] = coin;
         }
-
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
-
         public IEnumerator<CloudCoin> GetEnumerator()
         {
             return cloudcoin.GetEnumerator();
+        }
+        public void Add(CoinStack stack2)
+        {
+            cloudcoin.AddRange(stack2);
         }
     }
 }

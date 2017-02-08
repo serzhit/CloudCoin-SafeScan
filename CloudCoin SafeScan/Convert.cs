@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace CloudCoin_SafeScan
 {
@@ -33,5 +35,58 @@ namespace CloudCoin_SafeScan
             }
         }
 
+        public static byte[] Encrypt(byte[] bytesequence, string password, byte[] salt)
+        {
+            int Rfc2898KeygenIterations = 100;
+            int AesKeySizeInBits = 128;
+            byte[] cipherText = null;
+            using (Aes aes = new AesManaged())
+            {
+                aes.Padding = PaddingMode.PKCS7;
+                aes.KeySize = AesKeySizeInBits;
+                int KeyStrengthInBytes = aes.KeySize / 8;
+                Rfc2898DeriveBytes rfc2898 =
+                    new Rfc2898DeriveBytes(password, salt, Rfc2898KeygenIterations);
+                aes.Key = rfc2898.GetBytes(KeyStrengthInBytes);
+                aes.IV = rfc2898.GetBytes(KeyStrengthInBytes);
+                aes.Mode = CipherMode.CBC;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(bytesequence, 0, bytesequence.Length);
+                    }
+                    cipherText = ms.ToArray();
+                }
+                return cipherText;
+            }
+        }
+
+        public static byte[] Decrypt(byte[] bytesequence, string password, byte[] salt)
+        {
+            int Rfc2898KeygenIterations = 100;
+            int AesKeySizeInBits = 128;
+            byte[] plainText = null;
+            using (Aes aes = new AesManaged())
+            {
+                aes.Padding = PaddingMode.PKCS7;
+                aes.KeySize = AesKeySizeInBits;
+                int KeyStrengthInBytes = aes.KeySize / 8;
+                Rfc2898DeriveBytes rfc2898 =
+                    new Rfc2898DeriveBytes(password, salt, Rfc2898KeygenIterations);
+                aes.Key = rfc2898.GetBytes(KeyStrengthInBytes);
+                aes.IV = rfc2898.GetBytes(KeyStrengthInBytes);
+                aes.Mode = CipherMode.CBC;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(bytesequence, 0, bytesequence.Length);
+                    }
+                    plainText = ms.ToArray();
+                }
+                return plainText;
+            }
+        }
     }
 }
