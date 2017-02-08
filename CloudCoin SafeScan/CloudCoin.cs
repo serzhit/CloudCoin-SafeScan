@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 
 namespace CloudCoin_SafeScan
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class CloudCoin
     {
         public enum Type { json, jpeg, unknown }
@@ -26,7 +27,7 @@ namespace CloudCoin_SafeScan
                 return (Convert.Denomination2Int(coin1.denomination).CompareTo(Convert.Denomination2Int(coin2.denomination)));
             }
         }
-
+        [JsonProperty]
         public Denomination denomination
         {
             get
@@ -61,14 +62,20 @@ namespace CloudCoin_SafeScan
                 }
             }
         }
+        [JsonProperty]
         public int sn { set; get; }
+        [JsonProperty]
         public int nn { set; get; }
+        [JsonProperty]
         public string[] an = new string[RAIDA.NODEQNTY];
         public string[] pans = new string[RAIDA.NODEQNTY];
+        [JsonProperty]
         public raidaNodeResponse[] detectStatus;
+        [JsonProperty]
         public string[] aoid = new string[1];//Account or Owner ID
         public string filename;
         public Type filetype;
+        [JsonProperty]
         public string ed; //expiration in the form of Date expressed as a hex string like 97e2 Sep 2018
         public Status Verdict
         {
@@ -173,9 +180,10 @@ namespace CloudCoin_SafeScan
 
     }
 
-    [JsonObject]
+    [JsonObject(MemberSerialization.OptIn)]
     public class CoinStack : IEnumerable<CloudCoin>
     {
+        [JsonProperty]
         public List<CloudCoin> cloudcoin { get; set; }
         public int coinsInStack
         {

@@ -322,7 +322,9 @@ namespace CloudCoin_SafeScan
                 {
                     var safe = new Safe();
                     safe.save(stack);
+                    safe.Show();
                 }
+                Close();
             });
         }
 

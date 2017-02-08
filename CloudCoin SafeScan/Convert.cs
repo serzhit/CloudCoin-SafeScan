@@ -10,6 +10,9 @@ namespace CloudCoin_SafeScan
 {
     public static class Convert
     {
+        private const int Rfc2898KeygenIterations = 100;
+        private const int AesKeySizeInBits = 128;
+
         public static string ToHexString(byte[] digest)
         {
             String hash = "";
@@ -35,11 +38,17 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        public static byte[] Encrypt(byte[] bytesequence, string password, byte[] salt)
+        public static byte[] Encrypt(string tobeEncrypted, string password, byte[] salt)
         {
-            int Rfc2898KeygenIterations = 100;
-            int AesKeySizeInBits = 128;
-            byte[] cipherText = null;
+            /*            int reminder = tobeEncrypted.Length % 16;
+                        if ( reminder != 0 )
+                        {
+                            char[] spaces = new char[16 - reminder];
+                            for (int i = 0; i < (16 - reminder); i++) spaces.SetValue((char)32, i);
+                            tobeEncrypted = tobeEncrypted + new string(spaces);
+                        }
+            */
+            byte[] cipherText;
             using (Aes aes = new AesManaged())
             {
                 aes.Padding = PaddingMode.PKCS7;
@@ -49,24 +58,24 @@ namespace CloudCoin_SafeScan
                     new Rfc2898DeriveBytes(password, salt, Rfc2898KeygenIterations);
                 aes.Key = rfc2898.GetBytes(KeyStrengthInBytes);
                 aes.IV = rfc2898.GetBytes(KeyStrengthInBytes);
-                aes.Mode = CipherMode.CBC;
                 using (MemoryStream ms = new MemoryStream())
                 {
                     using (CryptoStream cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
                     {
-                        cs.Write(bytesequence, 0, bytesequence.Length);
+                        using (StreamWriter swEncrypt = new StreamWriter(cs))
+                        {
+                            swEncrypt.Write(tobeEncrypted);
+                        }
+                        cipherText = ms.ToArray();
                     }
-                    cipherText = ms.ToArray();
                 }
-                return cipherText;
             }
+            return cipherText;
         }
 
-        public static byte[] Decrypt(byte[] bytesequence, string password, byte[] salt)
+        public static string Decrypt(byte[] encryptedBytes, string password, byte[] salt)
         {
-            int Rfc2898KeygenIterations = 100;
-            int AesKeySizeInBits = 128;
-            byte[] plainText = null;
+            string plainText = null;
             using (Aes aes = new AesManaged())
             {
                 aes.Padding = PaddingMode.PKCS7;
@@ -76,17 +85,18 @@ namespace CloudCoin_SafeScan
                     new Rfc2898DeriveBytes(password, salt, Rfc2898KeygenIterations);
                 aes.Key = rfc2898.GetBytes(KeyStrengthInBytes);
                 aes.IV = rfc2898.GetBytes(KeyStrengthInBytes);
-                aes.Mode = CipherMode.CBC;
-                using (MemoryStream ms = new MemoryStream())
+                using (MemoryStream ms = new MemoryStream(encryptedBytes))
                 {
-                    using (CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Write))
+                    using (CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Read))
                     {
-                        cs.Write(bytesequence, 0, bytesequence.Length);
+                        using (StreamReader srDecrypt = new StreamReader(cs))
+                        {
+                            plainText = srDecrypt.ReadToEnd();
+                        }
                     }
-                    plainText = ms.ToArray();
                 }
-                return plainText;
             }
+            return plainText;
         }
     }
 }

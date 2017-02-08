@@ -38,7 +38,7 @@ namespace CloudCoin_SafeScan
                 Directory.CreateDirectory(safeFileInfo.DirectoryName);
                 Contents = new CoinStack();
                 var json = JsonConvert.SerializeObject(Contents);
-                var cryptedjson = Convert.Encrypt(Encoding.UTF8.GetBytes(json), password, cryptedpassbytes.Take(16).ToArray());
+                var cryptedjson = Convert.Encrypt(json, password, cryptedpassbytes.Take(16).ToArray());
                 using (var fs = safeFileInfo.Create())
                 {
                     fs.Write(cryptedpassbytes,0,60);
@@ -82,17 +82,16 @@ namespace CloudCoin_SafeScan
                     }
                     catch (IOException ex)
                     {
-                        MessageBox.Show("Exception: " + ex.Message);
+                        MessageBox.Show("IO Exception: " + ex.Message);
                     }
-                    var jsonbytes = Convert.Decrypt(cryptedjson, password, Encoding.UTF8.GetBytes(cryptedPass).Take(16).ToArray());
-                    var json = Encoding.UTF8.GetString(jsonbytes);
+                    string json = Convert.Decrypt(cryptedjson, password, Encoding.UTF8.GetBytes(cryptedPass).Take(16).ToArray());
                     try
                     {
                         Contents = JsonConvert.DeserializeObject<CoinStack>(json);
                     }
                     catch (JsonException ex)
                     {
-                        MessageBox.Show("Exception: " + ex.Message);
+                        MessageBox.Show("JSON Exception: " + ex.Message);
                     }
                     fs.Close();
                 }
@@ -101,6 +100,7 @@ namespace CloudCoin_SafeScan
 
         public void save(CoinStack stack)
         {
+            safeFileInfo.Refresh();
             if (!safeFileInfo.Exists)
                 return;
             using (var fs = safeFileInfo.Open(FileMode.Open))
@@ -116,12 +116,16 @@ namespace CloudCoin_SafeScan
                 {
                     MessageBox.Show("Exception: " + e.Message);
                 }
-                byte[] jsonbytes = Encoding.UTF8.GetBytes(jsonstring);
-                var cryptedjsonbytes = Convert.Encrypt(jsonbytes, password, Encoding.UTF8.GetBytes(cryptedPass));
+                var cryptedjsonbytes = Convert.Encrypt(jsonstring, password, Encoding.UTF8.GetBytes(cryptedPass).Take(16).ToArray());
                 fs.Write(Encoding.UTF8.GetBytes(cryptedPass), 0, 60);
                 fs.Write(cryptedjsonbytes, 0, cryptedjsonbytes.Length);
                 fs.Close();
             }
+        }
+
+        public void Show()
+        {
+
         }
     }
 }
