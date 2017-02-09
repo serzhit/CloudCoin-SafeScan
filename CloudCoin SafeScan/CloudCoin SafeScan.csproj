@@ -109,6 +109,9 @@
     </Compile>
     <Compile Include="RAIDA.cs" />
     <Compile Include="Safe.cs" />
+    <Compile Include="SafeContents.xaml.cs">
+      <DependentUpon>SafeContents.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SetPassword.xaml.cs">
       <DependentUpon>SetPassword.xaml</DependentUpon>
     </Compile>
@@ -133,6 +136,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SafeContents.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SetPassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

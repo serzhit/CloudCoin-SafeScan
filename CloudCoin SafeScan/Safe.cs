@@ -18,8 +18,226 @@ namespace CloudCoin_SafeScan
         public string safeFilePath;
         public FileInfo safeFileInfo;
         private string cryptedPass;
-        private CoinStack Contents;
-        
+        public CoinStack Contents;
+        public Shelf Ones
+        {
+            get
+            {
+                return new Shelf(this, CloudCoin.Denomination.One);
+            }
+        }
+        public Shelf Fives
+        {
+            get
+            {
+                return new Shelf(this, CloudCoin.Denomination.Five);
+            }
+        }
+        public Shelf Quarters
+        {
+            get
+            {
+                return new Shelf(this, CloudCoin.Denomination.Quarter);
+            }
+        }
+        public Shelf Hundreds
+        {
+            get
+            {
+                return new Shelf(this, CloudCoin.Denomination.Hundred);
+            }
+        }
+        public Shelf KiloQuarters
+        {
+            get
+            {
+                return new Shelf(this, CloudCoin.Denomination.KiloQuarter);
+            }
+        }
+
+        public class Shelf
+        {
+            public Safe current;
+            CloudCoin.Denomination denomination;
+            public int TotalQuantity
+            {
+                get
+                {
+                    switch (denomination)
+                    {
+                        case CloudCoin.Denomination.One:
+                            return current.Contents.Ones;
+                        case CloudCoin.Denomination.Five:
+                            return current.Contents.Fives;
+                        case CloudCoin.Denomination.Quarter:
+                            return current.Contents.Quarters;
+                        case CloudCoin.Denomination.Hundred:
+                            return current.Contents.Hundreds;
+                        case CloudCoin.Denomination.KiloQuarter:
+                            return current.Contents.KiloQuarters;
+                        default:
+                            return -1;
+                    }
+                }
+            }
+            public int GoodQuantity
+            {
+                get
+                {
+                    int s;
+                    switch (denomination)
+                    {
+                        
+                        case CloudCoin.Denomination.One:
+                            s = 0;
+                            foreach (CloudCoin coin in current.Contents)
+                            {
+                                if (coin.Verdict == CloudCoin.Status.Authenticated && coin.denomination == CloudCoin.Denomination.One)
+                                    s++;
+                            }
+                            return s;
+                        case CloudCoin.Denomination.Five:
+                            s = 0;
+                            foreach (CloudCoin coin in current.Contents)
+                            {
+                                if (coin.Verdict == CloudCoin.Status.Authenticated && coin.denomination == CloudCoin.Denomination.Five)
+                                    s++;
+                            }
+                            return s;
+                        case CloudCoin.Denomination.Quarter:
+                            s = 0;
+                            foreach (CloudCoin coin in current.Contents)
+                            {
+                                if (coin.Verdict == CloudCoin.Status.Authenticated && coin.denomination == CloudCoin.Denomination.Quarter)
+                                    s++;
+                            }
+                            return s;
+                        case CloudCoin.Denomination.Hundred:
+                            s = 0;
+                            foreach (CloudCoin coin in current.Contents)
+                            {
+                                if (coin.Verdict == CloudCoin.Status.Authenticated && coin.denomination == CloudCoin.Denomination.Hundred)
+                                    s++;
+                            }
+                            return s;
+                        case CloudCoin.Denomination.KiloQuarter:
+                            s = 0;
+                            foreach (CloudCoin coin in current.Contents)
+                            {
+                                if (coin.Verdict == CloudCoin.Status.Authenticated && coin.denomination == CloudCoin.Denomination.KiloQuarter)
+                                    s++;
+                            }
+                            return s;
+                        default:
+                            return -1;
+                    }
+                    
+                }
+            }
+            public int FractionedQuantity
+            {
+                get
+                {
+                    int s = 0;
+                    switch (denomination)
+                    {
+                        case CloudCoin.Denomination.One:
+                            foreach (CloudCoin coin in current.Contents)
+                            {
+                                if (coin.Verdict == CloudCoin.Status.Fractioned && coin.denomination == CloudCoin.Denomination.One)
+                                    s++;
+                            }
+                            return s;
+                        case CloudCoin.Denomination.Five:
+                            foreach (CloudCoin coin in current.Contents)
+                            {
+                                if (coin.Verdict == CloudCoin.Status.Fractioned && coin.denomination == CloudCoin.Denomination.Five)
+                                    s++;
+                            }
+                            return s;
+                        case CloudCoin.Denomination.Quarter:
+                            foreach (CloudCoin coin in current.Contents)
+                            {
+                                if (coin.Verdict == CloudCoin.Status.Fractioned && coin.denomination == CloudCoin.Denomination.Quarter)
+                                    s++;
+                            }
+                            return s;
+                        case CloudCoin.Denomination.Hundred:
+                            foreach (CloudCoin coin in current.Contents)
+                            {
+                                if (coin.Verdict == CloudCoin.Status.Fractioned && coin.denomination == CloudCoin.Denomination.Hundred)
+                                    s++;
+                            }
+                            return s;
+                        case CloudCoin.Denomination.KiloQuarter:
+                            foreach (CloudCoin coin in current.Contents)
+                            {
+                                if (coin.Verdict == CloudCoin.Status.Fractioned && coin.denomination == CloudCoin.Denomination.KiloQuarter)
+                                    s++;
+                            }
+                            return s;
+                        default:
+                            return -1;
+                    }
+
+                }
+            }
+            public int CounterfeitedQuantity
+            {
+                get
+                {
+                    int s = 0;
+                    switch (denomination)
+                    {
+                        case CloudCoin.Denomination.One:
+                            foreach (CloudCoin coin in current.Contents)
+                            {
+                                if (coin.Verdict == CloudCoin.Status.Counterfeit && coin.denomination == CloudCoin.Denomination.One)
+                                    s++;
+                            }
+                            return s;
+                        case CloudCoin.Denomination.Five:
+                            foreach (CloudCoin coin in current.Contents)
+                            {
+                                if (coin.Verdict == CloudCoin.Status.Counterfeit && coin.denomination == CloudCoin.Denomination.Five)
+                                    s++;
+                            }
+                            return s;
+                        case CloudCoin.Denomination.Quarter:
+                            foreach (CloudCoin coin in current.Contents)
+                            {
+                                if (coin.Verdict == CloudCoin.Status.Counterfeit && coin.denomination == CloudCoin.Denomination.Quarter)
+                                    s++;
+                            }
+                            return s;
+                        case CloudCoin.Denomination.Hundred:
+                            foreach (CloudCoin coin in current.Contents)
+                            {
+                                if (coin.Verdict == CloudCoin.Status.Counterfeit && coin.denomination == CloudCoin.Denomination.Hundred)
+                                    s++;
+                            }
+                            return s;
+                        case CloudCoin.Denomination.KiloQuarter:
+                            foreach (CloudCoin coin in current.Contents)
+                            {
+                                if (coin.Verdict == CloudCoin.Status.Counterfeit && coin.denomination == CloudCoin.Denomination.KiloQuarter)
+                                    s++;
+                            }
+                            return s;
+                        default:
+                            return -1;
+                    }
+
+                }
+            }
+
+            public Shelf(Safe safe, CloudCoin.Denomination denom)
+            {
+                current = safe;
+                denomination = denom;
+            }
+        }
+
         public Safe()
         {
             safeFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
@@ -125,7 +343,15 @@ namespace CloudCoin_SafeScan
 
         public void Show()
         {
-
+            var safeWindow = new SafeContents();
+            safeWindow.Show();
+            safeWindow.SafeView.Items.Add(new SafeContents.Shelf4Display() { Value = "Ones", Good = Ones.GoodQuantity, Fractioned = Ones.FractionedQuantity, Counterfeited = Ones.CounterfeitedQuantity, Total = Ones.TotalQuantity });
+            safeWindow.SafeView.Items.Add(new SafeContents.Shelf4Display() { Value = "Fives", Good = Fives.GoodQuantity, Fractioned = Fives.FractionedQuantity, Counterfeited = Fives.CounterfeitedQuantity, Total = Fives.TotalQuantity });
+            safeWindow.SafeView.Items.Add(new SafeContents.Shelf4Display() { Value = "Quarters", Good = Quarters.GoodQuantity, Fractioned = Quarters.FractionedQuantity, Counterfeited = Quarters.CounterfeitedQuantity, Total = Quarters.TotalQuantity });
+            safeWindow.SafeView.Items.Add(new SafeContents.Shelf4Display() { Value = "Hundreds", Good = Hundreds.GoodQuantity, Fractioned = Hundreds.FractionedQuantity, Counterfeited = Hundreds.CounterfeitedQuantity, Total = Hundreds.TotalQuantity });
+            safeWindow.SafeView.Items.Add(new SafeContents.Shelf4Display() { Value = "250s", Good = KiloQuarters.GoodQuantity, Fractioned = KiloQuarters.FractionedQuantity, Counterfeited = KiloQuarters.CounterfeitedQuantity, Total = KiloQuarters.TotalQuantity });
         }
     }
+
+
 }

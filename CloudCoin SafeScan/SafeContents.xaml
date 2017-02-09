@@ -1,0 +1,22 @@
+﻿<Window x:Name="Safe_Contents" x:Class="CloudCoin_SafeScan.SafeContents"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CloudCoin_SafeScan"
+        mc:Ignorable="d"
+        Title="Safe Content" Height="300" Width="367.365">
+    <Grid>
+        <ListView x:Name="SafeView" HorizontalAlignment="Center" Height="192" Margin="10,67,0,0" VerticalAlignment="Top" Width="339">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="67"/>
+                    <GridViewColumn Header="Good" DisplayMemberBinding="{Binding Good}" Width="67"/>
+                    <GridViewColumn Header="Fractioned" DisplayMemberBinding="{Binding Fractioned}" Width="67"/>
+                    <GridViewColumn Header="Counterfeit" DisplayMemberBinding="{Binding Counterfeited}" Width="67"/>
+                    <GridViewColumn Header="Total" DisplayMemberBinding="{Binding Total}" Width="67"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

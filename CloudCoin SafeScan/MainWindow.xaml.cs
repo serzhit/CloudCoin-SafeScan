@@ -401,7 +401,8 @@ namespace CloudCoin_SafeScan
 
         private void ImageSafe_Selected(object sender, InputEventArgs e)
         {
-
+            Safe currentSafe = new Safe();
+            currentSafe.Show();
         }
 
         private void ImagePay_Selected(object sender, InputEventArgs e)
