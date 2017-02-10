@@ -14,8 +14,17 @@ using Newtonsoft.Json;
 
 namespace CloudCoin_SafeScan
 {
-    public class Safe
+    public sealed class Safe
     {
+        private static Safe theOnlySafeInstance = new Safe();
+        public static Safe Instance
+        {
+            get
+            {
+                return theOnlySafeInstance;
+            }
+        }
+
         public string password = null;
         public string safeFilePath;
         public FileInfo safeFileInfo;
@@ -240,7 +249,7 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        public Safe()
+        private Safe()
         {
             safeFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
                 "\\Cloudcoin\\" + Environment.UserName + ".safe";

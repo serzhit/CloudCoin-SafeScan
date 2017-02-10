@@ -112,7 +112,7 @@ namespace CloudCoin_SafeScan
                             Task checkCompleted = Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllCoinDetectCompleted(coin, sw); });
                             checkCompleted.ContinueWith(delegate { checkCoinsPage.AllStackDetectCompleted(stack, sw); });
                         }
-                        else if (Enumerable.SequenceEqual(signature, new byte[] { 123, 32, 34 }))  //JSON
+                        else if (Enumerable.SequenceEqual(signature, new byte[] { 123, 32, 34 }) || Enumerable.SequenceEqual(signature, new byte[] { 123, 13, 10 }))  //JSON
                         {
                             fsSource.Position = 0;
                             StreamReader sr = new StreamReader(fsSource);
@@ -401,8 +401,7 @@ namespace CloudCoin_SafeScan
 
         private void ImageSafe_Selected(object sender, InputEventArgs e)
         {
-            Safe currentSafe = new Safe();
-            currentSafe.Show();
+            Safe.Instance.Show();
         }
 
         private void ImagePay_Selected(object sender, InputEventArgs e)
