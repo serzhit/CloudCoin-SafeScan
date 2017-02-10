@@ -320,8 +320,7 @@ namespace CloudCoin_SafeScan
                           "Do you want to save them in your Safe attempting to fix fractioned ones?", "Save coins in Safe?", MessageBoxButton.OKCancel);
                 if(result == MessageBoxResult.OK)
                 {
-                    var safe = new Safe();
-                    safe.save(stack);
+                    var safe = new Safe(stack);
                     Close();
                     safe.Show();
                 }

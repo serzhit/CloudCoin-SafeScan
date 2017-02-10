@@ -28,7 +28,7 @@ namespace CloudCoin_SafeScan
         {
             if (passwordBox.Password.Count() < 5)
                 MessageBox.Show("Password cannot be less than 5 characters");
-            Close();
+            Hide();
         }
     }
 }

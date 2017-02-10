@@ -5,18 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CloudCoin_SafeScan"
         mc:Ignorable="d"
-        Title="Safe Content" Height="300" Width="367.365">
+        Title="Safe Content" Height="300" Width="380.838" ResizeMode="NoResize">
     <Grid>
-        <ListView x:Name="SafeView" HorizontalAlignment="Center" Height="192" Margin="10,67,0,0" VerticalAlignment="Top" Width="339">
+        <ListView x:Name="SafeView" HorizontalAlignment="Center" Height="178" Margin="10,67,10,0" VerticalAlignment="Top" Width="353">
             <ListView.View>
-                <GridView>
+                <GridView AllowsColumnReorder="False">
+                    <GridView.ColumnHeaderContextMenu>
+                        <ContextMenu HorizontalContentAlignment="Center"/>
+                    </GridView.ColumnHeaderContextMenu>
                     <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="67"/>
                     <GridViewColumn Header="Good" DisplayMemberBinding="{Binding Good}" Width="67"/>
                     <GridViewColumn Header="Fractioned" DisplayMemberBinding="{Binding Fractioned}" Width="67"/>
                     <GridViewColumn Header="Counterfeit" DisplayMemberBinding="{Binding Counterfeited}" Width="67"/>
-                    <GridViewColumn Header="Total" DisplayMemberBinding="{Binding Total}" Width="67"/>
+                    <GridViewColumn Header="Total" DisplayMemberBinding="{Binding Total}"/>
                 </GridView>
             </ListView.View>
         </ListView>
+        <TextBox x:Name="totalTextBox" HorizontalAlignment="Left" Height="52" Margin="10,10,0,0" TextWrapping="Wrap" Text="333233 СС in Safe" VerticalAlignment="Top" Width="353" FontSize="32" BorderThickness="0"/>
     </Grid>
 </Window>

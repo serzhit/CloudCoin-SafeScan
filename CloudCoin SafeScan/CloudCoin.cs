@@ -24,9 +24,22 @@ namespace CloudCoin_SafeScan
         {
             int IComparer<CloudCoin>.Compare(CloudCoin coin1, CloudCoin coin2)
             {
-                return (Convert.Denomination2Int(coin1.denomination).CompareTo(Convert.Denomination2Int(coin2.denomination)));
+                return (coin1.sn.CompareTo(coin2.sn));
             }
         }
+        public class CoinEqualityComparer : IEqualityComparer<CloudCoin>
+        {
+            bool IEqualityComparer<CloudCoin>.Equals(CloudCoin x, CloudCoin y)
+            {
+                return x.sn == y.sn;
+            }
+
+            int IEqualityComparer<CloudCoin>.GetHashCode(CloudCoin obj)
+            {
+                return obj.sn;
+            }
+        }
+
         [JsonProperty]
         public Denomination denomination
         {
@@ -335,6 +348,11 @@ namespace CloudCoin_SafeScan
         public void Add(CoinStack stack2)
         {
             cloudcoin.AddRange(stack2);
+            cloudcoin = cloudcoin.Distinct( new CloudCoin.CoinEqualityComparer() ).ToList();
+        }
+        public void RemoveCounterfeitCoins()
+        {
+            cloudcoin.RemoveAll(delegate (CloudCoin coin) { return coin.Verdict == CloudCoin.Status.Counterfeit; } );
         }
     }
 }
