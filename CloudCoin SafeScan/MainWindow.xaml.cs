@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using Microsoft.Win32;
 using RestSharp;
 using Newtonsoft.Json;
+using CloudCoin_SafeScan.Properties;
 
 
 namespace CloudCoin_SafeScan
@@ -28,12 +29,13 @@ namespace CloudCoin_SafeScan
     /// </summary>
     public partial class MainWindow : Window
     {
-        
         RAIDA raida = new RAIDA();
 
         public MainWindow()
         {
             InitializeComponent();
+
+            var appSettings = new Settings();
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
@@ -83,7 +85,7 @@ namespace CloudCoin_SafeScan
                 try
                 {
                     CheckCoinsPage checkCoinsPage = new CheckCoinsPage();
-                    using (FileStream fsSource = File.Open(FD.FileName, FileMode.Open))
+                    using (Stream fsSource = FD.OpenFile())
                     //new FileStream(FD.FileName, FileMode.Open, FileAccess.Read))
                     {
                         byte[] signature = new byte[3];
@@ -152,15 +154,14 @@ namespace CloudCoin_SafeScan
                         }
                         else
                             MessageBox.Show("Unknown file format. Try find CloudCoin file.");
-                        fsSource.Close();
                     }
-                   
                 }
                 catch (InvalidOperationException ex)
                 {
                     MessageBox.Show("Error reading " + FD.FileName + " from disk!\n" + ex.Message);
                 }
-                
+                var newFileName = FD.FileName + ".imported";
+                File.Move(FD.FileName, newFileName);
             }   
         }
 
@@ -406,7 +407,7 @@ namespace CloudCoin_SafeScan
 
         private void ImagePay_Selected(object sender, InputEventArgs e)
         {
-
+            Safe.Instance.SaveOutStack();
         }
 
         private void radioButton_Checked(object sender, RoutedEventArgs e)

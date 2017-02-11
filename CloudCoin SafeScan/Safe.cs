@@ -251,8 +251,9 @@ namespace CloudCoin_SafeScan
 
         private Safe()
         {
-            safeFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                "\\Cloudcoin\\" + Environment.UserName + ".safe";
+            var settingsSafeFilePath =  Properties.Settings.Default.SafeFileName;
+            safeFilePath = Environment.ExpandEnvironmentVariables(settingsSafeFilePath);
+            
             safeFileInfo = new FileInfo(safeFilePath);
             if (!safeFileInfo.Exists)
             {
@@ -267,29 +268,10 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        public Safe(CoinStack stack)
-        {
-            safeFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                "\\Cloudcoin\\" + Environment.UserName + ".safe";
-            safeFileInfo = new FileInfo(safeFilePath);
-            if(!safeFileInfo.Exists)
-            {
-                SetPassword();
-                Contents = stack;
-                Contents.RemoveCounterfeitCoins();
-                CreateSafeFile();
-            }
-            else
-            {
-                CheckPassword();
-                ReadSafeFile();
-                Add(stack);
-            }
-        }
-
         private void SetPassword()
         {
             var passwordWindow = new SetPassword();
+            passwordWindow.Password.Focus();
             passwordWindow.ShowDialog();
             password = passwordWindow.Password.Password;
             cryptedPass = Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(password));
@@ -305,6 +287,7 @@ namespace CloudCoin_SafeScan
                     fs.Read(buffer, 0, 60);
                     string cryptedPassSafe = new string(Encoding.UTF8.GetChars(buffer));
                     var enterPassword = new EnterPassword();
+                    enterPassword.passwordBox.Focus();
                     enterPassword.ShowDialog();
                     byte[] passbytes = Encoding.UTF8.GetBytes(enterPassword.passwordBox.Password);
                     while (!Crypter.CheckPassword(passbytes, cryptedPassSafe))
@@ -337,15 +320,15 @@ namespace CloudCoin_SafeScan
             }
             catch (JsonException ex)
             {
-                MessageBox.Show("Catched JSON exception: " + ex.Message);
+                MessageBox.Show("Safe.CreateSafeFile() JSON exception: " + ex.Message);
             }
             catch (CryptographicException ex)
             {
-                MessageBox.Show("Catched encryption exception: " + ex.Message);
+                MessageBox.Show("Safe.CreateSafeFile() encryption exception: " + ex.Message);
             }
             catch (IOException ex)
             {
-                MessageBox.Show("Catched IO write exception: " + ex.Message);
+                MessageBox.Show("Safe.CreateSafeFile() IO write exception: " + ex.Message);
             }
         }
 
@@ -373,15 +356,15 @@ namespace CloudCoin_SafeScan
                 }
                 catch (IOException ex)
                 {
-                    MessageBox.Show("Catched IO read exception: " + ex.Message);
+                    MessageBox.Show("Safe.ReadSafeFile() IO read exception: " + ex.Message);
                 }
                 catch (CryptographicException ex)
                 {
-                    MessageBox.Show("Catched decrypting exception: " + ex.Message);
+                    MessageBox.Show("Safe.ReadSafeFile() decrypting exception: " + ex.Message);
                 }
                 catch (JsonException ex)
                 {
-                    MessageBox.Show("Catched JSON deserialize exception: " + ex.Message);
+                    MessageBox.Show("Safe.ReadSafeFile() JSON deserialize exception: " + ex.Message);
                 }
             }
         }
@@ -407,19 +390,35 @@ namespace CloudCoin_SafeScan
                 }
                 catch (JsonException e)
                 {
-                    MessageBox.Show("Catched JSON deserialize exception: " + e.Message);
+                    MessageBox.Show("Safe.Add() JSON deserialize exception: " + e.Message);
                 }
                 catch (CryptographicException ex)
                 {
-                    MessageBox.Show("Catched decrypting exception: " + ex.Message);
+                    MessageBox.Show("Safe.Add() decrypting exception: " + ex.Message);
                 }
                 catch (IOException ex)
                 {
-                    MessageBox.Show("Catched IO write exception: " + ex.Message);
+                    MessageBox.Show("Safe.Add() IO write exception: " + ex.Message);
                 }
             }
         }
 
+        public void SaveOutStack()
+        {
+            var howMuch = new HowMuchWindow();
+            howMuch.enterSumBox.Focus();
+            howMuch.ShowDialog();
+            short desiredSum = short.Parse(howMuch.enterSumBox.Text);
+            CoinStack stack = ChooseNearestPossibleStack(desiredSum);
+            DateTime currdate = DateTime.Now;
+            stack.SaveInFile(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinDir) + 
+                currdate.ToString("dd-MM-yy_HH-mm")+".ccstack");
+        }
+
+        private CoinStack ChooseNearestPossibleStack(short sum)
+        {
+            return new CoinStack();
+        }
         public void Show()
         {
             var safeWindow = new SafeContents();

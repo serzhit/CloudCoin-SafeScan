@@ -17,7 +17,7 @@
         <Label x:Name="labelPay" Content="Pay" Margin="0,0,47,10" VerticalAlignment="Bottom" Height="39" FontSize="20" HorizontalAlignment="Right" Width="40"/>
         <Image x:Name="CounterImage" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="100" Source="pack://siteoforigin:,,,/Resources/CashCount.png" Margin="0,0,397,49" MouseDown="ImageCheck_Selected" Cursor="Hand"/>
         <Image x:Name="SafeImage" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Source="pack://siteoforigin:,,,/Resources/Safe.png" Margin="205,170,0,0" Cursor="Hand" MouseDown="ImageSafe_Selected"/>
-        <Image x:Name="StackCoins" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Source="pack://siteoforigin:,,,/Resources/CoinPayment.png" Margin="400,170,0,0" Cursor="Hand"/>
+        <Image x:Name="StackCoins" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Source="pack://siteoforigin:,,,/Resources/CoinPayment.png" Margin="400,170,0,0" Cursor="Hand" MouseDown="ImagePay_Selected" TouchDown="ImagePay_Selected" StylusDown="ImagePay_Selected"/>
         <ed:BlockArrow Fill="#FFF4F4F5" Orientation="Right" Stroke="Black" RenderTransformOrigin="0.85,0.652" Margin="148,215,327,84" Cursor="Arrow"/>
         <ed:BlockArrow Fill="#FFF4F4F5" Orientation="Right" Stroke="Black" Margin="338,215,137,84" Cursor="Arrow"/>
         <Image x:Name="WorldMAp" HorizontalAlignment="Left" Height="154" Margin="268,10,0,0" VerticalAlignment="Top" Width="237" Source="Resources/world_map.png"/>

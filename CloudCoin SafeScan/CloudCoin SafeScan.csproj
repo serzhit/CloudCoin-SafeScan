@@ -110,6 +110,9 @@
     <Compile Include="EnterPassword.xaml.cs">
       <DependentUpon>EnterPassword.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HowMuchWindow.xaml.cs">
+      <DependentUpon>HowMuchWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RAIDA.cs" />
     <Compile Include="Safe.cs" />
     <Compile Include="SafeContents.xaml.cs">
@@ -118,11 +121,16 @@
     <Compile Include="SetPassword.xaml.cs">
       <DependentUpon>SetPassword.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Page Include="CheckCoinsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EnterPassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HowMuchWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

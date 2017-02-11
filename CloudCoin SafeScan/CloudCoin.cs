@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 
 namespace CloudCoin_SafeScan
@@ -134,7 +135,7 @@ namespace CloudCoin_SafeScan
         }
 
         //Constructor from file with Coin
-        public CloudCoin(FileStream jpegFS)
+        public CloudCoin(Stream jpegFS)
         {
             // TODO: catch exception for wrong file format
             filetype = Type.jpeg;
@@ -353,6 +354,43 @@ namespace CloudCoin_SafeScan
         public void RemoveCounterfeitCoins()
         {
             cloudcoin.RemoveAll(delegate (CloudCoin coin) { return coin.Verdict == CloudCoin.Status.Counterfeit; } );
+        }
+
+        public void SaveInFile(string filename)
+        {
+            FileInfo fi = new FileInfo(filename);
+            if (File.Exists(filename))
+            {
+                var FD = new SaveFileDialog();
+                FD.InitialDirectory = fi.DirectoryName;
+                FD.Title = "File Exists, Choose Another Name";
+                FD.OverwritePrompt = true;
+                FD.DefaultExt = "ccstack";
+                FD.CreatePrompt = false;
+                FD.CheckPathExists = true;
+                FD.CheckFileExists = true;
+                FD.AddExtension = true;
+                FD.ShowDialog();
+                fi = new FileInfo(FD.FileName);
+            }
+            Directory.CreateDirectory(fi.DirectoryName);
+            using (StreamWriter sw = fi.CreateText())
+            {
+                string json = null;
+                try
+                {
+                    json = JsonConvert.SerializeObject(this);
+                    sw.Write(json);
+                }
+                catch (JsonException ex)
+                {
+                    MessageBox.Show("CloudStack.SaveInFile Serialize exception: " + ex.Message);
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show("CloudStack.SaveInFile IO exception: " + ex.Message);
+                }
+            }
         }
     }
 }

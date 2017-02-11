@@ -32,6 +32,9 @@ namespace CloudCoin_SafeScan
             InitializeComponent();
         }
 
-        
+        private void onCloseButton(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

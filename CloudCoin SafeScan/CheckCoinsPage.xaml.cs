@@ -317,7 +317,8 @@ namespace CloudCoin_SafeScan
                           "Good, but fractioned - " + stack.FractionedQuantity + "\n" +
                           "Counterfeit - " + stack.CounterfeitedQuantity + "\n" +
                           "Stack checked in " + sw.ElapsedMilliseconds + " ms\n" +
-                          "Do you want to save them in your Safe attempting to fix fractioned ones?", "Save coins in Safe?", MessageBoxButton.OKCancel);
+                          "Do you want to save good and fractioned coins in your Safe?\n"+
+                          "Counterfeited coins will be left where you've picked them.", "Save coins in Safe?", MessageBoxButton.OKCancel);
                 if(result == MessageBoxResult.OK)
                 {
                     Safe.Instance.Add(stack);
