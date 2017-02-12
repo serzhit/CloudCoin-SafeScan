@@ -118,6 +118,9 @@
     <Compile Include="SafeContents.xaml.cs">
       <DependentUpon>SafeContents.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SelectOutStackWindow.xaml.cs">
+      <DependentUpon>SelectOutStackWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SetPassword.xaml.cs">
       <DependentUpon>SetPassword.xaml</DependentUpon>
     </Compile>
@@ -148,6 +151,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SafeContents.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SelectOutStackWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

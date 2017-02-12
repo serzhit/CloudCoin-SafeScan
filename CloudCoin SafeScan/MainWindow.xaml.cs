@@ -78,8 +78,9 @@ namespace CloudCoin_SafeScan
         private void ImageCheck_Selected(object sender, InputEventArgs e)
         {
             OpenFileDialog FD = new OpenFileDialog();
+            FD.Multiselect = true;
             FD.Title = "Choose file with Cloudcoin(s)";
-            FD.InitialDirectory = @"C:\Users\Sergey\Documents\Cloudcoin\testing SW";
+            FD.InitialDirectory = @"C:\Users\Sergey\Documents\GitHub\CloudCoinFoundation\Bank";
             if (FD.ShowDialog() == true)
             {
                 try

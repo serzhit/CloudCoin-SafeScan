@@ -408,17 +408,100 @@ namespace CloudCoin_SafeScan
             var howMuch = new HowMuchWindow();
             howMuch.enterSumBox.Focus();
             howMuch.ShowDialog();
-            short desiredSum = short.Parse(howMuch.enterSumBox.Text);
+            int desiredSum = int.Parse(howMuch.enterSumBox.Text);
             CoinStack stack = ChooseNearestPossibleStack(desiredSum);
             DateTime currdate = DateTime.Now;
             stack.SaveInFile(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinDir) + 
                 currdate.ToString("dd-MM-yy_HH-mm")+".ccstack");
         }
 
-        private CoinStack ChooseNearestPossibleStack(short sum)
+        private CoinStack ChooseNearestPossibleStack(int sum)
         {
-            return new CoinStack();
+            // define short variables for convinience
+            var csc = Instance.Contents;
+            int kQ=0, h=0, q=0, f=0, o=0;
+            
+            if (sum > 250 && csc.KiloQuarters > 0) //are there any coins of such denomination?
+            {
+                // choose maximum of coins of such denomnation
+                kQ = (csc.KiloQuarters > sum / 250) ? sum / 250 : csc.KiloQuarters;
+                sum -= kQ * 250;
+            }
+            if(sum > 100 && csc.Hundreds > 0)
+            {
+                h = (csc.Hundreds > sum / 100) ? sum / 100 : csc.Hundreds;
+                sum -= h * 100;
+            }
+            if (sum > 25 && csc.Quarters > 0)
+            {
+                q = (csc.Quarters > sum / 25) ? sum / 25 : csc.Quarters;
+                sum -= q * 25;
+            }
+            if (sum > 5 && csc.Fives > 0)
+            {
+                f = (csc.Fives > sum / 5) ? sum / 5 : csc.Fives;
+                sum -= f * 5;
+            }
+            if (sum > 1 && csc.Ones > 0)
+            {
+                o = (csc.Ones > sum) ? sum : csc.Ones;
+                sum -= o;
+            }
+            //show which will form stack >= requested sum
+            var selectWindow = new SelectOutStackWindow();
+            selectWindow.stacksToSelect.Items.Add(new SelectOutStackWindow.Stack4Display()
+            { Ones = o, Fives = f, Quarters = q, Hundreds = h, KiloQuarters = kQ, Total = (o + f * 5 + q * 25 + h * 100 + kQ * 250) });
+            //adding existing coin of minimal denomination to form second choice which will be greater than requested sum
+            if (sum > 0)
+            {
+                if ((csc.Ones - o) > 0) o++;
+                else if ((csc.Fives - f) > 0) f++;
+                else if ((csc.Quarters - q) > 0) q++;
+                else if ((csc.Hundreds - h) > 0) h++;
+                else if ((csc.Quarters - kQ) > 0) kQ++;
+                selectWindow.stacksToSelect.Items.Add(new SelectOutStackWindow.Stack4Display()
+                { Ones = o, Fives = f, Quarters = q, Hundreds = h, KiloQuarters = kQ, Total = (o + f * 5 + q * 25 + h * 100 + kQ * 250) });
+            }
+            selectWindow.ShowDialog();
+            SelectOutStackWindow.Stack4Display res = (SelectOutStackWindow.Stack4Display) selectWindow.stacksToSelect.SelectedItem;
+
+            List<CloudCoin> tmp = new List<CloudCoin>(o+f+q+h+kQ);
+            IEnumerable<IGrouping<CloudCoin.Denomination, CloudCoin>> GroupsCoinQuery = from coin in csc.cloudcoin
+                                                   group coin by coin.denomination;
+
+            foreach (var cG in GroupsCoinQuery)
+            {
+                int count = 0;
+                
+                switch (cG.Key)
+                {
+                    case CloudCoin.Denomination.One:
+                        count = res.Ones;
+                        break;
+                    case CloudCoin.Denomination.Five:
+                        count = res.Fives;
+                        break;
+                    case CloudCoin.Denomination.Quarter:
+                        count = res.Quarters;
+                        break;
+                    case CloudCoin.Denomination.Hundred:
+                        count = res.Hundreds;
+                        break;
+                    case CloudCoin.Denomination.KiloQuarter:
+                        count = res.KiloQuarters;
+                        break;
+                }
+                foreach (CloudCoin c in cG.Take(count))
+                {
+                    tmp.Add(c);
+                    csc.cloudcoin.Remove(c);
+                }
+            } 
+            var result = new CoinStack();
+            result.cloudcoin.AddRange(tmp);
+            return result;
         }
+
         public void Show()
         {
             var safeWindow = new SafeContents();

@@ -41,7 +41,7 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        [JsonProperty]
+
         public Denomination denomination
         {
             get
@@ -83,7 +83,6 @@ namespace CloudCoin_SafeScan
         [JsonProperty]
         public string[] an = new string[RAIDA.NODEQNTY];
         public string[] pans = new string[RAIDA.NODEQNTY];
-        [JsonProperty]
         public raidaNodeResponse[] detectStatus;
         [JsonProperty]
         public string[] aoid = new string[1];//Account or Owner ID
@@ -190,8 +189,6 @@ namespace CloudCoin_SafeScan
             }
             return result;
         }
-
-
     }
 
     [JsonObject(MemberSerialization.OptIn)]

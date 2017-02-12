@@ -39,7 +39,7 @@ namespace CloudCoin_SafeScan
             else if (e.Key == Key.Return)
             {
                 if (enterSumBox.Text != "")
-                Close();
+                    onOKClicked(this, e);
             }
             else
             {
@@ -49,7 +49,11 @@ namespace CloudCoin_SafeScan
 
         private void onOKClicked(object sender, RoutedEventArgs e)
         {
-            Close();
+            short sum = short.Parse(enterSumBox.Text);
+            if (sum <= Safe.Instance.Contents.SumInStack)
+                Close();
+            else
+                MessageBox.Show(this, "You don't have such amount in Safe.\nTry another value","Enter anther value");
         }
     }
 }
