@@ -257,9 +257,16 @@ namespace CloudCoin_SafeScan
             safeFileInfo = new FileInfo(safeFilePath);
             if (!safeFileInfo.Exists)
             {
-                SetPassword();
-                Contents = new CoinStack();
-                CreateSafeFile();
+                try
+                {
+                    SetPassword();
+                    Contents = new CoinStack();
+                    CreateSafeFile();
+                }
+                catch (TaskCanceledException ex)
+                {
+
+                }
             }
             else
             {
@@ -272,8 +279,10 @@ namespace CloudCoin_SafeScan
         {
             var passwordWindow = new SetPassword();
             passwordWindow.Password.Focus();
-            passwordWindow.ShowDialog();
-            password = passwordWindow.Password.Password;
+            var r = passwordWindow.ShowDialog();
+            if (r == true)
+                password = passwordWindow.Password.Password;
+            else throw new TaskCanceledException();
             cryptedPass = Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(password));
         }
 
@@ -287,16 +296,18 @@ namespace CloudCoin_SafeScan
                     fs.Read(buffer, 0, 60);
                     string cryptedPassSafe = new string(Encoding.UTF8.GetChars(buffer));
                     var enterPassword = new EnterPassword();
+                    enterPassword.Owner = App.Current.MainWindow;
                     enterPassword.passwordBox.Focus();
                     enterPassword.ShowDialog();
                     byte[] passbytes = Encoding.UTF8.GetBytes(enterPassword.passwordBox.Password);
                     while (!Crypter.CheckPassword(passbytes, cryptedPassSafe))
                     {
                         MessageBox.Show("Wrong password from safe.\nTry again.");
-                        enterPassword.ShowDialog();
-                        passbytes = Encoding.UTF8.GetBytes(enterPassword.passwordBox.Password);
+                        var x = enterPassword ?? new EnterPassword(); // The window might be closed
+                        x.ShowDialog();
+                        passbytes = Encoding.UTF8.GetBytes(x.passwordBox.Password);
                     }
-                    password = enterPassword.passwordBox.Password;
+                    password = Encoding.UTF8.GetString(passbytes);
                     cryptedPass = cryptedPassSafe;
                     enterPassword.Close();
                 }
@@ -371,15 +382,21 @@ namespace CloudCoin_SafeScan
 
         public void Add(CoinStack stack)
         {
+            Contents.Add(stack);
+            //RemoveCounterfeitCoins();
+            Contents.cloudcoin.Sort(new CloudCoin.CoinComparer());
+            Save();
+        }
+
+        private void Save()
+        {
             safeFileInfo.Refresh();
             if (!safeFileInfo.Exists)
                 return;
+
             using (var fs = safeFileInfo.Open(FileMode.Open))
             {
                 byte[] cryptedjsonbytes = null;
-                Contents.Add(stack);
-                Contents.RemoveCounterfeitCoins();
-                Contents.cloudcoin.Sort(new CloudCoin.CoinComparer());
                 string jsonstring = "";
                 try
                 {
@@ -403,6 +420,11 @@ namespace CloudCoin_SafeScan
             }
         }
 
+        private void RemoveCounterfeitCoins()
+        {
+            Contents.cloudcoin.RemoveAll(delegate (CloudCoin coin) { return coin.Verdict == CloudCoin.Status.Counterfeit; });
+        }
+
         public void SaveOutStack()
         {
             var howMuch = new HowMuchWindow();
@@ -410,9 +432,12 @@ namespace CloudCoin_SafeScan
             howMuch.ShowDialog();
             int desiredSum = int.Parse(howMuch.enterSumBox.Text);
             CoinStack stack = ChooseNearestPossibleStack(desiredSum);
+            CoinStackOut st = new CoinStackOut(stack);
             DateTime currdate = DateTime.Now;
-            stack.SaveInFile(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinDir) + 
-                currdate.ToString("dd-MM-yy_HH-mm")+".ccstack");
+            string fn = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinDir) +
+                currdate.ToString("dd-MM-yy_HH-mm") + ".ccstack";
+            st.SaveInFile(fn);
+            MessageBox.Show("Stack saved in file \n" + fn);
         }
 
         private CoinStack ChooseNearestPossibleStack(int sum)

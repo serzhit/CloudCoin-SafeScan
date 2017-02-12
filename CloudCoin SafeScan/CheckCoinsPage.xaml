@@ -25,7 +25,7 @@
                 <SolidColorBrush Color="White" Opacity="0"/>
             </TextBox.Background>
         </TextBox>
-        <Image x:Name="WorldMAp" HorizontalAlignment="Left" Height="154" Margin="254,35,0,0" VerticalAlignment="Top" Width="237" Source="Resources/world_map.png"/>
+        <Image x:Name="WorldMAp" HorizontalAlignment="Left" Height="154" Margin="254,35,0,0" VerticalAlignment="Top" Width="237" Source="pack://application:,,,/Resources/world_map.png"/>
         <RadioButton x:Name="AUstraliaRadioButton" HorizontalAlignment="Left" Margin="459,144,0,0" VerticalAlignment="Top" Height="8" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
         <RadioButton x:Name="PhilippinesRadioButton" HorizontalAlignment="Left" Margin="450,125,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
         <RadioButton x:Name="BangloreRadioButton" HorizontalAlignment="Left" Margin="412,114,0,0" VerticalAlignment="Top" Checked="radioButton_Checked" Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>

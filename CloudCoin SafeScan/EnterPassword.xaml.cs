@@ -22,6 +22,7 @@ namespace CloudCoin_SafeScan
         public EnterPassword()
         {
             InitializeComponent();
+            passwordBox.KeyDown += onKeyDown;
         }
 
         private void onOKClick(object sender, RoutedEventArgs e)
@@ -29,6 +30,13 @@ namespace CloudCoin_SafeScan
             if (passwordBox.Password.Count() < 5)
                 MessageBox.Show("Password cannot be less than 5 characters");
             Hide();
+        }
+        private void onKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                onOKClick(this, e);
+            }
         }
     }
 }

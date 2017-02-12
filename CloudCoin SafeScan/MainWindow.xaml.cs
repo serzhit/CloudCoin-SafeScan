@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 using Microsoft.Win32;
 using RestSharp;
 using Newtonsoft.Json;
@@ -89,9 +90,11 @@ namespace CloudCoin_SafeScan
                     using (Stream fsSource = FD.OpenFile())
                     //new FileStream(FD.FileName, FileMode.Open, FileAccess.Read))
                     {
-                        byte[] signature = new byte[3];
-                        fsSource.Read(signature, 0, 3);
-                        if (Enumerable.SequenceEqual(signature, new byte[] { 255, 216, 255 })) //JPEG
+                        byte[] signature = new byte[20];
+                        fsSource.Read(signature, 0, 20);
+                        string sig = Encoding.UTF8.GetString(signature);
+                        var reg = new Regex(@"{[.\n\t\x09\x0A\x0D]*""cloudcoin""");
+                        if (Enumerable.SequenceEqual(signature.Take(3), new byte[] { 255, 216, 255 })) //JPEG
                         {
                             Stopwatch sw = new Stopwatch();
                             fsSource.Position = 0;
@@ -115,7 +118,8 @@ namespace CloudCoin_SafeScan
                             Task checkCompleted = Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllCoinDetectCompleted(coin, sw); });
                             checkCompleted.ContinueWith(delegate { checkCoinsPage.AllStackDetectCompleted(stack, sw); });
                         }
-                        else if (Enumerable.SequenceEqual(signature, new byte[] { 123, 32, 34 }) || Enumerable.SequenceEqual(signature, new byte[] { 123, 13, 10 }))  //JSON
+                       // else if (Enumerable.SequenceEqual(signature, new byte[] { 123, 32, 34 }) || Enumerable.SequenceEqual(signature, new byte[] { 123, 13, 10 }))  //JSON
+                       else if (reg.IsMatch(sig))
                         {
                             fsSource.Position = 0;
                             StreamReader sr = new StreamReader(fsSource);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace CloudCoin_SafeScan
         public SetPassword()
         {
             InitializeComponent();
+            Closing += onWinClosing;
         }
 
         private void okButtonClicked(object sender, RoutedEventArgs e)
@@ -31,14 +33,18 @@ namespace CloudCoin_SafeScan
             else if (Password.Password != PasswordVerify.Password)
                 MessageBox.Show("Passwords don't match");
             else
-                Close();
+                Hide();
         }
 
         private void CancelButtonClicked(object sender, RoutedEventArgs e)
         {
-            Close();
+            Hide();
         }
 
+        void onWinClosing(object sender, CancelEventArgs e)
+        {
+            MessageBox.Show("DO not close the window, provide password for safe!");
+        }
         private void onTextInput(object sender, TextCompositionEventArgs e)
         {
 
