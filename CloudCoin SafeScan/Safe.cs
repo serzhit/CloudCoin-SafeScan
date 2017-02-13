@@ -257,16 +257,9 @@ namespace CloudCoin_SafeScan
             safeFileInfo = new FileInfo(safeFilePath);
             if (!safeFileInfo.Exists)
             {
-                try
-                {
-                    SetPassword();
-                    Contents = new CoinStack();
-                    CreateSafeFile();
-                }
-                catch (TaskCanceledException ex)
-                {
-
-                }
+                SetPassword();
+                Contents = new CoinStack();
+                CreateSafeFile();
             }
             else
             {
@@ -277,12 +270,10 @@ namespace CloudCoin_SafeScan
 
         private void SetPassword()
         {
-            var passwordWindow = new SetPassword();
+            var passwordWindow = new SetPasswordWindow();
             passwordWindow.Password.Focus();
-            var r = passwordWindow.ShowDialog();
-            if (r == true)
-                password = passwordWindow.Password.Password;
-            else throw new TaskCanceledException();
+            passwordWindow.ShowDialog();
+            password = passwordWindow.Password.Password;
             cryptedPass = Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(password));
         }
 
@@ -295,7 +286,7 @@ namespace CloudCoin_SafeScan
                     byte[] buffer = new byte[60];
                     fs.Read(buffer, 0, 60);
                     string cryptedPassSafe = new string(Encoding.UTF8.GetChars(buffer));
-                    var enterPassword = new EnterPassword();
+                    var enterPassword = new EnterPasswordWindow();
                     enterPassword.Owner = App.Current.MainWindow;
                     enterPassword.passwordBox.Focus();
                     enterPassword.ShowDialog();
@@ -303,7 +294,7 @@ namespace CloudCoin_SafeScan
                     while (!Crypter.CheckPassword(passbytes, cryptedPassSafe))
                     {
                         MessageBox.Show("Wrong password from safe.\nTry again.");
-                        var x = enterPassword ?? new EnterPassword(); // The window might be closed
+                        var x = enterPassword ?? new EnterPasswordWindow(); // The window might be closed
                         x.ShowDialog();
                         passbytes = Encoding.UTF8.GetBytes(x.passwordBox.Password);
                     }
@@ -529,21 +520,21 @@ namespace CloudCoin_SafeScan
 
         public void Show()
         {
-            var safeWindow = new SafeContents();
+            var safeWindow = new SafeContentWindow();
 
             safeWindow.Show();
             safeWindow.totalTextBox.Text = Contents.SumInStack.ToString() + " CC in Safe";
-            safeWindow.SafeView.Items.Add(new SafeContents.Shelf4Display() { Value = "Ones", Good = Ones.GoodQuantity,
+            safeWindow.SafeView.Items.Add(new SafeContentWindow.Shelf4Display() { Value = "Ones", Good = Ones.GoodQuantity,
                 Fractioned = Ones.FractionedQuantity, Counterfeited = Ones.CounterfeitedQuantity, Total = Ones.TotalQuantity });
-            safeWindow.SafeView.Items.Add(new SafeContents.Shelf4Display() { Value = "Fives", Good = Fives.GoodQuantity,
+            safeWindow.SafeView.Items.Add(new SafeContentWindow.Shelf4Display() { Value = "Fives", Good = Fives.GoodQuantity,
                 Fractioned = Fives.FractionedQuantity, Counterfeited = Fives.CounterfeitedQuantity, Total = Fives.TotalQuantity });
-            safeWindow.SafeView.Items.Add(new SafeContents.Shelf4Display() { Value = "Quarters", Good = Quarters.GoodQuantity,
+            safeWindow.SafeView.Items.Add(new SafeContentWindow.Shelf4Display() { Value = "Quarters", Good = Quarters.GoodQuantity,
                 Fractioned = Quarters.FractionedQuantity, Counterfeited = Quarters.CounterfeitedQuantity, Total = Quarters.TotalQuantity });
-            safeWindow.SafeView.Items.Add(new SafeContents.Shelf4Display() { Value = "Hundreds", Good = Hundreds.GoodQuantity,
+            safeWindow.SafeView.Items.Add(new SafeContentWindow.Shelf4Display() { Value = "Hundreds", Good = Hundreds.GoodQuantity,
                 Fractioned = Hundreds.FractionedQuantity, Counterfeited = Hundreds.CounterfeitedQuantity, Total = Hundreds.TotalQuantity });
-            safeWindow.SafeView.Items.Add(new SafeContents.Shelf4Display() { Value = "250s", Good = KiloQuarters.GoodQuantity,
+            safeWindow.SafeView.Items.Add(new SafeContentWindow.Shelf4Display() { Value = "250s", Good = KiloQuarters.GoodQuantity,
                 Fractioned = KiloQuarters.FractionedQuantity, Counterfeited = KiloQuarters.CounterfeitedQuantity, Total = KiloQuarters.TotalQuantity });
-            safeWindow.SafeView.Items.Add(new SafeContents.Shelf4Display() { Value = "Sum:",
+            safeWindow.SafeView.Items.Add(new SafeContentWindow.Shelf4Display() { Value = "Sum:",
                 Good = KiloQuarters.GoodQuantity*250+Hundreds.GoodQuantity*100+Quarters.GoodQuantity*25+Fives.GoodQuantity*5+Ones.GoodQuantity,
                 Fractioned = KiloQuarters.FractionedQuantity*250+Hundreds.FractionedQuantity*100+Quarters.FractionedQuantity*25+Fives.FractionedQuantity*5+Ones.FractionedQuantity,
                 Counterfeited = KiloQuarters.CounterfeitedQuantity*250+Hundreds.CounterfeitedQuantity*100+Quarters.CounterfeitedQuantity*25+Fives.CounterfeitedQuantity*5+Ones.CounterfeitedQuantity,

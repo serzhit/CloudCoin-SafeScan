@@ -18,9 +18,9 @@ namespace CloudCoin_SafeScan
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class SetPassword : Window
+    public partial class SetPasswordWindow : Window
     {
-        public SetPassword()
+        public SetPasswordWindow()
         {
             InitializeComponent();
             Closing += onWinClosing;
@@ -33,17 +33,20 @@ namespace CloudCoin_SafeScan
             else if (Password.Password != PasswordVerify.Password)
                 MessageBox.Show("Passwords don't match");
             else
+            {
                 Hide();
+            }
         }
 
         private void CancelButtonClicked(object sender, RoutedEventArgs e)
         {
-            Hide();
+//            Hide();
         }
 
         void onWinClosing(object sender, CancelEventArgs e)
         {
             MessageBox.Show("DO not close the window, provide password for safe!");
+            e.Cancel = true;
         }
         private void onTextInput(object sender, TextCompositionEventArgs e)
         {

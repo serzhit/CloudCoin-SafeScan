@@ -17,7 +17,7 @@ namespace CloudCoin_SafeScan
     /// <summary>
     /// Interaction logic for SafeContents.xaml
     /// </summary>
-    public partial class SafeContents : Window
+    public partial class SafeContentWindow : Window
     {
         public class Shelf4Display
         {
@@ -27,7 +27,7 @@ namespace CloudCoin_SafeScan
             public int Counterfeited { get; set; }
             public int Total { get; set; }
         }
-        public SafeContents()
+        public SafeContentWindow()
         {
             InitializeComponent();
         }
