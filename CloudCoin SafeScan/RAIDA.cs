@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Windows.Media.Imaging;
 using RestSharp;
 using Newtonsoft.Json;
 using System.Net;
@@ -13,6 +14,7 @@ namespace CloudCoin_SafeScan
 {
     public class RAIDA
     {
+//        MainWindow mainWin = ;
         public const short NODEQNTY = 25;
         public const short MINTRUSTEDNODES4AUTH = 8;
         public Node[] NodesArray = new Node[NODEQNTY];
@@ -45,13 +47,87 @@ namespace CloudCoin_SafeScan
             Switzerland,
             Luxenburg
         };
+        private static RAIDA theOnlyRAIDAInstance = new RAIDA();
+        public static RAIDA Instance
+        {
+            get
+            {
+                return theOnlyRAIDAInstance;
+            }
+        }
 
-        public RAIDA()
+
+        private RAIDA()
         {
             for(int i=0; i<NodesArray.Length;i++)
             {
                 NodesArray[i] = new Node(i);
             }
+        }
+
+        public void getEcho() 
+        {
+            Task<EchoResponse>[] tasks = new Task<EchoResponse>[NODEQNTY];
+            int i = 0;
+            foreach (Node node in Instance.NodesArray)
+            {
+                tasks[i] = Task.Factory.StartNew(() => node.Echo());
+                Task cont = tasks[i].ContinueWith(ancestor => { MainWindow.Instance.ShowEchoProgress(ancestor.Result, node); });
+                i++;
+            }
+            Task.Factory.ContinueWhenAll(tasks, delegate { MainWindow.Instance.AllEchoesCompleted(); });
+        }
+
+        public void Detect(CloudCoin coin)
+        {
+            CheckCoinsWindow checkCoinsWindow = new CheckCoinsWindow();
+            Stopwatch sw = new Stopwatch();
+            CoinStack stack = new CoinStack(coin);
+
+//            checkCoinsWindow.Filename.Text = coin.filename;
+            checkCoinsWindow.CoinImage.Source = coin.coinImage;
+            checkCoinsWindow.coinsToDetect = 1;
+            checkCoinsWindow.Show();
+
+            Task<DetectResponse>[] tasks = new Task<DetectResponse>[NODEQNTY];
+            int i = 0;
+            sw.Start();
+            foreach (Node node in Instance.NodesArray)
+            {
+                tasks[i] = Task.Factory.StartNew(() => node.Detect(coin));
+                tasks[i].ContinueWith(ancestor => { checkCoinsWindow.ShowDetectProgress(ancestor.Result, node, coin); });
+                i++;
+            }
+
+            Task checkCompleted = Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsWindow.AllCoinDetectCompleted(coin, sw); });
+            checkCompleted.ContinueWith(delegate { checkCoinsWindow.AllStackDetectCompleted(stack, sw); });
+        }
+        public void Detect(CoinStack stack)
+        {
+            CheckCoinsWindow checkCoinsWindow = new CheckCoinsWindow();
+//            checkCoinsWindow.Filename.Text = FD.SafeFileName;
+            checkCoinsWindow.CoinImage.Source = new BitmapImage(new Uri(@"Resources/stackcoins.png", UriKind.Relative));
+            checkCoinsWindow.coinsToDetect = stack.coinsInStack;
+            checkCoinsWindow.Show();
+
+            Task[] checkStackTasks = new Task[stack.cloudcoin.Count()];
+            Stopwatch stackCheckTime = new Stopwatch();
+            stackCheckTime.Start();
+            Stopwatch[] tw = new Stopwatch[stack.cloudcoin.Count()];
+            for (int k = 0; k < stack.cloudcoin.Count(); k++)
+            {
+                var coin = stack.cloudcoin[k];
+                Task<DetectResponse>[] checkCoinTasks = new Task<DetectResponse>[NODEQNTY];
+                var t = tw[k] = new Stopwatch();
+                t.Start();
+                foreach (Node node in Instance.NodesArray)
+                {
+                    checkCoinTasks[node.Number] = Task.Factory.StartNew(() => node.Detect(coin));
+                    checkCoinTasks[node.Number].ContinueWith(ancestor => { checkCoinsWindow.ShowDetectProgress(ancestor.Result, node, coin); });
+                }
+                checkStackTasks[k] = Task.Factory.ContinueWhenAll(checkCoinTasks, delegate { checkCoinsWindow.AllCoinDetectCompleted(coin, t); });
+            }
+            Task.Factory.ContinueWhenAll(checkStackTasks, delegate { checkCoinsWindow.AllStackDetectCompleted(stack, stackCheckTime); });
         }
 
         public class Node
@@ -156,7 +232,7 @@ namespace CloudCoin_SafeScan
                 request.AddQueryParameter("sn", coin.sn.ToString());
                 request.AddQueryParameter("an", coin.an[Number]);
                 request.AddQueryParameter("pan", coin.pans[Number]);
-                request.AddQueryParameter("denomination", Convert.Denomination2Int(coin.denomination).ToString());
+                request.AddQueryParameter("denomination", Utils.Denomination2Int(coin.denomination).ToString());
                 request.Timeout = 2000;
                 DetectResponse getDetectResult = new DetectResponse();
 
@@ -169,7 +245,6 @@ namespace CloudCoin_SafeScan
                 catch (JsonException e)
                 {
                     getDetectResult = new DetectResponse(Name, coin.sn.ToString(), "Invalid response", "THe server does not respond or returns invalid data", DateTime.Now.ToString());
-
                 }
                 getDetectResult = getDetectResult ?? new DetectResponse(Name, coin.sn.ToString(), "Network problem", "Node not found", DateTime.Now.ToString());
                 if (getDetectResult.ErrorException != null)

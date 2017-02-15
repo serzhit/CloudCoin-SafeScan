@@ -16,7 +16,6 @@ namespace CloudCoin_SafeScan
     [JsonObject(MemberSerialization.OptIn)]
     public class CloudCoin
     {
-        public enum Type { json, jpeg, unknown }
         public enum Denomination { Unknown, One, Five, Quarter, Hundred, KiloQuarter }
         public enum Status { Authenticated, Counterfeit, Fractioned, Unknown }
         public enum raidaNodeResponse { pass, fail, error, unknown }
@@ -40,8 +39,6 @@ namespace CloudCoin_SafeScan
                 return obj.sn;
             }
         }
-
-        
 
         [JsonProperty]
         public Denomination denomination
@@ -89,8 +86,7 @@ namespace CloudCoin_SafeScan
         public raidaNodeResponse[] detectStatus;
         [JsonProperty]
         public string[] aoid = new string[1];//Account or Owner ID
-        public string filename;
-        public Type filetype;
+        
         [JsonProperty]
         public string ed; //expiration in the form of Date expressed as a hex string like 97e2 Sep 2018
         public Status Verdict
@@ -129,8 +125,8 @@ namespace CloudCoin_SafeScan
             ans = an;
             ed = expired;
             this.aoid = aoid;
-            filetype = Type.json;
-            filename = null;
+//            filetype = Type.json;
+//            filename = null;
             pans = generatePans();
             detectStatus = new raidaNodeResponse[RAIDA.NODEQNTY];
             for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = raidaNodeResponse.unknown;
@@ -140,7 +136,7 @@ namespace CloudCoin_SafeScan
         public CloudCoin(Stream jpegFS)
         {
             // TODO: catch exception for wrong file format
-            filetype = Type.jpeg;
+//            filetype = Type.jpeg;
             byte[] fileByteContent = new byte[455];
             int numBytesToRead = fileByteContent.Length;
             int numBytesRead = 0;
@@ -158,7 +154,7 @@ namespace CloudCoin_SafeScan
             }
 
             string jpegHexContent = "";
-            jpegHexContent = Convert.ToHexString(fileByteContent);
+            jpegHexContent = Utils.ToHexString(fileByteContent);
 
             for (int i = 0; i < RAIDA.NODEQNTY; i++)
             {
@@ -284,7 +280,7 @@ namespace CloudCoin_SafeScan
                 int s = 0;
                 foreach (CloudCoin coin in cloudcoin)
                 {
-                    s += Convert.Denomination2Int(coin.denomination);
+                    s += Utils.Denomination2Int(coin.denomination);
                 }
                 return s;
             }

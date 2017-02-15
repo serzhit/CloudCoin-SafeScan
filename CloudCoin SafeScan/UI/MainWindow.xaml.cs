@@ -17,7 +17,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
-using Microsoft.Win32;
 using RestSharp;
 using Newtonsoft.Json;
 using CloudCoin_SafeScan.Properties;
@@ -30,147 +29,44 @@ namespace CloudCoin_SafeScan
     /// </summary>
     public partial class MainWindow : Window
     {
-        RAIDA raida = new RAIDA();
-
-        public MainWindow()
+        public static MainWindow Instance
         {
-            InitializeComponent();
-
-            var appSettings = new Settings();
-
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-
-            try
+            get
             {
-                int winVersion = Environment.OSVersion.Version.Major;
-                if (winVersion < 6)
-                {
-                    MessageBox.Show(
-                        "Your Windows version is too low. This app works on Windows7 and higher");
-                    Close();
-                }
+                if (theOnlyInstance == null)
+                    theOnlyInstance = new MainWindow();
+                return theOnlyInstance;
             }
-            catch (Exception)
-            {
-                MessageBox.Show("There was an error trying to check Windows version The program was closed.");
-                Close();
-            }
-
-            Task<RAIDA.EchoResponse>[] tasks = new Task<RAIDA.EchoResponse>[RAIDA.NODEQNTY];
-            int i = 0;
-            foreach (RAIDA.Node node in raida.NodesArray)
-            {
-                tasks[i] = Task.Factory.StartNew(() => node.Echo());
-                Task cont = tasks[i].ContinueWith(ancestor => { ShowEchoProgress(ancestor.Result, node); });
-                i++;
-            }
-            Task.Factory.ContinueWhenAll(tasks, delegate { AllEchoesCompleted(); });
-            
 
         }
+//        RAIDA raida = RAIDA.Instance;
 
-        void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private static MainWindow theOnlyInstance;
+
+        private MainWindow()
         {
-            string message = "Unhandled exception catched: " + e.ExceptionObject;
-
-            MessageBox.Show(message);
+            InitializeComponent();
         }
 
         private void ImageCheck_Selected(object sender, InputEventArgs e)
         {
-            OpenFileDialog FD = new OpenFileDialog();
-            FD.Multiselect = true;
-            FD.Title = "Choose file with Cloudcoin(s)";
-            FD.InitialDirectory = @"C:\Users\Sergey\Documents\GitHub\CloudCoinFoundation\Bank";
-            if (FD.ShowDialog() == true)
+            CloudCoinFile coinFile;
+            try
             {
-                try
-                {
-                    CheckCoinsPage checkCoinsPage = new CheckCoinsPage();
-                    using (Stream fsSource = FD.OpenFile())
-                    //new FileStream(FD.FileName, FileMode.Open, FileAccess.Read))
-                    {
-                        byte[] signature = new byte[20];
-                        fsSource.Read(signature, 0, 20);
-                        string sig = Encoding.UTF8.GetString(signature);
-                        var reg = new Regex(@"{[.\n\t\x09\x0A\x0D]*""cloudcoin""");
-                        if (Enumerable.SequenceEqual(signature.Take(3), new byte[] { 255, 216, 255 })) //JPEG
-                        {
-                            Stopwatch sw = new Stopwatch();
-                            fsSource.Position = 0;
-                            CloudCoin coin = new CloudCoin(fsSource);
-                            CoinStack stack = new CoinStack(coin);
-                            checkCoinsPage.Filename.Text = FD.SafeFileName;
-                            checkCoinsPage.CoinImage.Source = coin.coinImage;
-                            checkCoinsPage.coinsToDetect = 1;
-                            checkCoinsPage.Show();
-
-                            Task<RAIDA.DetectResponse>[] tasks = new Task<RAIDA.DetectResponse>[RAIDA.NODEQNTY];
-                            int i = 0;
-                            sw.Start();
-                            foreach (RAIDA.Node node in raida.NodesArray)
-                            {
-                                tasks[i] = Task.Factory.StartNew(() => node.Detect(coin));
-                                tasks[i].ContinueWith(ancestor => { checkCoinsPage.ShowDetectProgress(ancestor.Result, node, coin); });
-                                i++;
-                            }
-
-                            Task checkCompleted = Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsPage.AllCoinDetectCompleted(coin, sw); });
-                            checkCompleted.ContinueWith(delegate { checkCoinsPage.AllStackDetectCompleted(stack, sw); });
-                        }
-                       // else if (Enumerable.SequenceEqual(signature, new byte[] { 123, 32, 34 }) || Enumerable.SequenceEqual(signature, new byte[] { 123, 13, 10 }))  //JSON
-                       else if (reg.IsMatch(sig))
-                        {
-                            fsSource.Position = 0;
-                            StreamReader sr = new StreamReader(fsSource);
-                            CoinStack stack = null;
-                            try
-                            {
-                                stack = JsonConvert.DeserializeObject<CoinStack>(sr.ReadToEnd());
-                                checkCoinsPage.Filename.Text = FD.SafeFileName;
-                                checkCoinsPage.CoinImage.Source = new BitmapImage(new Uri(@"Resources/stackcoins.png", UriKind.Relative));
-                                checkCoinsPage.coinsToDetect = stack.coinsInStack;
-                                checkCoinsPage.Show();
-                                
-                                Task[] checkStackTasks = new Task[stack.cloudcoin.Count()];
-                                Stopwatch stackCheckTime = new Stopwatch();
-                                stackCheckTime.Start();
-                                Stopwatch[] tw = new Stopwatch[stack.cloudcoin.Count()];
-                                for (int k = 0; k < stack.cloudcoin.Count(); k++)
-                                {
-                                    var coin = stack.cloudcoin[k];
-                                    Task<RAIDA.DetectResponse>[] checkCoinTasks = new Task<RAIDA.DetectResponse>[RAIDA.NODEQNTY];
-                                    var t = tw[k] = new Stopwatch();
-                                    t.Start();
-                                    foreach (RAIDA.Node node in raida.NodesArray)
-                                    {
-                                        checkCoinTasks[node.Number] = Task.Factory.StartNew(() => node.Detect(coin));
-                                        checkCoinTasks[node.Number].ContinueWith(ancestor => { checkCoinsPage.ShowDetectProgress(ancestor.Result, node, coin); });
-                                    }
-                                    checkStackTasks[k] = Task.Factory.ContinueWhenAll(checkCoinTasks, delegate { checkCoinsPage.AllCoinDetectCompleted(coin, t); });
-                                }
-                                Task.Factory.ContinueWhenAll(checkStackTasks, delegate { checkCoinsPage.AllStackDetectCompleted(stack, stackCheckTime); });
-                                sr.Close();
-                            }
-                            catch (Exception jsonex)
-                            {
-                                MessageBox.Show("Error in file format: " + jsonex.Message);
-                            }
-                        }
-                        else
-                            MessageBox.Show("Unknown file format. Try find CloudCoin file.");
-                    }
-                }
-                catch (InvalidOperationException ex)
-                {
-                    MessageBox.Show("Error reading " + FD.FileName + " from disk!\n" + ex.Message);
-                }
-                var newFileName = FD.FileName + ".imported";
-                File.Move(FD.FileName, newFileName);
-            }   
+                coinFile = new CloudCoinFile(Utils.ChooseInputFile());
+                RAIDA.Instance.Detect(coinFile.Coins);
+            }
+            catch (FileNotFoundException fnfex)
+            {
+                MessageBox.Show("File not found: " + fnfex.Message);
+            }
+            catch (JsonException jsonex)
+            {
+                MessageBox.Show("Error in json file format: " + jsonex.Message);
+            }
         }
 
-        private void AllEchoesCompleted()
+        public void AllEchoesCompleted()
         {
             Dispatcher.Invoke(() =>
             {
@@ -178,7 +74,7 @@ namespace CloudCoin_SafeScan
             });
         }
 
-        private void ShowEchoProgress(RAIDA.EchoResponse result, RAIDA.Node node)
+        public void ShowEchoProgress(RAIDA.EchoResponse result, RAIDA.Node node)
         {
             Dispatcher.Invoke(() =>
             {

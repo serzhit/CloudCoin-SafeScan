@@ -5,13 +5,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
+using Microsoft.Win32;
 
 namespace CloudCoin_SafeScan
 {
-    public static class Convert
+    public static class Utils
     {
         private const int Rfc2898KeygenIterations = 100;
         private const int AesKeySizeInBits = 128;
+
+        public static string ChooseInputFile()
+        {
+            OpenFileDialog FD = new OpenFileDialog();
+            FD.Multiselect = true;
+            FD.Title = "Choose file with Cloudcoin(s)";
+            FD.InitialDirectory = @"C:\Users\Sergey\Documents\GitHub\CloudCoinFoundation\Bank";
+            if (FD.ShowDialog() == true)
+            {
+                return FD.FileName;
+            }
+            else
+            {
+                throw new FileNotFoundException();
+            }
+        }
 
         public static string ToHexString(byte[] digest)
         {

@@ -313,7 +313,7 @@ namespace CloudCoin_SafeScan
             try
             {
                 var json = JsonConvert.SerializeObject(Contents);
-                var cryptedjson = Convert.Encrypt(json, password, cryptedpassbytes.Take(16).ToArray());
+                var cryptedjson = Utils.Encrypt(json, password, cryptedpassbytes.Take(16).ToArray());
                 using (var fs = safeFileInfo.Create())
                 {
                     fs.Write(cryptedpassbytes, 0, 60);
@@ -353,7 +353,7 @@ namespace CloudCoin_SafeScan
                         numbytesread += n;
                         numbytestoread -= n;
                     }
-                    json = Convert.Decrypt(cryptedjson, password, Encoding.UTF8.GetBytes(cryptedPass).Take(16).ToArray());
+                    json = Utils.Decrypt(cryptedjson, password, Encoding.UTF8.GetBytes(cryptedPass).Take(16).ToArray());
                     Contents = JsonConvert.DeserializeObject<CoinStack>(json);
                 }
                 catch (IOException ex)
@@ -392,7 +392,7 @@ namespace CloudCoin_SafeScan
                 try
                 {
                     jsonstring = JsonConvert.SerializeObject(Contents);
-                    cryptedjsonbytes = Convert.Encrypt(jsonstring, password, Encoding.UTF8.GetBytes(cryptedPass).Take(16).ToArray());
+                    cryptedjsonbytes = Utils.Encrypt(jsonstring, password, Encoding.UTF8.GetBytes(cryptedPass).Take(16).ToArray());
                     fs.Write(Encoding.UTF8.GetBytes(cryptedPass), 0, 60);
                     fs.Write(cryptedjsonbytes, 0, cryptedjsonbytes.Length);
                 }

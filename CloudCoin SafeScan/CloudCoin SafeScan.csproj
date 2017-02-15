@@ -104,41 +104,42 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CheckCoinsPage.xaml.cs">
-      <DependentUpon>CheckCoinsPage.xaml</DependentUpon>
+    <Compile Include="CloudCoinFile.cs" />
+    <Compile Include="UI\CheckCoinsWindow.xaml.cs">
+      <DependentUpon>CheckCoinsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Convert.cs" />
-    <Compile Include="EnterPasswordWindow.xaml.cs">
+    <Compile Include="Utils.cs" />
+    <Compile Include="UI\EnterPasswordWindow.xaml.cs">
       <DependentUpon>EnterPasswordWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="HowMuchWindow.xaml.cs">
+    <Compile Include="UI\HowMuchWindow.xaml.cs">
       <DependentUpon>HowMuchWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="RAIDA.cs" />
     <Compile Include="Safe.cs" />
-    <Compile Include="SafeContentWindow.xaml.cs">
+    <Compile Include="UI\SafeContentWindow.xaml.cs">
       <DependentUpon>SafeContentWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SelectOutStackWindow.xaml.cs">
+    <Compile Include="UI\SelectOutStackWindow.xaml.cs">
       <DependentUpon>SelectOutStackWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SetPasswordWindow.xaml.cs">
+    <Compile Include="UI\SetPasswordWindow.xaml.cs">
       <DependentUpon>SetPasswordWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Page Include="CheckCoinsPage.xaml">
+    <Page Include="UI\CheckCoinsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EnterPasswordWindow.xaml">
+    <Page Include="UI\EnterPasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="HowMuchWindow.xaml">
+    <Page Include="UI\HowMuchWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="UI\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -147,19 +148,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CloudCoin.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="UI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SafeContentWindow.xaml">
+    <Page Include="UI\SafeContentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SelectOutStackWindow.xaml">
+    <Page Include="UI\SelectOutStackWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SetPasswordWindow.xaml">
+    <Page Include="UI\SetPasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -249,6 +250,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

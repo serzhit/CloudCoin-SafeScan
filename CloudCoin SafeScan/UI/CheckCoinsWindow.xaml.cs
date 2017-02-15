@@ -17,11 +17,11 @@ using System.Windows.Shapes;
 namespace CloudCoin_SafeScan
 {
     /// <summary>
-    /// Interaction logic for CheckCoinsPage.xaml
+    /// Interaction logic for CheckCoinsWindow.xaml
     /// </summary>
-    public partial class CheckCoinsPage : Window
+    public partial class CheckCoinsWindow : Window
     {
-        public CheckCoinsPage()
+        public CheckCoinsWindow()
         {
             InitializeComponent();
         }
@@ -297,7 +297,7 @@ namespace CloudCoin_SafeScan
                 AuthResultsGrid.Items.Add(new Coin4Display()
                     {
                         Serial = coin.sn,
-                        Value = Convert.Denomination2Int(coin.denomination),
+                        Value = Utils.Denomination2Int(coin.denomination),
                         Check = coin.isPassed,
                         Comment = coin.Verdict.ToString() + ": " + 
                         coin.percentOfRAIDAPass + "% good. Checked in " + sw.ElapsedMilliseconds + " ms."
