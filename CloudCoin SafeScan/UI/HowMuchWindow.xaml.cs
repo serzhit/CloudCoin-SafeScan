@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace CloudCoin_SafeScan
         {
             InitializeComponent();
             enterSumBox.KeyDown += onKeyDown;
+            Closing += onWinClose;
         }
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -51,9 +53,17 @@ namespace CloudCoin_SafeScan
         {
             short sum = short.Parse(enterSumBox.Text);
             if (sum <= Safe.Instance.Contents.SumInStack)
-                Close();
+            {
+                DialogResult = true;
+  //              Hide();
+            }
             else
-                MessageBox.Show(this, "You don't have such amount in Safe.\nTry another value","Enter anther value");
+                MessageBox.Show(this, "You don't have such amount in Safe.\nTry another value", "Enter anther value");
+        }
+
+        private void onWinClose(object sender, CancelEventArgs e)
+        {
+//            DialogResult = false;
         }
     }
 }

@@ -9,7 +9,7 @@
     <Grid Margin="0,0,0,4">
         <Label x:Name="label" Content="Enter Sum you want to give away. App &#xD;&#xA;will form file with stack of coins with &#xD;&#xA;nearest possible value." HorizontalAlignment="Left" Height="71" Margin="10,10,0,0" VerticalAlignment="Top" Width="272" FontSize="14"/>
         <TextBox x:Name="enterSumBox" HorizontalAlignment="Center" Height="73" Margin="56,86,56,0" VerticalAlignment="Top" Width="180" FontSize="36" TextAlignment="Center" MaxLines="1"/>
-        <Button x:Name="OKbutton" Content="OK" HorizontalAlignment="Left" Height="34" Margin="94,184,0,0" VerticalAlignment="Top" Width="109" Click="onOKClicked"/>
+        <Button x:Name="OKbutton" Content="OK" HorizontalAlignment="Left" Height="34" Margin="94,184,0,0" VerticalAlignment="Top" Width="109" Click="onOKClicked" IsDefault="True"/>
 
     </Grid>
 </Window>

@@ -264,7 +264,8 @@ namespace CloudCoin_SafeScan
             else
             {
                 CheckPassword();
-                ReadSafeFile();
+                if (password != null)
+                    ReadSafeFile();
             }
         }
 
@@ -272,9 +273,13 @@ namespace CloudCoin_SafeScan
         {
             var passwordWindow = new SetPasswordWindow();
             passwordWindow.Password.Focus();
+            passwordWindow.Owner = MainWindow.Instance;
             passwordWindow.ShowDialog();
-            password = passwordWindow.Password.Password;
-            cryptedPass = Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(password));
+            if (passwordWindow.DialogResult == true)
+            {
+                password = passwordWindow.Password.Password;
+                cryptedPass = Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(password));
+            }
         }
 
         private void CheckPassword()
@@ -287,20 +292,22 @@ namespace CloudCoin_SafeScan
                     fs.Read(buffer, 0, 60);
                     string cryptedPassSafe = new string(Encoding.UTF8.GetChars(buffer));
                     var enterPassword = new EnterPasswordWindow();
-                    enterPassword.Owner = App.Current.MainWindow;
+                    enterPassword.Owner = MainWindow.Instance;
                     enterPassword.passwordBox.Focus();
                     enterPassword.ShowDialog();
-                    byte[] passbytes = Encoding.UTF8.GetBytes(enterPassword.passwordBox.Password);
-                    while (!Crypter.CheckPassword(passbytes, cryptedPassSafe))
+                    if (enterPassword.DialogResult == true)
                     {
-                        MessageBox.Show("Wrong password from safe.\nTry again.");
-                        var x = enterPassword ?? new EnterPasswordWindow(); // The window might be closed
-                        x.ShowDialog();
-                        passbytes = Encoding.UTF8.GetBytes(x.passwordBox.Password);
+                        byte[] passbytes = Encoding.UTF8.GetBytes(enterPassword.passwordBox.Password);
+                        while (!Crypter.CheckPassword(passbytes, cryptedPassSafe))
+                        {
+                            MessageBox.Show("Wrong password from safe.\nTry again.");
+                            var x = enterPassword ?? new EnterPasswordWindow(); // The window might be closed
+                            x.ShowDialog();
+                            passbytes = Encoding.UTF8.GetBytes(x.passwordBox.Password);
+                        }
+                        password = Encoding.UTF8.GetString(passbytes);
+                        cryptedPass = cryptedPassSafe;
                     }
-                    password = Encoding.UTF8.GetString(passbytes);
-                    cryptedPass = cryptedPassSafe;
-                    enterPassword.Close();
                 }
             }
         }
@@ -420,15 +427,22 @@ namespace CloudCoin_SafeScan
         {
             var howMuch = new HowMuchWindow();
             howMuch.enterSumBox.Focus();
+            howMuch.Owner = MainWindow.Instance;
             howMuch.ShowDialog();
-            int desiredSum = int.Parse(howMuch.enterSumBox.Text);
-            CoinStack stack = ChooseNearestPossibleStack(desiredSum);
-            CoinStackOut st = new CoinStackOut(stack);
-            DateTime currdate = DateTime.Now;
-            string fn = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinDir) +
-                currdate.ToString("dd-MM-yy_HH-mm") + ".ccstack";
-            st.SaveInFile(fn);
-            MessageBox.Show("Stack saved in file \n" + fn);
+            if (howMuch.DialogResult == true)
+            {
+                int desiredSum = int.Parse(howMuch.enterSumBox.Text);
+                CoinStack stack = ChooseNearestPossibleStack(desiredSum);
+                if (stack != null)
+                {
+                    CoinStackOut st = new CoinStackOut(stack);
+                    DateTime currdate = DateTime.Now;
+                    string fn = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinDir) +
+                        currdate.ToString("dd-MM-yy_HH-mm") + ".ccstack";
+                    st.SaveInFile(fn);
+                    MessageBox.Show("Stack saved in file \n" + fn);
+                }
+            }
         }
 
         private CoinStack ChooseNearestPossibleStack(int sum)
@@ -465,6 +479,7 @@ namespace CloudCoin_SafeScan
             }
             //show which will form stack >= requested sum
             var selectWindow = new SelectOutStackWindow();
+            selectWindow.Owner = MainWindow.Instance;
             selectWindow.stacksToSelect.Items.Add(new SelectOutStackWindow.Stack4Display()
             { Ones = o, Fives = f, Quarters = q, Hundreds = h, KiloQuarters = kQ, Total = (o + f * 5 + q * 25 + h * 100 + kQ * 250) });
             //adding existing coin of minimal denomination to form second choice which will be greater than requested sum
@@ -478,50 +493,57 @@ namespace CloudCoin_SafeScan
                 selectWindow.stacksToSelect.Items.Add(new SelectOutStackWindow.Stack4Display()
                 { Ones = o, Fives = f, Quarters = q, Hundreds = h, KiloQuarters = kQ, Total = (o + f * 5 + q * 25 + h * 100 + kQ * 250) });
             }
+            selectWindow.stacksToSelect.SelectedItem = selectWindow.stacksToSelect.Items[0];
             selectWindow.ShowDialog();
-            SelectOutStackWindow.Stack4Display res = (SelectOutStackWindow.Stack4Display) selectWindow.stacksToSelect.SelectedItem;
-
-            List<CloudCoin> tmp = new List<CloudCoin>(o+f+q+h+kQ);
-            IEnumerable<IGrouping<CloudCoin.Denomination, CloudCoin>> GroupsCoinQuery = from coin in csc.cloudcoin
-                                                   group coin by coin.denomination;
-
-            foreach (var cG in GroupsCoinQuery)
+            if (selectWindow.DialogResult == true)
             {
-                int count = 0;
-                
-                switch (cG.Key)
+                SelectOutStackWindow.Stack4Display res = (SelectOutStackWindow.Stack4Display)selectWindow.stacksToSelect.SelectedItem;
+
+                List<CloudCoin> tmp = new List<CloudCoin>(o + f + q + h + kQ);
+                IEnumerable<IGrouping<CloudCoin.Denomination, CloudCoin>> GroupsCoinQuery = from coin in csc.cloudcoin
+                                                                                            group coin by coin.denomination;
+
+                foreach (var cG in GroupsCoinQuery)
                 {
-                    case CloudCoin.Denomination.One:
-                        count = res.Ones;
-                        break;
-                    case CloudCoin.Denomination.Five:
-                        count = res.Fives;
-                        break;
-                    case CloudCoin.Denomination.Quarter:
-                        count = res.Quarters;
-                        break;
-                    case CloudCoin.Denomination.Hundred:
-                        count = res.Hundreds;
-                        break;
-                    case CloudCoin.Denomination.KiloQuarter:
-                        count = res.KiloQuarters;
-                        break;
+                    int count = 0;
+
+                    switch (cG.Key)
+                    {
+                        case CloudCoin.Denomination.One:
+                            count = res.Ones;
+                            break;
+                        case CloudCoin.Denomination.Five:
+                            count = res.Fives;
+                            break;
+                        case CloudCoin.Denomination.Quarter:
+                            count = res.Quarters;
+                            break;
+                        case CloudCoin.Denomination.Hundred:
+                            count = res.Hundreds;
+                            break;
+                        case CloudCoin.Denomination.KiloQuarter:
+                            count = res.KiloQuarters;
+                            break;
+                    }
+                    foreach (CloudCoin c in cG.Take(count))
+                    {
+                        tmp.Add(c);
+                        csc.cloudcoin.Remove(c);
+                    }
                 }
-                foreach (CloudCoin c in cG.Take(count))
-                {
-                    tmp.Add(c);
-                    csc.cloudcoin.Remove(c);
-                }
-            } 
-            var result = new CoinStack();
-            result.cloudcoin.AddRange(tmp);
-            return result;
+                var result = new CoinStack();
+                result.cloudcoin.AddRange(tmp);
+                return result;
+            }
+            else
+                return null;
         }
 
         public void Show()
         {
             var safeWindow = new SafeContentWindow();
 
+            safeWindow.Owner = MainWindow.Instance;
             safeWindow.Show();
             safeWindow.totalTextBox.Text = Contents.SumInStack.ToString() + " CC in Safe";
             safeWindow.SafeView.Items.Add(new SafeContentWindow.Shelf4Display() { Value = "Ones", Good = Ones.GoodQuantity,

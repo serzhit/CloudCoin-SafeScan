@@ -24,7 +24,6 @@ namespace CloudCoin_SafeScan
         {
             InitializeComponent();
             stacksToSelect.KeyDown += onKeyDown;
-            Closing += onWinClose;
         }
 
         public class Stack4Display
@@ -39,10 +38,7 @@ namespace CloudCoin_SafeScan
 
         private void onClick(object sender, RoutedEventArgs e)
         {
-            if (stacksToSelect.SelectedItem == null)
-                MessageBox.Show(this, "Please select desired stack and press OK","Select Stack");
-            else
-                Hide();
+            DialogResult = true;
         }
 
         private void onKeyDown(object sender, KeyEventArgs e)
@@ -53,12 +49,5 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        private void onWinClose(object sender, CancelEventArgs e)
-        {
-            if (stacksToSelect.SelectedItem == null)
-                MessageBox.Show(this, "Please select desired stack and press OK", "Select Stack");
-            else
-                Hide();
-        }
     }
 }

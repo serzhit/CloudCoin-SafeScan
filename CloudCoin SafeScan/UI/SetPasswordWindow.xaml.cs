@@ -23,7 +23,7 @@ namespace CloudCoin_SafeScan
         public SetPasswordWindow()
         {
             InitializeComponent();
-            Closing += onWinClosing;
+            Password.KeyDown += onKeyDown;
         }
 
         private void okButtonClicked(object sender, RoutedEventArgs e)
@@ -32,10 +32,6 @@ namespace CloudCoin_SafeScan
                 MessageBox.Show("Password is too short. Use more than 5 characters");
             else if (Password.Password != PasswordVerify.Password)
                 MessageBox.Show("Passwords don't match");
-            else
-            {
-                Hide();
-            }
         }
 
         private void CancelButtonClicked(object sender, RoutedEventArgs e)
@@ -43,11 +39,14 @@ namespace CloudCoin_SafeScan
 //            Hide();
         }
 
-        void onWinClosing(object sender, CancelEventArgs e)
+        private void onKeyDown(object sender, KeyEventArgs e)
         {
-            MessageBox.Show("DO not close the window, provide password for safe!");
-            e.Cancel = true;
+            if (e.Key == Key.Return)
+            {
+                okButtonClicked(this, e);
+            }
         }
+
         private void onTextInput(object sender, TextCompositionEventArgs e)
         {
 
