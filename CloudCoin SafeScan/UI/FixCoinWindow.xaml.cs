@@ -137,86 +137,84 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        public void Paint(int guid, SolidColorBrush color)
+        public void Paint(int i, Color color)
         {
-            switch (guid)
+            switch (i)
             {
                 case 0:
-                    _0.Fill = color;
+                    _0.Fill = new SolidColorBrush(color);
                     break;
                 case 1:
-                    _1.Fill = color;
+                    _1.Fill = new SolidColorBrush(color);
                     break;
                 case 2:
-                    _2.Fill = color;
+                    _2.Fill = new SolidColorBrush(color);
                     break;
                 case 3:
-                     _3.Fill = color;
+                    _3.Fill = new SolidColorBrush(color);
                     break;
                 case 4:
-                    _4.Fill = color;
+                    _4.Fill = new SolidColorBrush(color);
                     break;
                 case 5:
-                    _5.Fill = color;
+                    _5.Fill = new SolidColorBrush(color);
                     break;
                 case 6:
-                    _6.Fill = color;
+                    _6.Fill = new SolidColorBrush(color);
                     break;
                 case 7:
-                    _7.Fill = color;
+                    _7.Fill = new SolidColorBrush(color);
                     break;
                 case 8:
-                    _8.Fill = color;
+                    _8.Fill = new SolidColorBrush(color);
                     break;
                 case 9:
-                    _9.Fill = color;
+                    _9.Fill = new SolidColorBrush(color);
                     break;
                 case 10:
-                    _10.Fill = color;
+                    _10.Fill = new SolidColorBrush(color);
                     break;
                 case 11:
-                    _11.Fill = color;
+                    _11.Fill = new SolidColorBrush(color);
                     break;
                 case 12:
-                    _12.Fill = color;
+                    _12.Fill = new SolidColorBrush(color);
                     break;
                 case 13:
-                    _13.Fill = color;
+                    _13.Fill = new SolidColorBrush(color);
                     break;
                 case 14:
-                    _14.Fill = color;
+                    _14.Fill = new SolidColorBrush(color);
                     break;
                 case 15:
-                    _15.Fill = color;
+                    _15.Fill = new SolidColorBrush(color);
                     break;
                 case 16:
-                    _16.Fill = color;
+                    _16.Fill = new SolidColorBrush(color);
                     break;
                 case 17:
-                    _17.Fill = color;
+                    _17.Fill = new SolidColorBrush(color);
                     break;
                 case 18:
-                    _18.Fill = color;
+                    _18.Fill = new SolidColorBrush(color);
                     break;
                 case 19:
-                    _19.Fill = color;
+                    _19.Fill = new SolidColorBrush(color);
                     break;
                 case 20:
-                    _20.Fill = color;
+                    _20.Fill = new SolidColorBrush(color);
                     break;
                 case 21:
-                    _21.Fill = color;
+                    _21.Fill = new SolidColorBrush(color);
                     break;
                 case 22:
-                    _22.Fill = color;
+                    _22.Fill = new SolidColorBrush(color);
                     break;
                 case 23:
-                    _23.Fill = color;
+                    _23.Fill = new SolidColorBrush(color);
                     break;
                 case 24:
-                    _24.Fill = color;
-                    break;
-                default:
+                    _24.Fill = new SolidColorBrush(color);
                     break;
             }
         }

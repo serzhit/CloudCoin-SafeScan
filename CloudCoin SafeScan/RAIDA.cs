@@ -106,7 +106,7 @@ namespace CloudCoin_SafeScan
         {
             CheckCoinsWindow checkCoinsWindow = new CheckCoinsWindow();
 //            checkCoinsWindow.Filename.Text = FD.SafeFileName;
-            checkCoinsWindow.CoinImage.Source = new BitmapImage(new Uri(@"Resources/stackcoins.png", UriKind.Relative));
+            checkCoinsWindow.CoinImage.Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/stackcoins.png", UriKind.Absolute));
             checkCoinsWindow.coinsToDetect = stack.coinsInStack;
             checkCoinsWindow.Show();
 
@@ -244,7 +244,7 @@ namespace CloudCoin_SafeScan
                 }
                 catch (JsonException e)
                 {
-                    getDetectResult = new DetectResponse(Name, coin.sn.ToString(), "Invalid response", "THe server does not respond or returns invalid data", DateTime.Now.ToString());
+                    getDetectResult = new DetectResponse(Name, coin.sn.ToString(), "Invalid response", "The server does not respond or returns invalid data", DateTime.Now.ToString());
                 }
                 getDetectResult = getDetectResult ?? new DetectResponse(Name, coin.sn.ToString(), "Network problem", "Node not found", DateTime.Now.ToString());
                 if (getDetectResult.ErrorException != null)
@@ -254,7 +254,10 @@ namespace CloudCoin_SafeScan
                 getDetectResult.responseTime = sw.Elapsed;
 
                 if (getDetectResult.status == "pass")
+                {
                     coin.detectStatus[Number] = CloudCoin.raidaNodeResponse.pass;
+                    coin.an[Number] = coin.pans[Number];
+                }
                 else if (getDetectResult.status == "fail")
                     coin.detectStatus[Number] = CloudCoin.raidaNodeResponse.fail;
                 else

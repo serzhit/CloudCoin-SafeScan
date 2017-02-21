@@ -13,10 +13,13 @@ namespace CloudCoin_SafeScan
     public partial class RAIDA
     {
 
-        public CloudCoin fixCoin(CloudCoin brokeCoin, FixCoinWindow win)
+        public CloudCoin fixCoin(CloudCoin brokeCoin)
         {
             //            returnCoin = brokeCoin;
             //            returnCoin.setAnsToPans();// Make sure we set the RAIDA to the cc ans and not new pans. 
+
+            var fixWin = new FixCoinWindow(brokeCoin);
+            fixWin.Show();
             DateTime before = DateTime.Now;
 
             CloudCoin returnCoin = brokeCoin;
@@ -61,11 +64,11 @@ namespace CloudCoin_SafeScan
                         {
                             // Has three good tickets   
                             fix_result = Instance.NodesArray[guid_id].fix(fixer.currentTriad, ticketStatus[0].message, ticketStatus[1].message, 
-                                ticketStatus[2].message, returnCoin.an[guid_id]);
+                                ticketStatus[2].message, returnCoin.an[guid_id], returnCoin.sn);
                             if (fix_result)  // the guid IS recovered!!!
                             {
-                                win.Paint(guid_id, Brushes.Green);
                                 returnCoin.detectStatus[guid_id] = CloudCoin.raidaNodeResponse.pass;
+                                fixWin.Paint(guid_id, Colors.Green);
                                 fixer.finnished = true;
                                 corner = 1;
                             }
@@ -78,10 +81,12 @@ namespace CloudCoin_SafeScan
                     }//end while fixer not finnihsed. 
                     if (!fix_result)  // the guid cannot be recovered! all corners checked
                     {
-                        win.Paint(guid_id, Brushes.Black);
+                        returnCoin.detectStatus[guid_id] = CloudCoin.raidaNodeResponse.fail;
+                        fixWin.Paint(guid_id, Colors.Black);
                     }
                 }// end if guid is fail
             }//end for all the guids
+            fixWin.Close();
             return returnCoin;
         }
 
@@ -139,7 +144,7 @@ namespace CloudCoin_SafeScan
                 return getTicketResult;
             }//end get ticket
 
-            public bool fix(Node[] triad, String m1, String m2, String m3, String pan)
+            public bool fix(Node[] triad, String m1, String m2, String m3, String pan, int sn)
             {
                 var client = new RestClient();
                 client.BaseUrl = BaseUri;
@@ -165,6 +170,11 @@ namespace CloudCoin_SafeScan
                 {//quit
                     return false;
                 }
+                fixResult = fixResult ?? new FixResponse(Name, sn, "Network problem", "Node not found", DateTime.Now.ToString());
+                if (fixResult.ErrorException != null)
+                    fixResult = new FixResponse(Name, sn, "Network problem", "Problems with network connection", DateTime.Now.ToString());
+
+
                 sw.Stop();
                 if (fixResult.status == "success")
                 {

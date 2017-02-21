@@ -61,17 +61,17 @@ namespace CloudCoin_SafeScan
                 switch (denomination)
                 {
                     case Denomination.One:
-                        return new BitmapImage(new Uri(@"Resources/1coin.png", UriKind.Relative));
+                        return new BitmapImage(new Uri(@"pack://application:,,,/Resources/1coin.png", UriKind.Absolute));
                     case Denomination.Five:
-                        return new BitmapImage(new Uri(@"Resources/5coin.png", UriKind.Relative));
+                        return new BitmapImage(new Uri(@"pack://application:,,,/Resources/5coin.png", UriKind.Absolute));
                     case Denomination.Quarter:
-                        return new BitmapImage(new Uri(@"Resources/25coin.png", UriKind.Relative));
+                        return new BitmapImage(new Uri(@"pack://application:,,,/Resources/25coin.png", UriKind.Absolute));
                     case Denomination.Hundred:
-                        return new BitmapImage(new Uri(@"Resources/100coin.png", UriKind.Relative));
+                        return new BitmapImage(new Uri(@"pack://application:,,,/Resources/100coin.png", UriKind.Absolute));
                     case Denomination.KiloQuarter:
-                        return new BitmapImage(new Uri(@"Resources/250coin.png", UriKind.Relative));
+                        return new BitmapImage(new Uri(@"pack://application:,,,/Resources/250coin.png", UriKind.Absolute));
                     default:
-                        return new BitmapImage(new Uri(@"Resources/stackcoins.png", UriKind.Relative));
+                        return new BitmapImage(new Uri(@"pack://application:,,,/Resources/stackcoins.png", UriKind.Absolute));
                 }
             }
         }
@@ -104,7 +104,7 @@ namespace CloudCoin_SafeScan
         {
             get
             {
-                return detectStatus.Count(element => element == raidaNodeResponse.pass) * 100 / detectStatus.Count();
+                return detectStatus.Count(element => element == raidaNodeResponse.pass || element == raidaNodeResponse.error) * 100 / detectStatus.Count();
             }
         }
 
@@ -122,7 +122,7 @@ namespace CloudCoin_SafeScan
         {
             this.sn = sn;
             this.nn = nn;
-            ans = an;
+            an = ans;
             ed = expired;
             this.aoid = aoid;
 //            filetype = Type.json;

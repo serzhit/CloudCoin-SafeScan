@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CloudCoin_SafeScan"
         mc:Ignorable="d"
-        Title="FixCoinWindow" Height="214.035" Width="509.649">
+        Title="FixCoinWindow" Height="214.035" Width="389.489">
     <Grid>
-        <Image x:Name="coinImage" HorizontalAlignment="Left" Height="120" Margin="10,10,0,0" VerticalAlignment="Top" Width="133"/>
+        <Image x:Name="coinImage" HorizontalAlignment="Left" Height="120" Margin="29,10,0,0" VerticalAlignment="Top" Width="133"/>
         <Rectangle x:Name="_0" Fill="Red" HorizontalAlignment="Left" Height="20" Margin="227,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="20"/>
         <Rectangle x:Name="_1" Fill="Red" HorizontalAlignment="Left" Height="20" Margin="252,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="20"/>
         <Rectangle x:Name="_2" Fill="Red" HorizontalAlignment="Left" Height="20" Margin="277,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="20"/>

@@ -431,11 +431,9 @@ namespace CloudCoin_SafeScan
 
             foreach(var coin in coinsToFix)
             {
-                var fixWin = new FixCoinWindow(coin);
-                fixWin.Show();
-                RAIDA.Instance.fixCoin(coin, fixWin);
-                fixWin.Close();
+                RAIDA.Instance.fixCoin(coin);
             }
+            Save();
         }
         public void SaveOutStack()
         {
