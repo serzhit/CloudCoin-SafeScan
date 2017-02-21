@@ -12,7 +12,7 @@ using System.Net;
 
 namespace CloudCoin_SafeScan
 {
-    public class RAIDA
+    public partial class RAIDA
     {
 //        MainWindow mainWin = ;
         public const short NODEQNTY = 25;
@@ -95,7 +95,7 @@ namespace CloudCoin_SafeScan
             foreach (Node node in Instance.NodesArray)
             {
                 tasks[i] = Task.Factory.StartNew(() => node.Detect(coin));
-                tasks[i].ContinueWith(ancestor => { checkCoinsWindow.ShowDetectProgress(ancestor.Result, node, coin); });
+                tasks[i].ContinueWith(ancestor => { checkCoinsWindow.ShowDetectProgress(ancestor.Result, node); });
                 i++;
             }
 
@@ -123,14 +123,14 @@ namespace CloudCoin_SafeScan
                 foreach (Node node in Instance.NodesArray)
                 {
                     checkCoinTasks[node.Number] = Task.Factory.StartNew(() => node.Detect(coin));
-                    checkCoinTasks[node.Number].ContinueWith(ancestor => { checkCoinsWindow.ShowDetectProgress(ancestor.Result, node, coin); });
+                    checkCoinTasks[node.Number].ContinueWith(ancestor => { checkCoinsWindow.ShowDetectProgress(ancestor.Result, node); });
                 }
                 checkStackTasks[k] = Task.Factory.ContinueWhenAll(checkCoinTasks, delegate { checkCoinsWindow.AllCoinDetectCompleted(coin, t); });
             }
             Task.Factory.ContinueWhenAll(checkStackTasks, delegate { checkCoinsWindow.AllStackDetectCompleted(stack, stackCheckTime); });
         }
 
-        public class Node
+        public partial class Node
         {
             public int Number;
             public Countries Country
@@ -252,6 +252,14 @@ namespace CloudCoin_SafeScan
 
                 sw.Stop();
                 getDetectResult.responseTime = sw.Elapsed;
+
+                if (getDetectResult.status == "pass")
+                    coin.detectStatus[Number] = CloudCoin.raidaNodeResponse.pass;
+                else if (getDetectResult.status == "fail")
+                    coin.detectStatus[Number] = CloudCoin.raidaNodeResponse.fail;
+                else
+                    coin.detectStatus[Number] = CloudCoin.raidaNodeResponse.error;
+                LastDetectResult = getDetectResult;
 
                 return getDetectResult;
             }

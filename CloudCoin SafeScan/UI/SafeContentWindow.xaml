@@ -22,7 +22,7 @@
             </ListView.View>
         </ListView>
         <TextBox x:Name="totalTextBox" HorizontalAlignment="Left" Height="52" Margin="10,10,0,0" TextWrapping="Wrap" Text="333233 СС in Safe" VerticalAlignment="Top" Width="353" FontSize="32" BorderThickness="0"/>
-        <Button x:Name="FixButton" Content="Fix Fractioned" HorizontalAlignment="Left" Height="35" Margin="34,288,0,-77" VerticalAlignment="Top" Width="124"/>
+        <Button x:Name="FixButton" Content="Fix Fractioned" HorizontalAlignment="Left" Height="35" Margin="34,288,0,-77" VerticalAlignment="Top" Width="124" Click="onFixButton"/>
         <Button x:Name="CloseButton" Content="Close" HorizontalAlignment="Left" Height="35" Margin="216,288,0,-77" VerticalAlignment="Top" Width="124" Click="onCloseButton" IsCancel="True"/>
     </Grid>
 </Window>

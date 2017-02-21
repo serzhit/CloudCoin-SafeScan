@@ -30,8 +30,8 @@
     <PublisherName>Gitinsky LLC</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>7</ApplicationRevision>
-    <ApplicationVersion>0.8.0.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>0.9.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -105,8 +105,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CloudCoinFile.cs" />
+    <Compile Include="FixitHelper.cs" />
+    <Compile Include="RAIDAFix.cs" />
     <Compile Include="UI\CheckCoinsWindow.xaml.cs">
       <DependentUpon>CheckCoinsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FixCoinWindow.xaml.cs">
+      <DependentUpon>FixCoinWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="UI\EnterPasswordWindow.xaml.cs">
@@ -132,6 +137,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\EnterPasswordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\FixCoinWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

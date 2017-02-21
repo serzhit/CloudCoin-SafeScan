@@ -303,12 +303,26 @@ namespace CloudCoin_SafeScan
 
         private void ImageSafe_Selected(object sender, InputEventArgs e)
         {
-            Safe.Instance.Show();
+            Safe safe;
+            try { safe = Safe.Instance; }
+            catch (TypeInitializationException ex)
+            {
+                safe = null;
+            }
+            if(safe != null)
+                safe.Show();
         }
 
         private void ImagePay_Selected(object sender, InputEventArgs e)
         {
-            Safe.Instance.SaveOutStack();
+            Safe safe;
+            try { safe = Safe.Instance; }
+            catch (TypeInitializationException ex)
+            {
+                safe = null;
+            }
+            if (safe != null)
+                safe.SaveOutStack();
         }
 
         private void radioButton_Checked(object sender, RoutedEventArgs e)

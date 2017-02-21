@@ -251,9 +251,9 @@ namespace CloudCoin_SafeScan
 
         private Safe()
         {
-            var settingsSafeFilePath =  Properties.Settings.Default.SafeFileName;
+            var settingsSafeFilePath = Properties.Settings.Default.SafeFileName;
             safeFilePath = Environment.ExpandEnvironmentVariables(settingsSafeFilePath);
-            
+
             safeFileInfo = new FileInfo(safeFilePath);
             if (!safeFileInfo.Exists)
             {
@@ -266,6 +266,8 @@ namespace CloudCoin_SafeScan
                 CheckPassword();
                 if (password != null)
                     ReadSafeFile();
+                else
+                    throw new Exception();
             }
         }
 
@@ -423,6 +425,18 @@ namespace CloudCoin_SafeScan
             Contents.cloudcoin.RemoveAll(delegate (CloudCoin coin) { return coin.Verdict == CloudCoin.Status.Counterfeit; });
         }
 
+        public void TryFix()
+        {
+            List<CloudCoin> coinsToFix = Contents.cloudcoin.FindAll(x => x.Verdict == CloudCoin.Status.Fractioned);
+
+            foreach(var coin in coinsToFix)
+            {
+                var fixWin = new FixCoinWindow(coin);
+                fixWin.Show();
+                RAIDA.Instance.fixCoin(coin, fixWin);
+                fixWin.Close();
+            }
+        }
         public void SaveOutStack()
         {
             var howMuch = new HowMuchWindow();

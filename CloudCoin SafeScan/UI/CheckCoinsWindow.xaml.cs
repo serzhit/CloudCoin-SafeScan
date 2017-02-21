@@ -51,17 +51,10 @@ namespace CloudCoin_SafeScan
             public string Comment { get; set; }
         }
 
-        public void ShowDetectProgress(RAIDA.DetectResponse result, RAIDA.Node node, CloudCoin coin)
+        public void ShowDetectProgress(RAIDA.DetectResponse result, RAIDA.Node node)
         {
             Dispatcher.Invoke(() =>
             {
-                if (result.status == "pass")
-                    coin.detectStatus[node.Number] = CloudCoin.raidaNodeResponse.pass;
-                else if (result.status == "fail")
-                    coin.detectStatus[node.Number] = CloudCoin.raidaNodeResponse.fail;
-                else
-                    coin.detectStatus[node.Number] = CloudCoin.raidaNodeResponse.error;
-                node.LastDetectResult = result;
                 ProgressBar += 4;
                 PercentDetected += (double)4/(double)coinsToDetect;
                 percentBox.Text = PercentDetected.ToString("F2") + "%";
