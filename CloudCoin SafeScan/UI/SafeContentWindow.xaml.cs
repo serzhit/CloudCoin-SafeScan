@@ -39,7 +39,7 @@ namespace CloudCoin_SafeScan
 
         private void onFixButton(object sender, RoutedEventArgs e)
         {
-            Safe.Instance.TryFix();
+            Safe.Instance?.TryFix();
         }
     }
 }

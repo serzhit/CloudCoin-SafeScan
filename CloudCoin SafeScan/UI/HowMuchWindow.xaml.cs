@@ -52,7 +52,7 @@ namespace CloudCoin_SafeScan
         private void onOKClicked(object sender, RoutedEventArgs e)
         {
             short sum = short.Parse(enterSumBox.Text);
-            if (sum <= Safe.Instance.Contents.SumInStack)
+            if (sum <= Safe.Instance?.Contents.SumInStack)
             {
                 DialogResult = true;
   //              Hide();

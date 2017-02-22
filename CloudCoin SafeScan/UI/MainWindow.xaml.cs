@@ -305,7 +305,7 @@ namespace CloudCoin_SafeScan
         {
             Safe safe;
             try { safe = Safe.Instance; }
-            catch (TypeInitializationException ex)
+            catch (Exception ex)
             {
                 safe = null;
             }

@@ -16,18 +16,62 @@ namespace CloudCoin_SafeScan
 {
     public sealed class Safe
     {
-        private static Safe theOnlySafeInstance = new Safe();
         public static Safe Instance
         {
             get
             {
-                return theOnlySafeInstance;
+                return theOnlySafeInstance ?? GetInstance();
+            }
+
+        }
+
+        private static Safe theOnlySafeInstance = null;
+        private static Safe GetInstance()
+        {
+            var settingsSafeFilePath = Properties.Settings.Default.SafeFileName;
+            var filePath = Environment.ExpandEnvironmentVariables(settingsSafeFilePath);
+
+            var fileInfo = new FileInfo(filePath);
+            if (!fileInfo.Exists)
+            { //Safe does not exist, create one
+                var pass = SetPassword();
+                if (pass != "error")
+                {
+                    var coins = new CoinStack();
+                    if (CreateSafeFile(fileInfo, pass, coins))
+                    {
+                        theOnlySafeInstance = new Safe(fileInfo, pass, coins);
+                        return theOnlySafeInstance;
+                    }
+                    else
+                        return null;
+                }
+                else
+                    return null;
+            }
+            else
+            {
+                var pass = CheckPassword(fileInfo);
+                if (pass != "error")
+                {
+                    CoinStack safeContents = ReadSafeFile(fileInfo, pass);
+                    if (safeContents != null)
+                    {
+                        theOnlySafeInstance = new Safe(fileInfo, pass, safeContents);
+                        return theOnlySafeInstance;
+                    }
+                    else
+                        return null;
+                }
+                else
+                    return null;
             }
         }
 
-        public string password = null;
+        private static string cryptPassFromFile = "";
         public string safeFilePath;
         public FileInfo safeFileInfo;
+        private string password;
         private string cryptedPass;
         public CoinStack Contents;
         public Shelf Ones
@@ -249,29 +293,16 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        private Safe()
+        private Safe(FileInfo fi, string pass, CoinStack coins)
         {
-            var settingsSafeFilePath = Properties.Settings.Default.SafeFileName;
-            safeFilePath = Environment.ExpandEnvironmentVariables(settingsSafeFilePath);
-
-            safeFileInfo = new FileInfo(safeFilePath);
-            if (!safeFileInfo.Exists)
-            {
-                SetPassword();
-                Contents = new CoinStack();
-                CreateSafeFile();
-            }
-            else
-            {
-                CheckPassword();
-                if (password != null)
-                    ReadSafeFile();
-                else
-                    throw new Exception();
-            }
+            password = pass;
+            safeFilePath = fi.FullName;
+            safeFileInfo = fi;
+            cryptedPass = Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(pass)); ;
+            Contents = coins;
         }
 
-        private void SetPassword()
+        private static string SetPassword()
         {
             var passwordWindow = new SetPasswordWindow();
             passwordWindow.Password.Focus();
@@ -279,75 +310,94 @@ namespace CloudCoin_SafeScan
             passwordWindow.ShowDialog();
             if (passwordWindow.DialogResult == true)
             {
-                password = passwordWindow.Password.Password;
-                cryptedPass = Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(password));
+                return passwordWindow.Password.Password;
             }
+            else
+                return "error";
         }
 
-        private void CheckPassword()
+        private static string CheckPassword(FileInfo fi)
         {
-            if(password == null)
+            using (var fs = fi.Open(FileMode.Open))
             {
-                using (var fs = safeFileInfo.Open(FileMode.Open))
+                byte[] buffer = new byte[60];
+                byte[] passbytes = { 1, 2, 3, 4 }; //bogus data just to initialize
+                fs.Read(buffer, 0, 60);
+                cryptPassFromFile = new string(Encoding.UTF8.GetChars(buffer));
+                while (true)
                 {
-                    byte[] buffer = new byte[60];
-                    fs.Read(buffer, 0, 60);
-                    string cryptedPassSafe = new string(Encoding.UTF8.GetChars(buffer));
                     var enterPassword = new EnterPasswordWindow();
                     enterPassword.Owner = MainWindow.Instance;
                     enterPassword.passwordBox.Focus();
                     enterPassword.ShowDialog();
                     if (enterPassword.DialogResult == true)
                     {
-                        byte[] passbytes = Encoding.UTF8.GetBytes(enterPassword.passwordBox.Password);
-                        while (!Crypter.CheckPassword(passbytes, cryptedPassSafe))
+                        passbytes = Encoding.UTF8.GetBytes(enterPassword.passwordBox.Password);
+                        if (Crypter.CheckPassword(passbytes, cryptPassFromFile))
+                        {
+                            enterPassword.Close();
+                            return enterPassword.passwordBox.Password;
+                        }
+                        else
                         {
                             MessageBox.Show("Wrong password from safe.\nTry again.");
-                            var x = enterPassword ?? new EnterPasswordWindow(); // The window might be closed
-                            x.ShowDialog();
-                            passbytes = Encoding.UTF8.GetBytes(x.passwordBox.Password);
+                            enterPassword.Close();
                         }
-                        password = Encoding.UTF8.GetString(passbytes);
-                        cryptedPass = cryptedPassSafe;
+                    }
+                    else
+                    {
+                        enterPassword.Close();
+                        break;
                     }
                 }
             }
+            return "error";
         }
-
-        private void CreateSafeFile()
+        
+        private static bool CreateSafeFile(FileInfo fi, string pass, CoinStack stack)
         {
-
-            byte[] cryptedpassbytes = Encoding.UTF8.GetBytes(cryptedPass);
-            Directory.CreateDirectory(safeFileInfo.DirectoryName);
+            var cryptpass = Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(pass));
+            byte[] cryptedpassbytes = Encoding.UTF8.GetBytes(cryptpass);
             try
             {
-                var json = JsonConvert.SerializeObject(Contents);
-                var cryptedjson = Utils.Encrypt(json, password, cryptedpassbytes.Take(16).ToArray());
-                using (var fs = safeFileInfo.Create())
+                Directory.CreateDirectory(fi.DirectoryName);
+                var json = JsonConvert.SerializeObject(stack);
+                var cryptedjson = Utils.Encrypt(json, pass, cryptedpassbytes.Take(16).ToArray());
+                using (var fs = fi.Create())
                 {
                     fs.Write(cryptedpassbytes, 0, 60);
                     fs.Write(cryptedjson, 0, cryptedjson.Length);
                 }
+                return true;
             }
             catch (JsonException ex)
             {
                 MessageBox.Show("Safe.CreateSafeFile() JSON exception: " + ex.Message);
+                return false;
             }
             catch (CryptographicException ex)
             {
                 MessageBox.Show("Safe.CreateSafeFile() encryption exception: " + ex.Message);
+                return false;
             }
             catch (IOException ex)
             {
                 MessageBox.Show("Safe.CreateSafeFile() IO write exception: " + ex.Message);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
 
-        private void ReadSafeFile()
+        private static CoinStack ReadSafeFile(FileInfo fi, string pass)
         {
-            using (var fs = safeFileInfo.Open(FileMode.Open))
+//            var cryptpass = Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(pass));
+//            byte[] cryptedpassbytes = Encoding.UTF8.GetBytes(cryptpass);
+            using (var fs = fi.Open(FileMode.Open))
             {
-
+                byte[] cryptedbytes = Encoding.UTF8.GetBytes(cryptPassFromFile);
                 string json = null;
                 byte[] cryptedjson = new byte[(int)(fs.Length - 60)];
                 try
@@ -362,20 +412,28 @@ namespace CloudCoin_SafeScan
                         numbytesread += n;
                         numbytestoread -= n;
                     }
-                    json = Utils.Decrypt(cryptedjson, password, Encoding.UTF8.GetBytes(cryptedPass).Take(16).ToArray());
-                    Contents = JsonConvert.DeserializeObject<CoinStack>(json);
+                    json = Utils.Decrypt(cryptedjson, pass, cryptedbytes.Take(16).ToArray());
+                    var stack = JsonConvert.DeserializeObject<CoinStack>(json);
+                    return stack;
                 }
                 catch (IOException ex)
                 {
                     MessageBox.Show("Safe.ReadSafeFile() IO read exception: " + ex.Message);
+                    return null;
                 }
                 catch (CryptographicException ex)
                 {
                     MessageBox.Show("Safe.ReadSafeFile() decrypting exception: " + ex.Message);
+                    return null;
                 }
                 catch (JsonException ex)
                 {
                     MessageBox.Show("Safe.ReadSafeFile() JSON deserialize exception: " + ex.Message);
+                    return null;
+                }
+                catch (Exception ex)
+                {
+                    return null;
                 }
             }
         }
@@ -407,7 +465,7 @@ namespace CloudCoin_SafeScan
                 }
                 catch (JsonException e)
                 {
-                    MessageBox.Show("Safe.Add() JSON deserialize exception: " + e.Message);
+                    MessageBox.Show("Safe.Add() JSON serialize exception: " + e.Message);
                 }
                 catch (CryptographicException ex)
                 {

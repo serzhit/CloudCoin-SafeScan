@@ -69,6 +69,7 @@ namespace CloudCoin_SafeScan
                             {
                                 returnCoin.detectStatus[guid_id] = CloudCoin.raidaNodeResponse.pass;
                                 fixWin.Paint(guid_id, Colors.Green);
+                                fixWin.Show();
                                 fixer.finnished = true;
                                 corner = 1;
                             }

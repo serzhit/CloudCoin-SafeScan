@@ -314,9 +314,9 @@ namespace CloudCoin_SafeScan
                           "Counterfeited coins will be left where you've picked them.", "Save coins in Safe?", MessageBoxButton.OKCancel);
                 if(result == MessageBoxResult.OK)
                 {
-                    Safe.Instance.Add(stack);
+                    Safe.Instance?.Add(stack);
                     Close();
-                    Safe.Instance.Show();
+                    Safe.Instance?.Show();
                 }
                 else Close();
             });
