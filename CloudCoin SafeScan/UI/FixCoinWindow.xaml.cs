@@ -137,84 +137,84 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        public void Paint(int i, Color color)
+        public void Paint(int i, SolidColorBrush brush)
         {
-            switch (i)
+           switch (i)
             {
                 case 0:
-                    _0.Fill = new SolidColorBrush(color);
+                    _0.Fill = brush;
                     break;
                 case 1:
-                    _1.Fill = new SolidColorBrush(color);
+                    _1.Fill = brush;
                     break;
                 case 2:
-                    _2.Fill = new SolidColorBrush(color);
+                    _2.Fill = brush;
                     break;
                 case 3:
-                    _3.Fill = new SolidColorBrush(color);
+                    _3.Fill = brush;
                     break;
                 case 4:
-                    _4.Fill = new SolidColorBrush(color);
+                    _4.Fill = brush;
                     break;
                 case 5:
-                    _5.Fill = new SolidColorBrush(color);
+                    _5.Fill = brush;
                     break;
                 case 6:
-                    _6.Fill = new SolidColorBrush(color);
+                    _6.Fill = brush;
                     break;
                 case 7:
-                    _7.Fill = new SolidColorBrush(color);
+                    _7.Fill = brush;
                     break;
                 case 8:
-                    _8.Fill = new SolidColorBrush(color);
+                    _8.Fill = brush;
                     break;
                 case 9:
-                    _9.Fill = new SolidColorBrush(color);
+                    _9.Fill = brush;
                     break;
                 case 10:
-                    _10.Fill = new SolidColorBrush(color);
+                    _10.Fill = brush;
                     break;
                 case 11:
-                    _11.Fill = new SolidColorBrush(color);
+                    _11.Fill = brush;
                     break;
                 case 12:
-                    _12.Fill = new SolidColorBrush(color);
+                    _12.Fill = brush;
                     break;
                 case 13:
-                    _13.Fill = new SolidColorBrush(color);
+                    _13.Fill = brush;
                     break;
                 case 14:
-                    _14.Fill = new SolidColorBrush(color);
+                    _14.Fill = brush;
                     break;
                 case 15:
-                    _15.Fill = new SolidColorBrush(color);
+                    _15.Fill = brush;
                     break;
                 case 16:
-                    _16.Fill = new SolidColorBrush(color);
+                    _16.Fill = brush;
                     break;
                 case 17:
-                    _17.Fill = new SolidColorBrush(color);
+                    _17.Fill = brush;
                     break;
                 case 18:
-                    _18.Fill = new SolidColorBrush(color);
+                    _18.Fill = brush;
                     break;
                 case 19:
-                    _19.Fill = new SolidColorBrush(color);
+                    _19.Fill = brush;
                     break;
                 case 20:
-                    _20.Fill = new SolidColorBrush(color);
+                    _20.Fill = brush;
                     break;
                 case 21:
-                    _21.Fill = new SolidColorBrush(color);
+                    _21.Fill = brush;
                     break;
                 case 22:
-                    _22.Fill = new SolidColorBrush(color);
+                    _22.Fill = brush;
                     break;
                 case 23:
-                    _23.Fill = new SolidColorBrush(color);
+                    _23.Fill = brush;
                     break;
                 case 24:
-                    _24.Fill = new SolidColorBrush(color);
+                    _24.Fill = brush;
                     break;
             }
         }

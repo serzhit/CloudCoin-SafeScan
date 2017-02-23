@@ -616,7 +616,26 @@ namespace CloudCoin_SafeScan
             safeWindow.Owner = MainWindow.Instance;
             safeWindow.Show();
             safeWindow.totalTextBox.Text = Contents.SumInStack.ToString() + " CC in Safe";
-            safeWindow.SafeView.Items.Add(new SafeContentWindow.Shelf4Display() { Value = "Ones", Good = Ones.GoodQuantity,
+            SafeContentWindow.Shelf4Display[] items = new SafeContentWindow.Shelf4Display[6]
+            {
+                new SafeContentWindow.Shelf4Display() { Value = "Ones", Good = Ones.GoodQuantity,
+                Fractioned = Ones.FractionedQuantity, Counterfeited = Ones.CounterfeitedQuantity, Total = Ones.TotalQuantity },
+                new SafeContentWindow.Shelf4Display() { Value = "Fives", Good = Fives.GoodQuantity,
+                Fractioned = Fives.FractionedQuantity, Counterfeited = Fives.CounterfeitedQuantity, Total = Fives.TotalQuantity },
+                new SafeContentWindow.Shelf4Display() { Value = "Quarters", Good = Quarters.GoodQuantity,
+                Fractioned = Quarters.FractionedQuantity, Counterfeited = Quarters.CounterfeitedQuantity, Total = Quarters.TotalQuantity },
+                new SafeContentWindow.Shelf4Display() { Value = "Hundreds", Good = Hundreds.GoodQuantity,
+                Fractioned = Hundreds.FractionedQuantity, Counterfeited = Hundreds.CounterfeitedQuantity, Total = Hundreds.TotalQuantity },
+                new SafeContentWindow.Shelf4Display() { Value = "250s", Good = KiloQuarters.GoodQuantity,
+                Fractioned = KiloQuarters.FractionedQuantity, Counterfeited = KiloQuarters.CounterfeitedQuantity, Total = KiloQuarters.TotalQuantity },
+                new SafeContentWindow.Shelf4Display() { Value = "Sum:",
+                Good = KiloQuarters.GoodQuantity*250+Hundreds.GoodQuantity*100+Quarters.GoodQuantity*25+Fives.GoodQuantity*5+Ones.GoodQuantity,
+                Fractioned = KiloQuarters.FractionedQuantity*250+Hundreds.FractionedQuantity*100+Quarters.FractionedQuantity*25+Fives.FractionedQuantity*5+Ones.FractionedQuantity,
+                Counterfeited = KiloQuarters.CounterfeitedQuantity*250+Hundreds.CounterfeitedQuantity*100+Quarters.CounterfeitedQuantity*25+Fives.CounterfeitedQuantity*5+Ones.CounterfeitedQuantity,
+                Total = KiloQuarters.TotalQuantity*250+Hundreds.TotalQuantity*100+Quarters.TotalQuantity*25+Fives.TotalQuantity*5+Ones.TotalQuantity }
+            };
+            safeWindow.SafeView.ItemsSource = items;
+/*            safeWindow.SafeView.Items.Add(new SafeContentWindow.Shelf4Display() { Value = "Ones", Good = Ones.GoodQuantity,
                 Fractioned = Ones.FractionedQuantity, Counterfeited = Ones.CounterfeitedQuantity, Total = Ones.TotalQuantity });
             safeWindow.SafeView.Items.Add(new SafeContentWindow.Shelf4Display() { Value = "Fives", Good = Fives.GoodQuantity,
                 Fractioned = Fives.FractionedQuantity, Counterfeited = Fives.CounterfeitedQuantity, Total = Fives.TotalQuantity });
@@ -631,8 +650,7 @@ namespace CloudCoin_SafeScan
                 Fractioned = KiloQuarters.FractionedQuantity*250+Hundreds.FractionedQuantity*100+Quarters.FractionedQuantity*25+Fives.FractionedQuantity*5+Ones.FractionedQuantity,
                 Counterfeited = KiloQuarters.CounterfeitedQuantity*250+Hundreds.CounterfeitedQuantity*100+Quarters.CounterfeitedQuantity*25+Fives.CounterfeitedQuantity*5+Ones.CounterfeitedQuantity,
                 Total = KiloQuarters.TotalQuantity*250+Hundreds.TotalQuantity*100+Quarters.TotalQuantity*25+Fives.TotalQuantity*5+Ones.TotalQuantity });
+*/
         }
     }
-
-
 }

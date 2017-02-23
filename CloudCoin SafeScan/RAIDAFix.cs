@@ -37,16 +37,16 @@ namespace CloudCoin_SafeScan
                     fixer = new FixitHelper(guid_id, brokeCoin.an);
                     GetTicketResponse[] ticketStatus = new GetTicketResponse[3];
 
-                    trustedServerAns = new String[]
-                    {
-                        returnCoin.an[fixer.currentTriad[0].Number],
-                        returnCoin.an[fixer.currentTriad[1].Number],
-                        returnCoin.an[fixer.currentTriad[2].Number]
-                    };
                     corner = 1;
                     while (!fixer.finnished)
                     {
                         fix_result = false;
+                        trustedServerAns = new String[]
+                        {
+                            returnCoin.an[fixer.currentTriad[0].Number],
+                            returnCoin.an[fixer.currentTriad[1].Number],
+                            returnCoin.an[fixer.currentTriad[2].Number]
+                        };
 
                         ticketStatus = get_tickets(fixer.currentTriad, trustedServerAns, returnCoin.nn, returnCoin.sn, returnCoin.denomination);
                         // See if there are errors in the tickets                  
@@ -68,8 +68,7 @@ namespace CloudCoin_SafeScan
                             if (fix_result)  // the guid IS recovered!!!
                             {
                                 returnCoin.detectStatus[guid_id] = CloudCoin.raidaNodeResponse.pass;
-                                fixWin.Paint(guid_id, Colors.Green);
-                                fixWin.Show();
+                                fixWin.Paint(guid_id, Brushes.Green);
                                 fixer.finnished = true;
                                 corner = 1;
                             }
@@ -83,7 +82,7 @@ namespace CloudCoin_SafeScan
                     if (!fix_result)  // the guid cannot be recovered! all corners checked
                     {
                         returnCoin.detectStatus[guid_id] = CloudCoin.raidaNodeResponse.fail;
-                        fixWin.Paint(guid_id, Colors.Black);
+                        fixWin.Paint(guid_id, Brushes.Black);
                     }
                 }// end if guid is fail
             }//end for all the guids
