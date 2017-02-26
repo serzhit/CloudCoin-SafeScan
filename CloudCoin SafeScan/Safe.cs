@@ -10,11 +10,12 @@ using System.Windows.Controls;
 using System.Security.Cryptography;
 using System.Security.AccessControl;
 using CryptSharp;
+using GalaSoft.MvvmLight.Threading;
 using Newtonsoft.Json;
 
 namespace CloudCoin_SafeScan
 {
-    public sealed class Safe
+    public class Safe
     {
         public static Safe Instance
         {
@@ -300,6 +301,7 @@ namespace CloudCoin_SafeScan
             safeFileInfo = fi;
             cryptedPass = Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(pass)); ;
             Contents = coins;
+            beforeFixStart += new EventHandler(StartFixProcess);
         }
 
         private static string SetPassword()
@@ -483,13 +485,60 @@ namespace CloudCoin_SafeScan
             Contents.cloudcoin.RemoveAll(delegate (CloudCoin coin) { return coin.Verdict == CloudCoin.Status.Counterfeit; });
         }
 
+        public event EventHandler beforeFixStart;
+        public virtual void onBeforeFixStart(EventArgs e)
+        {
+            beforeFixStart?.Invoke(this, e);
+        }
+        private void StartFixProcess(object sender, EventArgs e)
+        {
+            List<CloudCoin> coinsToFix = Contents.cloudcoin.FindAll(x => x.Verdict == CloudCoin.Status.Fractioned);
+            FixCoinWindow fixWin;
+            if (coinsToFix.Count > 0)
+            {
+                
+                RecurrentFix(coinsToFix);
+            }
+        }
+
+        private void RecurrentFix(List<CloudCoin> coinstofix)
+        {
+            FixCoinWindow fixWin = new FixCoinWindow();
+            if (coinstofix.Count > 0)
+            {
+                var coin = coinstofix[0];
+                DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                {
+                    fixWin.Load(coin);
+                    fixWin.Show();
+                });
+                var fixCoinTask = new Task(() => RAIDA.Instance.fixCoin(coin, fixWin));
+                fixCoinTask.Start();
+                fixCoinTask.Wait();
+                Save();
+                coinstofix.Remove(coin);
+                RecurrentFix(coinstofix);
+                /*                fixCoinTask.ContinueWith((ancestor) =>
+                                {
+                                    DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                                    {
+                                        Save();
+                                    });
+                                    coinstofix.Remove(coin);
+                                    RecurrentFix(coinstofix, fixWin);
+                                }, TaskContinuationOptions.ExecuteSynchronously);
+                */
+
+            }
+        }
+
         public void TryFix()
         {
             List<CloudCoin> coinsToFix = Contents.cloudcoin.FindAll(x => x.Verdict == CloudCoin.Status.Fractioned);
 
             foreach(var coin in coinsToFix)
             {
-                RAIDA.Instance.fixCoin(coin);
+//                RAIDA.Instance.fixCoin(coin);
             }
             Save();
         }

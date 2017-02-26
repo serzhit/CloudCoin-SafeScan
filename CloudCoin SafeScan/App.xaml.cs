@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-
+using GalaSoft.MvvmLight.Threading;
 namespace CloudCoin_SafeScan
 {
     /// <summary>
@@ -19,6 +19,7 @@ namespace CloudCoin_SafeScan
             var appSettings = new Properties.Settings();
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            DispatcherHelper.Initialize(); // Gets UIDispatcher property from main thread
 
             try
             {
