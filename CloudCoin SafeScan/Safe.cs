@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Security.Cryptography;
-using System.Security.AccessControl;
 using CryptSharp;
 using GalaSoft.MvvmLight.Threading;
 using Newtonsoft.Json;
@@ -443,7 +440,7 @@ namespace CloudCoin_SafeScan
         public void Add(CoinStack stack)
         {
             Contents.Add(stack);
-            //RemoveCounterfeitCoins();
+            RemoveCounterfeitCoins();
             Contents.cloudcoin.Sort(new CloudCoin.CoinComparer());
             Save();
         }

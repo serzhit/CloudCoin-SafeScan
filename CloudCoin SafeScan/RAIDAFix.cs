@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Data;
-using System.Windows.Media;
 using GalaSoft.MvvmLight.Threading;
 using RestSharp;
 using Newtonsoft.Json;
