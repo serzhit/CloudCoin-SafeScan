@@ -16,7 +16,7 @@ namespace CloudCoin_SafeScan
 
         public async void fixCoin(CloudCoin brokeCoin, FixCoinWindow fixWin)
         {
-            bool[] result = new bool[NODEQNTY];
+            ObservableStatus[] result = new ObservableStatus[NODEQNTY];
 
             for (int guid_id = 0; guid_id < NODEQNTY; guid_id++)
             {
@@ -26,9 +26,9 @@ namespace CloudCoin_SafeScan
                     result[guid_id] = await ProcessFixingGUID(index, brokeCoin, fixWin);
                 }// end for failed guid
                 else
-                    result[guid_id] = true;
+                    result[guid_id].Status = brokeCoin.detectStatus[guid_id];
             }//end for all the guids
-            bool isGood = result.All<bool>(x => x == true);
+            bool isGood = result.All<ObservableStatus>(x => x.Status == CloudCoin.raidaNodeResponse.pass);
             DispatcherHelper.CheckBeginInvokeOnUI(() =>
             {
                 fixWin.ViewModel.StatusText = brokeCoin.sn + (isGood ? "" : " not") + " fixed!";
@@ -36,11 +36,11 @@ namespace CloudCoin_SafeScan
             });
         }
 
-        private async Task<bool> ProcessFixingGUID(int guid_id, CloudCoin returnCoin, FixCoinWindow fixWin)
+        private async Task<ObservableStatus> ProcessFixingGUID(int guid_id, CloudCoin returnCoin, FixCoinWindow fixWin)
         {
             fixer = new FixitHelper(guid_id, returnCoin.an);
             GetTicketResponse[] ticketStatus = new GetTicketResponse[3];
-            bool result = false;
+            ObservableStatus result = new ObservableStatus();
 
             int corner = 1;
             while (!fixer.finnished)
@@ -65,10 +65,9 @@ namespace CloudCoin_SafeScan
                         ticketStatus[2].message, returnCoin.an[guid_id], returnCoin.sn);
                     if (fff.status == "success")  // the guid IS recovered!!!
                     {
-                        returnCoin.detectStatus[guid_id] = CloudCoin.raidaNodeResponse.pass;
+                        returnCoin.detectStatus[guid_id] = result.Status = CloudCoin.raidaNodeResponse.pass;
 //                        DispatcherHelper.CheckBeginInvokeOnUI(() => { fixWin.ViewModel.nodeStatus[guid_id] = true; });
                         fixer.finnished = true;
-                        result = true;
                     }
                     else if (fff.status == "fail")
                     { // command failed,  need to try another corner
@@ -93,7 +92,7 @@ namespace CloudCoin_SafeScan
             DispatcherHelper.CheckBeginInvokeOnUI(() =>
             {
                 fixWin.ViewModel.nodeStatus[guid_id] = result;
-                fixWin.ViewModel.StatusText = "Node " + guid_id.ToString() + (result? "":" not") + " fixed!";
+//                fixWin.ViewModel.StatusText = "Node " + guid_id.ToString() + (result? "":" not") + " fixed!";
                 Thread.Sleep(500);
             });
 

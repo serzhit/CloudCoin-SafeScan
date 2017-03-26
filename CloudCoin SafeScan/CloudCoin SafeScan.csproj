@@ -125,6 +125,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Observables.cs" />
+    <Compile Include="UI\StatusToBrushConverter.cs" />
     <Compile Include="UI\BooleanToBrushConverter.cs" />
     <Compile Include="CloudCoinFile.cs" />
     <Compile Include="FixitHelper.cs" />
@@ -136,6 +137,9 @@
       <DependentUpon>FixCoinWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\FixCoinWindowViewModel.cs" />
+    <Compile Include="UI\FixProcessWindow.xaml.cs">
+      <DependentUpon>FixProcessWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="UI\EnterPasswordWindow.xaml.cs">
       <DependentUpon>EnterPasswordWindow.xaml</DependentUpon>
@@ -164,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\FixCoinWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\FixProcessWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -215,6 +223,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

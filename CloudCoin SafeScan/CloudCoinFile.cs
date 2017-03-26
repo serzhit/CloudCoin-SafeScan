@@ -102,7 +102,7 @@ namespace CloudCoin_SafeScan
             }
             catch (JsonException ex)
             {
-                throw ex;
+                throw;
             }
             return stack;
         }

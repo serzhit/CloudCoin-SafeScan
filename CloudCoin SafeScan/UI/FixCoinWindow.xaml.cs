@@ -35,14 +35,11 @@ namespace CloudCoin_SafeScan
                 //fixingLbl.Text = value;
             });
         }
-        public void DisplayFixResult(bool result, int i)
+        public void DisplayFixResult(ObservableStatus result, int i)
         {
             Dispatcher.Invoke(() =>
             {
-                if (result)
-                    ViewModel.nodeStatus[i] = true;
-                else
-                    ViewModel.nodeStatus[i] = false;
+                ViewModel.nodeStatus[i] = result;
             });
         }
      }

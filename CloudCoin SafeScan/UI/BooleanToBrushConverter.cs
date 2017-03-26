@@ -13,7 +13,7 @@ namespace CloudCoin_SafeScan
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var x = (ObservableStatus)value;
+            var x = (ObservableBool)value;
             return x ? TrueBrush : FalseBrush;
         }
 

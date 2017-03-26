@@ -490,7 +490,6 @@ namespace CloudCoin_SafeScan
         private void StartFixProcess(object sender, EventArgs e)
         {
             List<CloudCoin> coinsToFix = Contents.cloudcoin.FindAll(x => x.Verdict == CloudCoin.Status.Fractioned);
-            FixCoinWindow fixWin;
             if (coinsToFix.Count > 0)
             {
                 
@@ -498,12 +497,22 @@ namespace CloudCoin_SafeScan
             }
         }
 
+        public void testWindow()
+        {
+            List<CloudCoin> coinsToFix = Contents.cloudcoin.FindAll(x => x.Verdict == CloudCoin.Status.Fractioned);
+            FixProcessWindow fixWin = new FixProcessWindow();
+            fixWin.Load(coinsToFix);
+
+        }
+
         private void RecurrentFix(List<CloudCoin> coinstofix)
         {
-            FixCoinWindow fixWin = new FixCoinWindow();
+             FixCoinWindow fixWin = new FixCoinWindow();
+//            FixProcessWindow fixWin = new FixProcessWindow();
             if (coinstofix.Count > 0)
             {
                 var coin = coinstofix[0];
+
                 DispatcherHelper.CheckBeginInvokeOnUI(() =>
                 {
                     fixWin.Load(coin);

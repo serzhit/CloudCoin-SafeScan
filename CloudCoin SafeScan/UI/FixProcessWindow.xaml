@@ -1,0 +1,80 @@
+﻿<Window x:Class="CloudCoin_SafeScan.FixProcessWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CloudCoin_SafeScan"
+        mc:Ignorable="d"
+        Title="FixProcessWindow" Height="293.417" Width="717.555">
+    <Window.Resources>
+        <local:StatusToBrushConverter x:Key="StatusConverter" PassBrush="Green" FailBrush="Red" ErrorBrush="Brown" UnknownBrush="Yellow" />
+        <local:CoinFixStatus x:Key="CoinFixItem" />
+        <DataTemplate x:Key="CoinItemTemplate">
+            <StackPanel DataContext="{StaticResource CoinFixItem}">
+                <TextBlock Text="{Binding serial}" />
+                <TextBlock Text="{Binding Denomination}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[0], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[1], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[2], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[3], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[4], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[5], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[6], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[7], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[8], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[9], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[10], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[11], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[12], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[13], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[14], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[15], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[16], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[17], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[18], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[19], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[20], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[21], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[22], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[23], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[24], Converter={StaticResource StatusConverter}}" />
+                <TextBlock Text="{Binding status}" />
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <ListView x:Name="listView" HorizontalAlignment="Left" Height="110" Margin="10,10,0,0" 
+                  VerticalAlignment="Top" Width="690" ItemTemplate="{StaticResource CoinItemTemplate}">
+            <GridView AllowsColumnReorder="False">
+                <GridViewColumn Header="Serial" Width="60"/>
+                <GridViewColumn Header="Value" Width="40"/>
+                <GridViewColumn Header="0" Width="15"/>
+                <GridViewColumn Header="1" Width="15"/>
+                <GridViewColumn Header="2" Width="15"/>
+                <GridViewColumn Header="3" Width="15"/>
+                <GridViewColumn Header="4" Width="15"/>
+                <GridViewColumn Header="5" Width="15"/>
+                <GridViewColumn Header="6" Width="15"/>
+                <GridViewColumn Header="7" Width="15"/>
+                <GridViewColumn Header="8" Width="15"/>
+                <GridViewColumn Header="9" Width="15"/>
+                <GridViewColumn Header="10" Width="15"/>
+                <GridViewColumn Header="11" Width="15"/>
+                <GridViewColumn Header="12" Width="15"/>
+                <GridViewColumn Header="13" Width="15"/>
+                <GridViewColumn Header="14" Width="15"/>
+                <GridViewColumn Header="15" Width="15"/>
+                <GridViewColumn Header="16" Width="15"/>
+                <GridViewColumn Header="17" Width="15"/>
+                <GridViewColumn Header="18" Width="15"/>
+                <GridViewColumn Header="19" Width="15"/>
+                <GridViewColumn Header="20" Width="15"/>
+                <GridViewColumn Header="21" Width="15"/>
+                <GridViewColumn Header="22" Width="15"/>
+                <GridViewColumn Header="23" Width="15"/>
+                <GridViewColumn Header="24" Width="15"/>
+                <GridViewColumn Header="Status message" Width="200"/>
+            </GridView>
+        </ListView>
+    </Grid>
+</Window>

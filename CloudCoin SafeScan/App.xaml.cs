@@ -12,7 +12,6 @@ namespace CloudCoin_SafeScan
         public App()
         {
             //Startup += onAppStartup;
-            var appSettings = new Properties.Settings();
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             DispatcherHelper.Initialize(); // Gets UIDispatcher property from main thread

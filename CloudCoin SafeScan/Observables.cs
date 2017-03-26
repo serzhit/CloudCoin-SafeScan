@@ -11,29 +11,47 @@ namespace CloudCoin_SafeScan
     public class ObservableStatus : ObservableObject
     {
         private CloudCoin.raidaNodeResponse _status;
-        private bool isTrue;
+        public CloudCoin.raidaNodeResponse Status
+        {
+            get { return _status; }
+            set { Set("Status", ref _status, value); }
+        }
         public ObservableStatus()
+        {
+            _status = CloudCoin.raidaNodeResponse.unknown;
+        }
+        public ObservableStatus(CloudCoin.raidaNodeResponse st)
+        {
+            _status = st;
+        }
+    }
+
+    public class ObservableBool : ObservableObject
+    {
+        private CloudCoin.raidaNodeResponse _status;
+        private bool isTrue;
+        public ObservableBool()
         {
             isTrue = false;
         }
-        public ObservableStatus(CloudCoin.raidaNodeResponse st)
+        public ObservableBool(CloudCoin.raidaNodeResponse st)
         {
             if (st == CloudCoin.raidaNodeResponse.pass)
                 isTrue = true;
             else
                 isTrue = false;
         }
-        public ObservableStatus(bool b)
+        public ObservableBool(bool b)
         {
             isTrue = b;
         }
-        public static implicit operator bool(ObservableStatus d)  // implicit ObservableStatus to bool conversion operator
+        public static implicit operator bool(ObservableBool d)  // implicit ObservableStatus to bool conversion operator
         {
             return d.isTrue;   // implicit conversion
         }
-        public static implicit operator ObservableStatus(bool b)  // implicit ObservableStatus to bool conversion operator
+        public static implicit operator ObservableBool(bool b)  // implicit ObservableStatus to bool conversion operator
         {
-            return new ObservableStatus(b);   // implicit conversion
+            return new ObservableBool(b);   // implicit conversion
         }
     }
     public class ObservableRaidaNodeResponse : ObservableObject

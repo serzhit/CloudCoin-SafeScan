@@ -92,9 +92,9 @@ namespace CloudCoin_SafeScan
             get
             {
                 if (percentOfRAIDAPass != 100)
-                    return isPassed ? CloudCoin.Status.Fractioned : CloudCoin.Status.Counterfeit;
+                    return isPassed ? Status.Fractioned : Status.Counterfeit;
                 else
-                    return isPassed ? CloudCoin.Status.Authenticated : CloudCoin.Status.Counterfeit;
+                    return isPassed ? Status.Authenticated : Status.Counterfeit;
             }
         }
 
@@ -263,12 +263,7 @@ namespace CloudCoin_SafeScan
         {
             get
             {
-                int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
-                {
-                    s++;
-                }
-                return s;
+                return cloudcoin.Count();
             }
         }
         public int SumInStack
@@ -287,104 +282,56 @@ namespace CloudCoin_SafeScan
         {
             get
             {
-                int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
-                {
-                    if(coin.denomination == CloudCoin.Denomination.One)
-                        s++;
-                }
-                return s;
+                return cloudcoin.Count(x => x.denomination == CloudCoin.Denomination.One);
             }
         }
         public int Fives
         {
             get
             {
-                int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
-                {
-                    if (coin.denomination == CloudCoin.Denomination.Five)
-                        s++;
-                }
-                return s;
+                return cloudcoin.Count(x => x.denomination == CloudCoin.Denomination.Five);
             }
         }
         public int Quarters
         {
             get
             {
-                int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
-                {
-                    if (coin.denomination == CloudCoin.Denomination.Quarter)
-                        s++;
-                }
-                return s;
+                return cloudcoin.Count(x => x.denomination == CloudCoin.Denomination.Quarter);
             }
         }
         public int Hundreds
         {
             get
             {
-                int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
-                {
-                    if (coin.denomination == CloudCoin.Denomination.Hundred)
-                        s++;
-                }
-                return s;
+                return cloudcoin.Count(x => x.denomination == CloudCoin.Denomination.Hundred);
             }
         }
         public int KiloQuarters
         {
             get
             {
-                int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
-                {
-                    if (coin.denomination == CloudCoin.Denomination.KiloQuarter)
-                        s++;
-                }
-                return s;
+                return cloudcoin.Count(x => x.denomination == CloudCoin.Denomination.KiloQuarter);
             }
         }
         public int AuthenticatedQuantity
         {
             get
             {
-                int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
-                {
-                    if (coin.Verdict == CloudCoin.Status.Authenticated)
-                        s++;
-                }
-                return s;
+                return cloudcoin.Count(x => x.Verdict == CloudCoin.Status.Authenticated);
             }
         }
         public int FractionedQuantity
         {
             get
             {
-                int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
-                {
-                    if (coin.Verdict == CloudCoin.Status.Fractioned)
-                        s++;
-                }
-                return s;
+                return cloudcoin.Count(x => x.Verdict == CloudCoin.Status.Fractioned);
             }
         }
         public int CounterfeitedQuantity
         {
             get
             {
-                int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
-                {
-                    if (coin.Verdict == CloudCoin.Status.Counterfeit)
-                        s++;
-                }
-                return s;
+                return cloudcoin.Count(x => x.Verdict == CloudCoin.Status.Counterfeit);
             }
         }
 

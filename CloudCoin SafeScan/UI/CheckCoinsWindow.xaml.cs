@@ -48,7 +48,7 @@ namespace CloudCoin_SafeScan
             Dispatcher.Invoke(() =>
             {
                 ProgressBar += 4;
-                PercentDetected += (double)4/(double)coinsToDetect;
+                PercentDetected += 4 / (double)coinsToDetect;
                 percentBox.Text = PercentDetected.ToString("F2") + "%";
                 
 
@@ -314,19 +314,5 @@ namespace CloudCoin_SafeScan
             });
         }
 
-        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void radioButton_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
 }
