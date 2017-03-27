@@ -26,7 +26,7 @@ namespace CloudCoin_SafeScan
                     byte[] signature = new byte[20];
                     fsSource.Read(signature, 0, 20);
                     string sig = Encoding.UTF8.GetString(signature);
-                    var reg = new Regex(@"{[.\n\t\x09\x0A\x0D]*""cloudcoin""");
+                    var reg = new Regex(@"{[.\n\t\s\x09\x0A\x0D]*""cloudcoin""");
                     if (Enumerable.SequenceEqual(signature.Take(3), new byte[] { 255, 216, 255 })) //JPEG
                     {
                         Filetype = Type.jpeg;

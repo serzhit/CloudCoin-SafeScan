@@ -32,7 +32,7 @@ namespace CloudCoin_SafeScan
             DataContext = ViewModel;
             
         }
-        public void Load(List<CoinStack> stack)
+        public void Load(List<CloudCoin> stack)
         {
             ViewModel = new FixStackViewModel(stack);
             DataContext = ViewModel;
