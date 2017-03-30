@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CloudCoin_SafeScan"
         mc:Ignorable="d"
         Title="SelectOutStackWindow" Height="300" Width="413">
-    <Grid>
+    <Grid DataContext="SelectOutStackWindowViewModel">
         <Label x:Name="label" Content="Select stack which contains nearest requested amount." HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="365" FontSize="14"/>
         <ListView x:Name="stacksToSelect" HorizontalAlignment="Left" Height="96" Margin="10,85,0,0" VerticalAlignment="Top" Width="385" HorizontalContentAlignment="Center">
             <ListView.View>

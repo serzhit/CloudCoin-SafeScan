@@ -81,7 +81,7 @@ namespace CloudCoin_SafeScan
     public class CoinFixStatus : ViewModelBase
     {
         public int serial { get; set; }
-        public CloudCoin.raidaNodeResponse[] coinStatus { get; set; }
+        public CloudCoin.raidaNodeResponse[] coinStatus = new CloudCoin.raidaNodeResponse[RAIDA.NODEQNTY];
         public string status { get; set; }
         public CloudCoin.Denomination Denomination { get; set; }
 
@@ -99,6 +99,5 @@ namespace CloudCoin_SafeScan
             coinStatus = coin.detectStatus;
             status = "Initialized";
         }
-
     }
 }

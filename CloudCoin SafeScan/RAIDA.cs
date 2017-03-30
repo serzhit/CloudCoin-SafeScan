@@ -68,10 +68,10 @@ namespace CloudCoin_SafeScan
             foreach (Node node in Instance.NodesArray)
             {
                 tasks[i] = Task.Factory.StartNew(() => node.Echo());
-                Task cont = tasks[i].ContinueWith(ancestor => { MainWindow.Instance.ShowEchoProgress(ancestor.Result, node); });
+                tasks[i].ContinueWith(ancestor => MainWindow.Instance.ShowEchoProgress(ancestor.Result, node) );
                 i++;
             }
-            Task.Factory.ContinueWhenAll(tasks, delegate { MainWindow.Instance.AllEchoesCompleted(); });
+            Task.Factory.ContinueWhenAll(tasks, ancestors => MainWindow.Instance.AllEchoesCompleted() );
         }
 
         public void Detect(CloudCoin coin)

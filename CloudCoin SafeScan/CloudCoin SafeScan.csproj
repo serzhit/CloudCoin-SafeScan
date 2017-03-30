@@ -124,7 +124,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ICloudCoin.cs" />
+    <Compile Include="IOModels.cs" />
     <Compile Include="Observables.cs" />
+    <Compile Include="UI\SelectOutStackWindowViewModel.cs" />
+    <Compile Include="UI\SafeContentWindowViewModel.cs" />
     <Compile Include="UI\StatusToBrushConverter.cs" />
     <Compile Include="UI\BooleanToBrushConverter.cs" />
     <Compile Include="CloudCoinFile.cs" />
@@ -140,6 +144,7 @@
     <Compile Include="UI\FixProcessWindow.xaml.cs">
       <DependentUpon>FixProcessWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInteract.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="UI\EnterPasswordWindow.xaml.cs">
       <DependentUpon>EnterPasswordWindow.xaml</DependentUpon>
@@ -223,7 +228,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
+    <None Include="CloudCoinClassDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

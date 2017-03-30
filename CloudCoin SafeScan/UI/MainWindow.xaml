@@ -11,9 +11,9 @@
 
     <Grid>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="35" Margin="10,10,0,0" TextWrapping="Wrap" Text="CloudCoin Scan&amp;Safe" VerticalAlignment="Top" Width="235" FontSize="24" Cursor="Arrow"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="95" Margin="10,50,0,0" TextWrapping="Wrap" Text="You get cloudcoins (new worldwide currency) in form of files from anywhere - sites, emails, USB Sticks, Smartphones... This app just checks them for counterfeit, loads and keeps 'em in safe and makes stacks for payments or gifts." VerticalAlignment="Top" Width="260" FontWeight="Bold" BorderThickness="0" Cursor="Arrow"/>
-        <Label x:Name="labelCheck" Content="Check" HorizontalAlignment="Left" Margin="35,0,0,10" VerticalAlignment="Bottom" Width="65" Height="39" FontSize="20"/>
-        <Label x:Name="labelStore" Content="Store" Margin="225,0,227,10" VerticalAlignment="Bottom" Height="39" FontSize="20"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="107" Margin="10,50,0,0" TextWrapping="Wrap" Text="You get cloudcoins (new worldwide currency) in form of files from anywhere - sites, emails, USB Sticks, Smartphones... This app just checks them for counterfeit, loads and keeps 'em in safe and makes stacks for payments or gifts." VerticalAlignment="Top" Width="260" FontWeight="Bold" BorderThickness="0" Cursor="Arrow"/>
+        <Label x:Name="labelCheck" Content="Scan" HorizontalAlignment="Left" Margin="35,0,0,10" VerticalAlignment="Bottom" Width="65" Height="39" FontSize="20"/>
+        <Label x:Name="labelStore" Content="Safe" Margin="232,0,229,10" VerticalAlignment="Bottom" Height="39" FontSize="20"/>
         <Label x:Name="labelPay" Content="Pay" Margin="0,0,47,10" VerticalAlignment="Bottom" Height="39" FontSize="20" HorizontalAlignment="Right" Width="40"/>
         <Image x:Name="CounterImage" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="100" Source="pack://application:,,,/Resources/CashCount.png" Margin="0,0,397,49" MouseDown="ImageCheck_Selected" Cursor="Hand"/>
         <Image x:Name="SafeImage" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Source="pack://application:,,,/Resources/Safe.png" Margin="205,170,0,0" Cursor="Hand" MouseDown="ImageSafe_Selected"/>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CloudCoin_SafeScan"
         mc:Ignorable="d"
         Title="Safe Content" Height="380.769" Width="380.838" ResizeMode="NoResize">
-    <Grid Height="246" VerticalAlignment="Top">
+    <Grid Height="246" VerticalAlignment="Top" DataContext="SafeContentWindowViewModel">
         <ListView x:Name="SafeView" HorizontalAlignment="Center" Margin="10,67,12,10" Width="353">
             <ListView.View>
                 <GridView AllowsColumnReorder="False">

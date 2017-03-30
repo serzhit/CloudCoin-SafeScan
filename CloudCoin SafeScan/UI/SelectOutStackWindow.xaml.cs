@@ -13,17 +13,8 @@ namespace CloudCoin_SafeScan
         public SelectOutStackWindow()
         {
             InitializeComponent();
+            Owner = MainWindow.Instance;
             stacksToSelect.KeyDown += onKeyDown;
-        }
-
-        public class Stack4Display
-        {
-            public int Ones { get; set; }
-            public int Fives { get; set; }
-            public int Quarters { get; set; }
-            public int Hundreds { get; set; }
-            public int KiloQuarters { get; set; }
-            public int Total { get; set; }
         }
 
         private void onClick(object sender, RoutedEventArgs e)

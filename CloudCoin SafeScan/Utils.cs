@@ -111,11 +111,5 @@ namespace CloudCoin_SafeScan
             }
             return plainText;
         }
-
-
-
-
-
-
     }
 }

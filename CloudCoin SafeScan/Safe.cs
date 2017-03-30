@@ -14,16 +14,103 @@ namespace CloudCoin_SafeScan
 {
     public class Safe
     {
+        //Singleton instance could be object or null, must check in every call
         public static Safe Instance
         {
             get
             {
-                return theOnlySafeInstance ?? GetInstance();
+                return theOnlySafeInstance ?? GetInstance();   //Singleton Fabric
             }
 
         }
-
         private static Safe theOnlySafeInstance = null;
+
+        //Static fields
+        private static string cryptPassFromFile = ""; //encrypted string which has been read from Safe file
+        private static string userEnteredPassword;
+        private static byte[] encryptedUserEnteredPassword;
+        private static byte[] salt;
+
+
+        private static bool CreateSafeFile(FileInfo fi, CoinStack stack)
+        {
+            try
+            {
+                Directory.CreateDirectory(fi.DirectoryName);
+                var json = JsonConvert.SerializeObject(stack);
+                var cryptedjson = Utils.Encrypt(json, userEnteredPassword, salt);
+                using (var fs = fi.Create())
+                {
+                    fs.Write(encryptedUserEnteredPassword, 0, 60);
+                    fs.Write(cryptedjson, 0, cryptedjson.Length);
+                }
+                return true;
+            }
+            catch (JsonException ex)
+            {
+                MessageBox.Show("Safe.CreateSafeFile() JSON exception: " + ex.Message);
+                return false;
+            }
+            catch (CryptographicException ex)
+            {
+                MessageBox.Show("Safe.CreateSafeFile() encryption exception: " + ex.Message);
+                return false;
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Safe.CreateSafeFile() IO write exception: " + ex.Message);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        private static CoinStack ReadSafeFile(FileInfo fi)
+        {
+            using (var fs = fi.Open(FileMode.Open))
+            {
+                string json = null;
+                byte[] cryptedjson = new byte[(int)(fs.Length - 60)];
+                try
+                {
+                    var numbytestoread = fs.Length - 60;
+                    int numbytesread = 0;
+                    fs.Position = 60;
+                    while (true)
+                    {
+                        var n = fs.Read(cryptedjson, numbytesread, (int)numbytestoread);
+                        if (n == 0) break;
+                        numbytesread += n;
+                        numbytestoread -= n;
+                    }
+                    json = Utils.Decrypt(cryptedjson, userEnteredPassword, salt);
+                    var stack = JsonConvert.DeserializeObject<CoinStack>(json);
+                    return stack;
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show("Safe.ReadSafeFile() IO read exception: " + ex.Message);
+                    return null;
+                }
+                catch (CryptographicException ex)
+                {
+                    MessageBox.Show("Safe.ReadSafeFile() decrypting exception: " + ex.Message);
+                    return null;
+                }
+                catch (JsonException ex)
+                {
+                    MessageBox.Show("Safe.ReadSafeFile() JSON deserialize exception: " + ex.Message);
+                    return null;
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
+
         private static Safe GetInstance()
         {
             var settingsSafeFilePath = Properties.Settings.Default.SafeFileName;
@@ -32,13 +119,15 @@ namespace CloudCoin_SafeScan
             var fileInfo = new FileInfo(filePath);
             if (!fileInfo.Exists)
             { //Safe does not exist, create one
-                var pass = SetPassword();
-                if (pass != "error")
+                userEnteredPassword = UserInteract.SetPassword(); //get user password for Safe
+                if (userEnteredPassword != "error")
                 {
+                    encryptedUserEnteredPassword = Encoding.UTF8.GetBytes(Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(userEnteredPassword)));
+                    salt = encryptedUserEnteredPassword.Take(16).ToArray(); //generate salt while application works
                     var coins = new CoinStack();
-                    if (CreateSafeFile(fileInfo, pass, coins))
+                    if (CreateSafeFile(fileInfo, coins))
                     {
-                        theOnlySafeInstance = new Safe(fileInfo, pass, coins);
+                        theOnlySafeInstance = new Safe(fileInfo, coins);
                         return theOnlySafeInstance;
                     }
                     else
@@ -49,13 +138,15 @@ namespace CloudCoin_SafeScan
             }
             else
             {
-                var pass = CheckPassword(fileInfo);
-                if (pass != "error")
+                userEnteredPassword = UserInteract.CheckPassword(fileInfo); //get user password checked against stored in file
+                if (userEnteredPassword != "error")
                 {
-                    CoinStack safeContents = ReadSafeFile(fileInfo, pass);
+                    encryptedUserEnteredPassword = Encoding.UTF8.GetBytes(Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(userEnteredPassword)));
+                    salt = encryptedUserEnteredPassword.Take(16).ToArray(); //generate salt while application works
+                    CoinStack safeContents = ReadSafeFile(fileInfo);
                     if (safeContents != null)
                     {
-                        theOnlySafeInstance = new Safe(fileInfo, pass, safeContents);
+                        theOnlySafeInstance = new Safe(fileInfo, safeContents);
                         return theOnlySafeInstance;
                     }
                     else
@@ -66,47 +157,45 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        private static string cryptPassFromFile = "";
+
         public string safeFilePath;
         public FileInfo safeFileInfo;
-        private string password;
-        private string cryptedPass;
-        public CoinStack Contents;
+        public CoinStack Contents; // contents of the Safe
         public Shelf Ones
         {
             get
             {
                 return new Shelf(this, CloudCoin.Denomination.One);
             }
-        }
+        } //Shelf with denomination 1 coins
         public Shelf Fives
         {
             get
             {
                 return new Shelf(this, CloudCoin.Denomination.Five);
             }
-        }
+        } //Shelf with denomination 5 coins
         public Shelf Quarters
         {
             get
             {
                 return new Shelf(this, CloudCoin.Denomination.Quarter);
             }
-        }
+        } //Shelf with denomination 25 coins
         public Shelf Hundreds
         {
             get
             {
                 return new Shelf(this, CloudCoin.Denomination.Hundred);
             }
-        }
+        } //Shelf with denomination 100 coins
         public Shelf KiloQuarters
         {
             get
             {
                 return new Shelf(this, CloudCoin.Denomination.KiloQuarter);
             }
-        }
+        } //Shelf with denomination 250 coins
 
         public class Shelf
         {
@@ -291,150 +380,13 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        private Safe(FileInfo fi, string pass, CoinStack coins)
+        private Safe(FileInfo fi, CoinStack coins)
         {
-            password = pass;
             safeFilePath = fi.FullName;
             safeFileInfo = fi;
-            cryptedPass = Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(pass)); ;
             Contents = coins;
-            beforeFixStart += new EventHandler(StartFixProcess);
-        }
-
-        private static string SetPassword()
-        {
-            var passwordWindow = new SetPasswordWindow();
-            passwordWindow.Password.Focus();
-            passwordWindow.Owner = MainWindow.Instance;
-            passwordWindow.ShowDialog();
-            if (passwordWindow.DialogResult == true)
-            {
-                return passwordWindow.Password.Password;
-            }
-            else
-                return "error";
-        }
-
-        private static string CheckPassword(FileInfo fi)
-        {
-            using (var fs = fi.Open(FileMode.Open))
-            {
-                byte[] buffer = new byte[60];
-                byte[] passbytes = { 1, 2, 3, 4 }; //bogus data just to initialize
-                fs.Read(buffer, 0, 60);
-                cryptPassFromFile = new string(Encoding.UTF8.GetChars(buffer));
-                while (true)
-                {
-                    var enterPassword = new EnterPasswordWindow();
-                    enterPassword.Owner = MainWindow.Instance;
-                    enterPassword.passwordBox.Focus();
-                    enterPassword.ShowDialog();
-                    if (enterPassword.DialogResult == true)
-                    {
-                        passbytes = Encoding.UTF8.GetBytes(enterPassword.passwordBox.Password);
-                        if (Crypter.CheckPassword(passbytes, cryptPassFromFile))
-                        {
-                            enterPassword.Close();
-                            return enterPassword.passwordBox.Password;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Wrong password from safe.\nTry again.");
-                            enterPassword.Close();
-                        }
-                    }
-                    else
-                    {
-                        enterPassword.Close();
-                        break;
-                    }
-                }
-            }
-            return "error";
-        }
-        
-        private static bool CreateSafeFile(FileInfo fi, string pass, CoinStack stack)
-        {
-            var cryptpass = Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(pass));
-            byte[] cryptedpassbytes = Encoding.UTF8.GetBytes(cryptpass);
-            try
-            {
-                Directory.CreateDirectory(fi.DirectoryName);
-                var json = JsonConvert.SerializeObject(stack);
-                var cryptedjson = Utils.Encrypt(json, pass, cryptedpassbytes.Take(16).ToArray());
-                using (var fs = fi.Create())
-                {
-                    fs.Write(cryptedpassbytes, 0, 60);
-                    fs.Write(cryptedjson, 0, cryptedjson.Length);
-                }
-                return true;
-            }
-            catch (JsonException ex)
-            {
-                MessageBox.Show("Safe.CreateSafeFile() JSON exception: " + ex.Message);
-                return false;
-            }
-            catch (CryptographicException ex)
-            {
-                MessageBox.Show("Safe.CreateSafeFile() encryption exception: " + ex.Message);
-                return false;
-            }
-            catch (IOException ex)
-            {
-                MessageBox.Show("Safe.CreateSafeFile() IO write exception: " + ex.Message);
-                return false;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-
-        private static CoinStack ReadSafeFile(FileInfo fi, string pass)
-        {
-//            var cryptpass = Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(pass));
-//            byte[] cryptedpassbytes = Encoding.UTF8.GetBytes(cryptpass);
-            using (var fs = fi.Open(FileMode.Open))
-            {
-                byte[] cryptedbytes = Encoding.UTF8.GetBytes(cryptPassFromFile);
-                string json = null;
-                byte[] cryptedjson = new byte[(int)(fs.Length - 60)];
-                try
-                {
-                    var numbytestoread = fs.Length - 60;
-                    int numbytesread = 0;
-                    fs.Position = 60;
-                    while (true)
-                    {
-                        var n = fs.Read(cryptedjson, numbytesread, (int)numbytestoread);
-                        if (n == 0) break;
-                        numbytesread += n;
-                        numbytestoread -= n;
-                    }
-                    json = Utils.Decrypt(cryptedjson, pass, cryptedbytes.Take(16).ToArray());
-                    var stack = JsonConvert.DeserializeObject<CoinStack>(json);
-                    return stack;
-                }
-                catch (IOException ex)
-                {
-                    MessageBox.Show("Safe.ReadSafeFile() IO read exception: " + ex.Message);
-                    return null;
-                }
-                catch (CryptographicException ex)
-                {
-                    MessageBox.Show("Safe.ReadSafeFile() decrypting exception: " + ex.Message);
-                    return null;
-                }
-                catch (JsonException ex)
-                {
-                    MessageBox.Show("Safe.ReadSafeFile() JSON deserialize exception: " + ex.Message);
-                    return null;
-                }
-                catch (Exception ex)
-                {
-                    return null;
-                }
-            }
+//            beforeFixStart += new EventHandler(StartFixProcess);
+            beforeFixStart += new EventHandler(testWindow);
         }
 
         public void Add(CoinStack stack)
@@ -458,8 +410,8 @@ namespace CloudCoin_SafeScan
                 try
                 {
                     jsonstring = JsonConvert.SerializeObject(Contents);
-                    cryptedjsonbytes = Utils.Encrypt(jsonstring, password, Encoding.UTF8.GetBytes(cryptedPass).Take(16).ToArray());
-                    fs.Write(Encoding.UTF8.GetBytes(cryptedPass), 0, 60);
+                    cryptedjsonbytes = Utils.Encrypt(jsonstring, userEnteredPassword, salt);
+                    fs.Write(encryptedUserEnteredPassword, 0, 60);
                     fs.Write(cryptedjsonbytes, 0, cryptedjsonbytes.Length);
                 }
                 catch (JsonException e)
@@ -497,11 +449,12 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        public void testWindow()
+        private void testWindow(object sender, EventArgs e)
         {
             List<CloudCoin> coinsToFix = Contents.cloudcoin.FindAll(x => x.Verdict == CloudCoin.Status.Fractioned);
             FixProcessWindow fixWin = new FixProcessWindow();
             fixWin.Load(coinsToFix);
+            fixWin.Show();
 
         }
 
@@ -560,6 +513,7 @@ namespace CloudCoin_SafeScan
                 CoinStack stack = ChooseNearestPossibleStack(desiredSum);
                 if (stack != null)
                 {
+                    Save(); //saving Safe without extracted coins
                     CoinStackOut st = new CoinStackOut(stack);
                     DateTime currdate = DateTime.Now;
                     string fn = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinDir) +
@@ -666,46 +620,7 @@ namespace CloudCoin_SafeScan
 
         public void Show()
         {
-            var safeWindow = new SafeContentWindow();
-
-            safeWindow.Owner = MainWindow.Instance;
-            safeWindow.Show();
-            safeWindow.totalTextBox.Text = Contents.SumInStack.ToString() + " CC in Safe";
-            SafeContentWindow.Shelf4Display[] items = new SafeContentWindow.Shelf4Display[6]
-            {
-                new SafeContentWindow.Shelf4Display() { Value = "Ones", Good = Ones.GoodQuantity,
-                Fractioned = Ones.FractionedQuantity, Counterfeited = Ones.CounterfeitedQuantity, Total = Ones.TotalQuantity },
-                new SafeContentWindow.Shelf4Display() { Value = "Fives", Good = Fives.GoodQuantity,
-                Fractioned = Fives.FractionedQuantity, Counterfeited = Fives.CounterfeitedQuantity, Total = Fives.TotalQuantity },
-                new SafeContentWindow.Shelf4Display() { Value = "Quarters", Good = Quarters.GoodQuantity,
-                Fractioned = Quarters.FractionedQuantity, Counterfeited = Quarters.CounterfeitedQuantity, Total = Quarters.TotalQuantity },
-                new SafeContentWindow.Shelf4Display() { Value = "Hundreds", Good = Hundreds.GoodQuantity,
-                Fractioned = Hundreds.FractionedQuantity, Counterfeited = Hundreds.CounterfeitedQuantity, Total = Hundreds.TotalQuantity },
-                new SafeContentWindow.Shelf4Display() { Value = "250s", Good = KiloQuarters.GoodQuantity,
-                Fractioned = KiloQuarters.FractionedQuantity, Counterfeited = KiloQuarters.CounterfeitedQuantity, Total = KiloQuarters.TotalQuantity },
-                new SafeContentWindow.Shelf4Display() { Value = "Sum:",
-                Good = KiloQuarters.GoodQuantity*250+Hundreds.GoodQuantity*100+Quarters.GoodQuantity*25+Fives.GoodQuantity*5+Ones.GoodQuantity,
-                Fractioned = KiloQuarters.FractionedQuantity*250+Hundreds.FractionedQuantity*100+Quarters.FractionedQuantity*25+Fives.FractionedQuantity*5+Ones.FractionedQuantity,
-                Counterfeited = KiloQuarters.CounterfeitedQuantity*250+Hundreds.CounterfeitedQuantity*100+Quarters.CounterfeitedQuantity*25+Fives.CounterfeitedQuantity*5+Ones.CounterfeitedQuantity,
-                Total = KiloQuarters.TotalQuantity*250+Hundreds.TotalQuantity*100+Quarters.TotalQuantity*25+Fives.TotalQuantity*5+Ones.TotalQuantity }
-            };
-            safeWindow.SafeView.ItemsSource = items;
-/*            safeWindow.SafeView.Items.Add(new SafeContentWindow.Shelf4Display() { Value = "Ones", Good = Ones.GoodQuantity,
-                Fractioned = Ones.FractionedQuantity, Counterfeited = Ones.CounterfeitedQuantity, Total = Ones.TotalQuantity });
-            safeWindow.SafeView.Items.Add(new SafeContentWindow.Shelf4Display() { Value = "Fives", Good = Fives.GoodQuantity,
-                Fractioned = Fives.FractionedQuantity, Counterfeited = Fives.CounterfeitedQuantity, Total = Fives.TotalQuantity });
-            safeWindow.SafeView.Items.Add(new SafeContentWindow.Shelf4Display() { Value = "Quarters", Good = Quarters.GoodQuantity,
-                Fractioned = Quarters.FractionedQuantity, Counterfeited = Quarters.CounterfeitedQuantity, Total = Quarters.TotalQuantity });
-            safeWindow.SafeView.Items.Add(new SafeContentWindow.Shelf4Display() { Value = "Hundreds", Good = Hundreds.GoodQuantity,
-                Fractioned = Hundreds.FractionedQuantity, Counterfeited = Hundreds.CounterfeitedQuantity, Total = Hundreds.TotalQuantity });
-            safeWindow.SafeView.Items.Add(new SafeContentWindow.Shelf4Display() { Value = "250s", Good = KiloQuarters.GoodQuantity,
-                Fractioned = KiloQuarters.FractionedQuantity, Counterfeited = KiloQuarters.CounterfeitedQuantity, Total = KiloQuarters.TotalQuantity });
-            safeWindow.SafeView.Items.Add(new SafeContentWindow.Shelf4Display() { Value = "Sum:",
-                Good = KiloQuarters.GoodQuantity*250+Hundreds.GoodQuantity*100+Quarters.GoodQuantity*25+Fives.GoodQuantity*5+Ones.GoodQuantity,
-                Fractioned = KiloQuarters.FractionedQuantity*250+Hundreds.FractionedQuantity*100+Quarters.FractionedQuantity*25+Fives.FractionedQuantity*5+Ones.FractionedQuantity,
-                Counterfeited = KiloQuarters.CounterfeitedQuantity*250+Hundreds.CounterfeitedQuantity*100+Quarters.CounterfeitedQuantity*25+Fives.CounterfeitedQuantity*5+Ones.CounterfeitedQuantity,
-                Total = KiloQuarters.TotalQuantity*250+Hundreds.TotalQuantity*100+Quarters.TotalQuantity*25+Fives.TotalQuantity*5+Ones.TotalQuantity });
-*/
+            (new SafeContentWindow()).Show();
         }
     }
 }

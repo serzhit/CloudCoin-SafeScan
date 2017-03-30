@@ -48,7 +48,7 @@ namespace CloudCoin_SafeScan
   //              Hide();
             }
             else
-                MessageBox.Show(this, "You don't have such amount in Safe.\nTry another value", "Enter anther value");
+                MessageBox.Show(this, "You don't have such amount in Safe.\nTry another value", "Enter another value");
         }
 
         private void onWinClose(object sender, CancelEventArgs e)

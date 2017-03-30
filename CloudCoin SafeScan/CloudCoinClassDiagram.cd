@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CloudCoin_SafeScan.App" Collapsed="true">
+    <Position X="13.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.CloudCoin">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="CloudCoin_SafeScan.CloudCoin.Denomination" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CloudCoin.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="CloudCoin_SafeScan.CloudCoin.Status" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CloudCoin.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="CloudCoin_SafeScan.CloudCoin.raidaNodeResponse" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CloudCoin.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Class Name="CloudCoin_SafeScan.CloudCoin.CoinComparer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CloudCoin.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+      <Class Name="CloudCoin_SafeScan.CloudCoin.CoinEqualityComparer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CloudCoin.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AEAIQCAAAgAAAAAEAAAAAAAACAAAIAAAAAEEICAAAQA=</HashCode>
+      <FileName>CloudCoin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.CloudCoinOut" Collapsed="true">
+    <Position X="6.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIQCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEACAAAAA=</HashCode>
+      <FileName>CloudCoin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.CoinStackOut" Collapsed="true">
+    <Position X="8.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAQA=</HashCode>
+      <FileName>CloudCoin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.CoinStack" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAJAEAAAAAAAABAAABAAAAAAAQgEAAAEAAAAwAAAAYA=</HashCode>
+      <FileName>CloudCoin.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CloudCoin_SafeScan.CloudCoinFile" Collapsed="true">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAQAAQAAAAAAACAAAAAAAAIACAAAAAAAAAAA=</HashCode>
+      <FileName>CloudCoinFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.FixitHelper" Collapsed="true">
+    <Position X="10.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAIAAAAAAgBAIAAAcAgAIAAEAAgIAQADwACAAAAA=</HashCode>
+      <FileName>FixitHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.ObservableStatus" Collapsed="true">
+    <Position X="10" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Observables.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.ObservableBool" Collapsed="true">
+    <Position X="6.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAACAAAAAAAABAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Observables.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.ObservableRaidaNodeResponse" Collapsed="true">
+    <Position X="8.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQJAAAAAAEBAAAAAAAAACAABAAAAAAAEAAAAAAAACI=</HashCode>
+      <FileName>Observables.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.FullyObservableCollection&lt;T&gt;" Collapsed="true">
+    <Position X="10" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAQAAAABAAAAAAAAAAAgI=</HashCode>
+      <FileName>Observables.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.ItemPropertyChangedEventArgs" Collapsed="true">
+    <Position X="6.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Observables.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.RAIDA">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="CloudCoin_SafeScan.RAIDA.Countries" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>RAIDA.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Class Name="CloudCoin_SafeScan.RAIDA.Node" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>RAIDAFix.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="CloudCoin_SafeScan.RAIDA.EchoResponse" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>RAIDA.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="CloudCoin_SafeScan.RAIDA.DetectResponse" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>RAIDA.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="CloudCoin_SafeScan.RAIDA.GetTicketResponse" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>RAIDAFix.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="CloudCoin_SafeScan.RAIDA.FixResponse" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>RAIDAFix.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAEgAAAAAKAAAAAKAAAAAAAAAAAAQQACAABAAAAA=</HashCode>
+      <FileName>RAIDA.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.Safe">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="CloudCoin_SafeScan.Safe.Shelf" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Safe.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>wAJAAIAAQAAABABIAEBAgIAAhUAEAGgAQQAIIABgAIA=</HashCode>
+      <FileName>Safe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.BooleanToBrushConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAIAAAAAABAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\BooleanToBrushConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CloudCoin_SafeScan.CheckCoinsWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAFAAAAAAAgAAAAAAAAAAAgAAAAAAAAAg=</HashCode>
+      <FileName>UI\CheckCoinsWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CloudCoin_SafeScan.EnterPasswordWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\EnterPasswordWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CloudCoin_SafeScan.FixCoinWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAEAAAAAAAAAEAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>UI\FixCoinWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CloudCoin_SafeScan.FixCoinWindowViewModel" Collapsed="true">
+    <Position X="13.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACiAAAAAAAAQAEAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>UI\FixCoinWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.FixStackViewModel" Collapsed="true">
+    <Position X="8.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAIAgAAAAAAAAAAA=</HashCode>
+      <FileName>UI\FixCoinWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.CoinFixStatus" Collapsed="true">
+    <Position X="12.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAABAAg=</HashCode>
+      <FileName>UI\FixCoinWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.FixProcessWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\FixProcessWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CloudCoin_SafeScan.HowMuchWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAABAAAAAgAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\HowMuchWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CloudCoin_SafeScan.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAhAACAAAAAAAAAIAAgABIAQAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>UI\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CloudCoin_SafeScan.SafeContentWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\SafeContentWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CloudCoin_SafeScan.SelectOutStackWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\SelectOutStackWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CloudCoin_SafeScan.SetPasswordWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAABAAAAAAAAIgAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>UI\SetPasswordWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CloudCoin_SafeScan.StatusToBrushConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAIAAAAAAAAgAAAAAEAAECAAAAAA=</HashCode>
+      <FileName>UI\StatusToBrushConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CloudCoin_SafeScan.Utils">
+    <Position X="4.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAEAAAAAAAAAAQAAAAAAIAAAAQAAAgAAACAAAAAAA=</HashCode>
+      <FileName>Utils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.Properties.Resources" Collapsed="true">
+    <Position X="8.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudCoin_SafeScan.Properties.Settings" Collapsed="true">
+    <Position X="11.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAEAAAAIAAAAAABAAAAAAABAAAACAA=</HashCode>
+      <FileName>Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
