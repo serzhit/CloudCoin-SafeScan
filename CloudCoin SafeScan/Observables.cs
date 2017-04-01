@@ -54,6 +54,31 @@ namespace CloudCoin_SafeScan
             return new ObservableBool(b);   // implicit conversion
         }
     }
+
+    public class ObservableString : ObservableObject
+    {
+        private string value;
+        public ObservableString()
+        {
+            value = null;
+        }
+        public ObservableString(string s)
+        {
+            value = s;
+        }
+        public static implicit operator string(ObservableString d)  // implicit ObservableStatus to bool conversion operator
+        {
+            return d.value;   // implicit conversion
+        }
+        public static implicit operator ObservableString(string s)  // implicit ObservableStatus to bool conversion operator
+        {
+            return new ObservableString(s);   // implicit conversion
+        }
+        public override string ToString()
+        {
+            return value;
+        }
+    }
     public class ObservableRaidaNodeResponse : ObservableObject
     {
         private CloudCoin.raidaNodeResponse _status;
@@ -101,108 +126,41 @@ namespace CloudCoin_SafeScan
     public class FullyObservableCollection<T> : ObservableCollection<T>
             where T : INotifyPropertyChanged
     {
-        /// <summary>
-        /// Occurs when a property is changed within an item.
-        /// </summary>
-        public event EventHandler<ItemPropertyChangedEventArgs> ItemPropertyChanged;
-
-        public FullyObservableCollection() : base()
-        { }
-
-        public FullyObservableCollection(List<T> list) : base(list)
+        public FullyObservableCollection()
         {
-            ObserveAll();
+            CollectionChanged += FullObservableCollectionCollectionChanged;
         }
 
-        public FullyObservableCollection(IEnumerable<T> enumerable) : base(enumerable)
+        public FullyObservableCollection(IEnumerable<T> pItems) : this()
         {
-            ObserveAll();
-        }
-
-        protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangedAction.Remove ||
-                e.Action == NotifyCollectionChangedAction.Replace)
+            foreach (var item in pItems)
             {
-                foreach (T item in e.OldItems)
-                    item.PropertyChanged -= ChildPropertyChanged;
+                this.Add(item);
             }
+        }
 
-            if (e.Action == NotifyCollectionChangedAction.Add ||
-                e.Action == NotifyCollectionChangedAction.Replace)
+        private void FullObservableCollectionCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
             {
-                foreach (T item in e.NewItems)
-                    item.PropertyChanged += ChildPropertyChanged;
+                foreach (Object item in e.NewItems)
+                {
+                    ((INotifyPropertyChanged)item).PropertyChanged += ItemPropertyChanged;
+                }
             }
-
-            base.OnCollectionChanged(e);
+            if (e.OldItems != null)
+            {
+                foreach (Object item in e.OldItems)
+                {
+                    ((INotifyPropertyChanged)item).PropertyChanged -= ItemPropertyChanged;
+                }
+            }
         }
 
-        protected void OnItemPropertyChanged(ItemPropertyChangedEventArgs e)
+        private void ItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            ItemPropertyChanged?.Invoke(this, e);
+            NotifyCollectionChangedEventArgs args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, sender, sender, IndexOf((T)sender));
+            OnCollectionChanged(args);
         }
-
-        protected void OnItemPropertyChanged(int index, PropertyChangedEventArgs e)
-        {
-            OnItemPropertyChanged(new ItemPropertyChangedEventArgs(index, e));
-        }
-
-        protected override void ClearItems()
-        {
-            foreach (T item in Items)
-                item.PropertyChanged -= ChildPropertyChanged;
-
-            base.ClearItems();
-        }
-
-        private void ObserveAll()
-        {
-            foreach (T item in Items)
-                item.PropertyChanged += ChildPropertyChanged;
-        }
-
-        private void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            T typedSender = (T)sender;
-            int i = Items.IndexOf(typedSender);
-
-            if (i < 0)
-                throw new ArgumentException("Received property notification from item not in collection");
-
-            OnItemPropertyChanged(i, e);
-        }
-    }
-
-    /// <summary>
-    /// Provides data for the <see cref="FullyObservableCollection{T}.ItemPropertyChanged"/> event.
-    /// </summary>
-    public class ItemPropertyChangedEventArgs : PropertyChangedEventArgs
-    {
-        /// <summary>
-        /// Gets the index in the collection for which the property change has occurred.
-        /// </summary>
-        /// <value>
-        /// Index in parent collection.
-        /// </value>
-        public int CollectionIndex { get; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ItemPropertyChangedEventArgs"/> class.
-        /// </summary>
-        /// <param name="index">The index in the collection of changed item.</param>
-        /// <param name="name">The name of the property that changed.</param>
-        public ItemPropertyChangedEventArgs(int index, string name) : base(name)
-        {
-            CollectionIndex = index;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ItemPropertyChangedEventArgs"/> class.
-        /// </summary>
-        /// <param name="index">The index.</param>
-        /// <param name="args">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
-        public ItemPropertyChangedEventArgs(int index, PropertyChangedEventArgs args) : this(index, args.PropertyName)
-        { }
     }
 }

@@ -10,7 +10,10 @@ namespace CloudCoin_SafeScan
 {
     public partial class RAIDA
     {
-//        MainWindow mainWin = ;
+        public delegate void EchoStatusChangedEventHandler(object o, EchoStatusChangedEventArgs e);
+        public event EchoStatusChangedEventHandler EchoStatusChanged;
+
+        //        MainWindow mainWin = ;
         public const short NODEQNTY = 25;
         public const short MINTRUSTEDNODES4AUTH = 8;
         public Node[] NodesArray = new Node[NODEQNTY];
@@ -51,6 +54,8 @@ namespace CloudCoin_SafeScan
                 return theOnlyRAIDAInstance;
             }
         }
+        public EchoResponse[] EchoStatus = new EchoResponse[NODEQNTY];
+        
 
         private RAIDA()
         {
@@ -60,17 +65,29 @@ namespace CloudCoin_SafeScan
             }
         }
 
+        public void onEchoStatusChanged(EchoStatusChangedEventArgs e)
+        {
+            EchoStatusChanged?.Invoke(this, e);
+        }
+
         public void getEcho() 
         {
             Task<EchoResponse>[] tasks = new Task<EchoResponse>[NODEQNTY];
             int i = 0;
             foreach (Node node in Instance.NodesArray)
             {
+                int index = i;
                 tasks[i] = Task.Factory.StartNew(() => node.Echo());
-                tasks[i].ContinueWith(ancestor => MainWindow.Instance.ShowEchoProgress(ancestor.Result, node) );
+                //EchoStatus[i] = await tasks[i];
+                tasks[i].ContinueWith((anc) => 
+                {
+                    EchoStatus[index] = anc.Result;
+                    onEchoStatusChanged(new EchoStatusChangedEventArgs(index));
+                });
+//                tasks[i].ContinueWith(ancestor => MainWindow.Instance.ShowEchoProgress(ancestor.Result, node) );
                 i++;
             }
-            Task.Factory.ContinueWhenAll(tasks, ancestors => MainWindow.Instance.AllEchoesCompleted() );
+            Task.Factory.ContinueWhenAll(tasks, ancestors => onEchoStatusChanged(new EchoStatusChangedEventArgs(25)) );
         }
 
         public void Detect(CloudCoin coin)
@@ -214,6 +231,7 @@ namespace CloudCoin_SafeScan
 
                 sw.Stop();
                 getEcho.responseTime = sw.Elapsed;
+                LastEchoStatus = getEcho;
                 
                 return getEcho;
             }
@@ -281,6 +299,16 @@ namespace CloudCoin_SafeScan
             }
         }
 
+        public class EchoStatusChangedEventArgs : EventArgs
+        {
+            public int index;
+
+            public EchoStatusChangedEventArgs(int index)
+            {
+                this.index = index;
+            }
+        }
+
         public class EchoResponse : RestResponse<EchoResponse>
         {
             public string server { get; set; }
@@ -305,7 +333,6 @@ namespace CloudCoin_SafeScan
                 this.message = message;
                 this.time = time;
             }
-
         }
 
         public class DetectResponse : RestResponse<DetectResponse>

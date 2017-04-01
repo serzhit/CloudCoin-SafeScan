@@ -7,37 +7,36 @@
         mc:Ignorable="d"
         Title="FixProcessWindow" Height="293.417" Width="717.555">
     <Window.Resources>
-        <local:StatusToBrushConverter x:Key="StatusConverter" PassBrush="Green" FailBrush="Red" ErrorBrush="Brown" UnknownBrush="Yellow" />
         <local:CoinFixStatus x:Key="CoinFixItem" />
         <DataTemplate x:Key="CoinItemTemplate">
             <StackPanel DataContext="{StaticResource CoinFixItem}">
                 <TextBlock Text="{Binding serial}" />
                 <TextBlock Text="{Binding Denomination}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[0], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[1], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[2], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[3], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[4], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[5], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[6], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[7], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[8], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[9], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[10], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[11], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[12], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[13], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[14], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[15], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[16], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[17], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[18], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[19], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[20], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[21], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[22], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[23], Converter={StaticResource StatusConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[24], Converter={StaticResource StatusConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[0], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[1], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[2], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[3], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[4], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[5], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[6], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[7], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[8], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[9], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[10], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[11], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[12], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[13], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[14], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[15], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[16], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[17], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[18], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[19], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[20], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[21], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[22], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[23], Converter={StaticResource StatusBrushConverter}}" />
+                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[24], Converter={StaticResource StatusBrushConverter}}" />
                 <TextBlock Text="{Binding status}" />
             </StackPanel>
         </DataTemplate>

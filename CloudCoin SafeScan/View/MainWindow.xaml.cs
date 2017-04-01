@@ -20,7 +20,9 @@ namespace CloudCoin_SafeScan
             get
             {
                 if (theOnlyInstance == null)
+                {
                     theOnlyInstance = new MainWindow();
+                }
                 return theOnlyInstance;
             }
 
@@ -33,7 +35,7 @@ namespace CloudCoin_SafeScan
         {
             InitializeComponent();
         }
-
+/*
         private void ImageCheck_Selected(object sender, InputEventArgs e)
         {
             CloudCoinFile coinFile;
@@ -52,7 +54,7 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        public void AllEchoesCompleted()
+/*        public void AllEchoesCompleted()
         {
             Dispatcher.Invoke(() =>
             {
@@ -60,7 +62,7 @@ namespace CloudCoin_SafeScan
             });
         }
 
-        public void ShowEchoProgress(RAIDA.EchoResponse result, RAIDA.Node node)
+/*        public void ShowEchoProgress(RAIDA.EchoResponse result, RAIDA.Node node)
         {
             Dispatcher.Invoke(() =>
             {
@@ -284,8 +286,7 @@ namespace CloudCoin_SafeScan
                 }
             });
         }
-
-
+*/
 
         private void ImageSafe_Selected(object sender, InputEventArgs e)
         {
