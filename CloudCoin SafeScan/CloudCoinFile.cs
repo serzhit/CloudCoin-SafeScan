@@ -45,8 +45,7 @@ namespace CloudCoin_SafeScan
             else
             {
                 throw   new FileNotFoundException();
-            }
-            
+            }            
         }
 
         private CloudCoin ReadJpeg(Stream jpegFS)

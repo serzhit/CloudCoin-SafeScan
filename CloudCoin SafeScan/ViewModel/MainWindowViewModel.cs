@@ -65,9 +65,7 @@ namespace CloudCoin_SafeScan
             if (e.index < 25)
             {
                 NodeStatus[e.index] = (RAIDA.Instance.EchoStatus[e.index].status == "ready") ? new ObservableBool(true) : new ObservableBool(false);
-                //RaisePropertyChanged("NodeStatus");
                 ToolTip[e.index] = RAIDA.Instance.NodesArray[e.index].ToString();
-                //RaisePropertyChanged("ToolTip");
             }
             else
             {
@@ -95,11 +93,30 @@ namespace CloudCoin_SafeScan
 
         private void _ShowSafe()
         {
-
+            Safe safe;
+            try { safe = Safe.Instance; }
+            catch (Exception ex)
+            {
+                safe = null;
+            }
+            if (safe != null)
+            {
+                safe.Show();
+            }
         }
+
         private void _PayOut()
         {
-
+            Safe safe;
+            try { safe = Safe.Instance; }
+            catch (TypeInitializationException ex)
+            {
+                safe = null;
+            }
+            if (safe != null)
+            {
+                safe.SaveOutStack();
+            }
         }
     }
 

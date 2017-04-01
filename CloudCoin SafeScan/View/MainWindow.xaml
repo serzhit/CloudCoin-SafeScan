@@ -37,7 +37,7 @@
         </Image>
         <Image x:Name="StackCoins" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" 
                Width="100" Source="pack://application:,,,/Resources/CoinPayment.png" Margin="400,170,0,0" 
-               Cursor="Hand" TouchDown="ImagePay_Selected" StylusDown="ImagePay_Selected">
+               Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <mvvm:EventToCommand Command="{Binding PayOut, Mode=OneWay}" />
