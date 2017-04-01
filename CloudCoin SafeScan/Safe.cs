@@ -453,9 +453,6 @@ namespace CloudCoin_SafeScan
         {
             List<CloudCoin> coinsToFix = Contents.cloudcoin.FindAll(x => x.Verdict == CloudCoin.Status.Fractioned);
             FixProcessWindow fixWin = new FixProcessWindow();
-            fixWin.Load(coinsToFix);
-            fixWin.Show();
-
         }
 
         private void RecurrentFix(List<CloudCoin> coinstofix)
@@ -559,7 +556,7 @@ namespace CloudCoin_SafeScan
             //show which will form stack >= requested sum
             var selectWindow = new SelectOutStackWindow();
             selectWindow.Owner = MainWindow.Instance;
-            selectWindow.stacksToSelect.Items.Add(new Stack4Display()
+            selectWindow.stacksToSelect.Items.Add(new SelectOutStackWindowViewModel()
             { Ones = o, Fives = f, Quarters = q, Hundreds = h, KiloQuarters = kQ, Total = (o + f * 5 + q * 25 + h * 100 + kQ * 250) });
             //adding existing coin of minimal denomination to form second choice which will be greater than requested sum
             if (sum > 0)
@@ -569,14 +566,14 @@ namespace CloudCoin_SafeScan
                 else if ((csc.Quarters - q) > 0) q++;
                 else if ((csc.Hundreds - h) > 0) h++;
                 else if ((csc.Quarters - kQ) > 0) kQ++;
-                selectWindow.stacksToSelect.Items.Add(new Stack4Display()
+                selectWindow.stacksToSelect.Items.Add(new SelectOutStackWindowViewModel()
                 { Ones = o, Fives = f, Quarters = q, Hundreds = h, KiloQuarters = kQ, Total = (o + f * 5 + q * 25 + h * 100 + kQ * 250) });
             }
             selectWindow.stacksToSelect.SelectedItem = selectWindow.stacksToSelect.Items[0];
             selectWindow.ShowDialog();
             if (selectWindow.DialogResult == true)
             {
-                Stack4Display res = (Stack4Display)selectWindow.stacksToSelect.SelectedItem;
+                SelectOutStackWindowViewModel res = (SelectOutStackWindowViewModel)selectWindow.stacksToSelect.SelectedItem;
 
                 List<CloudCoin> tmp = new List<CloudCoin>(o + f + q + h + kQ);
                 IEnumerable<IGrouping<CloudCoin.Denomination, CloudCoin>> GroupsCoinQuery = from coin in csc.cloudcoin

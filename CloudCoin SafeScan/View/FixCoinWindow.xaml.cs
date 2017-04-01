@@ -7,9 +7,6 @@ namespace CloudCoin_SafeScan
     /// </summary>
     public partial class FixCoinWindow : Window
     {
-        public FixCoinWindowViewModel ViewModel;
-
-
         public FixCoinWindow()
         {
 //            ViewModel = new FixCoinWindowViewModel(coin);
@@ -21,8 +18,6 @@ namespace CloudCoin_SafeScan
 
         public void Load(CloudCoin coin)
         {
-            ViewModel = new FixCoinWindowViewModel(coin);
-            DataContext = ViewModel;
             coinImage.Source = coin.coinImage;
             serialNumber.Content = "S/N: " + coin.sn.ToString();
         }
@@ -31,7 +26,7 @@ namespace CloudCoin_SafeScan
         {
             Dispatcher.Invoke(() => 
             {
-                ViewModel.StatusText = value;
+//                ViewModel.StatusText = value;
                 //fixingLbl.Text = value;
             });
         }
@@ -39,7 +34,7 @@ namespace CloudCoin_SafeScan
         {
             Dispatcher.Invoke(() =>
             {
-                ViewModel.nodeStatus[i] = result;
+//                ViewModel.nodeStatus[i] = result;
             });
         }
      }

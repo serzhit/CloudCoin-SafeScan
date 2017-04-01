@@ -1,7 +1,6 @@
-﻿
-namespace CloudCoin_SafeScan
+﻿namespace CloudCoin_SafeScan
 {
-    public class Stack4Display
+    public class SelectOutStackWindowViewModel
     {
         public int Ones { get; set; }
         public int Fives { get; set; }

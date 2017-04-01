@@ -124,67 +124,70 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DelegateCommand.cs" />
     <Compile Include="ICloudCoin.cs" />
     <Compile Include="IOModels.cs" />
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="Observables.cs" />
-    <Compile Include="UI\SelectOutStackWindowViewModel.cs" />
-    <Compile Include="UI\SafeContentWindowViewModel.cs" />
-    <Compile Include="UI\StatusToBrushConverter.cs" />
-    <Compile Include="UI\BooleanToBrushConverter.cs" />
+    <Compile Include="ViewModel\SelectOutStackWindowViewModel.cs" />
+    <Compile Include="ViewModel\SafeContentWindowViewModel.cs" />
+    <Compile Include="StatusToBrushConverter.cs" />
+    <Compile Include="BooleanToBrushConverter.cs" />
     <Compile Include="CloudCoinFile.cs" />
     <Compile Include="FixitHelper.cs" />
     <Compile Include="RAIDAFix.cs" />
-    <Compile Include="UI\CheckCoinsWindow.xaml.cs">
+    <Compile Include="View\CheckCoinsWindow.xaml.cs">
       <DependentUpon>CheckCoinsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\FixCoinWindow.xaml.cs">
+    <Compile Include="View\FixCoinWindow.xaml.cs">
       <DependentUpon>FixCoinWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\FixCoinWindowViewModel.cs" />
-    <Compile Include="UI\FixProcessWindow.xaml.cs">
+    <Compile Include="ViewModel\FixCoinWindowViewModel.cs" />
+    <Compile Include="View\FixProcessWindow.xaml.cs">
       <DependentUpon>FixProcessWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInteract.cs" />
     <Compile Include="Utils.cs" />
-    <Compile Include="UI\EnterPasswordWindow.xaml.cs">
+    <Compile Include="View\EnterPasswordWindow.xaml.cs">
       <DependentUpon>EnterPasswordWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\HowMuchWindow.xaml.cs">
+    <Compile Include="View\HowMuchWindow.xaml.cs">
       <DependentUpon>HowMuchWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="RAIDA.cs" />
     <Compile Include="Safe.cs" />
-    <Compile Include="UI\SafeContentWindow.xaml.cs">
+    <Compile Include="View\SafeContentWindow.xaml.cs">
       <DependentUpon>SafeContentWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\SelectOutStackWindow.xaml.cs">
+    <Compile Include="View\SelectOutStackWindow.xaml.cs">
       <DependentUpon>SelectOutStackWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\SetPasswordWindow.xaml.cs">
+    <Compile Include="View\SetPasswordWindow.xaml.cs">
       <DependentUpon>SetPasswordWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Page Include="UI\CheckCoinsWindow.xaml">
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Page Include="View\CheckCoinsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\EnterPasswordWindow.xaml">
+    <Page Include="View\EnterPasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\FixCoinWindow.xaml">
+    <Page Include="View\FixCoinWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\FixProcessWindow.xaml">
+    <Page Include="View\FixProcessWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\HowMuchWindow.xaml">
+    <Page Include="View\HowMuchWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\MainWindow.xaml">
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -193,19 +196,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CloudCoin.cs" />
-    <Compile Include="UI\MainWindow.xaml.cs">
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UI\SafeContentWindow.xaml">
+    <Page Include="View\SafeContentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\SelectOutStackWindow.xaml">
+    <Page Include="View\SelectOutStackWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\SetPasswordWindow.xaml">
+    <Page Include="View\SetPasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

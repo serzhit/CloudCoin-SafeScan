@@ -52,7 +52,6 @@ namespace CloudCoin_SafeScan
             }
         }
 
-
         private RAIDA()
         {
             for(int i=0; i<NodesArray.Length;i++)

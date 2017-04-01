@@ -11,7 +11,11 @@ namespace CloudCoin_SafeScan
         public FullyObservableCollection<ObservableStatus> nodeStatus
         {
             get { return _ns; }
-            set { _ns = value; }
+            set
+            {
+                _ns = value;
+                RaisePropertyChanged("nodeStatus");
+            }
         }
         private string _st;
         public string StatusText
@@ -25,16 +29,6 @@ namespace CloudCoin_SafeScan
             _ns = new FullyObservableCollection<ObservableStatus>();
             for (int i = 0; i < RAIDA.NODEQNTY; i++)
                 _ns.Add(new ObservableStatus(CloudCoin.raidaNodeResponse.unknown));
-            RaisePropertyChanged("nodeStatus");
-        }
-
-        public FixCoinWindowViewModel(CloudCoin coin)
-        {
-            // StatusText = "blablabla";
-            _ns = new FullyObservableCollection<ObservableStatus>();
-            coinToFix = coin;
-            for (int i = 0; i < RAIDA.NODEQNTY; i++)
-                _ns.Add( new ObservableStatus(coin.detectStatus[i]) );
             RaisePropertyChanged("nodeStatus");
         }
 

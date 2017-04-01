@@ -8,7 +8,6 @@
         Title="FixProcessWindow" Height="293.417" Width="717.555">
     <Window.Resources>
         <local:StatusToBrushConverter x:Key="StatusConverter" PassBrush="Green" FailBrush="Red" ErrorBrush="Brown" UnknownBrush="Yellow" />
-        <local:FixStackViewModel x:Key="ViewModel" />
         <local:CoinFixStatus x:Key="CoinFixItem" />
         <DataTemplate x:Key="CoinItemTemplate">
             <StackPanel DataContext="{StaticResource CoinFixItem}">
@@ -43,9 +42,9 @@
             </StackPanel>
         </DataTemplate>
     </Window.Resources>
-    <Grid>
+    <Grid DataContext="{Binding FixCoin, Source={StaticResource Locator}}">
         <ListView x:Name="listView" HorizontalAlignment="Left" Height="242" Margin="10,10,0,0" 
-                  VerticalAlignment="Top" Width="690" ItemTemplate="{StaticResource CoinItemTemplate}" ItemsSource="{Binding FixingCoins, Source={StaticResource ViewModel}}">
+                  VerticalAlignment="Top" Width="690" ItemTemplate="{StaticResource CoinItemTemplate}" ItemsSource="{Binding nodeStatus}">
             <GridView AllowsColumnReorder="False">
                 <GridViewColumn Header="Serial" Width="60"/>
                 <GridViewColumn Header="Value" Width="40"/>

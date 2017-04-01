@@ -31,7 +31,7 @@ namespace CloudCoin_SafeScan
             bool isGood = result.All<ObservableStatus>(x => x.Status == CloudCoin.raidaNodeResponse.pass);
             DispatcherHelper.CheckBeginInvokeOnUI(() =>
             {
-                fixWin.ViewModel.StatusText = brokeCoin.sn + (isGood ? "" : " not") + " fixed!";
+//                fixWin.ViewModel.StatusText = brokeCoin.sn + (isGood ? "" : " not") + " fixed!";
                 Thread.Sleep(500);
             });
         }
@@ -91,7 +91,7 @@ namespace CloudCoin_SafeScan
             //            DispatcherHelper.CheckBeginInvokeOnUI(() => { fixWin.ViewModel.nodeStatus[guid_id] = false; });
             DispatcherHelper.CheckBeginInvokeOnUI(() =>
             {
-                fixWin.ViewModel.nodeStatus[guid_id] = result;
+//                fixWin.ViewModel.nodeStatus[guid_id] = result;
 //                fixWin.ViewModel.StatusText = "Node " + guid_id.ToString() + (result? "":" not") + " fixed!";
                 Thread.Sleep(500);
             });
