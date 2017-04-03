@@ -9,6 +9,7 @@ namespace CloudCoin_SafeScan
 {
     public delegate void EchoStatusChangedEventHandler(object o, EchoStatusChangedEventArgs e);
     public delegate void DetectCoinCompletedEventHandler(object o, DetectCoinCompletedEventArgs e);
+    public delegate void StackScanCompletedEventHandler(object o, StackScanCompletedEventArgs e);
 
     public class EchoStatusChangedEventArgs : EventArgs
     {
@@ -31,5 +32,18 @@ namespace CloudCoin_SafeScan
             sw = stwtch;
         }
     }
+
+    public class StackScanCompletedEventArgs : EventArgs
+    {
+        public CoinStack stack;
+        public Stopwatch sw;
+
+        public StackScanCompletedEventArgs(CoinStack st, Stopwatch stwtch)
+        {
+            stack = st;
+            sw = stwtch;
+        }
+    }
+
 
 }

@@ -16,7 +16,7 @@
         <Image x:Name="CoinImage" HorizontalAlignment="Left" Height="129" Margin="47,53,0,0" VerticalAlignment="Top" Width="130" IsHitTestVisible="False" Source="pack://application:,,,/Resources/stackcoins.png"/>
         <Label x:Name="LabelStatus" Content="OK!" HorizontalAlignment="Left" Height="95" Margin="365,70,0,0" VerticalAlignment="Top" Width="122" FontSize="48" Foreground="#FF00C800" Visibility="Hidden"/>
         <TextBlock x:Name="Filename" HorizontalAlignment="Left" Height="43" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" ScrollViewer.VerticalScrollBarVisibility="Disabled" Text="Checking..."/>
-        <TextBox x:Name="percentBox" HorizontalAlignment="Left" Height="20" Margin="361,10,0,0" TextWrapping="Wrap" Text="100%" VerticalAlignment="Top" Width="38" BorderThickness="0">
+        <TextBox x:Name="percentBox" HorizontalAlignment="Left" Height="20" Margin="361,10,0,0" TextWrapping="Wrap" Text="{Binding PercentDone}" VerticalAlignment="Top" Width="38" BorderThickness="0">
             <TextBox.Background>
                 <SolidColorBrush Color="White" Opacity="0"/>
             </TextBox.Background>

@@ -22,11 +22,12 @@ namespace CloudCoin_SafeScan
             CheckCoinsWindow checkWin = new CheckCoinsWindow(ScannedStack);
             checkWin.Show();
 
-            foreach(CloudCoin coin in ScannedStack)
-            {
-                coin.pans = coin.an;
-                RAIDA.Instance.Detect(coin);
-            }
+            RAIDA.Instance.Detect(ScannedStack);
+            //            foreach(CloudCoin coin in ScannedStack)
+            //            {
+            //               coin.pans = coin.an;
+            //                RAIDA.Instance.Detect(coin);
+            //            }
         }
 
         public void Import()

@@ -13,6 +13,8 @@ namespace CloudCoin_SafeScan
         
         public event EchoStatusChangedEventHandler EchoStatusChanged;
         public event DetectCoinCompletedEventHandler DetectCoinCompleted;
+        public event StackScanCompletedEventHandler StackScanCompleted;
+
 
         //        MainWindow mainWin = ;
         public const short NODEQNTY = 25;
@@ -91,24 +93,15 @@ namespace CloudCoin_SafeScan
             Task.Factory.ContinueWhenAll(tasks, ancestors => onEchoStatusChanged(new EchoStatusChangedEventArgs(25)) );
         }
 
-        public void Detect(CloudCoin coin)
+        public async Task Detect(CloudCoin coin)
         {
             Stopwatch sw = new Stopwatch();
-            CoinStack stack = new CoinStack(coin);
             Task<DetectResponse>[] tasks = new Task<DetectResponse>[NODEQNTY];
-            sw.Start();
-            int i = 0;
+            sw.Start();;
             foreach(Node node in Instance.NodesArray)
             {
-                int index = i;
-                tasks[i] = Task.Factory.StartNew(() => node.Detect(coin));
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                tasks[i].ContinueWith((anc) =>
-                {
-                    coin.detectStatus[index] = anc.Result;
-                });
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                i++;
+                tasks[node.Number] = Task.Factory.StartNew(() => node.Detect(coin));
+                coin.detectStatus[node.Number] = await tasks[node.Number];
             }
 
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
@@ -124,17 +117,17 @@ namespace CloudCoin_SafeScan
         {
             DetectCoinCompleted?.Invoke(this, e);
         }
-/*
+
+        public void onStackScanCompleted(StackScanCompletedEventArgs e)
+        {
+            StackScanCompleted?.Invoke(this, e);
+        }
+
         public void Detect(CoinStack stack)
         {
-            CheckCoinsWindow checkCoinsWindow = new CheckCoinsWindow();
-//            checkCoinsWindow.Filename.Text = FD.SafeFileName;
-            checkCoinsWindow.coinsToDetect = stack.coinsInStack;
-            checkCoinsWindow.Show();
-
+            Stopwatch total = new Stopwatch();
+            total.Start();
             Task[] checkStackTasks = new Task[stack.cloudcoin.Count()];
-            Stopwatch stackCheckTime = new Stopwatch();
-            stackCheckTime.Start();
             Stopwatch[] tw = new Stopwatch[stack.cloudcoin.Count()];
             for (int k = 0; k < stack.cloudcoin.Count(); k++)
             {
@@ -145,13 +138,20 @@ namespace CloudCoin_SafeScan
                 foreach (Node node in Instance.NodesArray)
                 {
                     checkCoinTasks[node.Number] = Task.Factory.StartNew(() => node.Detect(coin));
-                    checkCoinTasks[node.Number].ContinueWith(ancestor => { checkCoinsWindow.ShowDetectProgress(ancestor.Result, node); });
+                    checkCoinTasks[node.Number].ContinueWith((anc) => coin.detectStatus[node.Number] = anc.Result);
                 }
-                checkStackTasks[k] = Task.Factory.ContinueWhenAll(checkCoinTasks, delegate { checkCoinsWindow.AllCoinDetectCompleted(coin, t); });
+                checkStackTasks[k] = Task.Factory.ContinueWhenAll(checkCoinTasks, (ancs) => 
+                {
+                    t.Stop();
+                    onDetectCoinCompleted(new DetectCoinCompletedEventArgs(coin, t));
+                });
             }
-            Task.Factory.ContinueWhenAll(checkStackTasks, delegate { checkCoinsWindow.AllStackDetectCompleted(stack, stackCheckTime); });
+            Task.Factory.ContinueWhenAll(checkStackTasks, (ancs) =>
+            {
+                onStackScanCompleted(new StackScanCompletedEventArgs(stack, total));
+            });
         }
-*/
+
         public partial class Node
         {
             public int Number;

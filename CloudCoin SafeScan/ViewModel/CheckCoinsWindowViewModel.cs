@@ -10,6 +10,7 @@ namespace CloudCoin_SafeScan
 {
     class CheckCoinsWindowViewModel : ViewModelBase
     {
+        int Count; //number of coins in stack of this instance
         public class Coin4Display : ObservableObject
         {
             public int Serial { get; set; }
@@ -26,6 +27,17 @@ namespace CloudCoin_SafeScan
             {
                 _checkLog = value;
                 RaisePropertyChanged("CheckLog");
+            }
+        }
+
+        private string _percentDone;
+        public string PercentDone
+        {
+            get { return _percentDone; }
+            set
+            {
+                _percentDone = value;
+                RaisePropertyChanged("PercentDone");
             }
         }
 
@@ -83,7 +95,8 @@ namespace CloudCoin_SafeScan
 
         public CheckCoinsWindowViewModel(CoinStack stack)
         {
-            TotalPercent = stack.cloudcoin.Count * 100;
+            Count = stack.cloudcoin.Count;
+            TotalPercent = Count * 100;
             TextOnMap = "Authenticating coins...";
             ProgressBar = 0;
             for (int i = 0; i < RAIDA.NODEQNTY; i++)
@@ -91,10 +104,13 @@ namespace CloudCoin_SafeScan
                 NodeStatus.Add(false);
             }
             CheckLog = new FullyObservableCollection<Coin4Display>();
-            RAIDA.Instance.DetectCoinCompleted += ScanCoinCompleted;
+            PercentDone = "0%";
+            RAIDA.Instance.DetectCoinCompleted += CoinScanCompleted;
+            RAIDA.Instance.StackScanCompleted += StackScanCompleted;
+
         }
 
-        private void ScanCoinCompleted(object o, DetectCoinCompletedEventArgs e)
+        private void CoinScanCompleted(object o, DetectCoinCompletedEventArgs e)
         {
             DispatcherHelper.CheckBeginInvokeOnUI(() =>
             {
@@ -111,7 +127,17 @@ namespace CloudCoin_SafeScan
                         e.coin.percentOfRAIDAPass + "% good. Checked in " + e.sw.ElapsedMilliseconds + " ms."
                 });
                 ProgressBar += 100;
+                PercentDone = (ProgressBar / Count).ToString() + "%";
             });
         }
+
+        private void StackScanCompleted(object o, StackScanCompletedEventArgs e)
+        {
+            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+            {
+                TextOnMap = e.stack.cloudcoin.Count.ToString() + " coins scanned.";
+            });
+        }
+
     }
 }
