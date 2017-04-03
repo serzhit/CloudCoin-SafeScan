@@ -124,16 +124,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DelegateCommand.cs" />
+    <Compile Include="ApplicationLogic.cs" />
+    <Compile Include="CoinScaner.cs" />
+    <Compile Include="Events.cs" />
     <Compile Include="ICloudCoin.cs" />
     <Compile Include="IOModels.cs" />
+    <Compile Include="ViewModel\CheckCoinsWindowViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="Observables.cs" />
     <Compile Include="ViewModel\SelectOutStackWindowViewModel.cs" />
     <Compile Include="ViewModel\SafeContentWindowViewModel.cs" />
     <Compile Include="StatusToBrushConverter.cs" />
     <Compile Include="BooleanToBrushConverter.cs" />
-    <Compile Include="CloudCoinFile.cs" />
     <Compile Include="FixitHelper.cs" />
     <Compile Include="RAIDAFix.cs" />
     <Compile Include="View\CheckCoinsWindow.xaml.cs">

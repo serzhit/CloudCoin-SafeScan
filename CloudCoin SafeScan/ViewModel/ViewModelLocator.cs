@@ -11,6 +11,10 @@ namespace CloudCoin_SafeScan
             get { return ServiceLocator.Current.GetInstance<MainWindowViewModel>(); }
         }
 
+        public CheckCoinsWindowViewModel CheckCoins
+        {
+            get { return ServiceLocator.Current.GetInstance<CheckCoinsWindowViewModel>(); }
+        }
         public SafeContentWindowViewModel SafeContent
         {
             get { return ServiceLocator.Current.GetInstance<SafeContentWindowViewModel>(); }
@@ -34,6 +38,7 @@ namespace CloudCoin_SafeScan
             SimpleIoc.Default.Register<SafeContentWindowViewModel>();
             SimpleIoc.Default.Register<SelectOutStackWindowViewModel>();
             SimpleIoc.Default.Register<FixCoinWindowViewModel>();
+            SimpleIoc.Default.Register<CheckCoinsWindowViewModel>();
 
         }
 

@@ -8,12 +8,12 @@
       d:DesignHeight="350" d:DesignWidth="525"
       Title="CloudCoin Scan&amp;Safe - CheckCoins" Width="525" Height="350" Background="White">
     <Window.Resources>
-        <ControlTemplate x:Key="DataGridControlTemplate1" TargetType="{x:Type DataGrid}"/>
+
     </Window.Resources>
 
     <Grid Background="White">
-        <ProgressBar Minimum="0" Maximum="100" x:Name="CheckProgress" Margin="235,10,10,289"/>
-        <Image x:Name="CoinImage" HorizontalAlignment="Left" Height="129" Margin="47,53,0,0" VerticalAlignment="Top" Width="130" IsHitTestVisible="False"/>
+        <ProgressBar Minimum="0" Maximum="{Binding TotalPercent}" Value="{Binding ProgressBar}" x:Name="CheckProgress" Margin="235,10,10,289"/>
+        <Image x:Name="CoinImage" HorizontalAlignment="Left" Height="129" Margin="47,53,0,0" VerticalAlignment="Top" Width="130" IsHitTestVisible="False" Source="pack://application:,,,/Resources/stackcoins.png"/>
         <Label x:Name="LabelStatus" Content="OK!" HorizontalAlignment="Left" Height="95" Margin="365,70,0,0" VerticalAlignment="Top" Width="122" FontSize="48" Foreground="#FF00C800" Visibility="Hidden"/>
         <TextBlock x:Name="Filename" HorizontalAlignment="Left" Height="43" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" ScrollViewer.VerticalScrollBarVisibility="Disabled" Text="Checking..."/>
         <TextBox x:Name="percentBox" HorizontalAlignment="Left" Height="20" Margin="361,10,0,0" TextWrapping="Wrap" Text="100%" VerticalAlignment="Top" Width="38" BorderThickness="0">
@@ -21,34 +21,7 @@
                 <SolidColorBrush Color="White" Opacity="0"/>
             </TextBox.Background>
         </TextBox>
-        <Image x:Name="WorldMAp" HorizontalAlignment="Left" Height="154" Margin="254,35,0,0" VerticalAlignment="Top" Width="237" Source="pack://application:,,,/Resources/world_map.png"/>
-        <RadioButton x:Name="AUstraliaRadioButton" HorizontalAlignment="Left" Margin="459,144,0,0" VerticalAlignment="Top" Height="8" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="PhilippinesRadioButton" HorizontalAlignment="Left" Margin="450,125,0,0" VerticalAlignment="Top"   Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="BangloreRadioButton" HorizontalAlignment="Left" Margin="412,114,0,0" VerticalAlignment="Top"   Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="PenjabRadioButton" HorizontalAlignment="Left" Margin="412,108,0,0" VerticalAlignment="Top"   Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="StPetersburgRadioButton" HorizontalAlignment="Left" Margin="381,77,0,0" VerticalAlignment="Top"   Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="TaiwanRadioButton" HorizontalAlignment="Left" Margin="440,106,0,0" VerticalAlignment="Top"   Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="MoscowRadioButton" HorizontalAlignment="Left" Margin="387,81,0,0" VerticalAlignment="Top"   Height="7" Width="14" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="BulgariaRadioButton" HorizontalAlignment="Left" Margin="381,89,0,0" VerticalAlignment="Top"   Height="8" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="UKRadioButton" HorizontalAlignment="Left" Margin="355,85,0,0" VerticalAlignment="Top"   Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="SwedenRadioButton" HorizontalAlignment="Left" Margin="369,75,0,0" VerticalAlignment="Top"   Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="MacedoniaRadioButton" HorizontalAlignment="Left" Margin="377,95,0,0" VerticalAlignment="Top"   Height="7" Width="12" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="GermanyRadioButton" HorizontalAlignment="Left" Margin="366,83,0,0" VerticalAlignment="Top"   Height="7" Width="12" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="LuxemburgRadioButton" HorizontalAlignment="Left" Margin="363,88,0,0" VerticalAlignment="Top"   Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="SerbiaRadioButton" HorizontalAlignment="Left" Margin="373,86,0,0" VerticalAlignment="Top"   Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="RomaniaRadioButton" HorizontalAlignment="Left" Margin="383,85,0,0" VerticalAlignment="Top"   Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="SwitzerlandRadioButton" HorizontalAlignment="Left" Margin="370,91,0,0" VerticalAlignment="Top"   Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="HyperbadRadioButton" HorizontalAlignment="Left" Margin="362,99,0,0" VerticalAlignment="Top"   Height="8" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="CanadaRadioButton" HorizontalAlignment="Left" Margin="305,85,0,0" VerticalAlignment="Top"   Height="8" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="TexasRadioButton" HorizontalAlignment="Left" Margin="298,100,0,0" VerticalAlignment="Top"   Height="8" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="CaliforniaRadioButton" HorizontalAlignment="Left" Margin="279,92,0,0" VerticalAlignment="Top"   Height="8" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="USA3RadioButton" HorizontalAlignment="Left" Margin="291,93,0,0" VerticalAlignment="Top"   Height="8" Width="14" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="USA1RadioButton" HorizontalAlignment="Left" Margin="304,95,0,0" VerticalAlignment="Top"   Height="8" Width="14" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="SingaporeRadioButton" HorizontalAlignment="Left" Margin="432,109,0,0" VerticalAlignment="Top"   Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="VenezuelaRadioButton" HorizontalAlignment="Left" Margin="301,114,0,0" VerticalAlignment="Top"   Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <RadioButton x:Name="ColumbiaRadioButton" HorizontalAlignment="Left" Margin="313,116,0,0" VerticalAlignment="Top"   Height="7" Width="13" RenderTransformOrigin="-3,-0.556" Background="Red" ToolTip="Server didn't respond yet"/>
-        <TextBox x:Name="checkWMapTextBox" HorizontalAlignment="Left" Height="18" Margin="326,152,0,0" TextWrapping="Wrap" Text="Detecting authenticity..." VerticalAlignment="Top" Width="146" BorderThickness="0"/>
-        <ListView x:Name="AuthResultsGrid" HorizontalAlignment="Left" Height="79" Margin="10,230,0,0" VerticalAlignment="Top" Width="497">
+        <ListView x:Name="AuthResultsGrid" HorizontalAlignment="Left" Height="114" Margin="10,195,0,0" VerticalAlignment="Top" Width="497" ItemsSource="{Binding CheckLog}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Serial" DisplayMemberBinding="{Binding Serial}" Width="80"/>
@@ -58,6 +31,32 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label x:Name="label1" Content="Label" HorizontalAlignment="Left" Height="26" Margin="10,199,0,0" VerticalAlignment="Top" Width="83"/>
+        <Image x:Name="WorldMAp" HorizontalAlignment="Left" Height="154" Margin="253,45,0,0" VerticalAlignment="Top" Width="237" Source="/CloudCoin SafeScan;component/Resources/world_map.png"/>
+        <Ellipse x:Name="Australia" HorizontalAlignment="Left" Margin="462,153,0,0" VerticalAlignment="Top" Height="7" Width="8" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[0], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[0]}"/>
+        <Ellipse x:Name="Macedonia" HorizontalAlignment="Left" Margin="379,105,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[1], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[1]}"/>
+        <Ellipse x:Name="Philippines" HorizontalAlignment="Left" Margin="452,135,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[2], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[2]}"/>
+        <Ellipse x:Name="Serbia" HorizontalAlignment="Left" Margin="375,96,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[3], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[3]}"/>
+        <Ellipse x:Name="Bulgaria" HorizontalAlignment="Left" Margin="383,99,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[4], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[4]}"/>
+        <Ellipse x:Name="Russia" HorizontalAlignment="Left" Margin="401,87,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[5], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[5]}"/>
+        <Ellipse x:Name="Switzerland" HorizontalAlignment="Left" Margin="372,100,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[6], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[6]}"/>
+        <Ellipse x:Name="United_Kingdom" HorizontalAlignment="Left" Margin="357,95,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[7], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[7]}"/>
+        <Ellipse x:Name="Punjab" HorizontalAlignment="Left" Margin="416,120,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[8], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[8]}"/>
+        <Ellipse x:Name="India" HorizontalAlignment="Left" Margin="412,126,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[9], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[9]}"/>
+        <Ellipse x:Name="Texas" HorizontalAlignment="Left" Margin="300,110,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[10], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[10]}"/>
+        <Ellipse x:Name="USA" HorizontalAlignment="Left" Margin="306,105,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[11], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[11]}"/>
+        <Ellipse x:Name="Romania" HorizontalAlignment="Left" Margin="385,95,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[12], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[12]}"/>
+        <Ellipse x:Name="Taiwan" HorizontalAlignment="Left" Margin="442,116,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[13], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[13]}"/>
+        <Ellipse x:Name="Moscow" HorizontalAlignment="Left" Margin="389,91,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[14], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[14]}"/>
+        <Ellipse x:Name="St_Petersburg" HorizontalAlignment="Left" Margin="383,87,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[15], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[15]}"/>
+        <Ellipse x:Name="Columbia" HorizontalAlignment="Left" Margin="315,126,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[16], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[16]}"/>
+        <Ellipse x:Name="Singapore" HorizontalAlignment="Left" Margin="432,120,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[17], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[17]}"/>
+        <Ellipse x:Name="Germany" HorizontalAlignment="Left" Margin="368,93,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[18], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[18]}"/>
+        <Ellipse x:Name="Canada" HorizontalAlignment="Left" Margin="307,95,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[19], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[19]}"/>
+        <Ellipse x:Name="Venezuela" HorizontalAlignment="Left" Margin="303,124,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[20], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[20]}"/>
+        <Ellipse x:Name="Hyperbad" HorizontalAlignment="Left" Margin="408,119,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[21], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[21]}"/>
+        <Ellipse x:Name="USA1" HorizontalAlignment="Left" Margin="293,103,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[22], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[22]}"/>
+        <Ellipse x:Name="Ukraine" HorizontalAlignment="Left" Margin="378,92,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[23], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[23]}"/>
+        <Ellipse x:Name="Luxenburg" HorizontalAlignment="Left" Margin="365,98,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[24], Converter={StaticResource BoolBrushConverter}}" ToolTip="{Binding ToolTip[24]}"/>
+        <TextBox x:Name="WorkdMapTextBox" HorizontalAlignment="Left" Height="18" Margin="328,162,0,0" TextWrapping="Wrap" Text="{Binding TextOnMap}" VerticalAlignment="Top" Width="146" BorderThickness="0"/>
     </Grid>
 </Window>

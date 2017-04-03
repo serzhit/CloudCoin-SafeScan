@@ -75,14 +75,12 @@ namespace CloudCoin_SafeScan
     public class CoinFixStatus : ViewModelBase
     {
         public int serial { get; set; }
-        public CloudCoin.raidaNodeResponse[] coinStatus = new CloudCoin.raidaNodeResponse[RAIDA.NODEQNTY];
+        public RAIDA.DetectResponse[] coinStatus = new RAIDA.DetectResponse[RAIDA.NODEQNTY];
         public string status { get; set; }
         public CloudCoin.Denomination Denomination { get; set; }
 
         public CoinFixStatus()
         {
-            for (int i=0; i<coinStatus.Length; i++)
-                coinStatus[i] = CloudCoin.raidaNodeResponse.unknown;
             status = "Not set";
             Denomination = CloudCoin.Denomination.Unknown;
         }

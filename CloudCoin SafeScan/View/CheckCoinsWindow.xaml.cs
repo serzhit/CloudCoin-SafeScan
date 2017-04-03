@@ -18,32 +18,15 @@ namespace CloudCoin_SafeScan
             InitializeComponent();
         }
 
-        public int coinsToDetect;
-        public double PercentDetected;
-        public double ProgressBar
+        public CheckCoinsWindow(CoinStack stack)
         {
-            get
-            {
-                return CheckProgress.Value;
-            }
-            set
-            {
-                CheckProgress.Minimum = 0;
-                CheckProgress.Maximum = coinsToDetect * 100;
-                if (value >=0 && value <= coinsToDetect * 100)
-                    CheckProgress.Value = value;
-            }
+            InitializeComponent();
+            CheckCoinsWindowViewModel VM = new CheckCoinsWindowViewModel(stack);
+            DataContext = VM;
         }
+       
 
-        public class Coin4Display
-        {
-            public int Serial { get; set; }
-            public int Value { get; set; }
-            public bool Check { get; set; }
-            public string Comment { get; set; }
-        }
-
-        public void ShowDetectProgress(RAIDA.DetectResponse result, RAIDA.Node node)
+/*        public void ShowDetectProgress(RAIDA.DetectResponse result, RAIDA.Node node)
         {
             Dispatcher.Invoke(() =>
             {
@@ -312,7 +295,7 @@ namespace CloudCoin_SafeScan
                 }
                 else Close();
             });
-        }
+        } */
 
     }
 }

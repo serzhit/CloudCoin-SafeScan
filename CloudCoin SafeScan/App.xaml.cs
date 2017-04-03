@@ -35,9 +35,14 @@ namespace CloudCoin_SafeScan
 
         private void onAppStartup(object sender, StartupEventArgs e)
         {
-            CloudCoin_SafeScan.MainWindow.Instance.Show();
-            RAIDA.Instance.getEcho();
+            ApplicationLogic.MainRun();
         }
+
+        public void ImportCloudCoinFile()
+        {
+
+        }
+
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {

@@ -1,9 +1,5 @@
-﻿using System;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using System.Windows;
-using System.IO;
-using Newtonsoft.Json;
 
 namespace CloudCoin_SafeScan
 {
@@ -44,9 +40,9 @@ namespace CloudCoin_SafeScan
 
         public MainWindowViewModel()
         {
-            BeginScan = new RelayCommand(_BeginScan);
-            ShowSafe = new RelayCommand(_ShowSafe);
-            PayOut = new RelayCommand(_PayOut);
+            BeginScan = new RelayCommand(ApplicationLogic.ScanSelected);
+            ShowSafe = new RelayCommand(ApplicationLogic.SafeSelected);
+            PayOut = new RelayCommand(ApplicationLogic.PaySelected);
 
             _echoCompletedText = "Echoing RAIDA nodes...";
             for(int i=0;i<RAIDA.NODEQNTY;i++)
@@ -60,7 +56,7 @@ namespace CloudCoin_SafeScan
             RAIDA.Instance.EchoStatusChanged += NodeStatusChanged;
         }
 
-        private void NodeStatusChanged(object sender, RAIDA.EchoStatusChangedEventArgs e)
+        private void NodeStatusChanged(object sender, EchoStatusChangedEventArgs e)
         {
             if (e.index < 25)
             {
@@ -72,53 +68,5 @@ namespace CloudCoin_SafeScan
                 EchoCompletedText = "Done. Hover for status.";
             }
         }
-
-        private void _BeginScan()
-        {
-            CloudCoinFile coinFile;
-            try
-            {
-                coinFile = new CloudCoinFile(Utils.ChooseInputFile());
-                RAIDA.Instance.Detect(coinFile.Coins);
-            }
-            catch (FileNotFoundException fnfex)
-            {
-                MessageBox.Show("File not found: " + fnfex.Message);
-            }
-            catch (JsonException jsonex)
-            {
-                MessageBox.Show("Error in json file format: " + jsonex.Message);
-            }
-        }
-
-        private void _ShowSafe()
-        {
-            Safe safe;
-            try { safe = Safe.Instance; }
-            catch (Exception ex)
-            {
-                safe = null;
-            }
-            if (safe != null)
-            {
-                safe.Show();
-            }
-        }
-
-        private void _PayOut()
-        {
-            Safe safe;
-            try { safe = Safe.Instance; }
-            catch (TypeInitializationException ex)
-            {
-                safe = null;
-            }
-            if (safe != null)
-            {
-                safe.SaveOutStack();
-            }
-        }
     }
-
-
 }

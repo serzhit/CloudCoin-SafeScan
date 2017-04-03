@@ -13,7 +13,7 @@ namespace CloudCoin_SafeScan
     {
         
         FixitHelper fixer;
-
+/*
         public async void fixCoin(CloudCoin brokeCoin, FixCoinWindow fixWin)
         {
             ObservableStatus[] result = new ObservableStatus[NODEQNTY];
@@ -21,7 +21,7 @@ namespace CloudCoin_SafeScan
             for (int guid_id = 0; guid_id < NODEQNTY; guid_id++)
             {
                 int index = guid_id; // needed for async tasks
-                if (brokeCoin.detectStatus[guid_id] == CloudCoin.raidaNodeResponse.fail)
+                if (brokeCoin.detectStatus[guid_id].status == "fail")
                 { // This guid has failed, get tickets 
                     result[guid_id] = await ProcessFixingGUID(index, brokeCoin, fixWin);
                 }// end for failed guid
@@ -247,5 +247,6 @@ namespace CloudCoin_SafeScan
                 this.time = time;
             }
         }
+        */
     }
 }

@@ -10,8 +10,9 @@ namespace CloudCoin_SafeScan
 {
     public partial class RAIDA
     {
-        public delegate void EchoStatusChangedEventHandler(object o, EchoStatusChangedEventArgs e);
+        
         public event EchoStatusChangedEventHandler EchoStatusChanged;
+        public event DetectCoinCompletedEventHandler DetectCoinCompleted;
 
         //        MainWindow mainWin = ;
         public const short NODEQNTY = 25;
@@ -24,8 +25,8 @@ namespace CloudCoin_SafeScan
             Philippines,
             Serbia,
             Bulgaria,
-            Sweden,
-            California,
+            Russia3,
+            Ukraine,
             UK,
             Punjab,
             Banglore,
@@ -92,33 +93,42 @@ namespace CloudCoin_SafeScan
 
         public void Detect(CloudCoin coin)
         {
-            CheckCoinsWindow checkCoinsWindow = new CheckCoinsWindow();
             Stopwatch sw = new Stopwatch();
             CoinStack stack = new CoinStack(coin);
-
-//            checkCoinsWindow.Filename.Text = coin.filename;
-            checkCoinsWindow.CoinImage.Source = coin.coinImage;
-            checkCoinsWindow.coinsToDetect = 1;
-            checkCoinsWindow.Show();
-
             Task<DetectResponse>[] tasks = new Task<DetectResponse>[NODEQNTY];
-            int i = 0;
             sw.Start();
-            foreach (Node node in Instance.NodesArray)
+            int i = 0;
+            foreach(Node node in Instance.NodesArray)
             {
+                int index = i;
                 tasks[i] = Task.Factory.StartNew(() => node.Detect(coin));
-                tasks[i].ContinueWith(ancestor => { checkCoinsWindow.ShowDetectProgress(ancestor.Result, node); });
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                tasks[i].ContinueWith((anc) =>
+                {
+                    coin.detectStatus[index] = anc.Result;
+                });
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                 i++;
             }
 
-            Task checkCompleted = Task.Factory.ContinueWhenAll(tasks, delegate { checkCoinsWindow.AllCoinDetectCompleted(coin, sw); });
-            checkCompleted.ContinueWith(delegate { checkCoinsWindow.AllStackDetectCompleted(stack, sw); });
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            Task.Factory.ContinueWhenAll(tasks, (ancs) => 
+            {
+                sw.Stop();
+                onDetectCoinCompleted(new DetectCoinCompletedEventArgs(coin, sw));
+            });
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
         }
+
+        public void onDetectCoinCompleted(DetectCoinCompletedEventArgs e)
+        {
+            DetectCoinCompleted?.Invoke(this, e);
+        }
+/*
         public void Detect(CoinStack stack)
         {
             CheckCoinsWindow checkCoinsWindow = new CheckCoinsWindow();
 //            checkCoinsWindow.Filename.Text = FD.SafeFileName;
-            checkCoinsWindow.CoinImage.Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/stackcoins.png", UriKind.Absolute));
             checkCoinsWindow.coinsToDetect = stack.coinsInStack;
             checkCoinsWindow.Show();
 
@@ -141,7 +151,7 @@ namespace CloudCoin_SafeScan
             }
             Task.Factory.ContinueWhenAll(checkStackTasks, delegate { checkCoinsWindow.AllStackDetectCompleted(stack, stackCheckTime); });
         }
-
+*/
         public partial class Node
         {
             public int Number;
@@ -156,8 +166,8 @@ namespace CloudCoin_SafeScan
                         case 2: return Countries.Philippines;
                         case 3: return Countries.Serbia;
                         case 4: return Countries.Bulgaria;
-                        case 5: return Countries.Sweden;
-                        case 6: return Countries.California;
+                        case 5: return Countries.Russia3;
+                        case 6: return Countries.Switzerland;
                         case 7: return Countries.UK;
                         case 8: return Countries.Punjab;
                         case 9: return Countries.Banglore;
@@ -174,7 +184,7 @@ namespace CloudCoin_SafeScan
                         case 20: return Countries.Venezuela;
                         case 21: return Countries.Hyperbad;
                         case 22: return Countries.USA2;
-                        case 23: return Countries.Switzerland;
+                        case 23: return Countries.Ukraine;
                         case 24: return Countries.Luxenburg;
                         default: return Countries.USA3;
                     }
@@ -268,14 +278,10 @@ namespace CloudCoin_SafeScan
 
                 if (getDetectResult.status == "pass")
                 {
-                    coin.detectStatus[Number] = CloudCoin.raidaNodeResponse.pass;
                     coin.an[Number] = coin.pans[Number];
                 }
-                else if (getDetectResult.status == "fail")
-                    coin.detectStatus[Number] = CloudCoin.raidaNodeResponse.fail;
-                else
-                    coin.detectStatus[Number] = CloudCoin.raidaNodeResponse.error;
-                LastDetectResult = getDetectResult;
+                
+                coin.detectStatus[Number] = LastDetectResult = getDetectResult;
 
                 return getDetectResult;
             }
@@ -296,16 +302,6 @@ namespace CloudCoin_SafeScan
                     "\nStatus: " + res.status +
                     "\nEcho: " + res.responseTime.ToString("sfff") + "ms";
                 return result;
-            }
-        }
-
-        public class EchoStatusChangedEventArgs : EventArgs
-        {
-            public int index;
-
-            public EchoStatusChangedEventArgs(int index)
-            {
-                this.index = index;
             }
         }
 

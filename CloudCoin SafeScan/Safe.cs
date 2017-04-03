@@ -439,6 +439,7 @@ namespace CloudCoin_SafeScan
         {
             beforeFixStart?.Invoke(this, e);
         }
+/*
         private void StartFixProcess(object sender, EventArgs e)
         {
             List<CloudCoin> coinsToFix = Contents.cloudcoin.FindAll(x => x.Verdict == CloudCoin.Status.Fractioned);
@@ -448,13 +449,13 @@ namespace CloudCoin_SafeScan
                 RecurrentFix(coinsToFix);
             }
         }
-
+*/
         private void testWindow(object sender, EventArgs e)
         {
             List<CloudCoin> coinsToFix = Contents.cloudcoin.FindAll(x => x.Verdict == CloudCoin.Status.Fractioned);
             FixProcessWindow fixWin = new FixProcessWindow();
         }
-
+/*
         private void RecurrentFix(List<CloudCoin> coinstofix)
         {
              FixCoinWindow fixWin = new FixCoinWindow();
@@ -483,7 +484,7 @@ namespace CloudCoin_SafeScan
                                     coinstofix.Remove(coin);
                                     RecurrentFix(coinstofix, fixWin);
                                 }, TaskContinuationOptions.ExecuteSynchronously);
-                */
+                
 
             }
         }
@@ -498,6 +499,7 @@ namespace CloudCoin_SafeScan
             }
             Save();
         }
+*/
         public void SaveOutStack()
         {
             var howMuch = new HowMuchWindow();
@@ -513,7 +515,7 @@ namespace CloudCoin_SafeScan
                     Save(); //saving Safe without extracted coins
                     CoinStackOut st = new CoinStackOut(stack);
                     DateTime currdate = DateTime.Now;
-                    string fn = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinDir) +
+                    string fn = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinExportDir) +
                         currdate.ToString("dd-MM-yy_HH-mm") + ".ccstack";
                     st.SaveInFile(fn);
                     MessageBox.Show("Stack saved in file \n" + fn);

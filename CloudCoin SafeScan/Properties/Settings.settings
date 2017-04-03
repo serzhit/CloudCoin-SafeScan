@@ -8,5 +8,11 @@
     <Setting Name="UserCloudcoinDir" Type="System.String" Scope="User">
       <Value Profile="(Default)">%USERPROFILE%\Cloudcoin\</Value>
     </Setting>
+    <Setting Name="UserCloudcoinImportDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">%USERPROFILE%\Cloudcoin\Import\</Value>
+    </Setting>
+    <Setting Name="UserCloudcoinExportDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">%USERPROFILE%\C;oudcoin\Export\</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
