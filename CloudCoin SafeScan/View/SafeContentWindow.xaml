@@ -11,13 +11,12 @@
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
                     <GridView.ColumnHeaderContextMenu>
-                        <ContextMenu HorizontalContentAlignment="Center"/>
+                        <ContextMenu HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
                     </GridView.ColumnHeaderContextMenu>
-                    <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="67"/>
-                    <GridViewColumn Header="Good" DisplayMemberBinding="{Binding Good}" Width="67"/>
-                    <GridViewColumn Header="Fractioned" DisplayMemberBinding="{Binding Fractioned}" Width="67"/>
-                    <GridViewColumn Header="Counterfeit" DisplayMemberBinding="{Binding Counterfeited}" Width="67"/>
-                    <GridViewColumn Header="Total" DisplayMemberBinding="{Binding Total}"/>
+                    <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="80"/>
+                    <GridViewColumn Header="Good" DisplayMemberBinding="{Binding Good}" Width="100"/>
+                    <GridViewColumn Header="Fractioned" DisplayMemberBinding="{Binding Fractioned}" Width="100"/>
+                    <GridViewColumn Header="Total" DisplayMemberBinding="{Binding Total}" Width="70"/>
                 </GridView>
             </ListView.View>
         </ListView>

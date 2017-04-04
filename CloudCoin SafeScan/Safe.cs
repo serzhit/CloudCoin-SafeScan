@@ -14,6 +14,7 @@ namespace CloudCoin_SafeScan
 {
     public class Safe
     {
+        private const string SLOGAN = "Не в силе Бог, а в правде!";
         //Singleton instance could be object or null, must check in every call
         public static Safe Instance
         {
@@ -29,8 +30,51 @@ namespace CloudCoin_SafeScan
         private static string cryptPassFromFile = ""; //encrypted string which has been read from Safe file
         private static string userEnteredPassword;
         private static byte[] encryptedUserEnteredPassword;
-        private static byte[] salt;
+        private static byte[] salt = Encoding.UTF8.GetBytes(SLOGAN);
 
+        private static Safe GetInstance()
+        {
+            var settingsSafeFilePath = Properties.Settings.Default.SafeFileName;
+            var filePath = Environment.ExpandEnvironmentVariables(settingsSafeFilePath);
+
+            var fileInfo = new FileInfo(filePath);
+            if (!fileInfo.Exists)
+            { //Safe does not exist, create one
+                userEnteredPassword = UserInteract.SetPassword(); //get user password for Safe
+                if (userEnteredPassword != "error")
+                {
+                    encryptedUserEnteredPassword = Encoding.UTF8.GetBytes(Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(userEnteredPassword)));
+                    var coins = new CoinStack();
+                    if (CreateSafeFile(fileInfo, coins))
+                    {
+                        theOnlySafeInstance = new Safe(fileInfo, coins);
+                        return theOnlySafeInstance;
+                    }
+                    else
+                        return null;
+                }
+                else
+                    return null;
+            }
+            else //Safe already exists
+            {
+                userEnteredPassword = UserInteract.CheckPassword(fileInfo); //get user password and check against stored in file
+                if (userEnteredPassword != "error")
+                {
+                    encryptedUserEnteredPassword = Encoding.UTF8.GetBytes(Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(userEnteredPassword)));
+                    CoinStack safeContents = ReadSafeFile(fileInfo);
+                    if (safeContents != null)
+                    {
+                        theOnlySafeInstance = new Safe(fileInfo, safeContents);
+                        return theOnlySafeInstance;
+                    }
+                    else
+                        return null;
+                }
+                else
+                    return null;
+            }
+        }
 
         private static bool CreateSafeFile(FileInfo fi, CoinStack stack)
         {
@@ -111,52 +155,11 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        private static Safe GetInstance()
+        public event SafeContentChangedEventHandler SafeChanged;
+        public void onSafeContentChanged(EventArgs e)
         {
-            var settingsSafeFilePath = Properties.Settings.Default.SafeFileName;
-            var filePath = Environment.ExpandEnvironmentVariables(settingsSafeFilePath);
-
-            var fileInfo = new FileInfo(filePath);
-            if (!fileInfo.Exists)
-            { //Safe does not exist, create one
-                userEnteredPassword = UserInteract.SetPassword(); //get user password for Safe
-                if (userEnteredPassword != "error")
-                {
-                    encryptedUserEnteredPassword = Encoding.UTF8.GetBytes(Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(userEnteredPassword)));
-                    salt = encryptedUserEnteredPassword.Take(16).ToArray(); //generate salt while application works
-                    var coins = new CoinStack();
-                    if (CreateSafeFile(fileInfo, coins))
-                    {
-                        theOnlySafeInstance = new Safe(fileInfo, coins);
-                        return theOnlySafeInstance;
-                    }
-                    else
-                        return null;
-                }
-                else
-                    return null;
-            }
-            else
-            {
-                userEnteredPassword = UserInteract.CheckPassword(fileInfo); //get user password checked against stored in file
-                if (userEnteredPassword != "error")
-                {
-                    encryptedUserEnteredPassword = Encoding.UTF8.GetBytes(Crypter.Blowfish.Crypt(Encoding.UTF8.GetBytes(userEnteredPassword)));
-                    salt = encryptedUserEnteredPassword.Take(16).ToArray(); //generate salt while application works
-                    CoinStack safeContents = ReadSafeFile(fileInfo);
-                    if (safeContents != null)
-                    {
-                        theOnlySafeInstance = new Safe(fileInfo, safeContents);
-                        return theOnlySafeInstance;
-                    }
-                    else
-                        return null;
-                }
-                else
-                    return null;
-            }
+            SafeChanged?.Invoke(this, e);
         }
-
 
         public string safeFilePath;
         public FileInfo safeFileInfo;
@@ -394,6 +397,7 @@ namespace CloudCoin_SafeScan
             Contents.Add(stack);
             RemoveCounterfeitCoins();
             Contents.cloudcoin.Sort(new CloudCoin.CoinComparer());
+            onSafeContentChanged(new EventArgs());
             Save();
         }
 
@@ -512,6 +516,7 @@ namespace CloudCoin_SafeScan
                 CoinStack stack = ChooseNearestPossibleStack(desiredSum);
                 if (stack != null)
                 {
+                    onSafeContentChanged(new EventArgs());
                     Save(); //saving Safe without extracted coins
                     CoinStackOut st = new CoinStackOut(stack);
                     DateTime currdate = DateTime.Now;

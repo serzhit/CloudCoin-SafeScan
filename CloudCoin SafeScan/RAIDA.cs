@@ -101,7 +101,8 @@ namespace CloudCoin_SafeScan
             foreach(Node node in Instance.NodesArray)
             {
                 tasks[node.Number] = Task.Factory.StartNew(() => node.Detect(coin));
-                coin.detectStatus[node.Number] = await tasks[node.Number];
+                var tmp = await tasks[node.Number];
+                coin.detectStatus[node.Number] = (tmp.status == "pass") ? CloudCoin.raidaNodeResponse.pass : (tmp.status == "fail") ? CloudCoin.raidaNodeResponse.fail : CloudCoin.raidaNodeResponse.error;
             }
 
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
@@ -123,7 +124,7 @@ namespace CloudCoin_SafeScan
             StackScanCompleted?.Invoke(this, e);
         }
 
-        public void Detect(CoinStack stack)
+        public void Detect(CoinStack stack, bool isCoinToBeImported)
         {
             Stopwatch total = new Stopwatch();
             total.Start();
@@ -132,13 +133,21 @@ namespace CloudCoin_SafeScan
             for (int k = 0; k < stack.cloudcoin.Count(); k++)
             {
                 var coin = stack.cloudcoin[k];
+                if (!isCoinToBeImported)
+                {
+                    coin.pans = coin.an;
+                }
                 Task<DetectResponse>[] checkCoinTasks = new Task<DetectResponse>[NODEQNTY];
                 var t = tw[k] = new Stopwatch();
                 t.Start();
                 foreach (Node node in Instance.NodesArray)
                 {
                     checkCoinTasks[node.Number] = Task.Factory.StartNew(() => node.Detect(coin));
-                    checkCoinTasks[node.Number].ContinueWith((anc) => coin.detectStatus[node.Number] = anc.Result);
+                    checkCoinTasks[node.Number].ContinueWith((anc) =>
+                    {
+                        var tmp = anc.Result;
+                        coin.detectStatus[node.Number] = (tmp.status == "pass") ? CloudCoin.raidaNodeResponse.pass : (tmp.status == "fail") ? CloudCoin.raidaNodeResponse.fail : CloudCoin.raidaNodeResponse.error;
+                    });
                 }
                 checkStackTasks[k] = Task.Factory.ContinueWhenAll(checkCoinTasks, (ancs) => 
                 {
@@ -281,7 +290,18 @@ namespace CloudCoin_SafeScan
                     coin.an[Number] = coin.pans[Number];
                 }
                 
-                coin.detectStatus[Number] = LastDetectResult = getDetectResult;
+                switch (getDetectResult.status)
+                {
+                    case "pass":
+                        coin.detectStatus[Number] = CloudCoin.raidaNodeResponse.pass;
+                        break;
+                    case "fail":
+                        coin.detectStatus[Number] = CloudCoin.raidaNodeResponse.fail;
+                        break;
+                    default:
+                        coin.detectStatus[Number] = CloudCoin.raidaNodeResponse.error;
+                        break;
+                }
 
                 return getDetectResult;
             }

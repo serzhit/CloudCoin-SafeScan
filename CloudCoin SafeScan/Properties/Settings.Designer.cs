@@ -61,13 +61,37 @@ namespace CloudCoin_SafeScan.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("%USERPROFILE%\\C;oudcoin\\Export\\")]
+        [global::System.Configuration.DefaultSettingValueAttribute("%USERPROFILE%\\Cloudcoin\\Export\\")]
         public string UserCloudcoinExportDir {
             get {
                 return ((string)(this["UserCloudcoinExportDir"]));
             }
             set {
                 this["UserCloudcoinExportDir"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("%USERPROFILE%\\Cloudcoin\\Backup\\")]
+        public string UserCloudcoinBackupDir {
+            get {
+                return ((string)(this["UserCloudcoinBackupDir"]));
+            }
+            set {
+                this["UserCloudcoinBackupDir"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("%USERPROFILE%\\Cloudcoin\\Log\\")]
+        public string UserCloudcoinLogDir {
+            get {
+                return ((string)(this["UserCloudcoinLogDir"]));
+            }
+            set {
+                this["UserCloudcoinLogDir"] = value;
             }
         }
     }

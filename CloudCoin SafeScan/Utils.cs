@@ -36,14 +36,6 @@ namespace CloudCoin_SafeScan
 
         public static byte[] Encrypt(string tobeEncrypted, string password, byte[] salt)
         {
-            /*            int reminder = tobeEncrypted.Length % 16;
-                        if ( reminder != 0 )
-                        {
-                            char[] spaces = new char[16 - reminder];
-                            for (int i = 0; i < (16 - reminder); i++) spaces.SetValue((char)32, i);
-                            tobeEncrypted = tobeEncrypted + new string(spaces);
-                        }
-            */
             byte[] cipherText;
             using (Aes aes = new AesManaged())
             {

@@ -12,7 +12,13 @@
       <Value Profile="(Default)">%USERPROFILE%\Cloudcoin\Import\</Value>
     </Setting>
     <Setting Name="UserCloudcoinExportDir" Type="System.String" Scope="User">
-      <Value Profile="(Default)">%USERPROFILE%\C;oudcoin\Export\</Value>
+      <Value Profile="(Default)">%USERPROFILE%\Cloudcoin\Export\</Value>
+    </Setting>
+    <Setting Name="UserCloudcoinBackupDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">%USERPROFILE%\Cloudcoin\Backup\</Value>
+    </Setting>
+    <Setting Name="UserCloudcoinLogDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">%USERPROFILE%\Cloudcoin\Log\</Value>
     </Setting>
   </Settings>
 </SettingsFile>

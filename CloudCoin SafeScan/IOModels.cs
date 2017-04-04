@@ -19,8 +19,10 @@ namespace CloudCoin_SafeScan
             string homedir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinDir);
             string importdir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinImportDir);
             string exportdir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinExportDir);
+            string backupdir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinBackupDir);
+            string logdir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinLogDir);
 
-            foreach (string path in new string[] { homedir, importdir, exportdir })
+            foreach (string path in new string[] { homedir, importdir, exportdir, backupdir, logdir })
             {
                 DirectoryInfo DI = new DirectoryInfo(path);
                 if (!DI.Exists)

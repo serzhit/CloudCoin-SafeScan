@@ -125,7 +125,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ApplicationLogic.cs" />
-    <Compile Include="CoinScaner.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="ICloudCoin.cs" />
     <Compile Include="IOModels.cs" />

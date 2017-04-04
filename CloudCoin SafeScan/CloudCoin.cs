@@ -78,7 +78,8 @@ namespace CloudCoin_SafeScan
         [JsonProperty]
         public string[] an = new string[RAIDA.NODEQNTY];
         public string[] pans = new string[RAIDA.NODEQNTY];
-        public RAIDA.DetectResponse[] detectStatus;
+        [JsonProperty]
+        public raidaNodeResponse[] detectStatus;
         [JsonProperty]
         public string[] aoid = new string[1];//Account or Owner ID
         
@@ -99,7 +100,7 @@ namespace CloudCoin_SafeScan
         {
             get
             {
-                return detectStatus.Count(element => element.status == "pass" || element.status == "error") * 100 / detectStatus.Count();
+                return detectStatus.Count(element => element == raidaNodeResponse.pass || element == raidaNodeResponse.error) * 100 / detectStatus.Count();
             }
         }
 
@@ -107,7 +108,7 @@ namespace CloudCoin_SafeScan
         {
             get
             {
-                return (detectStatus.Count(element => element.status == "pass") > RAIDA.MINTRUSTEDNODES4AUTH) ? true : false;
+                return (detectStatus.Count(element => element == raidaNodeResponse.pass) > RAIDA.MINTRUSTEDNODES4AUTH) ? true : false;
             }
         }
 
@@ -123,8 +124,8 @@ namespace CloudCoin_SafeScan
 //            filetype = Type.json;
 //            filename = null;
             pans = generatePans();
-            detectStatus = new RAIDA.DetectResponse[RAIDA.NODEQNTY];
-            for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = new RAIDA.DetectResponse("unknown",sn.ToString(),"unknown","empty",DateTime.Now.ToString());
+            detectStatus = new raidaNodeResponse[RAIDA.NODEQNTY];
+            for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = raidaNodeResponse.unknown;
         }
 
         //Constructor from file with Coin
@@ -161,8 +162,8 @@ namespace CloudCoin_SafeScan
             sn = Int32.Parse(jpegHexContent.Substring(904, 6), System.Globalization.NumberStyles.AllowHexSpecifier);
 
             pans = generatePans();
-            detectStatus = new RAIDA.DetectResponse[RAIDA.NODEQNTY];
-            for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = new RAIDA.DetectResponse("unknown", sn.ToString(), "unknown", "empty", DateTime.Now.ToString());
+            detectStatus = new raidaNodeResponse[RAIDA.NODEQNTY];
+            for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = raidaNodeResponse.unknown;
         }
 
         public bool Calibrate()
@@ -212,10 +213,11 @@ namespace CloudCoin_SafeScan
         {
             get
             {
+ //               List<CloudCoin> tmp = cloudcoin.FindAll(c => c.Verdict != CloudCoin.Status.Counterfeit);
                 int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
+                foreach (CloudCoin cccc in cloudcoin)
                 {
-                    s += Utils.Denomination2Int(coin.denomination);
+                    s += Utils.Denomination2Int(cccc.denomination);
                 }
                 return s;
             }

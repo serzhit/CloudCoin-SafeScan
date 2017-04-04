@@ -10,6 +10,7 @@ namespace CloudCoin_SafeScan
     public delegate void EchoStatusChangedEventHandler(object o, EchoStatusChangedEventArgs e);
     public delegate void DetectCoinCompletedEventHandler(object o, DetectCoinCompletedEventArgs e);
     public delegate void StackScanCompletedEventHandler(object o, StackScanCompletedEventArgs e);
+    public delegate void SafeContentChangedEventHandler(object o, EventArgs e);
 
     public class EchoStatusChangedEventArgs : EventArgs
     {

@@ -19,6 +19,28 @@ namespace CloudCoin_SafeScan
             public string Comment { get; set; }
         }
 
+        private string _leftTopText;
+        public string LeftTopText
+        {
+            get { return _leftTopText; }
+            set
+            {
+                _leftTopText = value;
+                RaisePropertyChanged("LeftTopText");
+            }
+        }
+
+        private string _textOnImage;
+        public string TextOnImage
+        {
+            get { return _textOnImage; }
+            set
+            {
+                _textOnImage = value;
+                RaisePropertyChanged("TextOnImage");
+            }
+        }
+
         private FullyObservableCollection<Coin4Display> _checkLog;
         public FullyObservableCollection<Coin4Display> CheckLog
         {
@@ -95,6 +117,7 @@ namespace CloudCoin_SafeScan
 
         public CheckCoinsWindowViewModel(CoinStack stack)
         {
+            LeftTopText = "Checking " + stack.Count().ToString() + " coins...";
             Count = stack.cloudcoin.Count;
             TotalPercent = Count * 100;
             TextOnMap = "Authenticating coins...";
@@ -116,7 +139,7 @@ namespace CloudCoin_SafeScan
             {
                 for (int i = 0; i < RAIDA.NODEQNTY; i++)
                 {
-                    NodeStatus[i] = (e.coin.detectStatus[i].status == "pass");
+                    NodeStatus[i] = (e.coin.detectStatus[i] == CloudCoin.raidaNodeResponse.pass);
                 }
                 CheckLog.Add(new Coin4Display()
                 {
@@ -136,6 +159,21 @@ namespace CloudCoin_SafeScan
             DispatcherHelper.CheckBeginInvokeOnUI(() =>
             {
                 TextOnMap = e.stack.cloudcoin.Count.ToString() + " coins scanned.";
+                LeftTopText = e.stack.cloudcoin.Count.ToString() + " coins scanned.";
+                TextOnImage = "Results of scanning:\n";
+                if(e.stack.AuthenticatedQuantity > 0)
+                {
+                    TextOnImage += "Authenticated: " + e.stack.AuthenticatedQuantity + " units\n";
+                }
+                if (e.stack.CounterfeitedQuantity > 0)
+                {
+                    TextOnImage += "Counterfeited: " + e.stack.CounterfeitedQuantity + " units\n";
+                }
+                if (e.stack.FractionedQuantity > 0)
+                {
+                    TextOnImage += "Fractioned: " + e.stack.FractionedQuantity + " units\n";
+                }
+                TextOnImage += "Total value of good coins: " + e.stack.SumInStack;
             });
         }
 

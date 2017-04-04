@@ -41,6 +41,7 @@ namespace CloudCoin_SafeScan
                         if (Crypter.CheckPassword(passbytes, cryptPassFromFile))
                         {
                             enterPassword.Close();
+                            fs.Close();
                             return enterPassword.passwordBox.Password;
                         }
                         else
@@ -52,6 +53,7 @@ namespace CloudCoin_SafeScan
                     else
                     {
                         enterPassword.Close();
+                        fs.Close();
                         break;
                     }
                 }
