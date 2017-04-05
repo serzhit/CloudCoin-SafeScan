@@ -11,6 +11,8 @@ namespace CloudCoin_SafeScan
     public delegate void DetectCoinCompletedEventHandler(object o, DetectCoinCompletedEventArgs e);
     public delegate void StackScanCompletedEventHandler(object o, StackScanCompletedEventArgs e);
     public delegate void SafeContentChangedEventHandler(object o, EventArgs e);
+    public delegate void CoinFixStartedEventHandler(object o, CoinFixStartedEventArgs e);
+    public delegate void CoinFixFinishedEventHandler(object o, CoinFixFinishedEventArgs e);
 
     public class EchoStatusChangedEventArgs : EventArgs
     {
@@ -43,6 +45,31 @@ namespace CloudCoin_SafeScan
         {
             stack = st;
             sw = stwtch;
+        }
+    }
+    public class CoinFixStartedEventArgs : EventArgs
+    {
+        public int coinindex;
+        public int NodeNumber;
+
+        public CoinFixStartedEventArgs(int ci, int nn)
+        {
+            coinindex = ci;
+            NodeNumber = nn;
+        }
+    }
+
+    public class CoinFixFinishedEventArgs : EventArgs
+    {
+        public int coinindex;
+        public int NodeNumber;
+        public CloudCoin.raidaNodeResponse result;
+
+        public CoinFixFinishedEventArgs(int ci, int nn, CloudCoin.raidaNodeResponse res)
+        {
+            coinindex = ci;
+            NodeNumber = nn;
+            result = res;
         }
     }
 

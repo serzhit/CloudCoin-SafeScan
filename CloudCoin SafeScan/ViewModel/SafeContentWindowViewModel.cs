@@ -1,10 +1,13 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 
 namespace CloudCoin_SafeScan
 {
     class SafeContentWindowViewModel : ViewModelBase
     {
+        public RelayCommand BeginFix { get; set; }
+
         public class ShelfString
         {
             public string Value { get; set; }
@@ -30,6 +33,7 @@ namespace CloudCoin_SafeScan
 
         public SafeContentWindowViewModel()
         {
+            BeginFix = new RelayCommand(ApplicationLogic.FixSelected);
             Safe.Instance.SafeChanged += SafeContentChanged;
             Safe.Instance.onSafeContentChanged(new EventArgs());
         }

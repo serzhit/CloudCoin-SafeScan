@@ -1,79 +1,48 @@
-﻿<Window x:Class="CloudCoin_SafeScan.FixProcessWindow"
+﻿<Window x:Name="FixProcess" x:Class="CloudCoin_SafeScan.FixProcessWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CloudCoin_SafeScan"
         mc:Ignorable="d"
-        Title="FixProcessWindow" Height="293.417" Width="717.555">
+        Title="FixProcessWindow" Height="293.417" Width="800">
     <Window.Resources>
-        <local:CoinFixStatus x:Key="CoinFixItem" />
         <DataTemplate x:Key="CoinItemTemplate">
-            <StackPanel DataContext="{StaticResource CoinFixItem}">
-                <TextBlock Text="{Binding serial}" />
-                <TextBlock Text="{Binding Denomination}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[0], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[1], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[2], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[3], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[4], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[5], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[6], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[7], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[8], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[9], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[10], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[11], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[12], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[13], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[14], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[15], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[16], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[17], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[18], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[19], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[20], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[21], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[22], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[23], Converter={StaticResource StatusBrushConverter}}" />
-                <Rectangle Height="10" Width="10" Fill="{Binding coinStatus[24], Converter={StaticResource StatusBrushConverter}}" />
-                <TextBlock Text="{Binding status}" />
-            </StackPanel>
+            <Grid x:Name="mainGrid" Background="White" Width="760">
+                <Label x:Name="SN" Content="{Binding SN}" HorizontalAlignment="Left" Height="23" Margin="8,8,0,0" VerticalAlignment="Top" Width="60" FontSize="11"/>
+                <Label x:Name="Value" Content="{Binding Denomination}" HorizontalAlignment="Left" Height="23" Margin="68,8,0,0" VerticalAlignment="Top" Width="40" FontSize="11" HorizontalContentAlignment="Center"/>
+                <Rectangle x:Name="_0" Fill="{Binding nodeStatus[0],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="130,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_1" Fill="{Binding nodeStatus[1],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="151,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_2" Fill="{Binding nodeStatus[2],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="172,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_3" Fill="{Binding nodeStatus[3],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="193,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_4" Fill="{Binding nodeStatus[4],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="214,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_5" Fill="{Binding nodeStatus[5],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="235,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_6" Fill="{Binding nodeStatus[6],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="256,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_7" Fill="{Binding nodeStatus[7],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="277,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_8" Fill="{Binding nodeStatus[8],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="298,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_9" Fill="{Binding nodeStatus[9],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="319,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_10" Fill="{Binding nodeStatus[10],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="340,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_11" Fill="{Binding nodeStatus[11],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="361,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_12" Fill="{Binding nodeStatus[12],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="382,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_13" Fill="{Binding nodeStatus[13],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="403,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_14" Fill="{Binding nodeStatus[14],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="424,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_15" Fill="{Binding nodeStatus[15],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="445,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_16" Fill="{Binding nodeStatus[16],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="466,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_17" Fill="{Binding nodeStatus[17],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="487,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_18" Fill="{Binding nodeStatus[18],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="508,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_19" Fill="{Binding nodeStatus[19],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="529,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_20" Fill="{Binding nodeStatus[20],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="550,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_21" Fill="{Binding nodeStatus[21],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="571,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_22" Fill="{Binding nodeStatus[22],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="592,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_23" Fill="{Binding nodeStatus[23],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="613,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Rectangle x:Name="_24" Fill="{Binding nodeStatus[24],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="634,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+                <Label x:Name="Status" Content="{Binding StatusText}" HorizontalAlignment="Left" Height="23" Margin="655,8,0,0" VerticalAlignment="Top" Width="120" FontSize="11"/>
+            </Grid>
         </DataTemplate>
     </Window.Resources>
-    <Grid DataContext="{Binding FixCoin, Source={StaticResource Locator}}">
-        <ListView x:Name="listView" HorizontalAlignment="Left" Height="242" Margin="10,10,0,0" 
-                  VerticalAlignment="Top" Width="690" ItemTemplate="{StaticResource CoinItemTemplate}" ItemsSource="{Binding nodeStatus}">
-            <GridView AllowsColumnReorder="False">
-                <GridViewColumn Header="Serial" Width="60"/>
-                <GridViewColumn Header="Value" Width="40"/>
-                <GridViewColumn Header="0" Width="15"/>
-                <GridViewColumn Header="1" Width="15"/>
-                <GridViewColumn Header="2" Width="15"/>
-                <GridViewColumn Header="3" Width="15"/>
-                <GridViewColumn Header="4" Width="15"/>
-                <GridViewColumn Header="5" Width="15"/>
-                <GridViewColumn Header="6" Width="15"/>
-                <GridViewColumn Header="7" Width="15"/>
-                <GridViewColumn Header="8" Width="15"/>
-                <GridViewColumn Header="9" Width="15"/>
-                <GridViewColumn Header="10" Width="15"/>
-                <GridViewColumn Header="11" Width="15"/>
-                <GridViewColumn Header="12" Width="15"/>
-                <GridViewColumn Header="13" Width="15"/>
-                <GridViewColumn Header="14" Width="15"/>
-                <GridViewColumn Header="15" Width="15"/>
-                <GridViewColumn Header="16" Width="15"/>
-                <GridViewColumn Header="17" Width="15"/>
-                <GridViewColumn Header="18" Width="15"/>
-                <GridViewColumn Header="19" Width="15"/>
-                <GridViewColumn Header="20" Width="15"/>
-                <GridViewColumn Header="21" Width="15"/>
-                <GridViewColumn Header="22" Width="15"/>
-                <GridViewColumn Header="23" Width="15"/>
-                <GridViewColumn Header="24" Width="15"/>
-                <GridViewColumn Header="Status message" Width="200"/>
-            </GridView>
-        </ListView>
+    <Grid DataContext="{Binding FixStack, Source={StaticResource Locator}}">
+        <ListView x:Name="listView" Height="242" Margin="10,10,32,0" 
+                  VerticalAlignment="Top" ItemTemplate="{StaticResource CoinItemTemplate}" ItemsSource="{Binding FixingCoins}">
+       </ListView>
     </Grid>
 </Window>

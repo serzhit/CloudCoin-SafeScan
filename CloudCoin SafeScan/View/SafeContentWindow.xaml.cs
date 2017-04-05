@@ -20,10 +20,5 @@ namespace CloudCoin_SafeScan
         {
             Close();
         }
-
-        private void onFixButton(object sender, RoutedEventArgs e)
-        {
-            Safe.Instance?.onBeforeFixStart(EventArgs.Empty);
-        }
     }
 }

@@ -25,11 +25,10 @@ namespace CloudCoin_SafeScan
             get { return ServiceLocator.Current.GetInstance<SelectOutStackWindowViewModel>(); }
         }
 
-        public FixCoinWindowViewModel FixCoin
+        public FixStackViewModel FixStack
         {
-            get { return ServiceLocator.Current.GetInstance<FixCoinWindowViewModel>(); }
+            get { return ServiceLocator.Current.GetInstance<FixStackViewModel>(); }
         }
-
         static ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
@@ -37,7 +36,7 @@ namespace CloudCoin_SafeScan
             SimpleIoc.Default.Register<MainWindowViewModel>();
             SimpleIoc.Default.Register<SafeContentWindowViewModel>();
             SimpleIoc.Default.Register<SelectOutStackWindowViewModel>();
-            SimpleIoc.Default.Register<FixCoinWindowViewModel>();
+            SimpleIoc.Default.Register<FixStackViewModel>();
             SimpleIoc.Default.Register<CheckCoinsWindowViewModel>();
 
         }

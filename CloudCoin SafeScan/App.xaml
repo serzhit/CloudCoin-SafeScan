@@ -7,6 +7,6 @@
     <Application.Resources>
         <local:ViewModelLocator x:Key="Locator" />
         <local:BooleanToBrushConverter x:Key="BoolBrushConverter" TrueBrush="LightGreen" FalseBrush="Red"/>
-        <local:StatusToBrushConverter x:Key="StatusBrushConverter" PassBrush="Green" FailBrush="Red" ErrorBrush="Brown" UnknownBrush="Yellow" />
+        <local:StatusToBrushConverter x:Key="StatusBrushConverter" PassBrush="Green" FailBrush="Red" ErrorBrush="Brown" UnknownBrush="Yellow" FixingBrush="Orange" />
     </Application.Resources>
 </Application>

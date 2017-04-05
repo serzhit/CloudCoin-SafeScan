@@ -11,32 +11,41 @@ namespace CloudCoin_SafeScan
 {
     public partial class RAIDA
     {
-        
         FixitHelper fixer;
-/*
-        public async void fixCoin(CloudCoin brokeCoin, FixCoinWindow fixWin)
+        public event CoinFixStartedEventHandler CoinFixStarted;
+        public event CoinFixFinishedEventHandler CoinFixFinished;
+
+        public void onCoinFixStarted(CoinFixStartedEventArgs e)
+        {
+            CoinFixStarted?.Invoke(this, e);
+        }
+
+        public void onCoinFixFinished(CoinFixFinishedEventArgs e)
+        {
+            CoinFixFinished?.Invoke(this, e);
+        }
+
+        public async void fixCoin(CloudCoin brokeCoin, int coinindex)
         {
             ObservableStatus[] result = new ObservableStatus[NODEQNTY];
 
             for (int guid_id = 0; guid_id < NODEQNTY; guid_id++)
             {
                 int index = guid_id; // needed for async tasks
-                if (brokeCoin.detectStatus[guid_id].status == "fail")
+                result[guid_id] = new ObservableStatus(CloudCoin.raidaNodeResponse.unknown);
+                if (brokeCoin.detectStatus[guid_id] == CloudCoin.raidaNodeResponse.fail)
                 { // This guid has failed, get tickets 
-                    result[guid_id] = await ProcessFixingGUID(index, brokeCoin, fixWin);
+                    onCoinFixStarted(new CoinFixStartedEventArgs(coinindex, guid_id)); //fire event that particular Node on particular coin began to be fixed
+                    result[guid_id] = await ProcessFixingGUID(index, brokeCoin);
+                    onCoinFixFinished(new CoinFixFinishedEventArgs(coinindex, guid_id, result[guid_id].Status));
                 }// end for failed guid
                 else
                     result[guid_id].Status = brokeCoin.detectStatus[guid_id];
             }//end for all the guids
             bool isGood = result.All<ObservableStatus>(x => x.Status == CloudCoin.raidaNodeResponse.pass);
-            DispatcherHelper.CheckBeginInvokeOnUI(() =>
-            {
-//                fixWin.ViewModel.StatusText = brokeCoin.sn + (isGood ? "" : " not") + " fixed!";
-                Thread.Sleep(500);
-            });
         }
 
-        private async Task<ObservableStatus> ProcessFixingGUID(int guid_id, CloudCoin returnCoin, FixCoinWindow fixWin)
+        private async Task<ObservableStatus> ProcessFixingGUID(int guid_id, CloudCoin returnCoin)
         {
             fixer = new FixitHelper(guid_id, returnCoin.an);
             GetTicketResponse[] ticketStatus = new GetTicketResponse[3];
@@ -66,7 +75,7 @@ namespace CloudCoin_SafeScan
                     if (fff.status == "success")  // the guid IS recovered!!!
                     {
                         returnCoin.detectStatus[guid_id] = result.Status = CloudCoin.raidaNodeResponse.pass;
-//                        DispatcherHelper.CheckBeginInvokeOnUI(() => { fixWin.ViewModel.nodeStatus[guid_id] = true; });
+                        onCoinFixFinished(new CoinFixFinishedEventArgs(returnCoin.sn, guid_id, result.Status));
                         fixer.finnished = true;
                     }
                     else if (fff.status == "fail")
@@ -88,14 +97,6 @@ namespace CloudCoin_SafeScan
             }//end while fixer not finnihsed. 
             // the guid cannot be recovered! all corners checked
             
-            //            DispatcherHelper.CheckBeginInvokeOnUI(() => { fixWin.ViewModel.nodeStatus[guid_id] = false; });
-            DispatcherHelper.CheckBeginInvokeOnUI(() =>
-            {
-//                fixWin.ViewModel.nodeStatus[guid_id] = result;
-//                fixWin.ViewModel.StatusText = "Node " + guid_id.ToString() + (result? "":" not") + " fixed!";
-                Thread.Sleep(500);
-            });
-
             return result;
         }
 
@@ -247,6 +248,5 @@ namespace CloudCoin_SafeScan
                 this.time = time;
             }
         }
-        */
     }
 }

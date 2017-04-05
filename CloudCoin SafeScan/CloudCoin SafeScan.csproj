@@ -140,10 +140,7 @@
     <Compile Include="View\CheckCoinsWindow.xaml.cs">
       <DependentUpon>CheckCoinsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\FixCoinWindow.xaml.cs">
-      <DependentUpon>FixCoinWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModel\FixCoinWindowViewModel.cs" />
+    <Compile Include="ViewModel\FixCoinViewModel.cs" />
     <Compile Include="View\FixProcessWindow.xaml.cs">
       <DependentUpon>FixProcessWindow.xaml</DependentUpon>
     </Compile>
@@ -173,10 +170,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EnterPasswordWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FixCoinWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

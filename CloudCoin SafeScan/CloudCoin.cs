@@ -14,7 +14,7 @@ namespace CloudCoin_SafeScan
     {
         public enum Denomination { Unknown, One, Five, Quarter, Hundred, KiloQuarter }
         public enum Status { Authenticated, Counterfeit, Fractioned, Unknown }
-        public enum raidaNodeResponse { pass, fail, error, unknown }
+        public enum raidaNodeResponse { pass, fail, error, fixing, unknown }
 
         public class CoinComparer : IComparer<CloudCoin>
         {

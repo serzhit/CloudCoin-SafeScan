@@ -11,6 +11,7 @@ namespace CloudCoin_SafeScan
         public Brush UnknownBrush { get; set; }
         public Brush FailBrush { get; set; }
         public Brush ErrorBrush { get; set; }
+        public Brush FixingBrush { get; set; }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -23,6 +24,8 @@ namespace CloudCoin_SafeScan
                     return ErrorBrush;
                 case CloudCoin.raidaNodeResponse.fail:
                     return FailBrush;
+                case CloudCoin.raidaNodeResponse.fixing:
+                    return FixingBrush;
                 case CloudCoin.raidaNodeResponse.unknown:
                     return UnknownBrush;
                 default:
