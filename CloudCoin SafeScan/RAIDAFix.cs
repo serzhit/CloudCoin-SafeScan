@@ -25,22 +25,25 @@ namespace CloudCoin_SafeScan
             CoinFixFinished?.Invoke(this, e);
         }
 
-        public async void fixCoin(CloudCoin brokeCoin, int coinindex)
+        public async Task fixCoin(CloudCoin brokeCoin, int coinindex)
         {
             ObservableStatus[] result = new ObservableStatus[NODEQNTY];
 
-            for (int guid_id = 0; guid_id < NODEQNTY; guid_id++)
+            for(int i = 0; i < NODEQNTY; i++) //initializing Array of coin statuses
             {
-                int index = guid_id; // needed for async tasks
-                result[guid_id] = new ObservableStatus(CloudCoin.raidaNodeResponse.unknown);
-                if (brokeCoin.detectStatus[guid_id] == CloudCoin.raidaNodeResponse.fail)
+                result[i] = new ObservableStatus(CloudCoin.raidaNodeResponse.unknown);
+            }
+
+            for (int index = 0; index < NODEQNTY; index++)
+            {                
+                if (brokeCoin.detectStatus[index] == CloudCoin.raidaNodeResponse.fail)
                 { // This guid has failed, get tickets 
-                    onCoinFixStarted(new CoinFixStartedEventArgs(coinindex, guid_id)); //fire event that particular Node on particular coin began to be fixed
-                    result[guid_id] = await ProcessFixingGUID(index, brokeCoin);
-                    onCoinFixFinished(new CoinFixFinishedEventArgs(coinindex, guid_id, result[guid_id].Status));
+                    onCoinFixStarted(new CoinFixStartedEventArgs(coinindex, index)); //fire event that particular RAIDA key on particular coin has begun to be fixed
+                    result[index] = await ProcessFixingGUID(index, brokeCoin);
+                    onCoinFixFinished(new CoinFixFinishedEventArgs(coinindex, index, result[index].Status));
                 }// end for failed guid
                 else
-                    result[guid_id].Status = brokeCoin.detectStatus[guid_id];
+                    result[index].Status = brokeCoin.detectStatus[index];
             }//end for all the guids
             bool isGood = result.All<ObservableStatus>(x => x.Status == CloudCoin.raidaNodeResponse.pass);
         }

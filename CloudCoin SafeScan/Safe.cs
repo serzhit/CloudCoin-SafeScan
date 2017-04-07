@@ -504,7 +504,7 @@ namespace CloudCoin_SafeScan
                 else if ((csc.Fives - f) > 0) f++;
                 else if ((csc.Quarters - q) > 0) q++;
                 else if ((csc.Hundreds - h) > 0) h++;
-                else if ((csc.Quarters - kQ) > 0) kQ++;
+                else if ((csc.KiloQuarters - kQ) > 0) kQ++;
                 selectWindow.stacksToSelect.Items.Add(new SelectOutStackWindowViewModel()
                 { Ones = o, Fives = f, Quarters = q, Hundreds = h, KiloQuarters = kQ, Total = (o + f * 5 + q * 25 + h * 100 + kQ * 250) });
             }

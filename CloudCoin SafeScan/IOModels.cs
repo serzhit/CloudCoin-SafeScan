@@ -183,16 +183,16 @@ namespace CloudCoin_SafeScan
     [JsonObject(MemberSerialization.OptIn)]
     public class CloudCoinOut
     {
-        [JsonProperty]
-        public string sn { get; set; }
-        [JsonProperty]
+        [JsonProperty(Order = 1)]
         public string nn { get; set; }
-        [JsonProperty]
+        [JsonProperty(Order = 2)]
+        public string sn { get; set; }
+        [JsonProperty(Order = 3)]
         public string[] an = new string[RAIDA.NODEQNTY];
-        [JsonProperty]
-        public string[] aoid = new string[1];//Account or Owner ID
-        [JsonProperty]
+        [JsonProperty(Order = 4)]
         public string ed; //expiration in the form of Date expressed as a hex string like 97e2 Sep 2018
+        [JsonProperty(Order = 5)]
+        public string[] aoid = new string[1];//Account or Owner ID
     }
 
     [JsonObject(MemberSerialization.OptIn)]

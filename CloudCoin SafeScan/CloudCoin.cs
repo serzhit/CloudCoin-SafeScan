@@ -37,6 +37,8 @@ namespace CloudCoin_SafeScan
         }
 
         [JsonProperty]
+        public int nn { set; get; }
+        [JsonProperty]
         public Denomination denomination
         {
             get
@@ -73,8 +75,6 @@ namespace CloudCoin_SafeScan
         }
         [JsonProperty]
         public int sn { set; get; }
-        [JsonProperty]
-        public int nn { set; get; }
         [JsonProperty]
         public string[] an = new string[RAIDA.NODEQNTY];
         public string[] pans = new string[RAIDA.NODEQNTY];

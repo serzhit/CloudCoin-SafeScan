@@ -6,6 +6,12 @@
              Startup="onAppStartup">
     <Application.Resources>
         <local:ViewModelLocator x:Key="Locator" />
+        <Storyboard x:Key="Blinking" x:Name="Blink" AutoReverse="True" RepeatBehavior="Forever">
+            <ColorAnimationUsingKeyFrames BeginTime="00:00:00"                            
+              Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                <EasingColorKeyFrame KeyTime="00:00:00.5" Value="Gray"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
         <local:BooleanToBrushConverter x:Key="BoolBrushConverter" TrueBrush="LightGreen" FalseBrush="Red"/>
         <local:StatusToBrushConverter x:Key="StatusBrushConverter" PassBrush="Green" FailBrush="Red" ErrorBrush="Brown" UnknownBrush="Yellow" FixingBrush="Orange" />
     </Application.Resources>
