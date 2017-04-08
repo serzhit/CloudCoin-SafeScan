@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using System.Windows;
 
 namespace CloudCoin_SafeScan
 {
@@ -66,6 +67,13 @@ namespace CloudCoin_SafeScan
             else
             {
                 EchoCompletedText = "Done. Hover for status.";
+                if (!(NodeStatus[0] || NodeStatus[3] || NodeStatus[6] || NodeStatus[9] || NodeStatus[12] || NodeStatus[15] ||
+                    NodeStatus[18] || NodeStatus[21] || NodeStatus[24]) )
+                {
+                    MessageBox.Show("The RAIDA does not respond.\n"+ 
+                                    "Check your internet connection\n"+
+                                    "Work with local Safe is still possible");
+                }
             }
         }
     }

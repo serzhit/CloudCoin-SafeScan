@@ -13,11 +13,17 @@ namespace CloudCoin_SafeScan
     {
         FixitHelper fixer;
         public event CoinFixStartedEventHandler CoinFixStarted;
+        public event CoinFixProcessingEventHandler CoinFixProcessing;
         public event CoinFixFinishedEventHandler CoinFixFinished;
 
         public void onCoinFixStarted(CoinFixStartedEventArgs e)
         {
             CoinFixStarted?.Invoke(this, e);
+        }
+
+        public void onCoinFixProcessing(CoinFixProcessingEventArgs e)
+        {
+            CoinFixProcessing?.Invoke(this, e);
         }
 
         public void onCoinFixFinished(CoinFixFinishedEventArgs e)
@@ -40,7 +46,7 @@ namespace CloudCoin_SafeScan
                 if (brokeCoin.detectStatus[index] == CloudCoin.raidaNodeResponse.fail)
                 { // This guid has failed, get tickets 
                     onCoinFixStarted(new CoinFixStartedEventArgs(coinindex, index)); //fire event that particular RAIDA key on particular coin has begun to be fixed
-                    result[index] = await ProcessFixingGUID(index, brokeCoin);
+                    result[index] = await ProcessFixingGUID(index, brokeCoin, coinindex);
                   //  onCoinFixFinished(new CoinFixFinishedEventArgs(coinindex, index, result[index].Status));
                 }// end for failed guid
                 else
@@ -49,7 +55,7 @@ namespace CloudCoin_SafeScan
             bool isGood = result.All<ObservableStatus>(x => x.Status == CloudCoin.raidaNodeResponse.pass);
         }
 
-        private async Task<ObservableStatus> ProcessFixingGUID(int guid_id, CloudCoin returnCoin)
+        private async Task<ObservableStatus> ProcessFixingGUID(int guid_id, CloudCoin returnCoin, int coinindex)
         {
             fixer = new FixitHelper(guid_id, returnCoin.an);
             GetTicketResponse[] ticketStatus = new GetTicketResponse[3];
@@ -58,6 +64,7 @@ namespace CloudCoin_SafeScan
             int corner = 1;
             while (!fixer.finnished)
             {
+                onCoinFixProcessing(new CoinFixProcessingEventArgs(coinindex, guid_id, corner));
                 Logger.Write("Fixing coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ".", Logger.Level.Debug);
                 string[] trustedServerAns = new string[]
                 {
@@ -83,7 +90,7 @@ namespace CloudCoin_SafeScan
                     {
                         Logger.Write("Coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ". Fixed!.", Logger.Level.Normal);
                         returnCoin.detectStatus[guid_id] = result.Status = CloudCoin.raidaNodeResponse.pass;
-                        onCoinFixFinished(new CoinFixFinishedEventArgs(returnCoin.sn, guid_id, result.Status));
+                        onCoinFixFinished(new CoinFixFinishedEventArgs(coinindex, guid_id, result.Status));
                         returnCoin.an[guid_id] = returnCoin.pans[guid_id];
                         fixer.finnished = true;
                         return result;
@@ -115,7 +122,7 @@ namespace CloudCoin_SafeScan
             // the guid cannot be recovered! all corners checked
             Logger.Write("Coin " + returnCoin.sn + ", node " + guid_id + " was not fixed!", Logger.Level.Normal);
             result.Status = returnCoin.detectStatus[guid_id];
-            onCoinFixFinished(new CoinFixFinishedEventArgs(returnCoin.sn, guid_id, result.Status));
+            onCoinFixFinished(new CoinFixFinishedEventArgs(coinindex, guid_id, result.Status));
             return result;
         }
 

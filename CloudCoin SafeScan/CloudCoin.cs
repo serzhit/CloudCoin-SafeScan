@@ -100,7 +100,7 @@ namespace CloudCoin_SafeScan
         {
             get
             {
-                return detectStatus.Count(element => element == raidaNodeResponse.pass || element == raidaNodeResponse.error) * 100 / detectStatus.Count();
+                return detectStatus.Count(element => element == raidaNodeResponse.pass) * 100 / detectStatus.Count();
             }
         }
 
@@ -302,6 +302,11 @@ namespace CloudCoin_SafeScan
             cloudcoin = new List<CloudCoin>(_collection);
 //            cloudcoin[0] = coin;
         }
+        public CoinStack(List<CloudCoin> list)
+        {
+            cloudcoin = list;
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();

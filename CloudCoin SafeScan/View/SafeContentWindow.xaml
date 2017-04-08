@@ -21,7 +21,7 @@
             </ListView.View>
         </ListView>
         <TextBox x:Name="totalTextBox" HorizontalAlignment="Left" Height="52" Margin="20,10,0,0" TextWrapping="Wrap" Text="{Binding StatusText}" VerticalAlignment="Top" Width="353" FontSize="32" BorderThickness="0"/>
-        <Button x:Name="FixButton" Content="Fix Fractioned" HorizontalAlignment="Left" Height="35" Margin="36,285,0,-74" VerticalAlignment="Top" Width="124" Command="{Binding BeginFix}"/>
-        <Button x:Name="CloseButton" Content="Close" HorizontalAlignment="Left" Height="35" Margin="223,285,0,-74" VerticalAlignment="Top" Width="124" Click="onCloseButton" IsCancel="True"/>
+        <Button x:Name="FixButton" Content="Fix Fracked" HorizontalAlignment="Left" Height="35" Margin="36,285,0,-74" VerticalAlignment="Top" Width="124" Command="{Binding BeginFix}"/>
+        <Button x:Name="CloseButton" Content="Detect Fracked Again" HorizontalAlignment="Left" Height="35" Margin="223,285,0,-74" VerticalAlignment="Top" Width="124" Command="{Binding DetectFracked}"/>
     </Grid>
 </Window>

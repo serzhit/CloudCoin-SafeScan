@@ -7,6 +7,7 @@ namespace CloudCoin_SafeScan
     class SafeContentWindowViewModel : ViewModelBase
     {
         public RelayCommand BeginFix { get; set; }
+        public RelayCommand DetectFracked { get; set; }
 
         public class ShelfString
         {
@@ -34,6 +35,7 @@ namespace CloudCoin_SafeScan
         public SafeContentWindowViewModel()
         {
             BeginFix = new RelayCommand(ApplicationLogic.FixSelected);
+            DetectFracked = new RelayCommand(ApplicationLogic.DetectFracked);
             Safe.Instance.SafeChanged += SafeContentChanged;
             Safe.Instance.onSafeContentChanged(new EventArgs());
         }

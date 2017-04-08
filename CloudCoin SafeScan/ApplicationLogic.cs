@@ -51,6 +51,18 @@ namespace CloudCoin_SafeScan
             }
         }
 
+        internal static void DetectFracked()
+        {
+            CoinStack fracked = Safe.Instance.FrackedCoinsStack;
+            CheckCoinsWindow checkWin = new CheckCoinsWindow(fracked);
+            RAIDA.Instance.Detect(fracked, false);
+            checkWin.ShowDialog();
+            Safe.Instance.Save();
+
+
+            checkWin.Close();
+        }
+
         internal static void SafeSelected()
         {
             Safe safe;
@@ -95,6 +107,8 @@ namespace CloudCoin_SafeScan
                 RAIDA.Instance.fixCoin(Safe.Instance.FrackedCoinsList[i], i);
             }
             fpw.ShowDialog();
+            Safe.Instance.onSafeContentChanged(new EventArgs());
+            Safe.Instance.Save();
         }
     }
 }

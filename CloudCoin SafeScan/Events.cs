@@ -12,6 +12,7 @@ namespace CloudCoin_SafeScan
     public delegate void StackScanCompletedEventHandler(object o, StackScanCompletedEventArgs e);
     public delegate void SafeContentChangedEventHandler(object o, EventArgs e);
     public delegate void CoinFixStartedEventHandler(object o, CoinFixStartedEventArgs e);
+    public delegate void CoinFixProcessingEventHandler(object o, CoinFixProcessingEventArgs e);
     public delegate void CoinFixFinishedEventHandler(object o, CoinFixFinishedEventArgs e);
 
     public class EchoStatusChangedEventArgs : EventArgs
@@ -56,6 +57,20 @@ namespace CloudCoin_SafeScan
         {
             coinindex = ci;
             NodeNumber = nn;
+        }
+    }
+
+    public class CoinFixProcessingEventArgs : EventArgs
+    {
+        public int coinindex;
+        public int NodeNumber;
+        public int corner;
+
+        public CoinFixProcessingEventArgs(int ci, int nn, int crnr)
+        {
+            coinindex = ci;
+            NodeNumber = nn;
+            corner = crnr;
         }
     }
 

@@ -32,11 +32,11 @@ namespace CloudCoin_SafeScan
                 Shutdown();
             }
 
-            if (!Utils.CheckForInternetConnection())
-            {
-                MessageBox.Show("Seems there is no Internet connection. Work with RAIDA will not be possible! You may perform only operations with Safe.");
+//            if (!Utils.CheckForInternetConnection())
+//            {
+//                MessageBox.Show("Seems there is no Internet connection. Work with RAIDA will not be possible! You may perform only operations with Safe.");
                 
-            }
+//            }
         }
 
         private void onAppStartup(object sender, StartupEventArgs e)

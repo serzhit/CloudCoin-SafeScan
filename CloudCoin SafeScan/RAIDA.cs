@@ -81,13 +81,11 @@ namespace CloudCoin_SafeScan
             {
                 int index = i;
                 tasks[i] = Task.Factory.StartNew(() => node.Echo());
-                //EchoStatus[i] = await tasks[i];
                 tasks[i].ContinueWith((anc) => 
                 {
                     EchoStatus[index] = anc.Result;
                     onEchoStatusChanged(new EchoStatusChangedEventArgs(index));
                 });
-//                tasks[i].ContinueWith(ancestor => MainWindow.Instance.ShowEchoProgress(ancestor.Result, node) );
                 i++;
             }
             Task.Factory.ContinueWhenAll(tasks, ancestors => onEchoStatusChanged(new EchoStatusChangedEventArgs(25)) );
@@ -230,7 +228,7 @@ namespace CloudCoin_SafeScan
                 var client = new RestClient();
                 client.BaseUrl = BaseUri;
                 var request = new RestRequest("echo");
-                request.Timeout = 2500;
+                request.Timeout = 2000;
                 EchoResponse getEcho = new EchoResponse();
 
                 Stopwatch sw = new Stopwatch();

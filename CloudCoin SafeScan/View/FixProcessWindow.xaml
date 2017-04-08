@@ -41,8 +41,19 @@
         </DataTemplate>
     </Window.Resources>
     <Grid DataContext="{Binding FixStack, Source={StaticResource Locator}}">
-        <ListView x:Name="listView" Height="auto" Margin="10,10,32,0" Width="930"
+        <ListView x:Name="listView" Height="auto" Margin="0,51,0,0" Width="auto"
                   VerticalAlignment="Top" ItemTemplate="{StaticResource CoinItemTemplate}" ItemsSource="{Binding FixingCoins}">
-       </ListView>
+        </ListView>
+        <Rectangle x:Name="LegendOrange" Fill="Orange" HorizontalAlignment="Left" Height="16" Margin="57,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+        <Rectangle x:Name="LegendGreen" Fill="Green" HorizontalAlignment="Left" Height="16" Margin="185,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+        <Rectangle x:Name="LegendYellow" Fill="Yellow" HorizontalAlignment="Left" Height="16" Margin="594,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+        <Rectangle x:Name="LegendRed" Fill="Red" HorizontalAlignment="Left" Height="16" Margin="342,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+        <Rectangle x:Name="LegendBrown" Fill="Brown" HorizontalAlignment="Left" Height="16" Margin="463,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+        <Label x:Name="label" Content="Fixing" HorizontalAlignment="Left" Margin="81,13,0,0" VerticalAlignment="Top" Height="25"/>
+        <Label x:Name="label_Copy" Content="Fixing" HorizontalAlignment="Left" Margin="81,13,0,0" VerticalAlignment="Top" Height="25" Width="51"/>
+        <Label x:Name="label_Copy1" Content="Passed" HorizontalAlignment="Left" Margin="211,14,0,0" VerticalAlignment="Top" Height="25" Width="64"/>
+        <Label x:Name="label_Copy2" Content="Fail" HorizontalAlignment="Left" Margin="366,13,0,0" VerticalAlignment="Top" Height="25" Width="42"/>
+        <Label x:Name="label_Copy3" Content="Error" HorizontalAlignment="Left" Margin="481,14,0,0" VerticalAlignment="Top" Height="25" Width="49"/>
+        <Label x:Name="label_Copy4" Content="Unknown" HorizontalAlignment="Left" Margin="617,14,0,0" VerticalAlignment="Top" Height="25" Width="49"/>
     </Grid>
 </Window>

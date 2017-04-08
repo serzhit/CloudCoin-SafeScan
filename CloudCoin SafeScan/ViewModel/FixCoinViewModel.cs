@@ -70,6 +70,7 @@ namespace CloudCoin_SafeScan
         public FixStackViewModel()
         {
             RAIDA.Instance.CoinFixStarted += CoinFixStarted;
+            RAIDA.Instance.CoinFixProcessing += CoinFixProcessing;
             RAIDA.Instance.CoinFixFinished += CoinFixFinished;
             FrackedCoins = Safe.Instance.FrackedCoinsList;
             FixingCoins = new FullyObservableCollection<FixCoinViewModel>();
@@ -86,6 +87,13 @@ namespace CloudCoin_SafeScan
             coinBeingFixed = FixingCoins[e.coinindex];
             coinBeingFixed.StatusText = "Fixing key on node " + e.NodeNumber + "...";
             coinBeingFixed.NodeStatus[e.NodeNumber] = new ObservableStatus(CloudCoin.raidaNodeResponse.fixing);
+        }
+
+        private void CoinFixProcessing(object sender, CoinFixProcessingEventArgs e)
+        {
+            FixCoinViewModel coinBeingFixed;
+            coinBeingFixed = FixingCoins[e.coinindex];
+            coinBeingFixed.StatusText = "Processing Key on node " + e.NodeNumber + ", corner " + e.corner;
         }
 
         private void CoinFixFinished(object sender, CoinFixFinishedEventArgs e)

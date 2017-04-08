@@ -163,6 +163,7 @@ namespace CloudCoin_SafeScan
         public FileInfo safeFileInfo;
         public CoinStack Contents; // contents of the Safe
         public List<CloudCoin> FrackedCoinsList = new List<CloudCoin>();
+        public CoinStack FrackedCoinsStack;
         public Shelf Ones
         {
             get
@@ -388,6 +389,7 @@ namespace CloudCoin_SafeScan
             safeFileInfo = fi;
             Contents = coins;
             FrackedCoinsList = coins.cloudcoin.FindAll(x => x.Verdict == CloudCoin.Status.Fractioned);
+            FrackedCoinsStack = new CoinStack(FrackedCoinsList);
         }
 
         public void Add(CoinStack stack)
@@ -407,7 +409,7 @@ namespace CloudCoin_SafeScan
             Save();
         }
 
-        private void Save()
+        public void Save()
         {
             safeFileInfo.Refresh();
             if (!safeFileInfo.Exists)
