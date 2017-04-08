@@ -213,7 +213,6 @@ namespace CloudCoin_SafeScan
         {
             get
             {
- //               List<CloudCoin> tmp = cloudcoin.FindAll(c => c.Verdict != CloudCoin.Status.Counterfeit);
                 int s = 0;
                 foreach (CloudCoin cccc in cloudcoin)
                 {
@@ -222,6 +221,20 @@ namespace CloudCoin_SafeScan
                 return s;
             }
         }
+        public int SumOfGoodCoins
+        {
+            get
+            {
+                 List<CloudCoin> tmp = cloudcoin.FindAll(c => c.Verdict != CloudCoin.Status.Counterfeit);
+                int s = 0;
+                foreach (CloudCoin cccc in tmp)
+                {
+                    s += Utils.Denomination2Int(cccc.denomination);
+                }
+                return s;
+            }
+        }
+
         public int Ones
         {
             get

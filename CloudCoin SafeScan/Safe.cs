@@ -399,6 +399,14 @@ namespace CloudCoin_SafeScan
             Save();
         }
 
+        public void Remove(CloudCoin coin)
+        {
+            Contents.cloudcoin.Remove(coin);
+            Contents.cloudcoin.Sort(new CloudCoin.CoinComparer());
+            onSafeContentChanged(new EventArgs());
+            Save();
+        }
+
         private void Save()
         {
             safeFileInfo.Refresh();
@@ -436,27 +444,17 @@ namespace CloudCoin_SafeScan
             Contents.cloudcoin.RemoveAll(delegate (CloudCoin coin) { return coin.Verdict == CloudCoin.Status.Counterfeit; });
         }
 
-        public void SaveOutStack()
+        public void SaveOutStack(int desiredSum)
         {
-            var howMuch = new HowMuchWindow();
-            howMuch.enterSumBox.Focus();
-            howMuch.Owner = MainWindow.Instance;
-            howMuch.ShowDialog();
-            if (howMuch.DialogResult == true)
+            CoinStack stack = ChooseNearestPossibleStack(desiredSum);
+            if (stack != null)
             {
-                int desiredSum = int.Parse(howMuch.enterSumBox.Text);
-                CoinStack stack = ChooseNearestPossibleStack(desiredSum);
-                if (stack != null)
-                {
-                    onSafeContentChanged(new EventArgs());
-                    Save(); //saving Safe without extracted coins
-                    CoinStackOut st = new CoinStackOut(stack);
-                    DateTime currdate = DateTime.Now;
-                    string fn = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinExportDir) +
-                        currdate.ToString("dd-MM-yy_HH-mm") + ".ccstack";
-                    st.SaveInFile(fn);
-                    MessageBox.Show("Stack saved in file \n" + fn);
-                }
+                onSafeContentChanged(new EventArgs());
+                CoinStackOut st = new CoinStackOut(stack);
+                string fn = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinExportDir) +
+                    DateTime.Now.ToString("dd-MM-yy_HH-mm") + ".ccstack";
+                st.SaveInFile(fn);
+                Logger.Write("Exported stack with " + stack.cloudcoin.Count + " coins.", Logger.Level.Normal);
             }
         }
 
@@ -543,7 +541,7 @@ namespace CloudCoin_SafeScan
                     foreach (CloudCoin c in cG.Take(count))
                     {
                         tmp.Add(c);
-                        csc.cloudcoin.Remove(c);
+                        Remove(c);
                     }
                 }
                 var result = new CoinStack();

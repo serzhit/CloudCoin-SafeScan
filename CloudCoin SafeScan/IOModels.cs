@@ -30,6 +30,8 @@ namespace CloudCoin_SafeScan
                     DI.Create();
                 }
             }
+
+            Logger.Initialize();
         }
 
         internal static void CopyOriginalFileToImported(FileInfo FI)

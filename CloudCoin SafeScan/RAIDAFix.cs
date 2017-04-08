@@ -28,6 +28,7 @@ namespace CloudCoin_SafeScan
         public async Task fixCoin(CloudCoin brokeCoin, int coinindex)
         {
             ObservableStatus[] result = new ObservableStatus[NODEQNTY];
+            
 
             for(int i = 0; i < NODEQNTY; i++) //initializing Array of coin statuses
             {
@@ -40,7 +41,7 @@ namespace CloudCoin_SafeScan
                 { // This guid has failed, get tickets 
                     onCoinFixStarted(new CoinFixStartedEventArgs(coinindex, index)); //fire event that particular RAIDA key on particular coin has begun to be fixed
                     result[index] = await ProcessFixingGUID(index, brokeCoin);
-                    onCoinFixFinished(new CoinFixFinishedEventArgs(coinindex, index, result[index].Status));
+                  //  onCoinFixFinished(new CoinFixFinishedEventArgs(coinindex, index, result[index].Status));
                 }// end for failed guid
                 else
                     result[index].Status = brokeCoin.detectStatus[index];
@@ -57,6 +58,7 @@ namespace CloudCoin_SafeScan
             int corner = 1;
             while (!fixer.finnished)
             {
+                Logger.Write("Fixing coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ".", Logger.Level.Debug);
                 string[] trustedServerAns = new string[]
                 {
                             returnCoin.an[fixer.currentTriad[0].Number],
@@ -68,38 +70,52 @@ namespace CloudCoin_SafeScan
                 // See if there are errors in the tickets                  
                 if (ticketStatus[0].status != "ticket" || ticketStatus[1].status != "ticket" || ticketStatus[2].status != "ticket")
                 {// No tickets, go to next triad corner 
+                    Logger.Write("Fixing coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ". There is no three tickets from triad", Logger.Level.Debug);
                     corner++;
                     fixer.setCornerToCheck(corner);
                 }
                 else
                 {// Has three good tickets   
+                    Logger.Write("Fixing coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ". We have three tickets. Going to fix.", Logger.Level.Debug);
                     var fff = await Instance.NodesArray[guid_id].fix(fixer.currentTriad, ticketStatus[0].message, ticketStatus[1].message,
-                        ticketStatus[2].message, returnCoin.an[guid_id], returnCoin.sn);
+                        ticketStatus[2].message, returnCoin.pans[guid_id], returnCoin.sn);
                     if (fff.status == "success")  // the guid IS recovered!!!
                     {
+                        Logger.Write("Coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ". Fixed!.", Logger.Level.Normal);
                         returnCoin.detectStatus[guid_id] = result.Status = CloudCoin.raidaNodeResponse.pass;
                         onCoinFixFinished(new CoinFixFinishedEventArgs(returnCoin.sn, guid_id, result.Status));
+                        returnCoin.an[guid_id] = returnCoin.pans[guid_id];
                         fixer.finnished = true;
+                        return result;
                     }
                     else if (fff.status == "fail")
                     { // command failed,  need to try another corner
+                        Logger.Write("Coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ". Failed, trying another corner...", Logger.Level.Debug);
                         corner++;
                         fixer.setCornerToCheck(corner);
                         returnCoin.detectStatus[guid_id] = CloudCoin.raidaNodeResponse.fail;
                     }
                     else if (fff.status == "error")
                     {
+                        Logger.Write("Coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ". Error, trying another corner....", Logger.Level.Debug);
+                        corner++;
+                        fixer.setCornerToCheck(corner);
                         returnCoin.detectStatus[guid_id] = CloudCoin.raidaNodeResponse.error;
                     }
                     else
                     {
+                        Logger.Write("Coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ". Error, trying another corner....", Logger.Level.Debug);
+                        corner++;
+                        fixer.setCornerToCheck(corner);
                         returnCoin.detectStatus[guid_id] = CloudCoin.raidaNodeResponse.error;
                     }
                     //end if else fix was successful
                 }//end if else one of the tickts has an error. 
             }//end while fixer not finnihsed. 
             // the guid cannot be recovered! all corners checked
-            
+            Logger.Write("Coin " + returnCoin.sn + ", node " + guid_id + " was not fixed!", Logger.Level.Normal);
+            result.Status = returnCoin.detectStatus[guid_id];
+            onCoinFixFinished(new CoinFixFinishedEventArgs(returnCoin.sn, guid_id, result.Status));
             return result;
         }
 
@@ -129,6 +145,7 @@ namespace CloudCoin_SafeScan
                 request.AddQueryParameter("pan", an);
                 request.AddQueryParameter("denomination", Utils.Denomination2Int(d).ToString());
                 request.Timeout = 5000;
+      
                 GetTicketResponse getTicketResult = new GetTicketResponse();
 
                 return await Task.Run<GetTicketResponse>(() => 
@@ -149,7 +166,8 @@ namespace CloudCoin_SafeScan
                         getTicketResult = new GetTicketResponse(Name, sn, "Network problem", "Problems with network connection", DateTime.Now.ToString());
                     sw.Stop();
                     getTicketResult.responseTime = sw.Elapsed;
-
+                    Logger.Write("GetTicket request for coin: " + sn + " at node " + this.Number + ", timeout " + request.Timeout + " returned '" + 
+                        getTicketResult.status + "' with message '" + getTicketResult.message + "' in " + sw.ElapsedMilliseconds + "ms.", Logger.Level.Debug);
                     return getTicketResult;
                 });
             }//end get ticket
@@ -188,6 +206,8 @@ namespace CloudCoin_SafeScan
                         fixResult = new FixResponse(Name, sn, "error", "Problems with network connection", DateTime.Now.ToString());
                     sw.Stop();
                     fixResult.responseTime = sw.Elapsed;
+                    Logger.Write("Fix request for coin: " + sn + " at node " + Number + ", timeout " + request.Timeout + " returned '" +
+                        fixResult.status + "' with message '" + fixResult.message + "' in " + sw.ElapsedMilliseconds + "ms.", Logger.Level.Debug);
                     return fixResult;
                 });
                 

@@ -31,6 +31,12 @@ namespace CloudCoin_SafeScan
                 MessageBox.Show("There was an error trying to check Windows version The program was closed.");
                 Shutdown();
             }
+
+            if (!Utils.CheckForInternetConnection())
+            {
+                MessageBox.Show("Seems there is no Internet connection. Work with RAIDA will not be possible! You may perform only operations with Safe.");
+                
+            }
         }
 
         private void onAppStartup(object sender, StartupEventArgs e)

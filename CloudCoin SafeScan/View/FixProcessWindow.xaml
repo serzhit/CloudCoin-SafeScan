@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CloudCoin_SafeScan"
         mc:Ignorable="d"
-        Title="FixProcessWindow" Height="293.417" Width="800">
+        Title="FixProcessWindow" Height="200" Width="auto">
     <Window.Resources>
         <DataTemplate x:Key="CoinItemTemplate">
-            <Grid x:Name="mainGrid" Background="White" Width="760">
-                <Label x:Name="SN" Content="{Binding SN}" HorizontalAlignment="Left" Height="23" Margin="8,8,0,0" VerticalAlignment="Top" Width="60" FontSize="11"/>
-                <Label x:Name="Value" Content="{Binding Denomination}" HorizontalAlignment="Left" Height="23" Margin="68,8,0,0" VerticalAlignment="Top" Width="40" FontSize="11" HorizontalContentAlignment="Center"/>
+            <Grid x:Name="mainGrid" Background="White" Width="auto">
+                <Label x:Name="SN" Content="{Binding SN}" HorizontalAlignment="Left" Height="23" Margin="8,8,0,0" VerticalAlignment="Top" Width="80" FontSize="11"/>
+                <Label x:Name="Value" Content="{Binding Denomination}" HorizontalAlignment="Left" Height="23" Margin="68,8,0,0" VerticalAlignment="Top" Width="60" FontSize="11" HorizontalContentAlignment="Center"/>
                 <Rectangle x:Name="_0" Fill="{Binding NodeStatus[0],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="130,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
                 <Rectangle x:Name="_1" Fill="{Binding NodeStatus[1],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="151,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
                 <Rectangle x:Name="_2" Fill="{Binding NodeStatus[2],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="172,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
@@ -36,12 +36,12 @@
                 <Rectangle x:Name="_22" Fill="{Binding NodeStatus[22],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="592,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
                 <Rectangle x:Name="_23" Fill="{Binding NodeStatus[23],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="613,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
                 <Rectangle x:Name="_24" Fill="{Binding NodeStatus[24],  Converter={StaticResource StatusBrushConverter}}" HorizontalAlignment="Left" Height="16" Margin="634,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
-                <Label x:Name="Status" Content="{Binding StatusText}" HorizontalAlignment="Left" Height="23" Margin="655,8,0,0" VerticalAlignment="Top" Width="120" FontSize="11"/>
+                <Label x:Name="Status" Content="{Binding StatusText}" HorizontalAlignment="Left" Height="23" Margin="655,8,0,0" VerticalAlignment="Top" Width="200" FontSize="11"/>
             </Grid>
         </DataTemplate>
     </Window.Resources>
     <Grid DataContext="{Binding FixStack, Source={StaticResource Locator}}">
-        <ListView x:Name="listView" Height="242" Margin="10,10,32,0" 
+        <ListView x:Name="listView" Height="auto" Margin="10,10,32,0" Width="930"
                   VerticalAlignment="Top" ItemTemplate="{StaticResource CoinItemTemplate}" ItemsSource="{Binding FixingCoins}">
        </ListView>
     </Grid>

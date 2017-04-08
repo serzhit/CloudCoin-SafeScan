@@ -173,7 +173,7 @@ namespace CloudCoin_SafeScan
                 {
                     TextOnImage += "Fractioned: " + e.stack.FractionedQuantity + " units\n";
                 }
-                TextOnImage += "Total value of good coins: " + e.stack.SumInStack;
+                TextOnImage += "Total value of good coins: " + e.stack.SumOfGoodCoins;
             });
         }
 

@@ -74,7 +74,16 @@ namespace CloudCoin_SafeScan
             }
             if (safe != null)
             {
-                safe.SaveOutStack();
+                var howMuch = new HowMuchWindow();
+                howMuch.enterSumBox.Focus();
+                howMuch.Owner = MainWindow.Instance;
+                howMuch.ShowDialog();
+                if (howMuch.DialogResult == true)
+                {
+                    int desiredSum = int.Parse(howMuch.enterSumBox.Text);
+                    safe.SaveOutStack(desiredSum);
+                    MessageBox.Show("Stack saved in Export dir\n");
+                }
             }
         }
 
