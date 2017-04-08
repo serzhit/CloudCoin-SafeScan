@@ -54,7 +54,7 @@ namespace CloudCoin_SafeScan
             }
             else
             {
-                throw new FileNotFoundException();
+                return null;
             }
         }
     }

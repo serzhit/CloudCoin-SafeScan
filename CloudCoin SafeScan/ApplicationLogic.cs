@@ -19,7 +19,13 @@ namespace CloudCoin_SafeScan
             CloudCoinFile coinFile = null;
             try
             {
-                coinFile = new CloudCoinFile(FileSystem.ChooseInputFile());
+                string[] files = FileSystem.ChooseInputFile();
+                if (files != null)
+                {
+                    coinFile = new CloudCoinFile(files);
+                }
+                else
+                    return;
             }
             catch (FileNotFoundException fnfex)
             {
