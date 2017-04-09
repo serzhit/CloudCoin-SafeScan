@@ -59,7 +59,7 @@ namespace CloudCoin_SafeScan
 
         internal static void DetectFracked()
         {
-            CoinStack fracked = Safe.Instance.FrackedCoinsStack;
+            CoinStack fracked = new CoinStack(Safe.Instance.FrackedCoinsList);
             CheckCoinsWindow checkWin = new CheckCoinsWindow(fracked);
             RAIDA.Instance.Detect(fracked, false);
             checkWin.ShowDialog();

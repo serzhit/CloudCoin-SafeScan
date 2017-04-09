@@ -32,10 +32,17 @@ namespace CloudCoin_SafeScan
 
         private static Safe GetInstance()
         {
-            var settingsSafeFilePath = Properties.Settings.Default.SafeFileName;
-            var filePath = Environment.ExpandEnvironmentVariables(settingsSafeFilePath);
+            string settingsSafeFilePath = Properties.Settings.Default.SafeFileName;
+            string filePath = Environment.ExpandEnvironmentVariables(settingsSafeFilePath);
+            string bkpFilePath = filePath + ".bkp";
 
             var fileInfo = new FileInfo(filePath);
+            var bkpFileInfo = new FileInfo(bkpFilePath);
+            if (!bkpFileInfo.Exists)
+            {
+                var coins = new CoinStack();
+                bkpFileInfo.Create();
+            }
             if (!fileInfo.Exists)
             { //Safe does not exist, create one
                 userEnteredPassword = UserInteract.SetPassword(); //get user password for Safe
@@ -128,7 +135,7 @@ namespace CloudCoin_SafeScan
                         numbytestoread -= n;
                     }
                     json = Utils.Decrypt(cryptedjson, userEnteredPassword, salt);
-                    var stack = JsonConvert.DeserializeObject<CoinStack>(json);
+                    var stack = JsonConvert.DeserializeObject<CoinStack>(json, new JsonSerializerSettings { CheckAdditionalContent = false } );
                     return stack;
                 }
                 catch (IOException ex)
@@ -159,11 +166,15 @@ namespace CloudCoin_SafeScan
             SafeChanged?.Invoke(this, e);
         }
 
-        public string safeFilePath;
-        public FileInfo safeFileInfo;
+        private string safeFilePath;
+        private string bkpFilePath;
+        private FileInfo safeFileInfo;
+        private FileInfo bkpFileInfo;
         public CoinStack Contents; // contents of the Safe
-        public List<CloudCoin> FrackedCoinsList = new List<CloudCoin>();
-        public CoinStack FrackedCoinsStack;
+        public List<CloudCoin> FrackedCoinsList
+        {
+            get { return Instance.Contents.cloudcoin.FindAll(x => x.Verdict == CloudCoin.Status.Fractioned); }
+        }
         public Shelf Ones
         {
             get
@@ -386,17 +397,16 @@ namespace CloudCoin_SafeScan
         private Safe(FileInfo fi, CoinStack coins)
         {
             safeFilePath = fi.FullName;
+            bkpFilePath = fi.FullName + ".bkp";
             safeFileInfo = fi;
+            bkpFileInfo = new FileInfo(bkpFilePath);
             Contents = coins;
-            FrackedCoinsList = coins.cloudcoin.FindAll(x => x.Verdict == CloudCoin.Status.Fractioned);
-            FrackedCoinsStack = new CoinStack(FrackedCoinsList);
         }
 
         public void Add(CoinStack stack)
         {
             Contents.Add(stack);
             RemoveCounterfeitCoins();
-            Contents.cloudcoin.Sort(new CloudCoin.CoinComparer());
             onSafeContentChanged(new EventArgs());
             Save();
         }
@@ -404,7 +414,6 @@ namespace CloudCoin_SafeScan
         public void Remove(CloudCoin coin)
         {
             Contents.cloudcoin.Remove(coin);
-            Contents.cloudcoin.Sort(new CloudCoin.CoinComparer());
             onSafeContentChanged(new EventArgs());
             Save();
         }
@@ -414,8 +423,32 @@ namespace CloudCoin_SafeScan
             safeFileInfo.Refresh();
             if (!safeFileInfo.Exists)
                 return;
-
+            Contents.Distinct();
             using (var fs = safeFileInfo.Open(FileMode.Open))
+            {
+                byte[] cryptedjsonbytes = null;
+                string jsonstring = "";
+                try
+                {
+                    jsonstring = JsonConvert.SerializeObject(Contents);
+                    cryptedjsonbytes = Utils.Encrypt(jsonstring, userEnteredPassword, salt);
+                    fs.Write(encryptedUserEnteredPassword, 0, 60);
+                    fs.Write(cryptedjsonbytes, 0, cryptedjsonbytes.Length);
+                }
+                catch (JsonException e)
+                {
+                    MessageBox.Show("Safe.Add() JSON serialize exception: " + e.Message);
+                }
+                catch (CryptographicException ex)
+                {
+                    MessageBox.Show("Safe.Add() decrypting exception: " + ex.Message);
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show("Safe.Add() IO write exception: " + ex.Message);
+                }
+            }
+            using (var fs = bkpFileInfo.Open(FileMode.Open))
             {
                 byte[] cryptedjsonbytes = null;
                 string jsonstring = "";
@@ -557,6 +590,7 @@ namespace CloudCoin_SafeScan
         public void Show()
         {
             (new SafeContentWindow()).Show();
+            Save();
         }
     }
 }

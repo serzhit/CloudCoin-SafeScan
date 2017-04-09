@@ -58,7 +58,6 @@ namespace CloudCoin_SafeScan
             {
                 w.WriteLine("{0} {1} {2}", level, DateTime.Now.ToLongTimeString(),
                     DateTime.Now.ToLongDateString());
-                w.WriteLine("  :");
                 w.WriteLine("  :{0}", logMessage);
                 w.WriteLine("-------------------------------");
                 // Update the underlying file.
