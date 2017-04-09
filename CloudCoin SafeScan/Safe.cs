@@ -41,7 +41,11 @@ namespace CloudCoin_SafeScan
             if (!bkpFileInfo.Exists)
             {
                 var coins = new CoinStack();
-                bkpFileInfo.Create();
+                using (var tmp = bkpFileInfo.Create())
+                {
+                    tmp.Close();
+                }
+
             }
             if (!fileInfo.Exists)
             { //Safe does not exist, create one

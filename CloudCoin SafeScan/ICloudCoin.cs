@@ -16,6 +16,6 @@ namespace CloudCoin_SafeScan
         int percentOfRAIDAPass { get; }
         bool isPassed { get; }
 
-        string[] generatePans();
+        string[] generatePans(int sn);
     }
 }

@@ -123,7 +123,7 @@ namespace CloudCoin_SafeScan
             this.aoid = aoid;
 //            filetype = Type.json;
 //            filename = null;
-            pans = generatePans();
+            pans = generatePans(sn);
             detectStatus = new raidaNodeResponse[RAIDA.NODEQNTY];
             for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = raidaNodeResponse.unknown;
         }
@@ -161,7 +161,7 @@ namespace CloudCoin_SafeScan
             nn = Int16.Parse(jpegHexContent.Substring(902, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
             sn = Int32.Parse(jpegHexContent.Substring(904, 6), System.Globalization.NumberStyles.AllowHexSpecifier);
 
-            pans = generatePans();
+            pans = generatePans(sn);
             detectStatus = new raidaNodeResponse[RAIDA.NODEQNTY];
             for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = raidaNodeResponse.unknown;
         }
@@ -178,10 +178,10 @@ namespace CloudCoin_SafeScan
             }
         }
         
-        public string[] generatePans()
+        public string[] generatePans(int sn)
         {
             string[] result = new string[RAIDA.NODEQNTY];
-            Random rnd = new Random();
+            Random rnd = new Random(sn);
             byte[] buf = new byte[16];
             for (int i = 0; i < RAIDA.NODEQNTY; i++)
             {
@@ -302,6 +302,8 @@ namespace CloudCoin_SafeScan
             cloudcoin = new List<CloudCoin>(_collection);
 //            cloudcoin[0] = coin;
         }
+
+        [JsonConstructor]
         public CoinStack(List<CloudCoin> list)
         {
             cloudcoin = list;

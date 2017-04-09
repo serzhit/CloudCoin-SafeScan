@@ -191,11 +191,11 @@ namespace CloudCoin_SafeScan
                 request.AddQueryParameter("message2", m2);
                 request.AddQueryParameter("message3", m3);
                 request.AddQueryParameter("pan", pan);
-                request.Timeout = 5000;
+                request.Timeout = 10000;
 
                 FixResponse fixResult = new FixResponse();
+                Logger.Write("Fix request to node "+ Number + ": " + client.BuildUri(request), Logger.Level.Debug);
 
-                
                 return await Task.Run<FixResponse>(() => 
                 {
                     Stopwatch sw = new Stopwatch();
@@ -214,7 +214,7 @@ namespace CloudCoin_SafeScan
                     sw.Stop();
                     fixResult.responseTime = sw.Elapsed;
                     Logger.Write("Fix request for coin: " + sn + " at node " + Number + ", timeout " + request.Timeout + " returned '" +
-                        fixResult.status + "' with message '" + fixResult.message + "' in " + sw.ElapsedMilliseconds + "ms.", Logger.Level.Debug);
+                        fixResult.status + "' with message '" + fixResult.message + "' return coin sn: '" + fixResult.sn + "' in " + sw.ElapsedMilliseconds + "ms.", Logger.Level.Debug);
                     return fixResult;
                 });
                 
