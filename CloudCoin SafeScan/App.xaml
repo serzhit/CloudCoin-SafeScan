@@ -13,6 +13,6 @@
             </ColorAnimationUsingKeyFrames>
         </Storyboard>
         <local:BooleanToBrushConverter x:Key="BoolBrushConverter" TrueBrush="LightGreen" FalseBrush="Red"/>
-        <local:StatusToBrushConverter x:Key="StatusBrushConverter" PassBrush="Green" FailBrush="Red" ErrorBrush="Brown" UnknownBrush="Yellow" FixingBrush="Orange" />
+        <local:StatusToBrushConverter x:Key="StatusBrushConverter" PassBrush="LightGreen" FailBrush="Red" ErrorBrush="Purple" UnknownBrush="Yellow" FixingBrush="Orange" />
     </Application.Resources>
 </Application>

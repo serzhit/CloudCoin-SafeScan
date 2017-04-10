@@ -45,10 +45,10 @@
                   VerticalAlignment="Top" ItemTemplate="{StaticResource CoinItemTemplate}" ItemsSource="{Binding FixingCoins}">
         </ListView>
         <Rectangle x:Name="LegendOrange" Fill="Orange" HorizontalAlignment="Left" Height="16" Margin="57,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
-        <Rectangle x:Name="LegendGreen" Fill="Green" HorizontalAlignment="Left" Height="16" Margin="185,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+        <Rectangle x:Name="LegendGreen" Fill="LightGreen" HorizontalAlignment="Left" Height="16" Margin="185,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
         <Rectangle x:Name="LegendYellow" Fill="Yellow" HorizontalAlignment="Left" Height="16" Margin="594,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
         <Rectangle x:Name="LegendRed" Fill="Red" HorizontalAlignment="Left" Height="16" Margin="342,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
-        <Rectangle x:Name="LegendBrown" Fill="Brown" HorizontalAlignment="Left" Height="16" Margin="463,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
+        <Rectangle x:Name="LegendBrown" Fill="Purple" HorizontalAlignment="Left" Height="16" Margin="463,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
         <Label x:Name="label" Content="Fixing" HorizontalAlignment="Left" Margin="81,13,0,0" VerticalAlignment="Top" Height="25"/>
         <Label x:Name="label_Copy" Content="Fixing" HorizontalAlignment="Left" Margin="81,13,0,0" VerticalAlignment="Top" Height="25" Width="51"/>
         <Label x:Name="label_Copy1" Content="Passed" HorizontalAlignment="Left" Margin="211,14,0,0" VerticalAlignment="Top" Height="25" Width="64"/>

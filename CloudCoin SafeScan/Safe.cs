@@ -175,9 +175,9 @@ namespace CloudCoin_SafeScan
         private FileInfo safeFileInfo;
         private FileInfo bkpFileInfo;
         public CoinStack Contents; // contents of the Safe
-        public List<CloudCoin> FrackedCoinsList
+        public IEnumerable<CloudCoin> FrackedCoinsList
         {
-            get { return Instance.Contents.cloudcoin.FindAll(x => x.Verdict == CloudCoin.Status.Fractioned); }
+            get { return Instance.Contents.cloudcoin.Where(x => x.Verdict == CloudCoin.Status.Fractioned); }
         }
         public Shelf Ones
         {
@@ -480,7 +480,12 @@ namespace CloudCoin_SafeScan
 
         private void RemoveCounterfeitCoins()
         {
-            Contents.cloudcoin.RemoveAll(delegate (CloudCoin coin) { return coin.Verdict == CloudCoin.Status.Counterfeit; });
+            foreach(CloudCoin coin in Contents)
+            {
+                if(coin.Verdict == CloudCoin.Status.Counterfeit)
+                    Contents.cloudcoin.Remove(coin);
+            }
+            
         }
 
         public void SaveOutStack(int desiredSum)
@@ -491,7 +496,7 @@ namespace CloudCoin_SafeScan
                 onSafeContentChanged(new EventArgs());
                 CoinStackOut st = new CoinStackOut(stack);
                 string fn = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinExportDir) +
-                    DateTime.Now.ToString("dd-MM-yy_HH-mm") + ".ccstack";
+                    desiredSum +"."+ DateTime.Now.ToString("dd-MM-yy_HH-mm") + ".stack";
                 st.SaveInFile(fn);
                 Logger.Write("Exported stack with " + stack.cloudcoin.Count + " coins.", Logger.Level.Normal);
             }
@@ -551,7 +556,9 @@ namespace CloudCoin_SafeScan
             {
                 SelectOutStackWindowViewModel res = (SelectOutStackWindowViewModel)selectWindow.stacksToSelect.SelectedItem;
 
-                List<CloudCoin> tmp = new List<CloudCoin>(o + f + q + h + kQ);
+                // CloudCoin[] tmp = new CloudCoin[(o + f + q + h + kQ)];
+                CoinStack result = new CoinStack();
+
                 IEnumerable<IGrouping<CloudCoin.Denomination, CloudCoin>> GroupsCoinQuery = from coin in csc.cloudcoin
                                                                                             group coin by coin.denomination;
 
@@ -579,12 +586,13 @@ namespace CloudCoin_SafeScan
                     }
                     foreach (CloudCoin c in cG.Take(count))
                     {
-                        tmp.Add(c);
-                        Remove(c);
+                        result.Add(c);
                     }
                 }
-                var result = new CoinStack();
-                result.cloudcoin.AddRange(tmp);
+                Instance.Contents.Remove(result);
+                onSafeContentChanged(new EventArgs());
+                Save();
+
                 return result;
             }
             else

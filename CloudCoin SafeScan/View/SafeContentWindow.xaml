@@ -7,14 +7,19 @@
         mc:Ignorable="d"
         Title="Safe Content" Height="380.769" Width="400.838" ResizeMode="NoResize">
     <Grid Height="246" VerticalAlignment="Top" DataContext="{Binding SafeContent, Source={StaticResource Locator}}" >
-        <ListView x:Name="SafeView" HorizontalAlignment="Center" Margin="20,62,18,15" Width="365" ItemsSource="{Binding Rows}">
+        <ListView x:Name="SafeView" Margin="20,62,18,15" Width="365" ItemsSource="{Binding Rows}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
                     <GridView.ColumnHeaderContextMenu>
                         <ContextMenu HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
                     </GridView.ColumnHeaderContextMenu>
                     <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="80"/>
-                    <GridViewColumn Header="Good" DisplayMemberBinding="{Binding Good}" Width="100"/>
+                    <GridViewColumn Header="Good" DisplayMemberBinding="{Binding Good}" Width="100" />
                     <GridViewColumn Header="Fractioned" DisplayMemberBinding="{Binding Fractioned}" Width="100"/>
                     <GridViewColumn Header="Total" DisplayMemberBinding="{Binding Total}" Width="70"/>
                 </GridView>

@@ -108,9 +108,11 @@ namespace CloudCoin_SafeScan
         internal static void FixSelected()
         {
             FixProcessWindow fpw = new FixProcessWindow();
-            for(int i=0; i < Safe.Instance.FrackedCoinsList.Count;i++)
+            int i = 0;
+            foreach(CloudCoin coin in Safe.Instance.FrackedCoinsList)
             {
-                RAIDA.Instance.fixCoin(Safe.Instance.FrackedCoinsList[i], i);
+                RAIDA.Instance.fixCoin(coin, i);
+                i++;
             }
             fpw.ShowDialog();
             Safe.Instance.onSafeContentChanged(new EventArgs());

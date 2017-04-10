@@ -146,8 +146,7 @@ namespace CloudCoin_SafeScan
                     Serial = e.coin.sn,
                     Value = Utils.Denomination2Int(e.coin.denomination),
                     Check = e.coin.isPassed,
-                    Comment = e.coin.Verdict.ToString() + ": " +
-                        e.coin.percentOfRAIDAPass + "% good. Checked in " + e.sw.ElapsedMilliseconds + " ms."
+                    Comment = e.coin.percentOfRAIDAPass + "% of keys are good. Checked in " + e.sw.ElapsedMilliseconds + " ms."
                 });
                 ProgressBar += 100;
                 PercentDone = (ProgressBar / Count).ToString() + "%";

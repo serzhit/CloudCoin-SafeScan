@@ -128,9 +128,10 @@ namespace CloudCoin_SafeScan
             total.Start();
             Task[] checkStackTasks = new Task[stack.cloudcoin.Count()];
             Stopwatch[] tw = new Stopwatch[stack.cloudcoin.Count()];
-            for (int k = 0; k < stack.cloudcoin.Count(); k++)
+            int k = 0;
+            foreach(CloudCoin coin in stack)    // int k = 0; k < stack.cloudcoin.Count(); k++)
             {
-                var coin = stack.cloudcoin[k];
+                //var coin = stack.cloudcoin[k];
                 if (!isCoinToBeImported)
                 {
                     coin.pans = coin.an;
@@ -152,6 +153,7 @@ namespace CloudCoin_SafeScan
                     t.Stop();
                     onDetectCoinCompleted(new DetectCoinCompletedEventArgs(coin, t));
                 });
+                k++;
             }
             Task.Factory.ContinueWhenAll(checkStackTasks, (ancs) =>
             {

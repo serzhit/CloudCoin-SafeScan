@@ -59,7 +59,7 @@ namespace CloudCoin_SafeScan
 
     public class FixStackViewModel : ViewModelBase
     {
-        private List<CloudCoin> FrackedCoins;
+        private IEnumerable<CloudCoin> FrackedCoins;
         private FullyObservableCollection<FixCoinViewModel> fixingCoinsStatuses;
         public FullyObservableCollection<FixCoinViewModel> FixingCoins
         {
@@ -74,9 +74,9 @@ namespace CloudCoin_SafeScan
             RAIDA.Instance.CoinFixFinished += CoinFixFinished;
             FrackedCoins = Safe.Instance.FrackedCoinsList;
             FixingCoins = new FullyObservableCollection<FixCoinViewModel>();
-            for(int i=0; i< FrackedCoins.Count; i++)
+            foreach(CloudCoin coin in FrackedCoins)
             {
-                FixCoinViewModel CoinStatus = new FixCoinViewModel(FrackedCoins[i]);
+                FixCoinViewModel CoinStatus = new FixCoinViewModel(coin);
                 FixingCoins.Add(CoinStatus);
             }
         }

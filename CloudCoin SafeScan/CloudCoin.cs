@@ -201,7 +201,7 @@ namespace CloudCoin_SafeScan
     public class CoinStack : IEnumerable<CloudCoin>
     {
         [JsonProperty]
-        public List<CloudCoin> cloudcoin { get; set; }
+        public HashSet<CloudCoin> cloudcoin { get; set; }
         public int coinsInStack
         {
             get
@@ -225,11 +225,14 @@ namespace CloudCoin_SafeScan
         {
             get
             {
-                 List<CloudCoin> tmp = cloudcoin.FindAll(c => c.Verdict != CloudCoin.Status.Counterfeit);
                 int s = 0;
-                foreach (CloudCoin cccc in tmp)
+                foreach (CloudCoin cccc in cloudcoin)
                 {
-                    s += Utils.Denomination2Int(cccc.denomination);
+                    if(cccc.Verdict != CloudCoin.Status.Counterfeit)
+                    {
+                        s += Utils.Denomination2Int(cccc.denomination);
+                    }
+                    
                 }
                 return s;
             }
@@ -294,19 +297,23 @@ namespace CloudCoin_SafeScan
 
         public CoinStack()
         {
-            cloudcoin = new List<CloudCoin>();
+            cloudcoin = new HashSet<CloudCoin>();
         }
         public CoinStack(CloudCoin coin)
         {
             CloudCoin[] _collection = { coin };
-            cloudcoin = new List<CloudCoin>(_collection);
-//            cloudcoin[0] = coin;
+            cloudcoin = new HashSet<CloudCoin>(_collection);
         }
 
         [JsonConstructor]
-        public CoinStack(List<CloudCoin> list)
+        public CoinStack(HashSet<CloudCoin> list)
         {
             cloudcoin = list;
+        }
+
+        public CoinStack(IEnumerable<CloudCoin> collection)
+        {
+            cloudcoin = new HashSet<CloudCoin>(collection);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -317,10 +324,28 @@ namespace CloudCoin_SafeScan
         {
             return cloudcoin.GetEnumerator();
         }
+        public void Add(CloudCoin coin)
+        {
+            cloudcoin.Add(coin);
+            var tmp = cloudcoin.Distinct();
+            cloudcoin = new HashSet<CloudCoin>(tmp);
+        }
         public void Add(CoinStack stack2)
         {
-            cloudcoin.AddRange(stack2);
-            cloudcoin = cloudcoin.Distinct( new CloudCoin.CoinEqualityComparer() ).ToList();
+            foreach (CloudCoin coin in stack2)
+            {
+                cloudcoin.Add(coin);
+            }
+            var tmp = cloudcoin.Distinct();
+            cloudcoin = new HashSet<CloudCoin>(tmp);
+        }
+
+        public void Remove(CoinStack stack2)
+        {
+            foreach (CloudCoin coin in stack2)
+            {
+                cloudcoin.Remove(coin);
+            }
         }
     }
 }

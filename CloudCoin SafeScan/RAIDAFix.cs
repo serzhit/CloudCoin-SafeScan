@@ -43,7 +43,7 @@ namespace CloudCoin_SafeScan
 
             for (int index = 0; index < NODEQNTY; index++)
             {                
-                if (brokeCoin.detectStatus[index] == CloudCoin.raidaNodeResponse.fail)
+                if (brokeCoin.detectStatus[index] != CloudCoin.raidaNodeResponse.pass)
                 { // This guid has failed, get tickets 
                     onCoinFixStarted(new CoinFixStartedEventArgs(coinindex, index)); //fire event that particular RAIDA key on particular coin has begun to be fixed
                     result[index] = await ProcessFixingGUID(index, brokeCoin, coinindex);
