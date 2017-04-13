@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Threading;
 using System.Collections.Generic;
 
 namespace CloudCoin_SafeScan
@@ -83,25 +84,35 @@ namespace CloudCoin_SafeScan
 
         private void CoinFixStarted(object sender, CoinFixStartedEventArgs e)
         {
-            FixCoinViewModel coinBeingFixed;
-            coinBeingFixed = FixingCoins[e.coinindex];
-            coinBeingFixed.StatusText = "Fixing key on node " + e.NodeNumber + "...";
-            coinBeingFixed.NodeStatus[e.NodeNumber] = new ObservableStatus(CloudCoin.raidaNodeResponse.fixing);
+            DispatcherHelper.CheckBeginInvokeOnUI(()=> 
+            {
+                FixCoinViewModel coinBeingFixed;
+                coinBeingFixed = FixingCoins[e.coinindex];
+                coinBeingFixed.StatusText = "Fixing key on node " + e.NodeNumber + "...";
+                coinBeingFixed.NodeStatus[e.NodeNumber] = new ObservableStatus(CloudCoin.raidaNodeResponse.fixing);
+            });
+            
         }
 
         private void CoinFixProcessing(object sender, CoinFixProcessingEventArgs e)
         {
-            FixCoinViewModel coinBeingFixed;
-            coinBeingFixed = FixingCoins[e.coinindex];
-            coinBeingFixed.StatusText = "Processing Key on node " + e.NodeNumber + ", corner " + e.corner;
+            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+            {
+                FixCoinViewModel coinBeingFixed;
+                coinBeingFixed = FixingCoins[e.coinindex];
+                coinBeingFixed.StatusText = "Processing Key on node " + e.NodeNumber + ", corner " + e.corner;
+            });
         }
 
         private void CoinFixFinished(object sender, CoinFixFinishedEventArgs e)
         {
-            FixCoinViewModel coinBeingFixed;
-            coinBeingFixed = FixingCoins[e.coinindex];
-            coinBeingFixed.StatusText = "Key on node " + e.NodeNumber + " was " + (e.result == CloudCoin.raidaNodeResponse.pass ? "" : "not") + " fixed!";
-            coinBeingFixed.NodeStatus[e.NodeNumber] = new ObservableStatus(e.result);
+            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+            {
+                FixCoinViewModel coinBeingFixed;
+                coinBeingFixed = FixingCoins[e.coinindex];
+                coinBeingFixed.StatusText = "Key on node " + e.NodeNumber + " was " + (e.result == CloudCoin.raidaNodeResponse.pass ? "" : "not") + " fixed!";
+                coinBeingFixed.NodeStatus[e.NodeNumber] = new ObservableStatus(e.result);
+            });
         }
     }
 }

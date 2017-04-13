@@ -31,7 +31,7 @@ namespace CloudCoin_SafeScan
             CoinFixFinished?.Invoke(this, e);
         }
 
-        public async Task fixCoin(CloudCoin brokeCoin, int coinindex)
+        public void fixCoin(CloudCoin brokeCoin, int coinindex)
         {
             ObservableStatus[] result = new ObservableStatus[NODEQNTY];
             
@@ -42,11 +42,13 @@ namespace CloudCoin_SafeScan
             }
 
             for (int index = 0; index < NODEQNTY; index++)
-            {                
+            {
+                int nodeN = index;
                 if (brokeCoin.detectStatus[index] != CloudCoin.raidaNodeResponse.pass)
                 { // This guid has failed, get tickets 
                     onCoinFixStarted(new CoinFixStartedEventArgs(coinindex, index)); //fire event that particular RAIDA key on particular coin has begun to be fixed
-                    result[index] = await ProcessFixingGUID(index, brokeCoin, coinindex);
+                    result[nodeN] = ProcessFixingGUID(nodeN, brokeCoin, coinindex);
+                        
                   //  onCoinFixFinished(new CoinFixFinishedEventArgs(coinindex, index, result[index].Status));
                 }// end for failed guid
                 else
@@ -55,7 +57,7 @@ namespace CloudCoin_SafeScan
             bool isGood = result.All<ObservableStatus>(x => x.Status == CloudCoin.raidaNodeResponse.pass);
         }
 
-        private async Task<ObservableStatus> ProcessFixingGUID(int guid_id, CloudCoin returnCoin, int coinindex)
+        private ObservableStatus ProcessFixingGUID(int guid_id, CloudCoin returnCoin, int coinindex)
         {
             fixer = new FixitHelper(guid_id, returnCoin.an);
             GetTicketResponse[] ticketStatus = new GetTicketResponse[3];
@@ -73,18 +75,13 @@ namespace CloudCoin_SafeScan
                             returnCoin.an[fixer.currentTriad[2].Number]
                 };
 
-                ticketStatus = await get_tickets(fixer.currentTriad, trustedServerAns, returnCoin.nn, returnCoin.sn, returnCoin.denomination);
+                ticketStatus = get_tickets(fixer.currentTriad, trustedServerAns, returnCoin.nn, returnCoin.sn, returnCoin.denomination);
                 // See if there are errors in the tickets                  
-                if (ticketStatus[0].status != "ticket" || ticketStatus[1].status != "ticket" || ticketStatus[2].status != "ticket")
-                {// No tickets, go to next triad corner 
-                    Logger.Write("Fixing coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ". There is no three tickets from triad", Logger.Level.Debug);
-                    corner++;
-                    fixer.setCornerToCheck(corner);
-                }
-                else
+                if (ticketStatus[0].status == "ticket" && ticketStatus[1].status == "ticket" && ticketStatus[2].status == "ticket")
                 {// Has three good tickets   
-                    Logger.Write("Fixing coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ". We have three tickets. Going to fix.", Logger.Level.Debug);
-                    var fff = await Instance.NodesArray[guid_id].fix(fixer.currentTriad, ticketStatus[0].message, ticketStatus[1].message,
+                    Logger.Write("Fixing coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ". We have three tickets from nodes " + ticketStatus[0].server +
+                        ", " + ticketStatus[1].server + ", " + ticketStatus[2].server + ". Going to fix.", Logger.Level.Debug);
+                    FixResponse fff = Instance.NodesArray[guid_id].fix(fixer.currentTriad, ticketStatus[0].message, ticketStatus[1].message,
                         ticketStatus[2].message, returnCoin.pans[guid_id], returnCoin.sn);
                     if (fff.status == "success")  // the guid IS recovered!!!
                     {
@@ -118,6 +115,13 @@ namespace CloudCoin_SafeScan
                     }
                     //end if else fix was successful
                 }//end if else one of the tickts has an error. 
+                else
+                {// No tickets, go to next triad corner 
+                    Logger.Write("Fixing coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ". There is no three tickets from triad", Logger.Level.Debug);
+                    corner++;
+                    fixer.setCornerToCheck(corner);
+                }
+
             }//end while fixer not finnihsed. 
             // the guid cannot be recovered! all corners checked
             Logger.Write("Coin " + returnCoin.sn + ", node " + guid_id + " was not fixed!", Logger.Level.Normal);
@@ -126,22 +130,31 @@ namespace CloudCoin_SafeScan
             return result;
         }
 
-        private async Task<GetTicketResponse[]> get_tickets(Node[] triad, String[] ans, int nn, int sn, CloudCoin.Denomination denomination)
+        private GetTicketResponse[] get_tickets(Node[] triad, String[] ans, int nn, int sn, CloudCoin.Denomination denomination)
         {
             GetTicketResponse[] returnTicketsStatus = new GetTicketResponse[3];
+            Task<GetTicketResponse>[] tasks = new Task<GetTicketResponse>[3];
 
             for(int i = 0; i < 3; i++)
             {
                 int index = i;
-                returnTicketsStatus[i] = await triad[index].getTicket(nn, sn, ans[index], denomination);
+                tasks[i] = Task.Run(()=> { return triad[index].getTicket(nn, sn, ans[index], denomination); });
             }
-
+            var cont = Task.Factory.ContinueWhenAll(tasks, (ancs) => 
+            {
+                for(int j = 0; j<ancs.Count(); j++)
+                {
+                    returnTicketsStatus[j] = ancs[j].Result;
+                }
+                
+            });
+            cont.Wait();
             return returnTicketsStatus;
         }//end get_tickets
 
         public partial class Node
         {
-            internal async Task<GetTicketResponse> getTicket(int nn, int sn, String an, CloudCoin.Denomination d)
+            internal GetTicketResponse getTicket(int nn, int sn, String an, CloudCoin.Denomination d)
             {
                 var client = new RestClient();
                 client.BaseUrl = BaseUri;
@@ -155,31 +168,28 @@ namespace CloudCoin_SafeScan
       
                 GetTicketResponse getTicketResult = new GetTicketResponse();
 
-                return await Task.Run<GetTicketResponse>(() => 
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                try
                 {
-                    Stopwatch sw = new Stopwatch();
-                    sw.Start();
-                    try
-                    {
-                        var response = client.Execute(request);
-                        getTicketResult = JsonConvert.DeserializeObject<GetTicketResponse>(response.Content);
-                    }
-                    catch (JsonException e)
-                    {
-                        getTicketResult = new GetTicketResponse(Name, sn, "error", "The server does not respond or returns invalid data", DateTime.Now.ToString());
-                    }
-                    getTicketResult = getTicketResult ?? new GetTicketResponse(Name, sn, "Network problem", "Node not found", DateTime.Now.ToString());
-                    if (getTicketResult.ErrorException != null)
-                        getTicketResult = new GetTicketResponse(Name, sn, "Network problem", "Problems with network connection", DateTime.Now.ToString());
-                    sw.Stop();
-                    getTicketResult.responseTime = sw.Elapsed;
-                    Logger.Write("GetTicket request for coin: " + sn + " at node " + this.Number + ", timeout " + request.Timeout + " returned '" + 
-                        getTicketResult.status + "' with message '" + getTicketResult.message + "' in " + sw.ElapsedMilliseconds + "ms.", Logger.Level.Debug);
-                    return getTicketResult;
-                });
+                    var response = client.Execute(request);
+                    getTicketResult = JsonConvert.DeserializeObject<GetTicketResponse>(response.Content);
+                }
+                catch (JsonException e)
+                {
+                    getTicketResult = new GetTicketResponse(Name, sn, "error", "The server does not respond or returns invalid data", DateTime.Now.ToString());
+                }
+                getTicketResult = getTicketResult ?? new GetTicketResponse(Name, sn, "Network problem", "Node not found", DateTime.Now.ToString());
+                if (getTicketResult.ErrorException != null)
+                    getTicketResult = new GetTicketResponse(Name, sn, "Network problem", "Problems with network connection", DateTime.Now.ToString());
+                sw.Stop();
+                getTicketResult.responseTime = sw.Elapsed;
+                Logger.Write("GetTicket request for coin: " + sn + " at node " + this.Number + ", timeout " + request.Timeout + " returned '" + 
+                    getTicketResult.status + "' with message '" + getTicketResult.message + "' in " + sw.ElapsedMilliseconds + "ms.", Logger.Level.Debug);
+                return getTicketResult;
             }//end get ticket
 
-            internal async Task<FixResponse> fix(Node[] triad, String m1, String m2, String m3, String pan, int sn)
+            internal FixResponse fix(Node[] triad, String m1, String m2, String m3, String pan, int sn)
             {
                 var client = new RestClient();
                 client.BaseUrl = BaseUri;
@@ -196,27 +206,30 @@ namespace CloudCoin_SafeScan
                 FixResponse fixResult = new FixResponse();
                 Logger.Write("Fix request to node "+ Number + ": " + client.BuildUri(request), Logger.Level.Debug);
 
-                return await Task.Run<FixResponse>(() => 
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                try
                 {
-                    Stopwatch sw = new Stopwatch();
-                    sw.Start();
-                    try
-                    {
-                        fixResult = JsonConvert.DeserializeObject<FixResponse>(client.Execute(request).Content);
-                    }
-                    catch (JsonException ex)
-                    {
-                        return new FixResponse(Name, sn, "error", "Server doesn't respond or returns invalid data", DateTime.Now.ToString());
-                    }
-                    fixResult = fixResult ?? new FixResponse(Name, sn, "error", "Node not found", DateTime.Now.ToString());
-                    if (fixResult.ErrorException != null)
-                        fixResult = new FixResponse(Name, sn, "error", "Problems with network connection", DateTime.Now.ToString());
+                    var response = client.Execute(request).Content;
+                    Logger.Write("Server RAIDA" + Number + " returned following string on fix request: '" + response + "'", Logger.Level.Debug);
+                    fixResult = JsonConvert.DeserializeObject<FixResponse>(response);
+                }
+                catch (JsonException ex)
+                {
                     sw.Stop();
-                    fixResult.responseTime = sw.Elapsed;
+                    fixResult = new FixResponse(Name, sn, "error", "Server doesn't respond or returned invalid data", DateTime.Now.ToString());
                     Logger.Write("Fix request for coin: " + sn + " at node " + Number + ", timeout " + request.Timeout + " returned '" +
-                        fixResult.status + "' with message '" + fixResult.message + "' return coin sn: '" + fixResult.sn + "' in " + sw.ElapsedMilliseconds + "ms.", Logger.Level.Debug);
+                    fixResult.status + "' with message '" + fixResult.message + "' return coin sn: '" + fixResult.sn + "' in " + sw.ElapsedMilliseconds + "ms.", Logger.Level.Debug);
                     return fixResult;
-                });
+                }
+                fixResult = fixResult ?? new FixResponse(Name, sn, "error", "Node not found", DateTime.Now.ToString());
+                if (fixResult.ErrorException != null)
+                    fixResult = new FixResponse(Name, sn, "error", "Problems with network connection", DateTime.Now.ToString());
+                sw.Stop();
+                fixResult.responseTime = sw.Elapsed;
+                Logger.Write("Fix request for coin: " + sn + " at node " + Number + ", timeout " + request.Timeout + " returned '" +
+                    fixResult.status + "' with message '" + fixResult.message + "' return coin sn: '" + fixResult.sn + "' in " + sw.ElapsedMilliseconds + "ms.", Logger.Level.Debug);
+                return fixResult;
                 
             }//end fix
         }
