@@ -1,22 +1,21 @@
 ﻿using System;
 using System.IO;
-using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
-using Microsoft.Win32;
 using Newtonsoft.Json;
+using System.Security.Cryptography;
 
 namespace CloudCoin_SafeScan
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public class CloudCoin
+    public class CloudCoin : ICloudCoin
     {
         public enum Denomination { Unknown, One, Five, Quarter, Hundred, KiloQuarter }
         public enum Status { Authenticated, Counterfeit, Fractioned, Unknown }
-        public enum raidaNodeResponse { pass, fail, error, unknown }
+        public enum raidaNodeResponse { pass, fail, error, fixing, unknown }
 
         public class CoinComparer : IComparer<CloudCoin>
         {
@@ -38,6 +37,8 @@ namespace CloudCoin_SafeScan
             }
         }
 
+        [JsonProperty]
+        public int nn { set; get; }
         [JsonProperty]
         public Denomination denomination
         {
@@ -76,8 +77,6 @@ namespace CloudCoin_SafeScan
         [JsonProperty]
         public int sn { set; get; }
         [JsonProperty]
-        public int nn { set; get; }
-        [JsonProperty]
         public string[] an = new string[RAIDA.NODEQNTY];
         public string[] pans = new string[RAIDA.NODEQNTY];
         [JsonProperty]
@@ -92,9 +91,9 @@ namespace CloudCoin_SafeScan
             get
             {
                 if (percentOfRAIDAPass != 100)
-                    return isPassed ? CloudCoin.Status.Fractioned : CloudCoin.Status.Counterfeit;
+                    return isPassed ? Status.Fractioned : Status.Counterfeit;
                 else
-                    return isPassed ? CloudCoin.Status.Authenticated : CloudCoin.Status.Counterfeit;
+                    return isPassed ? Status.Authenticated : Status.Counterfeit;
             }
         }
 
@@ -102,7 +101,7 @@ namespace CloudCoin_SafeScan
         {
             get
             {
-                return detectStatus.Count(element => element == raidaNodeResponse.pass || element == raidaNodeResponse.error) * 100 / detectStatus.Count();
+                return detectStatus.Count(element => element == raidaNodeResponse.pass) * 100 / detectStatus.Count();
             }
         }
 
@@ -125,7 +124,7 @@ namespace CloudCoin_SafeScan
             this.aoid = aoid;
 //            filetype = Type.json;
 //            filename = null;
-            pans = generatePans();
+            pans = generatePans(sn);
             detectStatus = new raidaNodeResponse[RAIDA.NODEQNTY];
             for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = raidaNodeResponse.unknown;
         }
@@ -163,112 +162,66 @@ namespace CloudCoin_SafeScan
             nn = Int16.Parse(jpegHexContent.Substring(902, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
             sn = Int32.Parse(jpegHexContent.Substring(904, 6), System.Globalization.NumberStyles.AllowHexSpecifier);
 
-            pans = generatePans();
+            pans = generatePans(sn);
             detectStatus = new raidaNodeResponse[RAIDA.NODEQNTY];
             for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = raidaNodeResponse.unknown;
         }
 
+        public bool Calibrate()
+        {
+            if(nn == 1 && sn>=0 && sn < 16777216)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         
-        public string[] generatePans()
+        public string[] generatePans(int sn)
         {
             string[] result = new string[RAIDA.NODEQNTY];
-            Random rnd = new Random();
-            byte[] buf = new byte[16];
-            for (int i = 0; i < RAIDA.NODEQNTY; i++)
+            using (var provider = new RNGCryptoServiceProvider())
             {
-                string aaa = "";
-                rnd.NextBytes(buf);
-                for (int j = 0; j < buf.Length; j++)
-                {
-                    aaa += buf[j].ToString("X2");
-                }
-                result[i] = aaa;
+                for (int i = 0; i < RAIDA.NODEQNTY; i++ ) {
+                    var bytes = new byte[16];
+                    provider.GetBytes(bytes);
+
+                    Guid pan = new Guid(bytes);
+                    String rawpan = pan.ToString("N");
+                    String fullPan = "";
+                    switch (rawpan.Length)//Make sure the pan is 32 characters long. The odds of this happening are slim but it will happen.
+                    {
+                        case 27: fullPan = ("00000" + rawpan); break;
+                        case 28: fullPan = ("0000" + rawpan); break;
+                        case 29: fullPan = ("000" + rawpan); break;
+                        case 30: fullPan = ("00" + rawpan); break;
+                        case 31: fullPan = ("0" + rawpan); break;
+                        case 32: fullPan = rawpan; break;
+                        case 33: fullPan = rawpan.Substring(0, rawpan.Length - 1); break;//trim one off end
+                        case 34: fullPan = rawpan.Substring(0, rawpan.Length - 2); break;//trim one off end
+                    }
+
+                    result[i] = fullPan;
+                }//end for each Pan
+             
+
+                return result;
             }
-            return result;
-        }
+        }//end generate pans
     }
 
     [JsonObject(MemberSerialization.OptIn)]
-    public class CloudCoinOut
-    {
-        [JsonProperty]
-        public int sn { set; get; }
-        [JsonProperty]
-        public int nn { set; get; }
-        [JsonProperty]
-        public string[] an = new string[RAIDA.NODEQNTY];
-        [JsonProperty]
-        public string[] aoid = new string[1];//Account or Owner ID
-        [JsonProperty]
-        public string ed; //expiration in the form of Date expressed as a hex string like 97e2 Sep 2018
-    }
-
-    [JsonObject(MemberSerialization.OptIn)]
-    public class CoinStackOut
-    {
-        public CoinStackOut(CoinStack stack)
-        {
-            cloudcoin = new List<CloudCoinOut>();
-            foreach(CloudCoin coin in stack.cloudcoin)
-            {
-                cloudcoin.Add(new CloudCoinOut() { sn = coin.sn, nn = coin.nn, an = coin.an, aoid = coin.aoid, ed = coin.ed });
-            }
-        }
-        [JsonProperty]
-        public List<CloudCoinOut> cloudcoin { get; set; }
-        public void SaveInFile(string filename)
-        {
-            FileInfo fi = new FileInfo(filename);
-            if (File.Exists(filename))
-            {
-                var FD = new SaveFileDialog();
-                FD.InitialDirectory = fi.DirectoryName;
-                FD.Title = "File Exists, Choose Another Name";
-                FD.OverwritePrompt = true;
-                FD.DefaultExt = "ccstack";
-                FD.CreatePrompt = false;
-                FD.CheckPathExists = true;
-                FD.CheckFileExists = true;
-                FD.AddExtension = true;
-                FD.ShowDialog();
-                fi = new FileInfo(FD.FileName);
-            }
-            Directory.CreateDirectory(fi.DirectoryName);
-            using (StreamWriter sw = fi.CreateText())
-            {
-                string json = null;
-                try
-                {
-                    json = JsonConvert.SerializeObject(this);
-                    sw.Write(json);
-                }
-                catch (JsonException ex)
-                {
-                    MessageBox.Show("CloudStackOut.SaveInFile Serialize exception: " + ex.Message);
-                }
-                catch (IOException ex)
-                {
-                    MessageBox.Show("CloudStackOut.SaveInFile IO exception: " + ex.Message);
-                }
-            }
-        }
-    }
-
-        [JsonObject(MemberSerialization.OptIn)]
     public class CoinStack : IEnumerable<CloudCoin>
     {
         [JsonProperty]
-        public List<CloudCoin> cloudcoin { get; set; }
+        public HashSet<CloudCoin> cloudcoin { get; set; }
         public int coinsInStack
         {
             get
             {
-                int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
-                {
-                    s++;
-                }
-                return s;
+                return cloudcoin.Count();
             }
         }
         public int SumInStack
@@ -276,128 +229,108 @@ namespace CloudCoin_SafeScan
             get
             {
                 int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
+                foreach (CloudCoin cccc in cloudcoin)
                 {
-                    s += Utils.Denomination2Int(coin.denomination);
+                    s += Utils.Denomination2Int(cccc.denomination);
                 }
                 return s;
             }
         }
-        public int Ones
+        public int SumOfGoodCoins
         {
             get
             {
                 int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
+                foreach (CloudCoin cccc in cloudcoin)
                 {
-                    if(coin.denomination == CloudCoin.Denomination.One)
-                        s++;
+                    if(cccc.Verdict != CloudCoin.Status.Counterfeit)
+                    {
+                        s += Utils.Denomination2Int(cccc.denomination);
+                    }
+                    
                 }
                 return s;
+            }
+        }
+
+        public int Ones
+        {
+            get
+            {
+                return cloudcoin.Count(x => x.denomination == CloudCoin.Denomination.One);
             }
         }
         public int Fives
         {
             get
             {
-                int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
-                {
-                    if (coin.denomination == CloudCoin.Denomination.Five)
-                        s++;
-                }
-                return s;
+                return cloudcoin.Count(x => x.denomination == CloudCoin.Denomination.Five);
             }
         }
         public int Quarters
         {
             get
             {
-                int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
-                {
-                    if (coin.denomination == CloudCoin.Denomination.Quarter)
-                        s++;
-                }
-                return s;
+                return cloudcoin.Count(x => x.denomination == CloudCoin.Denomination.Quarter);
             }
         }
         public int Hundreds
         {
             get
             {
-                int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
-                {
-                    if (coin.denomination == CloudCoin.Denomination.Hundred)
-                        s++;
-                }
-                return s;
+                return cloudcoin.Count(x => x.denomination == CloudCoin.Denomination.Hundred);
             }
         }
         public int KiloQuarters
         {
             get
             {
-                int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
-                {
-                    if (coin.denomination == CloudCoin.Denomination.KiloQuarter)
-                        s++;
-                }
-                return s;
+                return cloudcoin.Count(x => x.denomination == CloudCoin.Denomination.KiloQuarter);
             }
         }
         public int AuthenticatedQuantity
         {
             get
             {
-                int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
-                {
-                    if (coin.Verdict == CloudCoin.Status.Authenticated)
-                        s++;
-                }
-                return s;
+                return cloudcoin.Count(x => x.Verdict == CloudCoin.Status.Authenticated);
             }
         }
         public int FractionedQuantity
         {
             get
             {
-                int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
-                {
-                    if (coin.Verdict == CloudCoin.Status.Fractioned)
-                        s++;
-                }
-                return s;
+                return cloudcoin.Count(x => x.Verdict == CloudCoin.Status.Fractioned);
             }
         }
         public int CounterfeitedQuantity
         {
             get
             {
-                int s = 0;
-                foreach (CloudCoin coin in cloudcoin)
-                {
-                    if (coin.Verdict == CloudCoin.Status.Counterfeit)
-                        s++;
-                }
-                return s;
+                return cloudcoin.Count(x => x.Verdict == CloudCoin.Status.Counterfeit);
             }
         }
 
         public CoinStack()
         {
-            cloudcoin = new List<CloudCoin>();
+            cloudcoin = new HashSet<CloudCoin>();
         }
         public CoinStack(CloudCoin coin)
         {
             CloudCoin[] _collection = { coin };
-            cloudcoin = new List<CloudCoin>(_collection);
-//            cloudcoin[0] = coin;
+            cloudcoin = new HashSet<CloudCoin>(_collection);
         }
+
+        [JsonConstructor]
+        public CoinStack(HashSet<CloudCoin> list)
+        {
+            cloudcoin = list;
+        }
+
+        public CoinStack(IEnumerable<CloudCoin> collection)
+        {
+            cloudcoin = new HashSet<CloudCoin>(collection);
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
@@ -406,10 +339,28 @@ namespace CloudCoin_SafeScan
         {
             return cloudcoin.GetEnumerator();
         }
+        public void Add(CloudCoin coin)
+        {
+            cloudcoin.Add(coin);
+            var tmp = cloudcoin.Distinct();
+            cloudcoin = new HashSet<CloudCoin>(tmp);
+        }
         public void Add(CoinStack stack2)
         {
-            cloudcoin.AddRange(stack2);
-            cloudcoin = cloudcoin.Distinct( new CloudCoin.CoinEqualityComparer() ).ToList();
+            foreach (CloudCoin coin in stack2)
+            {
+                cloudcoin.Add(coin);
+            }
+            var tmp = cloudcoin.Distinct();
+            cloudcoin = new HashSet<CloudCoin>(tmp);
+        }
+
+        public void Remove(CoinStack stack2)
+        {
+            foreach (CloudCoin coin in stack2)
+            {
+                cloudcoin.Remove(coin);
+            }
         }
     }
 }
