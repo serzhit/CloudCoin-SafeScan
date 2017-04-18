@@ -46,5 +46,70 @@ namespace CloudCoin_SafeScan.Properties {
                 this["UserCloudcoinDir"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("%USERPROFILE%\\Cloudcoin\\Import\\")]
+        public string UserCloudcoinImportDir {
+            get {
+                return ((string)(this["UserCloudcoinImportDir"]));
+            }
+            set {
+                this["UserCloudcoinImportDir"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("%USERPROFILE%\\Cloudcoin\\Export\\")]
+        public string UserCloudcoinExportDir {
+            get {
+                return ((string)(this["UserCloudcoinExportDir"]));
+            }
+            set {
+                this["UserCloudcoinExportDir"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("%USERPROFILE%\\Cloudcoin\\Backup\\")]
+        public string UserCloudcoinBackupDir {
+            get {
+                return ((string)(this["UserCloudcoinBackupDir"]));
+            }
+            set {
+                this["UserCloudcoinBackupDir"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("%USERPROFILE%\\Cloudcoin\\Log\\")]
+        public string UserCloudcoinLogDir {
+            get {
+                return ((string)(this["UserCloudcoinLogDir"]));
+            }
+            set {
+                this["UserCloudcoinLogDir"] = value;
+            }
+        }
+
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("%USERPROFILE%\\Cloudcoin\\Templates\\")]
+        public string UserCloudcoinTemplateDir
+        {
+            get
+            {
+                return ((string)(this["UserCloudcoinTemplateDir"]));
+            }
+            set
+            {
+                this["UserCloudcoinTemplateDir"] = value;
+            }
+        }
+
     }
 }
