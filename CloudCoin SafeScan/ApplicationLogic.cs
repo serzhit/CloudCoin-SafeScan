@@ -93,7 +93,7 @@ namespace CloudCoin_SafeScan
             }
             if (safe != null)
             {
-                var howMuch = new HowMuchWindow();
+                var howMuch = new WithdrawDialog();
                 howMuch.enterSumBox.Focus();
                 howMuch.Owner = MainWindow.Instance;
                 howMuch.ShowDialog();

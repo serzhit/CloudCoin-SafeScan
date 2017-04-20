@@ -31,7 +31,7 @@ namespace CloudCoin_SafeScan
             CoinFixFinished?.Invoke(this, e);
         }
 
-        public void fixCoin(CloudCoin brokeCoin, int coinindex)
+        public void fixCoin(CloudCoin brokenCoin, int coinindex)
         {
             ObservableStatus[] result = new ObservableStatus[NODEQNTY];
             
@@ -44,22 +44,22 @@ namespace CloudCoin_SafeScan
             for (int index = 0; index < NODEQNTY; index++)
             {
                 int nodeN = index;
-                if (brokeCoin.detectStatus[index] != CloudCoin.raidaNodeResponse.pass)
+                if (brokenCoin.detectStatus[index] != CloudCoin.raidaNodeResponse.pass)
                 { // This guid has failed, get tickets 
                     onCoinFixStarted(new CoinFixStartedEventArgs(coinindex, index)); //fire event that particular RAIDA key on particular coin has begun to be fixed
-                    result[nodeN] = ProcessFixingGUID(nodeN, brokeCoin, coinindex);
+                    result[nodeN] = ProcessFixingGUID(nodeN, brokenCoin, coinindex);
                         
                   //  onCoinFixFinished(new CoinFixFinishedEventArgs(coinindex, index, result[index].Status));
                 }// end for failed guid
                 else
-                    result[index].Status = brokeCoin.detectStatus[index];
+                    result[index].Status = brokenCoin.detectStatus[index];
             }//end for all the guids
             bool isGood = result.All<ObservableStatus>(x => x.Status == CloudCoin.raidaNodeResponse.pass);
         }
 
-        private ObservableStatus ProcessFixingGUID(int guid_id, CloudCoin returnCoin, int coinindex)
+        private ObservableStatus ProcessFixingGUID(int guid_id, CloudCoin brokenCoin, int coinindex)
         {
-            fixer = new FixitHelper(guid_id, returnCoin.an);
+            fixer = new FixitHelper(guid_id, brokenCoin.an);
             GetTicketResponse[] ticketStatus = new GetTicketResponse[3];
             ObservableStatus result = new ObservableStatus();
 
@@ -67,70 +67,70 @@ namespace CloudCoin_SafeScan
             while (!fixer.finnished)
             {
                 onCoinFixProcessing(new CoinFixProcessingEventArgs(coinindex, guid_id, corner));
-                Logger.Write("Fixing coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ".", Logger.Level.Debug);
+                Logger.Write("Fixing coin " + brokenCoin.sn + ", node " + guid_id + ", corner " + corner + ".", Logger.Level.Debug);
                 string[] trustedServerAns = new string[]
                 {
-                            returnCoin.an[fixer.currentTriad[0].Number],
-                            returnCoin.an[fixer.currentTriad[1].Number],
-                            returnCoin.an[fixer.currentTriad[2].Number]
+                            brokenCoin.an[fixer.currentTriad[0].Number],
+                            brokenCoin.an[fixer.currentTriad[1].Number],
+                            brokenCoin.an[fixer.currentTriad[2].Number]
                 };
 
-                ticketStatus = get_tickets(fixer.currentTriad, trustedServerAns, returnCoin.nn, returnCoin.sn, returnCoin.denomination);
+                ticketStatus = get_tickets(fixer.currentTriad, trustedServerAns, brokenCoin.nn, brokenCoin.sn, brokenCoin.denomination);
                 // See if there are errors in the tickets                  
                 if (ticketStatus[0].status == "ticket" && ticketStatus[1].status == "ticket" && ticketStatus[2].status == "ticket")
                 {// Has three good tickets   
-                    Logger.Write("Fixing coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ". We have three tickets from nodes " + ticketStatus[0].server +
+                    Logger.Write("Fixing coin " + brokenCoin.sn + ", node " + guid_id + ", corner " + corner + ". We have three tickets from nodes " + ticketStatus[0].server +
                         ", " + ticketStatus[1].server + ", " + ticketStatus[2].server + ". Going to fix.", Logger.Level.Debug);
                     FixResponse fff = Instance.NodesArray[guid_id].fix(fixer.currentTriad, ticketStatus[0].message, ticketStatus[1].message,
-                        ticketStatus[2].message, returnCoin.pans[guid_id], returnCoin.sn);
+                        ticketStatus[2].message, brokenCoin.pans[guid_id], brokenCoin.sn);
                     if (fff.status == "success")  // the guid IS recovered!!!
                     {
-                        Logger.Write("Coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ". Fixed!.", Logger.Level.Normal);
-                        returnCoin.detectStatus[guid_id] = result.Status = CloudCoin.raidaNodeResponse.pass;
+                        Logger.Write("Coin " + brokenCoin.sn + ", node " + guid_id + ", corner " + corner + ". Fixed!.", Logger.Level.Normal);
+                        brokenCoin.detectStatus[guid_id] = result.Status = CloudCoin.raidaNodeResponse.pass;
                         onCoinFixFinished(new CoinFixFinishedEventArgs(coinindex, guid_id, result.Status));
-                        returnCoin.an[guid_id] = returnCoin.pans[guid_id];
+                        brokenCoin.an[guid_id] = brokenCoin.pans[guid_id];
                         fixer.finnished = true;
                         return result;
                     }
                     else if (fff.status == "fail")
                     { // command failed,  need to try another corner
-                        Logger.Write("Coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ". Failed, trying another corner...", Logger.Level.Debug);
+                        Logger.Write("Coin " + brokenCoin.sn + ", node " + guid_id + ", corner " + corner + ". Failed, trying another corner...", Logger.Level.Debug);
                         corner++;
                         fixer.setCornerToCheck(corner);
-                        returnCoin.detectStatus[guid_id] = CloudCoin.raidaNodeResponse.fail;
+                        brokenCoin.detectStatus[guid_id] = CloudCoin.raidaNodeResponse.fail;
                     }
                     else if (fff.status == "error")
                     {
-                        Logger.Write("Coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ". Error, trying another corner....", Logger.Level.Debug);
+                        Logger.Write("Coin " + brokenCoin.sn + ", node " + guid_id + ", corner " + corner + ". Error, trying another corner....", Logger.Level.Debug);
                         corner++;
                         fixer.setCornerToCheck(corner);
-                        returnCoin.detectStatus[guid_id] = CloudCoin.raidaNodeResponse.error;
+                        brokenCoin.detectStatus[guid_id] = CloudCoin.raidaNodeResponse.error;
                     }
                     else
                     {
-                        Logger.Write("Coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ". Error, trying another corner....", Logger.Level.Debug);
+                        Logger.Write("Coin " + brokenCoin.sn + ", node " + guid_id + ", corner " + corner + ". Error, trying another corner....", Logger.Level.Debug);
                         corner++;
                         fixer.setCornerToCheck(corner);
-                        returnCoin.detectStatus[guid_id] = CloudCoin.raidaNodeResponse.error;
+                        brokenCoin.detectStatus[guid_id] = CloudCoin.raidaNodeResponse.error;
                     }
                     //end if else fix was successful
                 }//end if else one of the tickts has an error. 
                 else
                 {// No tickets, go to next triad corner 
-                    Logger.Write("Fixing coin " + returnCoin.sn + ", node " + guid_id + ", corner " + corner + ". There is no three tickets from triad", Logger.Level.Debug);
+                    Logger.Write("Fixing coin " + brokenCoin.sn + ", node " + guid_id + ", corner " + corner + ". There is no three tickets from triad", Logger.Level.Debug);
                     corner++;
                     fixer.setCornerToCheck(corner);
                 }
 
             }//end while fixer not finnihsed. 
             // the guid cannot be recovered! all corners checked
-            Logger.Write("Coin " + returnCoin.sn + ", node " + guid_id + " was not fixed!", Logger.Level.Normal);
-            result.Status = returnCoin.detectStatus[guid_id];
+            Logger.Write("Coin " + brokenCoin.sn + ", node " + guid_id + " was not fixed!", Logger.Level.Normal);
+            result.Status = brokenCoin.detectStatus[guid_id];
             onCoinFixFinished(new CoinFixFinishedEventArgs(coinindex, guid_id, result.Status));
             return result;
         }
 
-        private GetTicketResponse[] get_tickets(Node[] triad, String[] ans, int nn, int sn, CloudCoin.Denomination denomination)
+        private GetTicketResponse[] get_tickets(Node[] triad, string[] ans, int nn, int sn, CloudCoin.Denomination denomination)
         {
             GetTicketResponse[] returnTicketsStatus = new GetTicketResponse[3];
             Task<GetTicketResponse>[] tasks = new Task<GetTicketResponse>[3];
@@ -154,7 +154,7 @@ namespace CloudCoin_SafeScan
 
         public partial class Node
         {
-            internal GetTicketResponse getTicket(int nn, int sn, String an, CloudCoin.Denomination d)
+            internal GetTicketResponse getTicket(int nn, int sn, string an, CloudCoin.Denomination d)
             {
                 var client = new RestClient();
                 client.BaseUrl = BaseUri;
@@ -189,7 +189,7 @@ namespace CloudCoin_SafeScan
                 return getTicketResult;
             }//end get ticket
 
-            internal FixResponse fix(Node[] triad, String m1, String m2, String m3, String pan, int sn)
+            internal FixResponse fix(Node[] triad, string m1, string m2, string m3, string pan, int sn)
             {
                 var client = new RestClient();
                 client.BaseUrl = BaseUri;

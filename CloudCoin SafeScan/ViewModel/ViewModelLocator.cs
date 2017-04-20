@@ -25,6 +25,11 @@ namespace CloudCoin_SafeScan
             get { return ServiceLocator.Current.GetInstance<SelectOutStackWindowViewModel>(); }
         }
 
+        public WithdrawDialogViewModel Withdraw
+        {
+            get { return ServiceLocator.Current.GetInstance<WithdrawDialogViewModel>(); }
+        }
+
         public FixStackViewModel FixStack
         {
             get { return ServiceLocator.Current.GetInstance<FixStackViewModel>(); }
@@ -38,6 +43,7 @@ namespace CloudCoin_SafeScan
             SimpleIoc.Default.Register<SelectOutStackWindowViewModel>();
             SimpleIoc.Default.Register<FixStackViewModel>();
             SimpleIoc.Default.Register<CheckCoinsWindowViewModel>();
+            SimpleIoc.Default.Register<WithdrawDialogViewModel>();
 
         }
 

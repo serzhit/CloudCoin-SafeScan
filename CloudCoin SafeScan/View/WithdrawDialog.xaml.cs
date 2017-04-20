@@ -8,9 +8,9 @@ namespace CloudCoin_SafeScan
     /// <summary>
     /// Interaction logic for HowMuchWindow.xaml
     /// </summary>
-    public partial class HowMuchWindow : Window
+    public partial class WithdrawDialog : Window
     {
-        public HowMuchWindow()
+        public WithdrawDialog()
         {
             InitializeComponent();
             enterSumBox.KeyDown += onKeyDown;
@@ -41,14 +41,17 @@ namespace CloudCoin_SafeScan
 
         private void onOKClicked(object sender, RoutedEventArgs e)
         {
-            long sum = long.Parse(enterSumBox.Text);
-            if (sum <= Safe.Instance?.Contents.SumInStack)
+            if (enterSumBox.Text != "")
             {
-                DialogResult = true;
-  //              Hide();
+                long sum = long.Parse(enterSumBox.Text);
+                if (sum <= Safe.Instance?.Contents.SumInStack)
+                {
+                    DialogResult = true;
+                    //              Hide();
+                }
+                else
+                    MessageBox.Show(this, "You don't have such amount in Safe.\nTry another value", "Enter another value");
             }
-            else
-                MessageBox.Show(this, "You don't have such amount in Safe.\nTry another value", "Enter another value");
         }
 
         private void onWinClose(object sender, CancelEventArgs e)
