@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Linq;
 using System.Collections;
 using Newtonsoft.Json;
@@ -177,24 +178,57 @@ namespace CloudCoin_SafeScan
                 return false;
             }
         }
-        
+        /*        
+                public string[] generatePans(int sn)
+                {
+                    string[] result = new string[RAIDA.NODEQNTY];
+                    Random rnd = new Random(sn);
+                    byte[] buf = new byte[16];
+                    for (int i = 0; i < RAIDA.NODEQNTY; i++)
+                    {
+                        string aaa = "";
+                        rnd.NextBytes(buf);
+                        for (int j = 0; j < buf.Length; j++)
+                        {
+                            aaa += buf[j].ToString("X2");
+                        }
+                        result[i] = aaa;
+                    }
+                    return result;
+                }
+                */
         public string[] generatePans(int sn)
         {
             string[] result = new string[RAIDA.NODEQNTY];
-            Random rnd = new Random(sn);
-            byte[] buf = new byte[16];
-            for (int i = 0; i < RAIDA.NODEQNTY; i++)
+            using (var provider = new RNGCryptoServiceProvider())
             {
-                string aaa = "";
-                rnd.NextBytes(buf);
-                for (int j = 0; j < buf.Length; j++)
+                for (int i = 0; i < RAIDA.NODEQNTY; i++)
                 {
-                    aaa += buf[j].ToString("X2");
-                }
-                result[i] = aaa;
+                    var bytes = new byte[16];
+                    provider.GetBytes(bytes);
+
+                    Guid pan = new Guid(bytes);
+                    String rawpan = pan.ToString("N");
+                    String fullPan = "";
+                    switch (rawpan.Length)//Make sure the pan is 32 characters long. The odds of this happening are slim but it will happen.
+                    {
+                        case 27: fullPan = ("00000" + rawpan); break;
+                        case 28: fullPan = ("0000" + rawpan); break;
+                        case 29: fullPan = ("000" + rawpan); break;
+                        case 30: fullPan = ("00" + rawpan); break;
+                        case 31: fullPan = ("0" + rawpan); break;
+                        case 32: fullPan = rawpan; break;
+                        case 33: fullPan = rawpan.Substring(0, rawpan.Length - 1); break;//trim one off end
+                        case 34: fullPan = rawpan.Substring(0, rawpan.Length - 2); break;//trim one off end
+                    }
+
+                    result[i] = fullPan;
+                }//end for each Pan
+
+
+                return result;
             }
-            return result;
-        }
+        }//end generate pans
     }
 
     [JsonObject(MemberSerialization.OptIn)]
