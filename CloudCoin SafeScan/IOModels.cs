@@ -219,7 +219,7 @@ namespace CloudCoin_SafeScan
                 FD.InitialDirectory = fi.DirectoryName;
                 FD.Title = "File Exists, Choose Another Name";
                 FD.OverwritePrompt = true;
-                FD.DefaultExt = "ccstack";
+                FD.DefaultExt = "stack";
                 FD.CreatePrompt = false;
                 FD.CheckPathExists = true;
                 FD.CheckFileExists = true;
