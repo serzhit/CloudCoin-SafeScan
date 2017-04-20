@@ -488,17 +488,32 @@ namespace CloudCoin_SafeScan
             
         }
 
-        public void SaveOutStack(int desiredSum)
+        public void SaveOutStack(int desiredSum, bool isJSON, string note)
         {
             CoinStack stack = ChooseNearestPossibleStack(desiredSum);
             if (stack != null)
             {
                 onSafeContentChanged(new EventArgs());
                 CoinStackOut st = new CoinStackOut(stack);
-                string fn = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinExportDir) +
-                    desiredSum +"."+ DateTime.Now.ToString("dd-MM-yy_HH-mm") + ".stack";
-                st.SaveInFile(fn);
-                Logger.Write("Exported stack with " + stack.cloudcoin.Count + " coins.", Logger.Level.Normal);
+                string serialNumbers = "";
+                foreach (CloudCoin coin in stack)
+                {
+                    serialNumbers += coin.sn.ToString() + "\n";
+                }
+
+                if (isJSON)
+                {
+                    string fn = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinExportDir) +
+                    desiredSum + "." + note + "." + DateTime.Now.ToString("dd-MM-yy.HH-mm.") + ".stack";
+                    st.SaveInFile(fn);
+                    Logger.Write("Exported JSON stack with " + stack.cloudcoin.Count + " coins.\n" +
+                                 "Serial numbers:\n" + serialNumbers, Logger.Level.Normal);
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
+                
             }
         }
 
