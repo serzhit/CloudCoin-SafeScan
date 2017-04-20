@@ -68,6 +68,11 @@ namespace CloudCoin_SafeScan
         FileInfo FI;
         public CoinStack Coins = new CoinStack();
 
+        public CloudCoinFile()
+        {
+
+        }
+
         public CloudCoinFile(string[] names)
         {
             foreach (string path in names)
@@ -183,7 +188,7 @@ namespace CloudCoin_SafeScan
         }
 
         /* Writes a JPEG To the Export Folder */
-        public bool writeJpeg(CloudCoin cc, string tag)
+        public bool WriteJpeg(CloudCoin cc, string tag)
         {
             // Console.Out.WriteLine("Writing jpeg " + cc.sn);
 
