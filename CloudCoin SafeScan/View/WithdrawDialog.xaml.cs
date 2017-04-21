@@ -54,16 +54,6 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        void RemoveText(object sender, RoutedEventArgs e)
-        {
-            ExportNote.Text = "";
-        }
-
-        void AddText(object sender, RoutedEventArgs e)
-        {
-            ExportNote.Text = "Short note (e.g. For Alex)";
-        }
-
         private void onWinClose(object sender, CancelEventArgs e)
         {
 //            DialogResult = false;
