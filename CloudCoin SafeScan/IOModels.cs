@@ -232,11 +232,11 @@ namespace CloudCoin_SafeScan
             byte[] jpegBytes = null;
             switch (getDenomination(cc.sn))
             {
-                case 1: jpegBytes = readAllBytes(Properties.Settings.Default.UserCloudcoinTemplateDir + "jpeg1.jpg"); break;
-                case 5: jpegBytes = readAllBytes(Properties.Settings.Default.UserCloudcoinTemplateDir + "jpeg5.jpg"); break;
-                case 25: jpegBytes = readAllBytes(Properties.Settings.Default.UserCloudcoinTemplateDir + "jpeg25.jpg"); break;
-                case 100: jpegBytes = readAllBytes(Properties.Settings.Default.UserCloudcoinTemplateDir + "jpeg100.jpg"); break;
-                case 250: jpegBytes = readAllBytes(Properties.Settings.Default.UserCloudcoinTemplateDir + "jpeg250.jpg"); break;
+                case 1: jpegBytes = readAllBytes(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg1.jpg"); break;
+                case 5: jpegBytes = readAllBytes(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg5.jpg"); break;
+                case 25: jpegBytes = readAllBytes(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg25.jpg"); break;
+                case 100: jpegBytes = readAllBytes(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg100.jpg"); break;
+                case 250: jpegBytes = readAllBytes(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg250.jpg"); break;
             }// end switch
 
 
@@ -268,7 +268,7 @@ namespace CloudCoin_SafeScan
                 tag = rInt.ToString();
             }
             string fileName = getDenomination(cc.sn) + ".CloudCoin." + cc.nn + "." + cc.sn + ".";
-            string jpgfileName = Properties.Settings.Default.UserCloudcoinExportDir + fileName + tag + ".jpg";
+            string jpgfileName = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinExportDir) + fileName + tag + ".jpg";
             File.WriteAllBytes(jpgfileName, b1.ToArray());
 
             return fileSavedSuccessfully;
