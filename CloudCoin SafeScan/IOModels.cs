@@ -25,7 +25,7 @@ namespace CloudCoin_SafeScan
             string logdir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinLogDir);
             string templatedir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir);
 
-            foreach (string path in new string[] { homedir, importdir, exportdir, backupdir, logdir })
+            foreach (string path in new string[] { homedir, importdir, exportdir, backupdir, logdir, templatedir })
             {
                 DirectoryInfo DI = new DirectoryInfo(path);
                 if (!DI.Exists)
@@ -69,6 +69,11 @@ namespace CloudCoin_SafeScan
         string Filename;
         FileInfo FI;
         public CoinStack Coins = new CoinStack();
+
+        public CloudCoinFile()
+        {
+
+        }
 
         public CloudCoinFile(string[] names)
         {
@@ -185,7 +190,7 @@ namespace CloudCoin_SafeScan
         }
 
         /* Writes a JPEG To the Export Folder */
-        public bool writeJpeg(CloudCoin cc, string tag)
+        public bool WriteJpeg(CloudCoin cc, string tag)
         {
             // Console.Out.WriteLine("Writing jpeg " + cc.sn);
 
