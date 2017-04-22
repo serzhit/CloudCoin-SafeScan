@@ -488,10 +488,10 @@ namespace CloudCoin_SafeScan
             
         }
 
-        public void SaveOutStack(int desiredSum, bool isJSON, string note)
+        public bool SaveOutStack(int desiredSum, bool isJSON, string note)
         {
             CoinStack stack = ChooseNearestPossibleStack(desiredSum);
-            if (stack != null)
+            if (stack != null && stack.Count<CloudCoin>() != 0)
             {
                 onSafeContentChanged(new EventArgs());
                 CoinStackOut st = new CoinStackOut(stack);
@@ -511,9 +511,18 @@ namespace CloudCoin_SafeScan
                 }
                 else
                 {
-                    throw new NotImplementedException();
+                    var cloudCoinFile = new CloudCoinFile();
+
+                    foreach (var coin in stack)
+                    {
+                        cloudCoinFile.WriteJpeg(coin, note);
+                    }
                 }
-                
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

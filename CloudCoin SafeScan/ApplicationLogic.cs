@@ -86,33 +86,48 @@ namespace CloudCoin_SafeScan
         internal static void PaySelected()
         {
             Safe safe;
+
             try { safe = Safe.Instance; }
             catch (TypeInitializationException ex)
             {
                 safe = null;
             }
+
             if (safe != null)
             {
                 var howMuch = new WithdrawDialog();
                 howMuch.enterSumBox.Focus();
                 howMuch.Owner = MainWindow.Instance;
                 howMuch.ShowDialog();
+
                 if (howMuch.DialogResult == true)
                 {
                     bool isJSON = (bool)howMuch.FormatJSON.IsChecked ? true : false;
                     bool isFull = (bool)howMuch.FullCoins.IsChecked ? true : false;
+                    bool isExported = false;
                     string note = howMuch.ExportNote.Text;
                     int desiredSum = int.Parse(howMuch.enterSumBox.Text);
+
                     if(isFull)
                     {
-                        safe.SaveOutStack(desiredSum, isJSON, note);
+                        isExported = safe.SaveOutStack(desiredSum, isJSON, note);
                     }
                     else
                     {
 
                     }
                     
-                    MessageBox.Show("Stack saved in Export dir\n");
+                    if (isExported)
+                    {
+                        if (isJSON)
+                            MessageBox.Show("Stack saved in Export dir\n");
+                        else
+                            MessageBox.Show("Jpeg saved in Export dir\n");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nothing to export\n");
+                    }
                 }
             }
         }
