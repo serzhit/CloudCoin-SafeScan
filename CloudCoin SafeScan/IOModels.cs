@@ -259,11 +259,11 @@ namespace CloudCoin_SafeScan
             byte[] jpegBytes = null;
             switch (getDenomination(cc.sn))
             {
-                case 1: jpegBytes = readAllBytes(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg1.jpg"); break;
-                case 5: jpegBytes = readAllBytes(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg5.jpg"); break;
-                case 25: jpegBytes = readAllBytes(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg25.jpg"); break;
-                case 100: jpegBytes = readAllBytes(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg100.jpg"); break;
-                case 250: jpegBytes = readAllBytes(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg250.jpg"); break;
+                case 1: jpegBytes = readBytesFromJpg(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg1.jpg"); break;
+                case 5: jpegBytes = readBytesFromJpg(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg5.jpg"); break;
+                case 25: jpegBytes = readBytesFromJpg(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg25.jpg"); break;
+                case 100: jpegBytes = readBytesFromJpg(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg100.jpg"); break;
+                case 250: jpegBytes = readBytesFromJpg(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg250.jpg"); break;
             }// end switch
 
 
@@ -313,6 +313,19 @@ namespace CloudCoin_SafeScan
             }
             return buffer;
         }//end read all bytes
+
+        public byte[] readBytesFromJpg(string fileName)
+        {
+            Image img = Image.FromFile(fileName);
+            byte[] jpgBytes;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                jpgBytes = ms.ToArray();
+            }
+
+            return jpgBytes;
+        }
 
         public byte[] hexStringToByteArray(String HexString)
         {
