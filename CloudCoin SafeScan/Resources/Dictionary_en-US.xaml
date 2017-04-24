@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CloudCoin_SafeScan"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="WindowsVersionLow">Your Windows version is too low. This app works on Windows7 and higher</system:String>
+    <system:String x:Key="ErrorCheckingWinVer">There was an error trying to check Windows version The program was closed.</system:String>
+    <system:String x:Key="UnhandledException">Unhandled exception catched:</system:String>
+    <system:String x:Key=""
+</ResourceDictionary>

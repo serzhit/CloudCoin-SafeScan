@@ -117,4 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ErrWinVer" xml:space="preserve">
+    <value>There was an error trying to check Windows version The program was closed.</value>
+  </data>
+  <data name="LowWinVer" xml:space="preserve">
+    <value>Your Windows version is too low. This app works on Windows7 and higher</value>
+  </data>
+  <data name="UnhandledException" xml:space="preserve">
+    <value>Unhandled exception catched:</value>
+  </data>
 </root>

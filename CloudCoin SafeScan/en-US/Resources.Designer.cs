@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CloudCoin_SafeScan.Properties {
+namespace CloudCoin_SafeScan.en_US {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace CloudCoin_SafeScan.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CloudCoin_SafeScan.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CloudCoin_SafeScan.en_US.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,33 @@ namespace CloudCoin_SafeScan.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was an error trying to check Windows version The program was closed..
+        /// </summary>
+        internal static string ErrWinVer {
+            get {
+                return ResourceManager.GetString("ErrWinVer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Windows version is too low. This app works on Windows7 and higher.
+        /// </summary>
+        internal static string LowWinVer {
+            get {
+                return ResourceManager.GetString("LowWinVer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unhandled exception catched:.
+        /// </summary>
+        internal static string UnhandledException {
+            get {
+                return ResourceManager.GetString("UnhandledException", resourceCulture);
             }
         }
     }
