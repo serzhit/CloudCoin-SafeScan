@@ -90,7 +90,7 @@ namespace CloudCoin_SafeScan
         public enum Type { json, jpeg, unknown }
         public Type Filetype;
         public bool IsValidFile { get; set; }
-        string Filename;
+        public string Filename { get; set; }
         FileInfo FI;
         public CoinStack Coins = new CoinStack();
 
@@ -119,6 +119,8 @@ namespace CloudCoin_SafeScan
                     fsSource.Read(signature, 0, 20);
                     string sig = Encoding.UTF8.GetString(signature);
                     var reg = new Regex(@"{[.\n\t\s\x09\x0A\x0D]*""cloudcoin""");
+                    IsValidFile = false;
+
                     if (Enumerable.SequenceEqual(signature.Take(3), new byte[] { 255, 216, 255 })) //JPEG
                     {
                         Filetype = Type.jpeg;
@@ -136,13 +138,13 @@ namespace CloudCoin_SafeScan
                         if (json != null)
                         {
                             Coins.Add(json);
-                            IsValidFile = true;
+                            if (json.cloudcoin.Count > 0)
+                                IsValidFile = true;
                         }
                     }
                     else
                     {
-                        MessageBox.Show(MainWindow.Instance, Filename + "\n: does not contain CloudCoins!");
-                        IsValidFile = false;
+                        
                     }
                 }
                 if (IsValidFile)
@@ -299,7 +301,7 @@ namespace CloudCoin_SafeScan
                 tag = rInt.ToString();
             }
 
-            string folderPath = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinExportDir) + tag + "_" + string.Format("{0:MM yyyy}",date) + "\\";
+            string folderPath = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinExportDir) + tag + "_" + string.Format("{0:ddMMyyyy}",date) + "\\";
             DirectoryInfo DI = new DirectoryInfo(folderPath);
             if (!DI.Exists)
             {

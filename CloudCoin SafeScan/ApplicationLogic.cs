@@ -50,11 +50,13 @@ namespace CloudCoin_SafeScan
                 {
                     CheckCoinsWindow checkWin = new CheckCoinsWindow(coinFile.Coins);
                     RAIDA.Instance.Detect(coinFile.Coins, false);
-                    checkWin.ShowDialog();
-                    
-                    
+                    checkWin.ShowDialog();   
                     checkWin.Close();
                 }
+            }
+            else
+            {
+                MessageBox.Show(MainWindow.Instance, coinFile.Filename + "\n: does not contain CloudCoins!");
             }
         }
 
