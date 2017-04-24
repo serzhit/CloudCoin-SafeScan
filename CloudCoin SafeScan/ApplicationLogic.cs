@@ -33,7 +33,7 @@ namespace CloudCoin_SafeScan
                 MessageBox.Show("File not found: " + fnfex.Message);
             }
 
-            if(coinFile != null)
+            if(coinFile != null && coinFile.IsValidFile)
             {
                 MessageBoxResult mbres = MessageBox.Show("Would you like to change ownership and import money in Safe?\nChoosing \"No\" will simply scan coins without changing passwords.", "Change Ownership?", MessageBoxButton.YesNo);
                 if(mbres == MessageBoxResult.Yes)

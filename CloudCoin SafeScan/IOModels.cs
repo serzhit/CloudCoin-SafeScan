@@ -89,6 +89,7 @@ namespace CloudCoin_SafeScan
     {
         public enum Type { json, jpeg, unknown }
         public Type Filetype;
+        public bool IsValidFile { get; set; }
         string Filename;
         FileInfo FI;
         public CoinStack Coins = new CoinStack();
@@ -125,6 +126,7 @@ namespace CloudCoin_SafeScan
                         if (coin != null)
                         {
                             Coins.Add(new CoinStack(coin));
+                            IsValidFile = true;
                         }
                     }
                     else if (reg.IsMatch(sig)) //JSON
@@ -134,14 +136,17 @@ namespace CloudCoin_SafeScan
                         if (json != null)
                         {
                             Coins.Add(json);
+                            IsValidFile = true;
                         }
                     }
                     else
                     {
                         MessageBox.Show(MainWindow.Instance, Filename + "\n: does not contain CloudCoins!");
+                        IsValidFile = false;
                     }
                 }
-                FileSystem.CopyOriginalFileToImported(FI);
+                if (IsValidFile)
+                    FileSystem.CopyOriginalFileToImported(FI);
             }
             else
             {
@@ -234,9 +239,8 @@ namespace CloudCoin_SafeScan
             int YEARSTILEXPIRE = 2; //The rule is coins expire in two years. 
             date.AddYears(YEARSTILEXPIRE);
             // this.ed = (date.Month + "-" + date.Year);
-            //cloudCoinStr += date.Month.ToString("X1");
-            //cloudCoinStr += date.Year.ToString("X3");// 0x97E2;//Expiration date Sep. 2018
-            cloudCoinStr += "97E2";
+            cloudCoinStr += date.Month.ToString("X1");
+            cloudCoinStr += date.Year.ToString("X3");// 0x97E2;//Expiration date Sep. 2018
 
             cloudCoinStr += "01";//  cc.nn;//network number
             String hexSN = cc.sn.ToString("X6");
@@ -294,8 +298,16 @@ namespace CloudCoin_SafeScan
                 int rInt = r.Next(100000, 1000000); //for ints
                 tag = rInt.ToString();
             }
+
+            string folderPath = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinExportDir) + tag + "_" + string.Format("{0:MM yyyy}",date) + "\\";
+            DirectoryInfo DI = new DirectoryInfo(folderPath);
+            if (!DI.Exists)
+            {
+                DI.Create();
+            }
+
             string fileName = getDenomination(cc.sn) + ".CloudCoin." + cc.nn + "." + cc.sn + ".";
-            string jpgfileName = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinExportDir) + fileName + tag + ".jpg";
+            string jpgfileName = folderPath + fileName + tag + ".jpg";
             File.WriteAllBytes(jpgfileName, b1.ToArray());
 
             return fileSavedSuccessfully;
