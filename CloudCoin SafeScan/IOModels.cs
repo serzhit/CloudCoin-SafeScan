@@ -9,6 +9,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Reflection;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace CloudCoin_SafeScan
 {
@@ -22,9 +25,9 @@ namespace CloudCoin_SafeScan
             string exportdir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinExportDir);
             string backupdir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinBackupDir);
             string logdir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinLogDir);
-            string templatedir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir);
+            string tmpDir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir);
 
-            foreach (string path in new string[] { homedir, importdir, exportdir, backupdir, logdir })
+            foreach (string path in new string[] { homedir, importdir, exportdir, backupdir, logdir, tmpDir})
             {
                 DirectoryInfo DI = new DirectoryInfo(path);
                 if (!DI.Exists)
@@ -33,7 +36,28 @@ namespace CloudCoin_SafeScan
                 }
             }
 
+            var tmpDI = new DirectoryInfo(tmpDir);
+            if (tmpDI.Exists)
+            {
+                CopyTemplateFiles(tmpDir, new List<string>() {"jpeg1.jpg", "jpeg5.jpg", "jpeg25.jpg", "jpeg100.jpg", "jpeg250.jpg" });
+            }
+
             Logger.Initialize();
+        }
+
+        internal static void CopyTemplateFiles(string tmpDir, List<string> files)
+        {
+            foreach (string file in files)
+            {
+                var bitmap = new BitmapImage(new Uri(@"pack://application:,,,/Resources/" + file, UriKind.Absolute));
+                BitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmap));
+
+                using (var fileStream = new System.IO.FileStream(System.IO.Path.Combine(tmpDir, file), System.IO.FileMode.Create))
+                {
+                    encoder.Save(fileStream);
+                }
+            }
         }
 
         internal static void CopyOriginalFileToImported(FileInfo FI)
@@ -210,8 +234,10 @@ namespace CloudCoin_SafeScan
             int YEARSTILEXPIRE = 2; //The rule is coins expire in two years. 
             date.AddYears(YEARSTILEXPIRE);
             // this.ed = (date.Month + "-" + date.Year);
-            cloudCoinStr = date.Month.ToString("X1");
-            cloudCoinStr += date.Year.ToString("X3");// 0x97E2;//Expiration date Sep. 2018
+            //cloudCoinStr += date.Month.ToString("X1");
+            //cloudCoinStr += date.Year.ToString("X3");// 0x97E2;//Expiration date Sep. 2018
+            cloudCoinStr += "97E2";
+
             cloudCoinStr += "01";//  cc.nn;//network number
             String hexSN = cc.sn.ToString("X6");
             String fullHexSN = "";
@@ -233,11 +259,11 @@ namespace CloudCoin_SafeScan
             byte[] jpegBytes = null;
             switch (getDenomination(cc.sn))
             {
-                case 1: jpegBytes = readAllBytes(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg1.jpg"); break;
-                case 5: jpegBytes = readAllBytes(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg5.jpg"); break;
-                case 25: jpegBytes = readAllBytes(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg25.jpg"); break;
-                case 100: jpegBytes = readAllBytes(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg100.jpg"); break;
-                case 250: jpegBytes = readAllBytes(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg250.jpg"); break;
+                case 1: jpegBytes = readBytesFromJpg(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg1.jpg"); break;
+                case 5: jpegBytes = readBytesFromJpg(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg5.jpg"); break;
+                case 25: jpegBytes = readBytesFromJpg(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg25.jpg"); break;
+                case 100: jpegBytes = readBytesFromJpg(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg100.jpg"); break;
+                case 250: jpegBytes = readBytesFromJpg(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg250.jpg"); break;
             }// end switch
 
 
@@ -253,7 +279,7 @@ namespace CloudCoin_SafeScan
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
             graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
             PointF drawPointAddress = new PointF(10.0F, 10.0F);
-            graphics.DrawString(String.Format("{0:N0}", cc.sn) + " of 16,777,216 on Network: 1", new Font("Arial", 20), Brushes.White, drawPointAddress);
+            graphics.DrawString(String.Format("{0:N0}", cc.sn) + " of 16,777,216 on Network: 1", new Font("Arial", 20), System.Drawing.Brushes.White, drawPointAddress);
 
             ImageConverter converter = new ImageConverter();
             byte[] snBytes = (byte[])converter.ConvertTo(bitmapimage, typeof(byte[]));
@@ -287,6 +313,19 @@ namespace CloudCoin_SafeScan
             }
             return buffer;
         }//end read all bytes
+
+        public byte[] readBytesFromJpg(string fileName)
+        {
+            Image img = Image.FromFile(fileName);
+            byte[] jpgBytes;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                jpgBytes = ms.ToArray();
+            }
+
+            return jpgBytes;
+        }
 
         public byte[] hexStringToByteArray(String HexString)
         {

@@ -295,7 +295,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\jpeg1.jpg" />
+    <Resource Include="Resources\jpeg100.jpg" />
+    <Resource Include="Resources\jpeg25.jpg" />
+    <Resource Include="Resources\jpeg250.jpg" />
+    <Resource Include="Resources\jpeg5.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
