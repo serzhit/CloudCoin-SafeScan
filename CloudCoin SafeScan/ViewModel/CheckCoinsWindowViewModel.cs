@@ -104,7 +104,7 @@ namespace CloudCoin_SafeScan
             set { _nodeStatus = value; RaisePropertyChanged("NodeStatus"); }
         }
 
-        private FullyObservableCollection<ObservableString> _toolTip = new FullyObservableCollection<ObservableString>();
+/*        private FullyObservableCollection<ObservableString> _toolTip = new FullyObservableCollection<ObservableString>();
         public FullyObservableCollection<ObservableString> ToolTip
         {
             get { return _toolTip; }
@@ -114,7 +114,7 @@ namespace CloudCoin_SafeScan
                 RaisePropertyChanged("ToolTip");
             }
         }
-
+*/
         public CheckCoinsWindowViewModel(CoinStack stack)
         {
             LeftTopText = "Checking " + stack.Count().ToString() + " coins...";
@@ -137,10 +137,10 @@ namespace CloudCoin_SafeScan
         {
             DispatcherHelper.CheckBeginInvokeOnUI(() =>
             {
-                for (int i = 0; i < RAIDA.NODEQNTY; i++)
+/*                for (int i = 0; i < RAIDA.NODEQNTY; i++)
                 {
                     NodeStatus[i] = (e.coin.detectStatus[i] == CloudCoin.raidaNodeResponse.pass);
-                }
+                } */
                 CheckLog.Add(new Coin4Display()
                 {
                     Serial = e.coin.sn,

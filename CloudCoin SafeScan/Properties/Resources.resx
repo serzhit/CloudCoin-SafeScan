@@ -117,4 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ChangeOwnership" xml:space="preserve">
+    <value>Change Ownership?</value>
+  </data>
+  <data name="CheckOrImport" xml:space="preserve">
+    <value>Would you like to change ownership and import money in Safe?\nChoosing \"No\" will simply scan coins without changing passwords.</value>
+  </data>
+  <data name="ErrWinVer" xml:space="preserve">
+    <value>There was an error trying to check Windows version The program was closed.</value>
+  </data>
+  <data name="FnF" xml:space="preserve">
+    <value>File not found: </value>
+  </data>
+  <data name="JpegExported" xml:space="preserve">
+    <value>Pictures with coins saved in Export dir\n</value>
+  </data>
+  <data name="LowWinVer" xml:space="preserve">
+    <value>Your Windows version is too low. This app works on Windows7 and higher</value>
+  </data>
+  <data name="NothingExported" xml:space="preserve">
+    <value>Nothing to export!</value>
+  </data>
+  <data name="StackExported" xml:space="preserve">
+    <value>JSON stack of coins saved in Export dir\n</value>
+  </data>
+  <data name="UnhandledException" xml:space="preserve">
+    <value>Unhandled exception catched:</value>
+  </data>
 </root>

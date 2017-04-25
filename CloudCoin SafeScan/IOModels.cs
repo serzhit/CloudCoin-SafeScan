@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
+
 namespace CloudCoin_SafeScan
 {
     #region
@@ -267,7 +268,7 @@ namespace CloudCoin_SafeScan
             cloudCoinStr += "204f42455920474f4420262044454645415420545952414e545320";// Hex for " OBEY GOD & DEFEAT TYRANTS "
             cloudCoinStr += "00"; // HC: Has comments. 00 = No
             cloudCoinStr += "00"; // LHC = 100%
-                                  //Calculate Expiration date 
+           //Calculate Expiration date 
             DateTime date = DateTime.Today;
             int YEARSTILEXPIRE = 2; //The rule is coins expire in two years. 
             date.AddYears(YEARSTILEXPIRE);
@@ -301,6 +302,7 @@ namespace CloudCoin_SafeScan
                 case 25: jpegBytes = readBytesFromJpg(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg25.jpg"); break;
                 case 100: jpegBytes = readBytesFromJpg(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg100.jpg"); break;
                 case 250: jpegBytes = readBytesFromJpg(Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir) + "jpeg250.jpg"); break;
+
             }// end switch
 
 
@@ -341,8 +343,9 @@ namespace CloudCoin_SafeScan
 
             string fileName = getDenomination(cc.sn) + ".CloudCoin." + cc.nn + "." + cc.sn + ".";
             string jpgfileName = folderPath + fileName + tag + ".jpg";
-            File.WriteAllBytes(jpgfileName, b1.ToArray());
 
+            File.WriteAllBytes(jpgfileName, b1.ToArray());
+            
             return fileSavedSuccessfully;
         }//end write JPEG
 
@@ -386,36 +389,30 @@ namespace CloudCoin_SafeScan
         public int getDenomination(int sn)
         {
             int nom = 0;
-            if (sn < 1)
-            {
+            if (sn < 1) {
                 nom = 0;
             }
-            else if (sn < 2097153)
-            {
+            else if (sn < 2097153) {
                 nom = 1;
             }
-            else if (sn < 4194305)
-            {
+            else if (sn < 4194305) {
                 nom = 5;
             }
-            else if (sn < 6291457)
-            {
+            else if (sn < 6291457){
                 nom = 25;
             }
-            else if (sn < 14680065)
-            {
+            else if (sn < 14680065){
                 nom = 100;
             }
-            else if (sn < 16777217)
-            {
+            else if (sn < 16777217) {
                 nom = 250;
             }
-            else
-            {
+            else {
                 nom = '0';
             }
             return nom;
         }//end get denomination
+
     }
 
     [JsonObject(MemberSerialization.OptIn)]
@@ -432,6 +429,9 @@ namespace CloudCoin_SafeScan
         [JsonProperty(Order = 5)]
         public string[] aoid = new string[1];//Account or Owner ID
     }
+
+
+
 
     [JsonObject(MemberSerialization.OptIn)]
     public class CoinStackOut

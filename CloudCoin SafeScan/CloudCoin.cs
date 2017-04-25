@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Linq;
 using System.Collections;
 using Newtonsoft.Json;
@@ -178,7 +179,25 @@ namespace CloudCoin_SafeScan
                 return false;
             }
         }
-        
+        /*        
+                public string[] generatePans(int sn)
+                {
+                    string[] result = new string[RAIDA.NODEQNTY];
+                    Random rnd = new Random(sn);
+                    byte[] buf = new byte[16];
+                    for (int i = 0; i < RAIDA.NODEQNTY; i++)
+                    {
+                        string aaa = "";
+                        rnd.NextBytes(buf);
+                        for (int j = 0; j < buf.Length; j++)
+                        {
+                            aaa += buf[j].ToString("X2");
+                        }
+                        result[i] = aaa;
+                    }
+                    return result;
+                }
+                */
         public string[] generatePans(int sn)
         {
             string[] result = new string[RAIDA.NODEQNTY];
