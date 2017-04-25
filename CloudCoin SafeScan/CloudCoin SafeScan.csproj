@@ -234,6 +234,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru-RU.resx" />
+    <EmbeddedResource Include="Properties\Resources.zh-CN.resx" />
     <None Include="CloudCoinClassDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

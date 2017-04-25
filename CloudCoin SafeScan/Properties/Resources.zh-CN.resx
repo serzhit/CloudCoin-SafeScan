@@ -118,244 +118,245 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddDecryptingException" xml:space="preserve">
-    <value>Safe.Add() decrypting exception: </value>
+    <value>Safe.Add()  解密例外: </value>
   </data>
   <data name="AddIOException" xml:space="preserve">
-    <value>Safe.Add() IO write exception:</value>
+    <value>Safe.Add() IO写例外:</value>
   </data>
   <data name="AddJsonException" xml:space="preserve">
-    <value>Safe.Add() JSON serialize exception: </value>
-  </data>
-  <data name="ChangeOwnership" xml:space="preserve">
-    <value>Change Ownership?</value>
-  </data>
-  <data name="CheckOrImport" xml:space="preserve">
-    <value>Would you like to change ownership and import money in Safe?
-Choosing "No" will simply scan coins without changing passwords.</value>
-  </data>
-  <data name="CloudCoinTitle" xml:space="preserve">
-    <value>CloudCoin Scan&amp;amp;Safe</value>
-  </data>
-  <data name="CreateEncryptionException" xml:space="preserve">
-    <value>Safe.CreateSafeFile() encryption exception: </value>
-  </data>
-  <data name="CreateJsonException" xml:space="preserve">
-    <value>Safe.CreateSafeFile() JSON exception: </value>
-  </data>
-  <data name="CreateWriteException" xml:space="preserve">
-    <value>Safe.CreateSafeFile() IO write exception: </value>
-  </data>
-  <data name="ErrWinVer" xml:space="preserve">
-    <value>There was an error trying to check Windows version The program was closed.</value>
-  </data>
-  <data name="FnF" xml:space="preserve">
-    <value>File not found: </value>
-  </data>
-  <data name="JpegExported" xml:space="preserve">
-    <value>Pictures with coins saved in Export dir
-</value>
-  </data>
-  <data name="LessThen5Password" xml:space="preserve">
-    <value>Password cannot be less than 5 characters</value>
-  </data>
-  <data name="LowWinVer" xml:space="preserve">
-    <value>Your Windows version is too low. This app works on Windows7 and higher</value>
-  </data>
-  <data name="NothingExported" xml:space="preserve">
-    <value>Nothing to export!</value>
-  </data>
-  <data name="NotMatchPassword" xml:space="preserve">
-    <value>Passwords don't match</value>
-  </data>
-  <data name="ReadDecryptingException" xml:space="preserve">
-    <value>Safe.ReadSafeFile() decrypting exception: </value>
-  </data>
-  <data name="ReadIOException" xml:space="preserve">
-    <value>Safe.ReadSafeFile() IO read exception: </value>
-  </data>
-  <data name="ReadJsonException" xml:space="preserve">
-    <value>Safe.ReadSafeFile() JSON deserialize exception: </value>
-  </data>
-  <data name="SaveIOException" xml:space="preserve">
-    <value>CloudStackOut.SaveInFile IO exception: </value>
-  </data>
-  <data name="SaveSerializeException" xml:space="preserve">
-    <value>CloudStackOut.SaveInFile Serialize exception: </value>
-  </data>
-  <data name="StackExported" xml:space="preserve">
-    <value>JSON stack of coins saved in Export dir\n</value>
-  </data>
-  <data name="TooShortPassword" xml:space="preserve">
-    <value>Password is too short. Use more than 5 characters</value>
-  </data>
-  <data name="UnhandledException" xml:space="preserve">
-    <value>Unhandled exception catched:</value>
-  </data>
-  <data name="WrongPassword" xml:space="preserve">
-    <value>Wrong password from safe.
-Try again.</value>
+    <value>Safe.Add() JSON 序列化例外: </value>
   </data>
   <data name="Authenticated" xml:space="preserve">
-    <value>Authenticated</value>
+    <value>证明是真实的</value>
   </data>
   <data name="CCinSafe" xml:space="preserve">
-    <value>CC in your Safe</value>
+    <value>CC在你的安全</value>
+  </data>
+  <data name="ChangeOwnership" xml:space="preserve">
+    <value>更改所有权?</value>
   </data>
   <data name="CheckCoinsWindowTitle" xml:space="preserve">
     <value>CloudCoin Scan&amp;amp;Safe - CheckCoins</value>
   </data>
   <data name="CheckInternet" xml:space="preserve">
-    <value>"The RAIDA does not respond.
-Check your internet connection
-Work with local Safe is still possible"</value>
+    <value>“RAIDA没有响应.
+检查你的互联网连接
+与当地安全部门合作仍然是可能的“</value>
+  </data>
+  <data name="CheckOrImport" xml:space="preserve">
+    <value>您想更改所有权并在Safe中导入资金吗?
+选择“否”将简单地扫描硬币而不更改密码.</value>
   </data>
   <data name="Close" xml:space="preserve">
-    <value>Close</value>
+    <value>关闭</value>
   </data>
   <data name="CloudCoinDescription" xml:space="preserve">
-    <value>You get cloudcoins (new worldwide currency) in form of files from anywhere - sites, emails, USB Sticks, Smartphones... This app just checks them for counterfeit, loads and keeps 'em in safe and makes stacks for payments or gifts.</value>
+    <value>您可以从任何地方的文件形式获得云彩（新的全球货币） - 网站，电子邮件，USB棒，智能手机...这个应用程序只是检查他们的假冒，负载和保持安全，并提供付款或礼物的堆栈.</value>
+  </data>
+  <data name="CloudCoinTitle" xml:space="preserve">
+    <value>CloudCoin Scan&amp;amp;Safe</value>
   </data>
   <data name="Comment" xml:space="preserve">
-    <value>Comment</value>
+    <value>评论</value>
+  </data>
+  <data name="CreateEncryptionException" xml:space="preserve">
+    <value>Safe.CreateSafeFile() 加密例外: </value>
+  </data>
+  <data name="CreateJsonException" xml:space="preserve">
+    <value>Safe.CreateSafeFile() JSON 例外: </value>
+  </data>
+  <data name="CreateWriteException" xml:space="preserve">
+    <value>Safe.CreateSafeFile() IO 写例外: </value>
   </data>
   <data name="DetectFracked" xml:space="preserve">
-    <value>Detect Fracked Again</value>
+    <value>再次检测碎片</value>
   </data>
   <data name="DoneRAIDA" xml:space="preserve">
-    <value>Done. Hover for status.</value>
+    <value>完成悬停状态.</value>
   </data>
   <data name="EchoRAIDA" xml:space="preserve">
-    <value>Echoing RAIDA nodes...</value>
+    <value>回声RAIDA节点...</value>
   </data>
   <data name="EnterSafePassword" xml:space="preserve">
-    <value>Enter Your Safe Password</value>
+    <value>输入您的安全密码</value>
   </data>
   <data name="EnterSumWithdraw" xml:space="preserve">
-    <value>Enter Sum you want to withdraw.</value>
+    <value>输入要退出的总和。</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Error</value>
+    <value>错误</value>
+  </data>
+  <data name="ErrWinVer" xml:space="preserve">
+    <value>尝试检查Windows版本时出现错误程序已关闭.</value>
   </data>
   <data name="ExportStackCoins" xml:space="preserve">
-    <value>App will export stack of coins </value>
+    <value>应用程序将导出堆栈的硬币</value>
   </data>
   <data name="Fail" xml:space="preserve">
-    <value>Fail</value>
+    <value>失败</value>
   </data>
   <data name="Fives" xml:space="preserve">
-    <value>Fives</value>
+    <value>五</value>
   </data>
   <data name="FixFracked" xml:space="preserve">
-    <value>Fix Fracked</value>
+    <value>修复破裂</value>
   </data>
   <data name="Fixing" xml:space="preserve">
-    <value>Fixing</value>
+    <value>固定</value>
   </data>
   <data name="FixProcessWindowTitle" xml:space="preserve">
-    <value>FixProcessWindow</value>
+    <value>修复过程窗口</value>
+  </data>
+  <data name="FnF" xml:space="preserve">
+    <value>文件未找到:</value>
   </data>
   <data name="Format" xml:space="preserve">
-    <value>Format</value>
+    <value>版式</value>
   </data>
   <data name="Fractioned" xml:space="preserve">
-    <value>Fractioned</value>
+    <value>分级</value>
   </data>
   <data name="FullCoins" xml:space="preserve">
-    <value>Full coins</value>
+    <value>全硬币</value>
   </data>
   <data name="Good" xml:space="preserve">
-    <value>Good</value>
+    <value>好处</value>
   </data>
   <data name="HalfCoins" xml:space="preserve">
-    <value>Half coins (safe)</value>
+    <value>半硬币（安全）</value>
   </data>
   <data name="Hundreds" xml:space="preserve">
-    <value>Hundreds</value>
+    <value>百</value>
   </data>
   <data name="JPEG" xml:space="preserve">
     <value>JPEG</value>
   </data>
+  <data name="JpegExported" xml:space="preserve">
+    <value>硬币保存在导出目录中的图片
+</value>
+  </data>
   <data name="JSON" xml:space="preserve">
     <value>JSON</value>
+  </data>
+  <data name="LessThen5Password" xml:space="preserve">
+    <value>密码不能少于5个字符</value>
+  </data>
+  <data name="LowWinVer" xml:space="preserve">
+    <value>您的Windows版本太低. 此应用程序适用于Windows 7及更高版本</value>
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>CloudCoin Scan&amp;amp;Safe</value>
   </data>
   <data name="NearestValue" xml:space="preserve">
-    <value>nearest possible value.</value>
+    <value>最近可能的价值.</value>
   </data>
   <data name="NodeNotRespond" xml:space="preserve">
-    <value>Node hasn't respond yet...</value>
+    <value>节点尚未响应...</value>
   </data>
   <data name="Note" xml:space="preserve">
-    <value>Note:</value>
+    <value>注意:</value>
+  </data>
+  <data name="NothingExported" xml:space="preserve">
+    <value>没有出口!</value>
+  </data>
+  <data name="NotMatchPassword" xml:space="preserve">
+    <value>密码不匹配</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>OK</value>
+    <value>确定</value>
   </data>
   <data name="Ones" xml:space="preserve">
-    <value>Ones</value>
+    <value>一</value>
   </data>
   <data name="Passed" xml:space="preserve">
-    <value>Passed</value>
+    <value>通过</value>
   </data>
   <data name="Pay" xml:space="preserve">
-    <value>Pay</value>
+    <value>付款</value>
   </data>
   <data name="Quarters" xml:space="preserve">
-    <value>Quarters</value>
+    <value>二十五</value>
+  </data>
+  <data name="ReadDecryptingException" xml:space="preserve">
+    <value>Safe.ReadSafeFile() 解密例外: </value>
+  </data>
+  <data name="ReadIOException" xml:space="preserve">
+    <value>Safe.ReadSafeFile() IO 读取例外: </value>
+  </data>
+  <data name="ReadJsonException" xml:space="preserve">
+    <value>Safe.ReadSafeFile() JSON 反序列化例外: </value>
   </data>
   <data name="Safe" xml:space="preserve">
-    <value>Safe</value>
+    <value>安全的</value>
   </data>
   <data name="SafeContentWindowTitle" xml:space="preserve">
-    <value>Safe Content</value>
+    <value>安全内容</value>
+  </data>
+  <data name="SaveIOException" xml:space="preserve">
+    <value>CloudStackOut.SaveInFile IO 例外: </value>
+  </data>
+  <data name="SaveSerializeException" xml:space="preserve">
+    <value>CloudStackOut.SaveInFile 连载例外: </value>
   </data>
   <data name="Scan" xml:space="preserve">
-    <value>Scan</value>
+    <value>扫描</value>
   </data>
   <data name="Security" xml:space="preserve">
-    <value>Security</value>
+    <value>安全</value>
   </data>
   <data name="SeemsNotSetPassword" xml:space="preserve">
-    <value>Seems that you did not set up your password yet.&amp;
-#xA;Please, enter one and then verify. Write down 
-your&amp;#xA;password in safe place. If you forget 
-one it will be&amp;#xA;impossible to restore and you'll
-loose all of your&amp;#xA;cloudcoins, unless you 
-haven't written down their&amp;#xA;serial numbers.</value>
+    <value>似乎您还没有设置密码。＆＃xA;
+请输入一个然后验证。在安全的
+地方写下你的密码。如果你忘记了
+一个，那么你将不可能恢复，你会
+把所有的＆＃xA;云彩，除非你没
+有写下他们的＆＃xA;序列号。</value>
   </data>
   <data name="SelectOutStackWindowTitle" xml:space="preserve">
-    <value>SelectOutStackWindow</value>
+    <value>选择堆栈窗口</value>
   </data>
   <data name="SelectStackWithAmount" xml:space="preserve">
-    <value>Select stack which contains nearest requested amount.</value>
+    <value>选择包含最近请求量的堆栈。</value>
   </data>
   <data name="Serial" xml:space="preserve">
-    <value>Serial</value>
+    <value>连载小说</value>
   </data>
   <data name="SetPasswordWindowTitle" xml:space="preserve">
-    <value>Enter Password for your CloudCoin Safe</value>
+    <value>为您的CloudCoin Safe输入密码</value>
   </data>
   <data name="ShortNote" xml:space="preserve">
-    <value>Short note (e.g. For Alex)</value>
+    <value>短笔记(例如 Alex)</value>
+  </data>
+  <data name="StackExported" xml:space="preserve">
+    <value>导出目录中存储的JSON堆栈
+</value>
+  </data>
+  <data name="TooShortPassword" xml:space="preserve">
+    <value>密码太短。使用超过5个字符</value>
   </data>
   <data name="Total" xml:space="preserve">
-    <value>Total</value>
+    <value>总计</value>
   </data>
   <data name="TwoHundredsFifty" xml:space="preserve">
-    <value>250s</value>
+    <value>两百五十</value>
+  </data>
+  <data name="UnhandledException" xml:space="preserve">
+    <value>未处理的异常捕获:</value>
   </data>
   <data name="Unknown" xml:space="preserve">
-    <value>Unknown</value>
+    <value>未知数</value>
   </data>
   <data name="Value" xml:space="preserve">
-    <value>Value</value>
+    <value>评价</value>
   </data>
   <data name="With" xml:space="preserve">
-    <value>with</value>
+    <value>随着</value>
   </data>
   <data name="WithdrawDialogTitle" xml:space="preserve">
-    <value>Enter Sum to Give Away</value>
+    <value>输入总和给予</value>
+  </data>
+  <data name="WrongPassword" xml:space="preserve">
+    <value>安全密码错误.
+再试一次.</value>
   </data>
 </root>

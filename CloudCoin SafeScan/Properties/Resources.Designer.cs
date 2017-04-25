@@ -397,7 +397,8 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pictures with coins saved in Export dir\n.
+        ///   Looks up a localized string similar to Pictures with coins saved in Export dir
+        ///.
         /// </summary>
         public static string JpegExported {
             get {

@@ -33,7 +33,8 @@ Choosing "No" will simply scan coins without changing passwords.</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">Файл не найден: </target>
         </trans-unit>
         <trans-unit id="JpegExported" translate="yes" xml:space="preserve">
-          <source>Pictures with coins saved in Export dir\n</source>
+          <source>Pictures with coins saved in Export dir
+</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">Фотографии с xoins, сохраненные в Директория экспорта dir\n</target>
           <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
