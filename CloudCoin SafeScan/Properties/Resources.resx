@@ -317,7 +317,12 @@ Work with local Safe is still possible"</value>
     <value>Security</value>
   </data>
   <data name="SeemsNotSetPassword" xml:space="preserve">
-    <value>Seems that you did not set up your password yet.&amp;#xA;Please, enter one and then verify. Write down your&amp;#xA;password in safe place. If you forget one it will be&amp;#xA;impossible to restore and you'll loose all of your&amp;#xA;cloudcoins, unless you haven't written down their&amp;#xA;serial numbers.</value>
+    <value>Seems that you did not set up your password yet.&amp;
+#xA;Please, enter one and then verify. Write down 
+your&amp;#xA;password in safe place. If you forget 
+one it will be&amp;#xA;impossible to restore and you'll
+loose all of your&amp;#xA;cloudcoins, unless you 
+haven't written down their&amp;#xA;serial numbers.</value>
   </data>
   <data name="SelectOutStackWindowTitle" xml:space="preserve">
     <value>SelectOutStackWindow</value>

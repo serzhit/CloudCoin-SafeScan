@@ -613,7 +613,12 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seems that you did not set up your password yet.&amp;#xA;Please, enter one and then verify. Write down your&amp;#xA;password in safe place. If you forget one it will be&amp;#xA;impossible to restore and you&apos;ll loose all of your&amp;#xA;cloudcoins, unless you haven&apos;t written down their&amp;#xA;serial numbers..
+        ///   Looks up a localized string similar to Seems that you did not set up your password yet.&amp;
+        ///#xA;Please, enter one and then verify. Write down 
+        ///your&amp;#xA;password in safe place. If you forget 
+        ///one it will be&amp;#xA;impossible to restore and you&apos;ll
+        ///loose all of your&amp;#xA;cloudcoins, unless you 
+        ///haven&apos;t written down their&amp;#xA;serial numbers..
         /// </summary>
         public static string SeemsNotSetPassword {
             get {
