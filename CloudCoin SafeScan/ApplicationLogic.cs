@@ -36,22 +36,29 @@ namespace CloudCoin_SafeScan
             if(coinFile != null && coinFile.IsValidFile)
             {
                 MessageBoxResult mbres = MessageBox.Show("Would you like to change ownership and import money in Safe?\nChoosing \"No\" will simply scan coins without changing passwords.", "Change Ownership?", MessageBoxButton.YesNo);
-                if(mbres == MessageBoxResult.Yes)
+                try
                 {
-                    CheckCoinsWindow checkWin = new CheckCoinsWindow(coinFile.Coins);
-                    RAIDA.Instance.Detect(coinFile.Coins, true);
-                    checkWin.ShowDialog();
-                    
-                    Safe.Instance?.Add(coinFile.Coins);
-                    checkWin.Close();
-                    Safe.Instance?.Show();
-                }
-                else
+                    if (mbres == MessageBoxResult.Yes)
+                    {
+                        CheckCoinsWindow checkWin = new CheckCoinsWindow(coinFile.Coins);
+                        RAIDA.Instance.Detect(coinFile.Coins, true);
+                        checkWin.ShowDialog();
+
+                        Safe.Instance?.Add(coinFile.Coins);
+                        checkWin.Close();
+                        Safe.Instance?.Show();
+                    }
+                    else
+                    {
+                        CheckCoinsWindow checkWin = new CheckCoinsWindow(coinFile.Coins);
+                        RAIDA.Instance.Detect(coinFile.Coins, false);
+                        checkWin.ShowDialog();
+                        checkWin.Close();
+                    }
+                } catch(Exception ex)
                 {
-                    CheckCoinsWindow checkWin = new CheckCoinsWindow(coinFile.Coins);
-                    RAIDA.Instance.Detect(coinFile.Coins, false);
-                    checkWin.ShowDialog();   
-                    checkWin.Close();
+                    Console.WriteLine(ex.Message);
+                    MessageBox.Show(MainWindow.Instance, ex.Message);
                 }
             }
             else
