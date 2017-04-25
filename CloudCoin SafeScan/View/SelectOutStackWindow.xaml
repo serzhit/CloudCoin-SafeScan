@@ -4,23 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CloudCoin_SafeScan"
+        xmlns:resx="clr-namespace:CloudCoin_SafeScan.Properties"
         mc:Ignorable="d"
-        Title="SelectOutStackWindow" Height="300" Width="413">
+        Title="{x:Static resx:Resources.SelectOutStackWindowTitle}" Height="300" Width="413">
     <Grid DataContext="{Binding SelectOutStack, Source={StaticResource Locator}}">
-        <Label x:Name="label" Content="Select stack which contains nearest requested amount." HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="365" FontSize="14"/>
+        <Label x:Name="label" Content="{x:Static resx:Resources.SelectStackWithAmount}" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="365" FontSize="14"/>
         <ListView x:Name="stacksToSelect" HorizontalAlignment="Left" Height="96" Margin="10,85,0,0" VerticalAlignment="Top" Width="385" HorizontalContentAlignment="Center">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Ones" DisplayMemberBinding="{Binding Ones}" Width="60"/>
-                    <GridViewColumn Header="Fives" DisplayMemberBinding="{Binding Fives}" Width="60"/>
-                    <GridViewColumn Header="Quarters" DisplayMemberBinding="{Binding Quarters}" Width="60"/>
-                    <GridViewColumn Header="Hundreds" DisplayMemberBinding="{Binding Hundreds}" Width="60"/>
-                    <GridViewColumn Header="250s" DisplayMemberBinding="{Binding KiloQuarters}" Width="60"/>
-                    <GridViewColumn Header="Total" DisplayMemberBinding="{Binding Total}" Width="60"/>
+                    <GridViewColumn Header="{x:Static resx:Resources.Ones}" DisplayMemberBinding="{Binding Ones}" Width="60"/>
+                    <GridViewColumn Header="{x:Static resx:Resources.Fives}" DisplayMemberBinding="{Binding Fives}" Width="60"/>
+                    <GridViewColumn Header="{x:Static resx:Resources.Quarters}" DisplayMemberBinding="{Binding Quarters}" Width="60"/>
+                    <GridViewColumn Header="{x:Static resx:Resources.Hundreds}" DisplayMemberBinding="{Binding Hundreds}" Width="60"/>
+                    <GridViewColumn Header="{x:Static resx:Resources.TwoHundredsFifty}" DisplayMemberBinding="{Binding KiloQuarters}" Width="60"/>
+                    <GridViewColumn Header="{x:Static resx:Resources.Total}" DisplayMemberBinding="{Binding Total}" Width="60"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="OKbutton" Content="OK" HorizontalAlignment="Left" Height="39" Margin="116,203,0,0" VerticalAlignment="Top" Width="175" Click="onClick" IsDefault="True"/>
+        <Button x:Name="OKbutton" Content="{x:Static resx:Resources.Ok}" HorizontalAlignment="Left" Height="39" Margin="116,203,0,0" VerticalAlignment="Top" Width="175" Click="onClick" IsDefault="True"/>
 
     </Grid>
 </Window>

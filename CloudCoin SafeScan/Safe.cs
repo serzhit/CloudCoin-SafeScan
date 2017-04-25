@@ -101,17 +101,17 @@ namespace CloudCoin_SafeScan
             }
             catch (JsonException ex)
             {
-                MessageBox.Show("Safe.CreateSafeFile() JSON exception: " + ex.Message);
+                MessageBox.Show(Properties.Resources.CreateJsonException + ex.Message);
                 return false;
             }
             catch (CryptographicException ex)
             {
-                MessageBox.Show("Safe.CreateSafeFile() encryption exception: " + ex.Message);
+                MessageBox.Show(Properties.Resources.CreateEncryptionException + ex.Message);
                 return false;
             }
             catch (IOException ex)
             {
-                MessageBox.Show("Safe.CreateSafeFile() IO write exception: " + ex.Message);
+                MessageBox.Show(Properties.Resources.CreateWriteException + ex.Message);
                 return false;
             }
             catch (Exception ex)
@@ -144,17 +144,17 @@ namespace CloudCoin_SafeScan
                 }
                 catch (IOException ex)
                 {
-                    MessageBox.Show("Safe.ReadSafeFile() IO read exception: " + ex.Message);
+                    MessageBox.Show(Properties.Resources.ReadIOException + ex.Message);
                     return null;
                 }
                 catch (CryptographicException ex)
                 {
-                    MessageBox.Show("Safe.ReadSafeFile() decrypting exception: " + ex.Message);
+                    MessageBox.Show(Properties.Resources.ReadDecryptingException + ex.Message);
                     return null;
                 }
                 catch (JsonException ex)
                 {
-                    MessageBox.Show("Safe.ReadSafeFile() JSON deserialize exception: " + ex.Message);
+                    MessageBox.Show(Properties.Resources.ReadJsonException + ex.Message);
                     return null;
                 }
                 catch (Exception ex)
@@ -441,15 +441,15 @@ namespace CloudCoin_SafeScan
                 }
                 catch (JsonException e)
                 {
-                    MessageBox.Show("Safe.Add() JSON serialize exception: " + e.Message);
+                    MessageBox.Show(Properties.Resources.AddJsonException + e.Message);
                 }
                 catch (CryptographicException ex)
                 {
-                    MessageBox.Show("Safe.Add() decrypting exception: " + ex.Message);
+                    MessageBox.Show(Properties.Resources.AddDecryptingException + ex.Message);
                 }
                 catch (IOException ex)
                 {
-                    MessageBox.Show("Safe.Add() IO write exception: " + ex.Message);
+                    MessageBox.Show(Properties.Resources.AddIOException + ex.Message);
                 }
             }
             using (var fs = bkpFileInfo.Open(FileMode.Open))
@@ -465,15 +465,15 @@ namespace CloudCoin_SafeScan
                 }
                 catch (JsonException e)
                 {
-                    MessageBox.Show("Safe.Add() JSON serialize exception: " + e.Message);
+                    MessageBox.Show(Properties.Resources.AddJsonException + e.Message);
                 }
                 catch (CryptographicException ex)
                 {
-                    MessageBox.Show("Safe.Add() decrypting exception: " + ex.Message);
+                    MessageBox.Show(Properties.Resources.AddDecryptingException + ex.Message);
                 }
                 catch (IOException ex)
                 {
-                    MessageBox.Show("Safe.Add() IO write exception: " + ex.Message);
+                    MessageBox.Show(Properties.Resources.AddIOException + ex.Message);
                 }
             }
         }

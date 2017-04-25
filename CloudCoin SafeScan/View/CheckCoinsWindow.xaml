@@ -4,8 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CloudCoin_SafeScan"
+      xmlns:resx="clr-namespace:CloudCoin_SafeScan.Properties"
       mc:Ignorable="d"
-      Title="CloudCoin Scan&amp;Safe - CheckCoins" Width="545" Height="396" Background="White" ResizeMode="NoResize">
+      Title="{x:Static resx:Resources.CheckCoinsWindowTitle}" Width="545" Height="396" Background="White" ResizeMode="NoResize">
     <Window.Resources>
 
     </Window.Resources>
@@ -23,10 +24,10 @@
         <ListView x:Name="AuthResultsGrid" HorizontalAlignment="Left" Height="121" Margin="21,188,0,0" VerticalAlignment="Top" Width="497" ItemsSource="{Binding CheckLog}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Serial" DisplayMemberBinding="{Binding Serial}" Width="80"/>
-                    <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="50"/>
-                    <GridViewColumn Header="Authenticated" DisplayMemberBinding="{Binding Check}" Width="100"/>
-                    <GridViewColumn Header="Comment" DisplayMemberBinding="{Binding Comment}"/>
+                    <GridViewColumn Header="{x:Static resx:Resources.Serial}" DisplayMemberBinding="{Binding Serial}" Width="80"/>
+                    <GridViewColumn Header="{x:Static resx:Resources.Value}" DisplayMemberBinding="{Binding Value}" Width="50"/>
+                    <GridViewColumn Header="{x:Static resx:Resources.Authenticated}" DisplayMemberBinding="{Binding Check}" Width="100"/>
+                    <GridViewColumn Header="{x:Static resx:Resources.Comment}" DisplayMemberBinding="{Binding Comment}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -57,7 +58,7 @@
         <Ellipse x:Name="Ukraine" HorizontalAlignment="Left" Margin="378,92,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[23], Converter={StaticResource BoolBrushConverter}}" />
         <Ellipse x:Name="Luxenburg" HorizontalAlignment="Left" Margin="365,98,0,0" VerticalAlignment="Top" Height="7" Width="7" RenderTransformOrigin="-3,-0.556" Fill="{Binding NodeStatus[24], Converter={StaticResource BoolBrushConverter}}" />
         <TextBox x:Name="WorkdMapTextBox" HorizontalAlignment="Left" Height="18" Margin="328,162,0,0" TextWrapping="Wrap" Text="{Binding TextOnMap}" VerticalAlignment="Top" Width="146" BorderThickness="0"/>
-        <Button x:Name="button" Content="Close" HorizontalAlignment="Left" Margin="225,325,0,0" VerticalAlignment="Top" Width="75" Click="button_Click" IsCancel="True"/>
+        <Button x:Name="button" Content="{x:Static resx:Resources.Close}" HorizontalAlignment="Left" Margin="225,325,0,0" VerticalAlignment="Top" Width="75" Click="button_Click" IsCancel="True"/>
         <TextBlock x:Name="TextOnImage" HorizontalAlignment="Left" Margin="28,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="162" Text="{Binding TextOnImage}"/>
     </Grid>
 </Window>

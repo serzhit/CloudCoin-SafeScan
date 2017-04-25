@@ -474,11 +474,11 @@ namespace CloudCoin_SafeScan
                 }
                 catch (JsonException ex)
                 {
-                    MessageBox.Show("CloudStackOut.SaveInFile Serialize exception: " + ex.Message);
+                    MessageBox.Show(Properties.Resources.SaveSerializeException + ex.Message);
                 }
                 catch (IOException ex)
                 {
-                    MessageBox.Show("CloudStackOut.SaveInFile IO exception: " + ex.Message);
+                    MessageBox.Show(Properties.Resources.SaveIOException + ex.Message);
                 }
             }
         }

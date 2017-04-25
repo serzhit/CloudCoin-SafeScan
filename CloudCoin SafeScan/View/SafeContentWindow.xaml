@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CloudCoin_SafeScan"
+        xmlns:resx="clr-namespace:CloudCoin_SafeScan.Properties"
         mc:Ignorable="d"
-        Title="Safe Content" Height="380.769" Width="400.838" ResizeMode="NoResize">
+        Title="{x:Static resx:Resources.SafeContentWindowTitle}" Height="380.769" Width="400.838" ResizeMode="NoResize">
     <Grid Height="246" VerticalAlignment="Top" DataContext="{Binding SafeContent, Source={StaticResource Locator}}" >
         <ListView x:Name="SafeView" Margin="20,62,18,15" Width="365" ItemsSource="{Binding Rows}">
             <ListView.ItemContainerStyle>
@@ -18,15 +19,15 @@
                     <GridView.ColumnHeaderContextMenu>
                         <ContextMenu HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
                     </GridView.ColumnHeaderContextMenu>
-                    <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="80"/>
-                    <GridViewColumn Header="Good" DisplayMemberBinding="{Binding Good}" Width="100" />
-                    <GridViewColumn Header="Fractioned" DisplayMemberBinding="{Binding Fractioned}" Width="100"/>
-                    <GridViewColumn Header="Total" DisplayMemberBinding="{Binding Total}" Width="70"/>
+                    <GridViewColumn Header="{x:Static resx:Resources.Value}" DisplayMemberBinding="{Binding Value}" Width="80"/>
+                    <GridViewColumn Header="{x:Static resx:Resources.Good}" DisplayMemberBinding="{Binding Good}" Width="100" />
+                    <GridViewColumn Header="{x:Static resx:Resources.Fractioned}" DisplayMemberBinding="{Binding Fractioned}" Width="100"/>
+                    <GridViewColumn Header="{x:Static resx:Resources.Total}" DisplayMemberBinding="{Binding Total}" Width="70"/>
                 </GridView>
             </ListView.View>
         </ListView>
         <TextBox x:Name="totalTextBox" HorizontalAlignment="Left" Height="52" Margin="20,10,0,0" TextWrapping="Wrap" Text="{Binding StatusText}" VerticalAlignment="Top" Width="353" FontSize="32" BorderThickness="0"/>
-        <Button x:Name="FixButton" Content="Fix Fracked" HorizontalAlignment="Left" Height="35" Margin="36,285,0,-74" VerticalAlignment="Top" Width="124" Command="{Binding BeginFix}"/>
-        <Button x:Name="CloseButton" Content="Detect Fracked Again" HorizontalAlignment="Left" Height="35" Margin="223,285,0,-74" VerticalAlignment="Top" Width="124" Command="{Binding DetectFracked}"/>
+        <Button x:Name="FixButton" Content="{x:Static resx:Resources.FixFracked}" HorizontalAlignment="Left" Height="35" Margin="36,285,0,-74" VerticalAlignment="Top" Width="124" Command="{Binding BeginFix}"/>
+        <Button x:Name="CloseButton" Content="{x:Static resx:Resources.DetectFracked}" HorizontalAlignment="Left" Height="35" Margin="223,285,0,-74" VerticalAlignment="Top" Width="124" Command="{Binding DetectFracked}"/>
     </Grid>
 </Window>

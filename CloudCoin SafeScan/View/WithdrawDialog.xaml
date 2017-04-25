@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CloudCoin_SafeScan"
+        xmlns:resx="clr-namespace:CloudCoin_SafeScan.Properties"
         mc:Ignorable="d"
-        Title="Enter Sum to Give Away" Height="412" Width="300">
+        Title="{x:Static resx:Resources.WithdrawDialogTitle}" Height="412" Width="300">
     <Window.Resources>
         <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Template">
@@ -38,18 +39,18 @@
         </Style>
     </Window.Resources>
     <Grid Margin="0,0,0,4" DataContext="{Binding Withdraw, Source={StaticResource Locator}}">
-        <TextBlock x:Name="Text" Height="71" Margin="35,69,31,0" VerticalAlignment="Top" FontSize="14" TextAlignment="Justify"><Run Text="Enter Sum you want to withdraw."/><LineBreak/><Run Text="App will export stack of coins "/><Run Text="with"/><LineBreak/><Run Text="nearest possible value."/></TextBlock>
+        <TextBlock x:Name="Text" Height="71" Margin="35,69,31,0" VerticalAlignment="Top" FontSize="14" TextAlignment="Justify"><Run Text="{x:Static resx:Resources.EnterSumWithdraw}"/><LineBreak/><Run Text="{x:Static resx:Resources.ExportStackCoins}"/><Run Text="{x:Static resx:Resources.With}"/><LineBreak/><Run Text="{x:Static resx:Resources.NearestValue}"/></TextBlock>
         <TextBox x:Name="enterSumBox" HorizontalAlignment="Center" Height="73" Margin="35,255,31,0" VerticalAlignment="Top" Width="226" FontSize="36" TextAlignment="Center" MaxLines="1"/>
-        <Button x:Name="OKbutton" Content="OK" HorizontalAlignment="Center" Height="34" Margin="90,333,93,0" VerticalAlignment="Top" Width="109" Click="onOKClicked" IsDefault="True"/>
+        <Button x:Name="OKbutton" Content="{x:Static resx:Resources.Ok}" HorizontalAlignment="Center" Height="34" Margin="90,333,93,0" VerticalAlignment="Top" Width="109" Click="onOKClicked" IsDefault="True"/>
         <Label x:Name="SumInStack" Content="{Binding SumInSafe}" HorizontalAlignment="Left" Height="54" Margin="35,10,0,0" VerticalAlignment="Top" Width="79" FontWeight="Bold" FontSize="18"/>
-        <Label x:Name="label2" Content="CC in your Safe" HorizontalAlignment="Left" Height="54" Margin="119,10,0,0" VerticalAlignment="Top" Width="142" FontWeight="Bold" FontSize="18"/>
-        <RadioButton x:Name="FormatJSON" GroupName="Format" Content="JSON" HorizontalAlignment="Left" Margin="35,171,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <RadioButton x:Name="FormatJPEG" GroupName="Format" Content="JPEG" HorizontalAlignment="Left" Margin="35,191,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label" Content="Format" HorizontalAlignment="Left" Height="25" Margin="35,141,0,0" VerticalAlignment="Top" Width="85"/>
-        <RadioButton x:Name="HalfCoins" GroupName="Security" Content="Half coins (safe)" HorizontalAlignment="Left" Height="15" Margin="149,171,0,0" VerticalAlignment="Top" Width="111"/>
-        <RadioButton x:Name="FullCoins" GroupName="Security" Content="Full coins" IsChecked="True" HorizontalAlignment="Left" Height="15" Margin="149,191,0,0" VerticalAlignment="Top" Width="86"/>
-        <Label x:Name="label_Copy" Content="Security" HorizontalAlignment="Left" Height="25" Margin="149,141,0,0" VerticalAlignment="Top" Width="85"/>
+        <Label x:Name="label2" Content="{x:Static resx:Resources.CCinSafe}" HorizontalAlignment="Left" Height="54" Margin="119,10,0,0" VerticalAlignment="Top" Width="142" FontWeight="Bold" FontSize="18"/>
+        <RadioButton x:Name="FormatJSON" GroupName="Format" Content="{x:Static resx:Resources.JSON}" HorizontalAlignment="Left" Margin="35,171,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <RadioButton x:Name="FormatJPEG" GroupName="Format" Content="{x:Static resx:Resources.JPEG}" HorizontalAlignment="Left" Margin="35,191,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label" Content="{x:Static resx:Resources.Format}" HorizontalAlignment="Left" Height="25" Margin="35,141,0,0" VerticalAlignment="Top" Width="85"/>
+        <RadioButton x:Name="HalfCoins" GroupName="Security" Content="{x:Static resx:Resources.HalfCoins}" HorizontalAlignment="Left" Height="15" Margin="149,171,0,0" VerticalAlignment="Top" Width="111"/>
+        <RadioButton x:Name="FullCoins" GroupName="Security" Content="{x:Static resx:Resources.FullCoins}" IsChecked="True" HorizontalAlignment="Left" Height="15" Margin="149,191,0,0" VerticalAlignment="Top" Width="86"/>
+        <Label x:Name="label_Copy" Content="{x:Static resx:Resources.Security}" HorizontalAlignment="Left" Height="25" Margin="149,141,0,0" VerticalAlignment="Top" Width="85"/>
         <Label x:Name="label1" Content="Note:" HorizontalAlignment="Left" Height="27" Margin="35,223,0,0" VerticalAlignment="Top" Width="40" RenderTransformOrigin="0.625,0.63"/>
-        <TextBox x:Name="ExportNote" Style="{StaticResource placeHolder}" HorizontalAlignment="Left" Height="28" Margin="80,222,0,0" TextWrapping="Wrap" Tag="Short note (e.g. For Alex)"  Text="" VerticalAlignment="Top" Width="180"/>
+        <TextBox x:Name="ExportNote" Style="{StaticResource placeHolder}" HorizontalAlignment="Left" Height="28" Margin="80,222,0,0" TextWrapping="Wrap" Tag="{x:Static resx:Resources.ShortNote}"  Text="" VerticalAlignment="Top" Width="180"/>
     </Grid>
 </Window>

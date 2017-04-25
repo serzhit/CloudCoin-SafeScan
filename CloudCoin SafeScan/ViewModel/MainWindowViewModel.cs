@@ -45,10 +45,10 @@ namespace CloudCoin_SafeScan
             ShowSafe = new RelayCommand(ApplicationLogic.SafeSelected);
             PayOut = new RelayCommand(ApplicationLogic.PaySelected);
 
-            _echoCompletedText = "Echoing RAIDA nodes...";
+            _echoCompletedText = Properties.Resources.EchoRAIDA;
             for(int i=0;i<RAIDA.NODEQNTY;i++)
             {
-                _toolTip.Add(new ObservableString("Node hasn't respond yet..."));
+                _toolTip.Add(new ObservableString(Properties.Resources.NodeNotRespond));
             }
             for (int i = 0; i < RAIDA.NODEQNTY; i++)
             {
@@ -66,13 +66,11 @@ namespace CloudCoin_SafeScan
             }
             else
             {
-                EchoCompletedText = "Done. Hover for status.";
+                EchoCompletedText = Properties.Resources.DoneRAIDA;
                 if (!(NodeStatus[0] || NodeStatus[3] || NodeStatus[6] || NodeStatus[9] || NodeStatus[12] || NodeStatus[15] ||
                     NodeStatus[18] || NodeStatus[21] || NodeStatus[24]) )
                 {
-                    MessageBox.Show("The RAIDA does not respond.\n"+ 
-                                    "Check your internet connection\n"+
-                                    "Work with local Safe is still possible");
+                    MessageBox.Show(Properties.Resources.CheckInternet);
                 }
             }
         }

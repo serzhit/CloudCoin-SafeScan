@@ -46,7 +46,7 @@ namespace CloudCoin_SafeScan
                         }
                         else
                         {
-                            MessageBox.Show("Wrong password from safe.\nTry again.");
+                            MessageBox.Show(Properties.Resources.WrongPassword);
                             enterPassword.Close();
                         }
                     }

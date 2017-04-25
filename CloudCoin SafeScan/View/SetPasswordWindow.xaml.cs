@@ -18,9 +18,9 @@ namespace CloudCoin_SafeScan
         private void okButtonClicked(object sender, RoutedEventArgs e)
         {
             if (Password.Password.Count() < 5)
-                MessageBox.Show("Password is too short. Use more than 5 characters");
+                MessageBox.Show(Properties.Resources.TooShortPassword);
             else if (Password.Password != PasswordVerify.Password)
-                MessageBox.Show("Passwords don't match");
+                MessageBox.Show(Properties.Resources.NotMatchPassword);
             DialogResult = true;
             Close();
         }

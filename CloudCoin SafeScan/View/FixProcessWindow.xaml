@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CloudCoin_SafeScan"
+        xmlns:resx="clr-namespace:CloudCoin_SafeScan.Properties"
         mc:Ignorable="d"
-        Title="FixProcessWindow" Height="200" Width="auto">
+        Title="{x:Static resx:Resources.FixProcessWindowTitle}" Height="200" Width="auto">
     <Window.Resources>
         <DataTemplate x:Key="CoinItemTemplate">
             <Grid x:Name="mainGrid" Background="White" Width="auto">
@@ -50,10 +51,10 @@
         <Rectangle x:Name="LegendRed" Fill="Red" HorizontalAlignment="Left" Height="16" Margin="342,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
         <Rectangle x:Name="LegendBrown" Fill="Purple" HorizontalAlignment="Left" Height="16" Margin="463,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="16"/>
         <Label x:Name="label" Content="Fixing" HorizontalAlignment="Left" Margin="81,13,0,0" VerticalAlignment="Top" Height="25"/>
-        <Label x:Name="label_Copy" Content="Fixing" HorizontalAlignment="Left" Margin="81,13,0,0" VerticalAlignment="Top" Height="25" Width="51"/>
-        <Label x:Name="label_Copy1" Content="Passed" HorizontalAlignment="Left" Margin="211,14,0,0" VerticalAlignment="Top" Height="25" Width="64"/>
-        <Label x:Name="label_Copy2" Content="Fail" HorizontalAlignment="Left" Margin="366,13,0,0" VerticalAlignment="Top" Height="25" Width="42"/>
-        <Label x:Name="label_Copy3" Content="Error" HorizontalAlignment="Left" Margin="481,14,0,0" VerticalAlignment="Top" Height="25" Width="49"/>
-        <Label x:Name="label_Copy4" Content="Unknown" HorizontalAlignment="Left" Margin="617,14,0,0" VerticalAlignment="Top" Height="25" Width="49"/>
+        <Label x:Name="label_Copy" Content="{x:Static resx:Resources.Fixing}" HorizontalAlignment="Left" Margin="81,13,0,0" VerticalAlignment="Top" Height="25" Width="51"/>
+        <Label x:Name="label_Copy1" Content="{x:Static resx:Resources.Passed}" HorizontalAlignment="Left" Margin="211,14,0,0" VerticalAlignment="Top" Height="25" Width="64"/>
+        <Label x:Name="label_Copy2" Content="{x:Static resx:Resources.Fail}" HorizontalAlignment="Left" Margin="366,13,0,0" VerticalAlignment="Top" Height="25" Width="42"/>
+        <Label x:Name="label_Copy3" Content="{x:Static resx:Resources.Error}" HorizontalAlignment="Left" Margin="481,14,0,0" VerticalAlignment="Top" Height="25" Width="49"/>
+        <Label x:Name="label_Copy4" Content="{x:Static resx:Resources.Unknown}" HorizontalAlignment="Left" Margin="617,14,0,0" VerticalAlignment="Top" Height="25" Width="49"/>
     </Grid>
 </Window>

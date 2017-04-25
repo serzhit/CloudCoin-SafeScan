@@ -117,11 +117,33 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddDecryptingException" xml:space="preserve">
+    <value>Safe.Add() decrypting exception: </value>
+  </data>
+  <data name="AddIOException" xml:space="preserve">
+    <value>Safe.Add() IO write exception:</value>
+  </data>
+  <data name="AddJsonException" xml:space="preserve">
+    <value>Safe.Add() JSON serialize exception: </value>
+  </data>
   <data name="ChangeOwnership" xml:space="preserve">
     <value>Change Ownership?</value>
   </data>
   <data name="CheckOrImport" xml:space="preserve">
-    <value>Would you like to change ownership and import money in Safe?\nChoosing \"No\" will simply scan coins without changing passwords.</value>
+    <value>Would you like to change ownership and import money in Safe?
+Choosing "No" will simply scan coins without changing passwords.</value>
+  </data>
+  <data name="CloudCoinTitle" xml:space="preserve">
+    <value>CloudCoin Scan&amp;amp;Safe</value>
+  </data>
+  <data name="CreateEncryptionException" xml:space="preserve">
+    <value>Safe.CreateSafeFile() encryption exception: </value>
+  </data>
+  <data name="CreateJsonException" xml:space="preserve">
+    <value>Safe.CreateSafeFile() JSON exception: </value>
+  </data>
+  <data name="CreateWriteException" xml:space="preserve">
+    <value>Safe.CreateSafeFile() IO write exception: </value>
   </data>
   <data name="ErrWinVer" xml:space="preserve">
     <value>There was an error trying to check Windows version The program was closed.</value>
@@ -132,16 +154,202 @@
   <data name="JpegExported" xml:space="preserve">
     <value>Pictures with coins saved in Export dir\n</value>
   </data>
+  <data name="LessThen5Password" xml:space="preserve">
+    <value>Password cannot be less than 5 characters</value>
+  </data>
   <data name="LowWinVer" xml:space="preserve">
     <value>Your Windows version is too low. This app works on Windows7 and higher</value>
   </data>
   <data name="NothingExported" xml:space="preserve">
     <value>Nothing to export!</value>
   </data>
+  <data name="NotMatchPassword" xml:space="preserve">
+    <value>Passwords don't match</value>
+  </data>
+  <data name="ReadDecryptingException" xml:space="preserve">
+    <value>Safe.ReadSafeFile() decrypting exception: </value>
+  </data>
+  <data name="ReadIOException" xml:space="preserve">
+    <value>Safe.ReadSafeFile() IO read exception: </value>
+  </data>
+  <data name="ReadJsonException" xml:space="preserve">
+    <value>Safe.ReadSafeFile() JSON deserialize exception: </value>
+  </data>
+  <data name="SaveIOException" xml:space="preserve">
+    <value>CloudStackOut.SaveInFile IO exception: </value>
+  </data>
+  <data name="SaveSerializeException" xml:space="preserve">
+    <value>CloudStackOut.SaveInFile Serialize exception: </value>
+  </data>
   <data name="StackExported" xml:space="preserve">
     <value>JSON stack of coins saved in Export dir\n</value>
   </data>
+  <data name="TooShortPassword" xml:space="preserve">
+    <value>Password is too short. Use more than 5 characters</value>
+  </data>
   <data name="UnhandledException" xml:space="preserve">
     <value>Unhandled exception catched:</value>
+  </data>
+  <data name="WrongPassword" xml:space="preserve">
+    <value>Wrong password from safe.
+Try again.</value>
+  </data>
+  <data name="Authenticated" xml:space="preserve">
+    <value>Authenticated</value>
+  </data>
+  <data name="CCinSafe" xml:space="preserve">
+    <value>CC in your Safe</value>
+  </data>
+  <data name="CheckCoinsWindowTitle" xml:space="preserve">
+    <value>CloudCoin Scan&amp;amp;Safe - CheckCoins</value>
+  </data>
+  <data name="CheckInternet" xml:space="preserve">
+    <value>"The RAIDA does not respond.
+Check your internet connection
+Work with local Safe is still possible"</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CloudCoinDescription" xml:space="preserve">
+    <value>You get cloudcoins (new worldwide currency) in form of files from anywhere - sites, emails, USB Sticks, Smartphones... This app just checks them for counterfeit, loads and keeps 'em in safe and makes stacks for payments or gifts.</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="DetectFracked" xml:space="preserve">
+    <value>Detect Fracked Again</value>
+  </data>
+  <data name="DoneRAIDA" xml:space="preserve">
+    <value>Done. Hover for status.</value>
+  </data>
+  <data name="EchoRAIDA" xml:space="preserve">
+    <value>Echoing RAIDA nodes...</value>
+  </data>
+  <data name="EnterSafePassword" xml:space="preserve">
+    <value>Enter Your Safe Password</value>
+  </data>
+  <data name="EnterSumWithdraw" xml:space="preserve">
+    <value>Enter Sum you want to withdraw.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ExportStackCoins" xml:space="preserve">
+    <value>App will export stack of coins </value>
+  </data>
+  <data name="Fail" xml:space="preserve">
+    <value>Fail</value>
+  </data>
+  <data name="Fives" xml:space="preserve">
+    <value>Fives</value>
+  </data>
+  <data name="FixFracked" xml:space="preserve">
+    <value>Fix Fracked</value>
+  </data>
+  <data name="Fixing" xml:space="preserve">
+    <value>Fixing</value>
+  </data>
+  <data name="FixProcessWindowTitle" xml:space="preserve">
+    <value>FixProcessWindow</value>
+  </data>
+  <data name="Format" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="Fractioned" xml:space="preserve">
+    <value>Fractioned</value>
+  </data>
+  <data name="FullCoins" xml:space="preserve">
+    <value>Full coins</value>
+  </data>
+  <data name="Good" xml:space="preserve">
+    <value>Good</value>
+  </data>
+  <data name="HalfCoins" xml:space="preserve">
+    <value>Half coins (safe)</value>
+  </data>
+  <data name="Hundreds" xml:space="preserve">
+    <value>Hundreds</value>
+  </data>
+  <data name="JPEG" xml:space="preserve">
+    <value>JPEG</value>
+  </data>
+  <data name="JSON" xml:space="preserve">
+    <value>JSON</value>
+  </data>
+  <data name="MainWindowTitle" xml:space="preserve">
+    <value>CloudCoin Scan&amp;amp;Safe</value>
+  </data>
+  <data name="NearestValue" xml:space="preserve">
+    <value>nearest possible value.</value>
+  </data>
+  <data name="NodeNotRespond" xml:space="preserve">
+    <value>Node hasn't respond yet...</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Note:</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Ones" xml:space="preserve">
+    <value>Ones</value>
+  </data>
+  <data name="Passed" xml:space="preserve">
+    <value>Passed</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Pay</value>
+  </data>
+  <data name="Quarters" xml:space="preserve">
+    <value>Quarters</value>
+  </data>
+  <data name="Safe" xml:space="preserve">
+    <value>Safe</value>
+  </data>
+  <data name="SafeContentWindowTitle" xml:space="preserve">
+    <value>Safe Content</value>
+  </data>
+  <data name="Scan" xml:space="preserve">
+    <value>Scan</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="SeemsNotSetPassword" xml:space="preserve">
+    <value>Seems that you did not set up your password yet.&amp;#xA;Please, enter one and then verify. Write down your&amp;#xA;password in safe place. If you forget one it will be&amp;#xA;impossible to restore and you'll loose all of your&amp;#xA;cloudcoins, unless you haven't written down their&amp;#xA;serial numbers.</value>
+  </data>
+  <data name="SelectOutStackWindowTitle" xml:space="preserve">
+    <value>SelectOutStackWindow</value>
+  </data>
+  <data name="SelectStackWithAmount" xml:space="preserve">
+    <value>Select stack which contains nearest requested amount.</value>
+  </data>
+  <data name="Serial" xml:space="preserve">
+    <value>Serial</value>
+  </data>
+  <data name="SetPasswordWindowTitle" xml:space="preserve">
+    <value>Enter Password for your CloudCoin Safe</value>
+  </data>
+  <data name="ShortNote" xml:space="preserve">
+    <value>Short note (e.g. For Alex)</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="TwoHundredsFifty" xml:space="preserve">
+    <value>250s</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="With" xml:space="preserve">
+    <value>with</value>
+  </data>
+  <data name="WithdrawDialogTitle" xml:space="preserve">
+    <value>Enter Sum to Give Away</value>
   </data>
 </root>

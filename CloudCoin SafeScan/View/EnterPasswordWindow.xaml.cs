@@ -18,7 +18,7 @@ namespace CloudCoin_SafeScan
         private void onOKClick(object sender, RoutedEventArgs e)
         {
             if (passwordBox.Password.Count() < 5)
-                MessageBox.Show("Password cannot be less than 5 characters");
+                MessageBox.Show(Properties.Resources.LessThen5Password);
             DialogResult = true;
         }
         private void onKeyDown(object sender, KeyEventArgs e)
