@@ -107,6 +107,15 @@ namespace CloudCoin_SafeScan
             }
         }
 
+        private bool IsValidFileFormat(CloudCoin coin)
+        {
+            if (coin.an != null && coin.nn != 0 && coin.sn != 0 && coin.pans != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
         private void ParseCloudCoinFile(string fullPath)
         {
             FI = new FileInfo(fullPath);
@@ -125,26 +134,38 @@ namespace CloudCoin_SafeScan
                     {
                         Filetype = Type.jpeg;
                         var coin = ReadJpeg(fsSource);
-                        if (coin != null)
+                        IsValidFile = IsValidFileFormat(coin);
+
+                        if (coin != null && IsValidFile)
                         {
                             Coins.Add(new CoinStack(coin));
-                            IsValidFile = true;
                         }
                     }
                     else if (reg.IsMatch(sig)) //JSON
                     {
                         Filetype = Type.json;
                         var json = ReadJson(fsSource);
+
                         if (json != null)
                         {
-                            Coins.Add(json);
-                            if (json.cloudcoin.Count > 0)
-                                IsValidFile = true;
+                            foreach (var coin in json)
+                            {
+                                if (!IsValidFileFormat(coin))
+                                {
+                                    IsValidFile = false;
+                                    break;
+                                }
+                                else
+                                {
+                                    IsValidFile = true;
+                                }
+                            }
                         }
-                    }
-                    else
-                    {
                         
+                        if (IsValidFile)
+                        {
+                            Coins.Add(json);
+                        }
                     }
                 }
                 if (IsValidFile)
@@ -160,46 +181,55 @@ namespace CloudCoin_SafeScan
         {
             // TODO: catch exception for wrong file format
             //            filetype = Type.jpeg;
-            byte[] fileByteContent = new byte[455];
-            int numBytesToRead = fileByteContent.Length;
-            int numBytesRead = 0;
-            string[] an = new string[RAIDA.NODEQNTY];
-            string[] aoid = new string[1];
-            int sn;
-            int nn;
-            string ed;
-
-            jpegFS.Position = 0;
-            while (numBytesToRead > 0)
+            try
             {
-                // Read may return anything from 0 to numBytesToRead.
-                int n = jpegFS.Read(fileByteContent, numBytesRead, numBytesToRead);
+                byte[] fileByteContent = new byte[455];
+                int numBytesToRead = fileByteContent.Length;
+                int numBytesRead = 0;
+                string[] an = new string[RAIDA.NODEQNTY];
+                string[] aoid = new string[1];
+                int sn;
+                int nn;
+                string ed;
 
-                // Break when the end of the file is reached.
-                if (n == 0)
-                    break;
+                jpegFS.Position = 0;
+                while (numBytesToRead > 0)
+                {
+                    // Read may return anything from 0 to numBytesToRead.
+                    int n = jpegFS.Read(fileByteContent, numBytesRead, numBytesToRead);
 
-                numBytesRead += n;
-                numBytesToRead -= n;
-            }
+                    // Break when the end of the file is reached.
+                    if (n == 0)
+                        break;
 
-            string jpegHexContent = "";
-            jpegHexContent = Utils.ToHexString(fileByteContent);
+                    numBytesRead += n;
+                    numBytesToRead -= n;
+                }
 
-            for (int i = 0; i < RAIDA.NODEQNTY; i++)
+                string jpegHexContent = "";
+                jpegHexContent = Utils.ToHexString(fileByteContent);
+
+                for (int i = 0; i < RAIDA.NODEQNTY; i++)
+                {
+                    an[i] = jpegHexContent.Substring(40 + i * 32, 32);
+                }
+                aoid[0] = jpegHexContent.Substring(840, 55);
+                ed = jpegHexContent.Substring(898, 4);
+                nn = Int16.Parse(jpegHexContent.Substring(902, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
+                sn = Int32.Parse(jpegHexContent.Substring(904, 6), System.Globalization.NumberStyles.AllowHexSpecifier);
+
+                CloudCoin coin = new CloudCoin(nn, sn, an, ed, aoid);
+                if (coin.Calibrate())
+                {
+                    return coin;
+                }
+            } 
+            catch(Exception ex)
             {
-                an[i] = jpegHexContent.Substring(40 + i * 32, 32);
+                Console.WriteLine(ex.Message);
+                return null;
             }
-            aoid[0] = jpegHexContent.Substring(840, 55);
-            ed = jpegHexContent.Substring(898, 4);
-            nn = Int16.Parse(jpegHexContent.Substring(902, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
-            sn = Int32.Parse(jpegHexContent.Substring(904, 6), System.Globalization.NumberStyles.AllowHexSpecifier);
-
-            CloudCoin coin = new CloudCoin(nn, sn, an, ed, aoid);
-            if (coin.Calibrate())
-            {
-                return coin;
-            }
+            
             return null;
         }
 
@@ -214,7 +244,8 @@ namespace CloudCoin_SafeScan
             }
             catch (JsonException ex)
             {
-                throw;
+                Console.WriteLine(ex.Message);
+                return null;
             }
             return stack;
         }
