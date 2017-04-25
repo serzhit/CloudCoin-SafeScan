@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CloudCoin_SafeScan.en_US {
+namespace CloudCoin_SafeScan.Properties {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace CloudCoin_SafeScan.en_US {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace CloudCoin_SafeScan.en_US {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CloudCoin_SafeScan.en_US.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CloudCoin_SafeScan.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace CloudCoin_SafeScan.en_US {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,27 +61,81 @@ namespace CloudCoin_SafeScan.en_US {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change Ownership?.
+        /// </summary>
+        public static string ChangeOwnership {
+            get {
+                return ResourceManager.GetString("ChangeOwnership", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to change ownership and import money in Safe?\nChoosing \&quot;No\&quot; will simply scan coins without changing passwords..
+        /// </summary>
+        public static string CheckOrImport {
+            get {
+                return ResourceManager.GetString("CheckOrImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There was an error trying to check Windows version The program was closed..
         /// </summary>
-        internal static string ErrWinVer {
+        public static string ErrWinVer {
             get {
                 return ResourceManager.GetString("ErrWinVer", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File not found: .
+        /// </summary>
+        public static string FnF {
+            get {
+                return ResourceManager.GetString("FnF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pictures with coins saved in Export dir\n.
+        /// </summary>
+        public static string JpegExported {
+            get {
+                return ResourceManager.GetString("JpegExported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your Windows version is too low. This app works on Windows7 and higher.
         /// </summary>
-        internal static string LowWinVer {
+        public static string LowWinVer {
             get {
                 return ResourceManager.GetString("LowWinVer", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nothing to export!.
+        /// </summary>
+        public static string NothingExported {
+            get {
+                return ResourceManager.GetString("NothingExported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JSON stack of coins saved in Export dir\n.
+        /// </summary>
+        public static string StackExported {
+            get {
+                return ResourceManager.GetString("StackExported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unhandled exception catched:.
         /// </summary>
-        internal static string UnhandledException {
+        public static string UnhandledException {
             get {
                 return ResourceManager.GetString("UnhandledException", resourceCulture);
             }

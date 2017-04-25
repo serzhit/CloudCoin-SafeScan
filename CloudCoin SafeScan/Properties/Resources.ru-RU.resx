@@ -12,4 +12,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ErrWinVer" xml:space="preserve">
+    <value>Произошла ошибка при попытке проверить версию Windows, программа была закрыта.</value>
+  </data>
+  <data name="LowWinVer" xml:space="preserve">
+    <value>Ваша версия Windows является слишком низкой. Этот app работает на Windows7 и выше</value>
+  </data>
+  <data name="UnhandledException" xml:space="preserve">
+    <value>Необработанное исключение catched:</value>
+  </data>
+  <data name="ChangeOwnership" xml:space="preserve">
+    <value>Смена владельца?</value>
+  </data>
+  <data name="CheckOrImport" xml:space="preserve">
+    <value>Хотели бы вы изменить право собственности и импорта деньги в сейфе? \nChoosing \"No\» будет просто сканировать монеты без смены паролей.</value>
+  </data>
+  <data name="FnF" xml:space="preserve">
+    <value>Файл не найден: </value>
+  </data>
+  <data name="JpegExported" xml:space="preserve">
+    <value>Фотографии с xoins, сохраненные в Директория экспорта dir\n</value>
+  </data>
+  <data name="NothingExported" xml:space="preserve">
+    <value>Ничего для экспорта!</value>
+  </data>
+  <data name="StackExported" xml:space="preserve">
+    <value>JSON стопка монет, сохраненные в Директория экспорта dir\n</value>
+  </data>
 </root>

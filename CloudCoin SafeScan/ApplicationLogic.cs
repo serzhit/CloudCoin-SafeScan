@@ -30,12 +30,12 @@ namespace CloudCoin_SafeScan
             }
             catch (FileNotFoundException fnfex)
             {
-                MessageBox.Show("File not found: " + fnfex.Message);
+                MessageBox.Show(Properties.Resources.FnF + fnfex.Message);
             }
 
             if(coinFile != null)
             {
-                MessageBoxResult mbres = MessageBox.Show("Would you like to change ownership and import money in Safe?\nChoosing \"No\" will simply scan coins without changing passwords.", "Change Ownership?", MessageBoxButton.YesNo);
+                MessageBoxResult mbres = MessageBox.Show(Properties.Resources.CheckOrImport, Properties.Resources.ChangeOwnership, MessageBoxButton.YesNo);
                 if(mbres == MessageBoxResult.Yes)
                 {
                     CheckCoinsWindow checkWin = new CheckCoinsWindow(coinFile.Coins);
@@ -120,13 +120,13 @@ namespace CloudCoin_SafeScan
                     if (isExported)
                     {
                         if (isJSON)
-                            MessageBox.Show("Stack saved in Export dir\n");
+                            MessageBox.Show(Properties.Resources.StackExported);
                         else
-                            MessageBox.Show("Jpeg saved in Export dir\n");
+                            MessageBox.Show(Properties.Resources.JpegExported);
                     }
                     else
                     {
-                        MessageBox.Show("Nothing to export\n");
+                        MessageBox.Show(Properties.Resources.NothingExported);
                     }
                 }
             }

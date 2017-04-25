@@ -135,6 +135,11 @@
     <Compile Include="ICloudCoin.cs" />
     <Compile Include="IOModels.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\CheckCoinsWindowViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="Observables.cs" />
@@ -173,10 +178,6 @@
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Page Include="Resources\Dictionary_en-US.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\CheckCoinsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -223,28 +224,16 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="en-US\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.de.resx" />
-    <EmbeddedResource Include="Properties\Resources.en-IN.resx" />
-    <EmbeddedResource Include="Properties\Resources.en-US.resx" />
-    <EmbeddedResource Include="Properties\Resources.fr.resx" />
-    <EmbeddedResource Include="Properties\Resources.qps-ploc.resx" />
-    <EmbeddedResource Include="en-US\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru-RU.resx" />
-    <EmbeddedResource Include="Properties\Resources.ru.resx" />
-    <EmbeddedResource Include="Properties\Resources.zh-Hans.resx" />
     <None Include="CloudCoinClassDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -314,14 +303,7 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <XliffResource Include="MultilingualResources\CloudCoin SafeScan.de.xlf" />
-    <XliffResource Include="MultilingualResources\CloudCoin SafeScan.en-IN.xlf" />
-    <XliffResource Include="MultilingualResources\CloudCoin SafeScan.en-US.xlf" />
-    <XliffResource Include="MultilingualResources\CloudCoin SafeScan.fr.xlf" />
-    <XliffResource Include="MultilingualResources\CloudCoin SafeScan.qps-ploc.xlf" />
     <XliffResource Include="MultilingualResources\CloudCoin SafeScan.ru-RU.xlf" />
-    <XliffResource Include="MultilingualResources\CloudCoin SafeScan.ru.xlf" />
-    <XliffResource Include="MultilingualResources\CloudCoin SafeScan.zh-Hans.xlf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.ResxResources.targets" Label="MultilingualAppToolkit" Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\v$(MultilingualAppToolkitVersion)\Microsoft.Multilingual.ResxResources.targets')" />

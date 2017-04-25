@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows;
+using System.Globalization;
+using System.Resources;
 using GalaSoft.MvvmLight.Threading;
 
 namespace CloudCoin_SafeScan
@@ -21,14 +23,13 @@ namespace CloudCoin_SafeScan
                 int winVersion = Environment.OSVersion.Version.Major;
                 if (winVersion < 6)
                 {
-                    MessageBox.Show(
-                        "Your Windows version is too low. This app works on Windows7 and higher");
+                    MessageBox.Show(CloudCoin_SafeScan.Properties.Resources.LowWinVer);
                     Shutdown();
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show("There was an error trying to check Windows version The program was closed.");
+                MessageBox.Show(CloudCoin_SafeScan.Properties.Resources.ErrWinVer);
                 Shutdown();
             }
 
@@ -52,7 +53,7 @@ namespace CloudCoin_SafeScan
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            string message = "Unhandled exception catched: " + e.ExceptionObject;
+            string message = CloudCoin_SafeScan.Properties.Resources.UnhandledException + e.ExceptionObject;
             MessageBox.Show(message);
         }
     }
