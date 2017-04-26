@@ -13,7 +13,6 @@ namespace CloudCoin_SafeScan
     {
         public App()
         {
-            //Startup += onAppStartup;
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             DispatcherHelper.Initialize(); // Gets UIDispatcher property from main thread
@@ -32,12 +31,6 @@ namespace CloudCoin_SafeScan
                 MessageBox.Show(CloudCoin_SafeScan.Properties.Resources.ErrWinVer);
                 Shutdown();
             }
-
-//            if (!Utils.CheckForInternetConnection())
-//            {
-//                MessageBox.Show("Seems there is no Internet connection. Work with RAIDA will not be possible! You may perform only operations with Safe.");
-                
-//            }
         }
 
         private void onAppStartup(object sender, StartupEventArgs e)

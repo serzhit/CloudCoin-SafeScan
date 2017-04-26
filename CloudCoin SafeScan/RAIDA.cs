@@ -272,7 +272,8 @@ namespace CloudCoin_SafeScan
                 sw.Start();
                 try
                 {
-                    getDetectResult = JsonConvert.DeserializeObject<DetectResponse>(client.Execute(request).Content);
+                    IRestResponse response = client.Execute(request);
+                    getDetectResult = JsonConvert.DeserializeObject<DetectResponse>(response.Content);
                 }
                 catch (JsonException e)
                 {

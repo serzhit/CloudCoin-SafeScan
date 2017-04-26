@@ -1,13 +1,9 @@
 ﻿using System;
-using System.IO;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Linq;
 using System.Collections;
 using Newtonsoft.Json;
-using System.Security.Cryptography;
 
 namespace CloudCoin_SafeScan
 {
@@ -54,27 +50,7 @@ namespace CloudCoin_SafeScan
                 else return Denomination.Unknown;
             }
         }
-        public ImageSource coinImage
-        {
-            get
-            {
-                switch (denomination)
-                {
-                    case Denomination.One:
-                        return new BitmapImage(new Uri(@"pack://application:,,,/Resources/1coin.png", UriKind.Absolute));
-                    case Denomination.Five:
-                        return new BitmapImage(new Uri(@"pack://application:,,,/Resources/5coin.png", UriKind.Absolute));
-                    case Denomination.Quarter:
-                        return new BitmapImage(new Uri(@"pack://application:,,,/Resources/25coin.png", UriKind.Absolute));
-                    case Denomination.Hundred:
-                        return new BitmapImage(new Uri(@"pack://application:,,,/Resources/100coin.png", UriKind.Absolute));
-                    case Denomination.KiloQuarter:
-                        return new BitmapImage(new Uri(@"pack://application:,,,/Resources/250coin.png", UriKind.Absolute));
-                    default:
-                        return new BitmapImage(new Uri(@"pack://application:,,,/Resources/stackcoins.png", UriKind.Absolute));
-                }
-            }
-        }
+
         [JsonProperty]
         public int sn { set; get; }
         [JsonProperty]
@@ -137,44 +113,6 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        //Constructor from file with Coin
-        public CloudCoin(Stream jpegFS)
-        {
-            // TODO: catch exception for wrong file format
-//            filetype = Type.jpeg;
-            byte[] fileByteContent = new byte[455];
-            int numBytesToRead = fileByteContent.Length;
-            int numBytesRead = 0;
-            while (numBytesToRead > 0)
-            {
-                // Read may return anything from 0 to numBytesToRead.
-                int n = jpegFS.Read(fileByteContent, numBytesRead, numBytesToRead);
-
-                // Break when the end of the file is reached.
-                if (n == 0)
-                    break;
-
-                numBytesRead += n;
-                numBytesToRead -= n;
-            }
-
-            string jpegHexContent = "";
-            jpegHexContent = Utils.ToHexString(fileByteContent);
-
-            for (int i = 0; i < RAIDA.NODEQNTY; i++)
-            {
-                an[i] = jpegHexContent.Substring(40 + i * 32, 32);
-            }
-            aoid[0] = jpegHexContent.Substring(840, 55);
-            ed = jpegHexContent.Substring(898, 4);
-            nn = Int16.Parse(jpegHexContent.Substring(902, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
-            sn = Int32.Parse(jpegHexContent.Substring(904, 6), System.Globalization.NumberStyles.AllowHexSpecifier);
-
-            pans = generatePans(sn);
-            detectStatus = new raidaNodeResponse[RAIDA.NODEQNTY];
-            for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = raidaNodeResponse.unknown;
-        }
-
         public bool Validate()
         {
             if(nn == 1 && sn>=0 && sn < 16777216
@@ -192,25 +130,7 @@ namespace CloudCoin_SafeScan
                 return false;
             }
         }
-        /*        
-                public string[] generatePans(int sn)
-                {
-                    string[] result = new string[RAIDA.NODEQNTY];
-                    Random rnd = new Random(sn);
-                    byte[] buf = new byte[16];
-                    for (int i = 0; i < RAIDA.NODEQNTY; i++)
-                    {
-                        string aaa = "";
-                        rnd.NextBytes(buf);
-                        for (int j = 0; j < buf.Length; j++)
-                        {
-                            aaa += buf[j].ToString("X2");
-                        }
-                        result[i] = aaa;
-                    }
-                    return result;
-                }
-                */
+
         public string[] generatePans(int sn)
         {
             string[] result = new string[RAIDA.NODEQNTY];
