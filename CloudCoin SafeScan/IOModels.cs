@@ -220,7 +220,7 @@ namespace CloudCoin_SafeScan
                 sn = Int32.Parse(jpegHexContent.Substring(904, 6), System.Globalization.NumberStyles.AllowHexSpecifier);
 
                 CloudCoin coin = new CloudCoin(nn, sn, an, ed, aoid);
-                if (coin.Calibrate())
+                if (coin.isValidated)
                 {
                     return coin;
                 }
