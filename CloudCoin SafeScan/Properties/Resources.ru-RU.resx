@@ -16,27 +16,195 @@
     <value>Произошла ошибка при попытке проверить версию Windows, программа была закрыта.</value>
   </data>
   <data name="LowWinVer" xml:space="preserve">
-    <value>Ваша версия Windows является слишком низкой. Этот app работает на Windows7 и выше</value>
+    <value>Ваша версия Windows является слишком старой. Эта программа работает на Windows7 и выше</value>
   </data>
   <data name="UnhandledException" xml:space="preserve">
-    <value>Необработанное исключение catched:</value>
+    <value>Получено необработанное исключение:</value>
   </data>
   <data name="ChangeOwnership" xml:space="preserve">
-    <value>Смена владельца?</value>
+    <value>Сменить владельца?</value>
   </data>
   <data name="CheckOrImport" xml:space="preserve">
-    <value>Хотели бы вы изменить право собственности и импорта деньги в сейфе? \nChoosing \"No\» будет просто сканировать монеты без смены паролей.</value>
+    <value>Хотели бы вы изменить пароли проверяемых cloudcoins и импортировать их в сейф? Выбор "Нет" будет проверять монеты на подлинность без смены паролей.</value>
   </data>
   <data name="FnF" xml:space="preserve">
     <value>Файл не найден: </value>
   </data>
   <data name="JpegExported" xml:space="preserve">
-    <value>Фотографии с xoins, сохраненные в Директория экспорта dir\n</value>
+    <value>Графические файлы с закодированныит в них cloudcoins, сохранены в подпапке папки Export</value>
   </data>
   <data name="NothingExported" xml:space="preserve">
-    <value>Ничего для экспорта!</value>
+    <value>Нечего экспортировать!</value>
   </data>
   <data name="StackExported" xml:space="preserve">
-    <value>JSON стопка монет, сохраненные в Директория экспорта dir\n</value>
+    <value>JSON файл с cloudcoins сохранен в папке Export</value>
+  </data>
+  <data name="LessThen5Password" xml:space="preserve">
+    <value>Пароль не может быть менее 5 символов</value>
+  </data>
+  <data name="NotMatchPassword" xml:space="preserve">
+    <value>Пароли не совпадают</value>
+  </data>
+  <data name="TooShortPassword" xml:space="preserve">
+    <value>Пароль слишком короткий. Используйте более 5 символов</value>
+  </data>
+  <data name="WrongPassword" xml:space="preserve">
+    <value>Неправильный пароль от сейфа. 
+Попробуйте еще раз.</value>
+  </data>
+  <data name="CloudCoinDescription" xml:space="preserve">
+    <value>Вы можете получить cloudcoins (новую мировую виртуальную валюту) в виде файлов из любого места - загрузить с сайта, получить по электронной почте, загрузить с USB накопителя или смартфона... Эта программа позволяет проверить cloudcoins на подлинность, загрузить и хранить их в безопасном зашифрованном "сейфе", а также выгружать cloudcoins для их перемещения, выплат или подарков.</value>
+  </data>
+  <data name="CheckInternet" xml:space="preserve">
+    <value>RAIDA не отвечает. 
+Проверьте ваше Интернет соединение
+Работа с вашим сейфом возможна и без интернета.</value>
+  </data>
+  <data name="DoneRAIDA" xml:space="preserve">
+    <value>Готово. Наведите на узел.</value>
+  </data>
+  <data name="EchoRAIDA" xml:space="preserve">
+    <value>Опрашиваем узлы RAIDA...</value>
+  </data>
+  <data name="NodeNotRespond" xml:space="preserve">
+    <value>Узел еще не отвечает...</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Отдать</value>
+  </data>
+  <data name="Safe" xml:space="preserve">
+    <value>Сейф</value>
+  </data>
+  <data name="Scan" xml:space="preserve">
+    <value>Проверить</value>
+  </data>
+  <data name="EnterSafePassword" xml:space="preserve">
+    <value>Введите пароль от сейфа</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Fail" xml:space="preserve">
+    <value>Сбой</value>
+  </data>
+  <data name="Fixing" xml:space="preserve">
+    <value>Исправляю</value>
+  </data>
+  <data name="Passed" xml:space="preserve">
+    <value>Пройдено</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Неизвестно</value>
+  </data>
+  <data name="Fractioned" xml:space="preserve">
+    <value>Неидеально</value>
+  </data>
+  <data name="Good" xml:space="preserve">
+    <value>Идеально</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Всего</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Величина</value>
+  </data>
+  <data name="DetectFracked" xml:space="preserve">
+    <value>Проверить неидеальные снова</value>
+  </data>
+  <data name="FixFracked" xml:space="preserve">
+    <value>Чинить неидеальные</value>
+  </data>
+  <data name="Fives" xml:space="preserve">
+    <value>Пятерки</value>
+  </data>
+  <data name="Hundreds" xml:space="preserve">
+    <value>Сотни</value>
+  </data>
+  <data name="Ones" xml:space="preserve">
+    <value>Единицы</value>
+  </data>
+  <data name="Quarters" xml:space="preserve">
+    <value>Четвертаки</value>
+  </data>
+  <data name="SelectStackWithAmount" xml:space="preserve">
+    <value>Выберите стек, из ближайших возможных.</value>
+  </data>
+  <data name="TwoHundredsFifty" xml:space="preserve">
+    <value>250</value>
+  </data>
+  <data name="SeemsNotSetPassword" xml:space="preserve">
+    <value>ВЫ еще не установили пароль от сейфа. Пожадуйста,
+введите пароль и подтвердите его во второй строке.
+Запишите ваш пароль и храните его в безопасном месте!
+Если вы забудете его, восстановить сейф будет невозможно
+и вы потеряете все свои cloudcoins! Храните серийные
+номера ваших cloudcoinsб чтобы их можно было
+восстанвоить в случае утери.</value>
+  </data>
+  <data name="CCinSafe" xml:space="preserve">
+    <value>CC в вашем сейфе</value>
+  </data>
+  <data name="EnterSumWithdraw" xml:space="preserve">
+    <value>Введите сумму, которую вы хотите вывести.</value>
+  </data>
+  <data name="ExportStackCoins" xml:space="preserve">
+    <value>Программа будет экспортировать стек монет </value>
+  </data>
+  <data name="NearestValue" xml:space="preserve">
+    <value>ближайшее возможное значение.</value>
+  </data>
+  <data name="With" xml:space="preserve">
+    <value>с</value>
+  </data>
+  <data name="Format" xml:space="preserve">
+    <value>Формат</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Безопасность</value>
+  </data>
+  <data name="FullCoins" xml:space="preserve">
+    <value>Полные</value>
+  </data>
+  <data name="HalfCoins" xml:space="preserve">
+    <value>Располовиненные (для безопасных сделок)</value>
+  </data>
+  <data name="JPEG" xml:space="preserve">
+    <value>Картинками JPEG</value>
+  </data>
+  <data name="JSON" xml:space="preserve">
+    <value>Файл JSON</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Примечание:</value>
+  </data>
+  <data name="ShortNote" xml:space="preserve">
+    <value>Введите тэг (например для Алекс)</value>
+  </data>
+  <data name="Authenticated" xml:space="preserve">
+    <value>Подлинно</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Примечание</value>
+  </data>
+  <data name="Serial" xml:space="preserve">
+    <value>Серийный N</value>
+  </data>
+  <data name="FixProcessWindowTitle" xml:space="preserve">
+    <value>Окно починки монет</value>
+  </data>
+  <data name="SafeContentWindowTitle" xml:space="preserve">
+    <value>Содержимое Сейфа</value>
+  </data>
+  <data name="SelectOutStackWindowTitle" xml:space="preserve">
+    <value>Окно выгрузки стека</value>
+  </data>
+  <data name="SetPasswordWindowTitle" xml:space="preserve">
+    <value>Введите пароль для вашего сейфа CloudCoin</value>
+  </data>
+  <data name="WithdrawDialogTitle" xml:space="preserve">
+    <value>Введите сумму, которую хотели бы снять</value>
   </data>
 </root>

@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en" target-language="zh-CN" original="CLOUDCOIN SAFESCAN/PROPERTIES/RESOURCES.RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.1795.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="CLOUDCOIN SAFESCAN/PROPERTIES/RESOURCES.RESX" datatype="resx">
+        <trans-unit id="AddDecryptingException" translate="yes" xml:space="preserve">
+          <source>Safe.Add() decrypting exception: </source>
+          <target state="new">Safe.Add() decrypting exception: </target>
+        </trans-unit>
+        <trans-unit id="AddIOException" translate="yes" xml:space="preserve">
+          <source>Safe.Add() IO write exception:</source>
+          <target state="new">Safe.Add() IO write exception:</target>
+        </trans-unit>
+        <trans-unit id="AddJsonException" translate="yes" xml:space="preserve">
+          <source>Safe.Add() JSON serialize exception: </source>
+          <target state="new">Safe.Add() JSON serialize exception: </target>
+        </trans-unit>
+        <trans-unit id="ChangeOwnership" translate="yes" xml:space="preserve">
+          <source>Change Ownership?</source>
+          <target state="new">Change Ownership?</target>
+        </trans-unit>
+        <trans-unit id="CheckOrImport" translate="yes" xml:space="preserve">
+          <source>Would you like to change ownership and import money in Safe?
+Choosing "No" will simply scan coins without changing passwords.</source>
+          <target state="new">Would you like to change ownership and import money in Safe?
+Choosing "No" will simply scan coins without changing passwords.</target>
+        </trans-unit>
+        <trans-unit id="CloudCoinTitle" translate="yes" xml:space="preserve">
+          <source>CloudCoin Scan&amp;amp;Safe</source>
+          <target state="new">CloudCoin Scan&amp;amp;Safe</target>
+        </trans-unit>
+        <trans-unit id="CreateEncryptionException" translate="yes" xml:space="preserve">
+          <source>Safe.CreateSafeFile() encryption exception: </source>
+          <target state="new">Safe.CreateSafeFile() encryption exception: </target>
+        </trans-unit>
+        <trans-unit id="CreateJsonException" translate="yes" xml:space="preserve">
+          <source>Safe.CreateSafeFile() JSON exception: </source>
+          <target state="new">Safe.CreateSafeFile() JSON exception: </target>
+        </trans-unit>
+        <trans-unit id="CreateWriteException" translate="yes" xml:space="preserve">
+          <source>Safe.CreateSafeFile() IO write exception: </source>
+          <target state="new">Safe.CreateSafeFile() IO write exception: </target>
+        </trans-unit>
+        <trans-unit id="ErrWinVer" translate="yes" xml:space="preserve">
+          <source>There was an error trying to check Windows version The program was closed.</source>
+          <target state="new">There was an error trying to check Windows version The program was closed.</target>
+        </trans-unit>
+        <trans-unit id="FnF" translate="yes" xml:space="preserve">
+          <source>File not found: </source>
+          <target state="new">File not found: </target>
+        </trans-unit>
+        <trans-unit id="JpegExported" translate="yes" xml:space="preserve">
+          <source>Pictures with coins saved in Export dir
+</source>
+          <target state="new">Pictures with coins saved in Export dir
+</target>
+        </trans-unit>
+        <trans-unit id="LessThen5Password" translate="yes" xml:space="preserve">
+          <source>Password cannot be less than 5 characters</source>
+          <target state="new">Password cannot be less than 5 characters</target>
+        </trans-unit>
+        <trans-unit id="LowWinVer" translate="yes" xml:space="preserve">
+          <source>Your Windows version is too low. This app works on Windows7 and higher</source>
+          <target state="new">Your Windows version is too low. This app works on Windows7 and higher</target>
+        </trans-unit>
+        <trans-unit id="NothingExported" translate="yes" xml:space="preserve">
+          <source>Nothing to export!</source>
+          <target state="new">Nothing to export!</target>
+        </trans-unit>
+        <trans-unit id="NotMatchPassword" translate="yes" xml:space="preserve">
+          <source>Passwords don't match</source>
+          <target state="new">Passwords don't match</target>
+        </trans-unit>
+        <trans-unit id="ReadDecryptingException" translate="yes" xml:space="preserve">
+          <source>Safe.ReadSafeFile() decrypting exception: </source>
+          <target state="new">Safe.ReadSafeFile() decrypting exception: </target>
+        </trans-unit>
+        <trans-unit id="ReadIOException" translate="yes" xml:space="preserve">
+          <source>Safe.ReadSafeFile() IO read exception: </source>
+          <target state="new">Safe.ReadSafeFile() IO read exception: </target>
+        </trans-unit>
+        <trans-unit id="ReadJsonException" translate="yes" xml:space="preserve">
+          <source>Safe.ReadSafeFile() JSON deserialize exception: </source>
+          <target state="new">Safe.ReadSafeFile() JSON deserialize exception: </target>
+        </trans-unit>
+        <trans-unit id="SaveIOException" translate="yes" xml:space="preserve">
+          <source>CloudStackOut.SaveInFile IO exception: </source>
+          <target state="new">CloudStackOut.SaveInFile IO exception: </target>
+        </trans-unit>
+        <trans-unit id="SaveSerializeException" translate="yes" xml:space="preserve">
+          <source>CloudStackOut.SaveInFile Serialize exception: </source>
+          <target state="new">CloudStackOut.SaveInFile Serialize exception: </target>
+        </trans-unit>
+        <trans-unit id="StackExported" translate="yes" xml:space="preserve">
+          <source>JSON stack of coins saved in Export dir\n</source>
+          <target state="new">JSON stack of coins saved in Export dir\n</target>
+        </trans-unit>
+        <trans-unit id="TooShortPassword" translate="yes" xml:space="preserve">
+          <source>Password is too short. Use more than 5 characters</source>
+          <target state="new">Password is too short. Use more than 5 characters</target>
+        </trans-unit>
+        <trans-unit id="UnhandledException" translate="yes" xml:space="preserve">
+          <source>Unhandled exception catched:</source>
+          <target state="new">Unhandled exception catched:</target>
+        </trans-unit>
+        <trans-unit id="WrongPassword" translate="yes" xml:space="preserve">
+          <source>Wrong password from safe.
+Try again.</source>
+          <target state="new">Wrong password from safe.
+Try again.</target>
+        </trans-unit>
+        <trans-unit id="Authenticated" translate="yes" xml:space="preserve">
+          <source>Authenticated</source>
+          <target state="new">Authenticated</target>
+        </trans-unit>
+        <trans-unit id="CCinSafe" translate="yes" xml:space="preserve">
+          <source>CC in your Safe</source>
+          <target state="new">CC in your Safe</target>
+        </trans-unit>
+        <trans-unit id="CheckCoinsWindowTitle" translate="yes" xml:space="preserve">
+          <source>CloudCoin Scan&amp;amp;Safe - CheckCoins</source>
+          <target state="new">CloudCoin Scan&amp;amp;Safe - CheckCoins</target>
+        </trans-unit>
+        <trans-unit id="CheckInternet" translate="yes" xml:space="preserve">
+          <source>"The RAIDA does not respond.
+Check your internet connection
+Work with local Safe is still possible"</source>
+          <target state="new">"The RAIDA does not respond.
+Check your internet connection
+Work with local Safe is still possible"</target>
+        </trans-unit>
+        <trans-unit id="Close" translate="yes" xml:space="preserve">
+          <source>Close</source>
+          <target state="new">Close</target>
+        </trans-unit>
+        <trans-unit id="CloudCoinDescription" translate="yes" xml:space="preserve">
+          <source>You get cloudcoins (new worldwide currency) in form of files from anywhere - sites, emails, USB Sticks, Smartphones... This app just checks them for counterfeit, loads and keeps 'em in safe and makes stacks for payments or gifts.</source>
+          <target state="new">You get cloudcoins (new worldwide currency) in form of files from anywhere - sites, emails, USB Sticks, Smartphones... This app just checks them for counterfeit, loads and keeps 'em in safe and makes stacks for payments or gifts.</target>
+        </trans-unit>
+        <trans-unit id="Comment" translate="yes" xml:space="preserve">
+          <source>Comment</source>
+          <target state="new">Comment</target>
+        </trans-unit>
+        <trans-unit id="DetectFracked" translate="yes" xml:space="preserve">
+          <source>Detect Fracked Again</source>
+          <target state="new">Detect Fracked Again</target>
+        </trans-unit>
+        <trans-unit id="DoneRAIDA" translate="yes" xml:space="preserve">
+          <source>Done. Hover for status.</source>
+          <target state="new">Done. Hover for status.</target>
+        </trans-unit>
+        <trans-unit id="EchoRAIDA" translate="yes" xml:space="preserve">
+          <source>Echoing RAIDA nodes...</source>
+          <target state="new">Echoing RAIDA nodes...</target>
+        </trans-unit>
+        <trans-unit id="EnterSafePassword" translate="yes" xml:space="preserve">
+          <source>Enter Your Safe Password</source>
+          <target state="new">Enter Your Safe Password</target>
+        </trans-unit>
+        <trans-unit id="EnterSumWithdraw" translate="yes" xml:space="preserve">
+          <source>Enter Sum you want to withdraw.</source>
+          <target state="new">Enter Sum you want to withdraw.</target>
+        </trans-unit>
+        <trans-unit id="Error" translate="yes" xml:space="preserve">
+          <source>Error</source>
+          <target state="new">Error</target>
+        </trans-unit>
+        <trans-unit id="ExportStackCoins" translate="yes" xml:space="preserve">
+          <source>App will export stack of coins </source>
+          <target state="new">App will export stack of coins </target>
+        </trans-unit>
+        <trans-unit id="Fail" translate="yes" xml:space="preserve">
+          <source>Fail</source>
+          <target state="new">Fail</target>
+        </trans-unit>
+        <trans-unit id="Fives" translate="yes" xml:space="preserve">
+          <source>Fives</source>
+          <target state="new">Fives</target>
+        </trans-unit>
+        <trans-unit id="FixFracked" translate="yes" xml:space="preserve">
+          <source>Fix Fracked</source>
+          <target state="new">Fix Fracked</target>
+        </trans-unit>
+        <trans-unit id="Fixing" translate="yes" xml:space="preserve">
+          <source>Fixing</source>
+          <target state="new">Fixing</target>
+        </trans-unit>
+        <trans-unit id="FixProcessWindowTitle" translate="yes" xml:space="preserve">
+          <source>FixProcessWindow</source>
+          <target state="new">FixProcessWindow</target>
+        </trans-unit>
+        <trans-unit id="Format" translate="yes" xml:space="preserve">
+          <source>Format</source>
+          <target state="new">Format</target>
+        </trans-unit>
+        <trans-unit id="Fractioned" translate="yes" xml:space="preserve">
+          <source>Fractioned</source>
+          <target state="new">Fractioned</target>
+        </trans-unit>
+        <trans-unit id="FullCoins" translate="yes" xml:space="preserve">
+          <source>Full coins</source>
+          <target state="new">Full coins</target>
+        </trans-unit>
+        <trans-unit id="Good" translate="yes" xml:space="preserve">
+          <source>Good</source>
+          <target state="new">Good</target>
+        </trans-unit>
+        <trans-unit id="HalfCoins" translate="yes" xml:space="preserve">
+          <source>Half coins (safe)</source>
+          <target state="new">Half coins (safe)</target>
+        </trans-unit>
+        <trans-unit id="Hundreds" translate="yes" xml:space="preserve">
+          <source>Hundreds</source>
+          <target state="new">Hundreds</target>
+        </trans-unit>
+        <trans-unit id="JPEG" translate="yes" xml:space="preserve">
+          <source>JPEG</source>
+          <target state="new">JPEG</target>
+        </trans-unit>
+        <trans-unit id="JSON" translate="yes" xml:space="preserve">
+          <source>JSON</source>
+          <target state="new">JSON</target>
+        </trans-unit>
+        <trans-unit id="MainWindowTitle" translate="yes" xml:space="preserve">
+          <source>CloudCoin Scan&amp;amp;Safe</source>
+          <target state="new">CloudCoin Scan&amp;amp;Safe</target>
+        </trans-unit>
+        <trans-unit id="NearestValue" translate="yes" xml:space="preserve">
+          <source>nearest possible value.</source>
+          <target state="new">nearest possible value.</target>
+        </trans-unit>
+        <trans-unit id="NodeNotRespond" translate="yes" xml:space="preserve">
+          <source>Node hasn't respond yet...</source>
+          <target state="new">Node hasn't respond yet...</target>
+        </trans-unit>
+        <trans-unit id="Note" translate="yes" xml:space="preserve">
+          <source>Note:</source>
+          <target state="new">Note:</target>
+        </trans-unit>
+        <trans-unit id="Ok" translate="yes" xml:space="preserve">
+          <source>OK</source>
+          <target state="new">OK</target>
+        </trans-unit>
+        <trans-unit id="Ones" translate="yes" xml:space="preserve">
+          <source>Ones</source>
+          <target state="new">Ones</target>
+        </trans-unit>
+        <trans-unit id="Passed" translate="yes" xml:space="preserve">
+          <source>Passed</source>
+          <target state="new">Passed</target>
+        </trans-unit>
+        <trans-unit id="Pay" translate="yes" xml:space="preserve">
+          <source>Pay</source>
+          <target state="new">Pay</target>
+        </trans-unit>
+        <trans-unit id="Quarters" translate="yes" xml:space="preserve">
+          <source>Quarters</source>
+          <target state="new">Quarters</target>
+        </trans-unit>
+        <trans-unit id="Safe" translate="yes" xml:space="preserve">
+          <source>Safe</source>
+          <target state="new">Safe</target>
+        </trans-unit>
+        <trans-unit id="SafeContentWindowTitle" translate="yes" xml:space="preserve">
+          <source>Safe Content</source>
+          <target state="new">Safe Content</target>
+        </trans-unit>
+        <trans-unit id="Scan" translate="yes" xml:space="preserve">
+          <source>Scan</source>
+          <target state="new">Scan</target>
+        </trans-unit>
+        <trans-unit id="Security" translate="yes" xml:space="preserve">
+          <source>Security</source>
+          <target state="new">Security</target>
+        </trans-unit>
+        <trans-unit id="SeemsNotSetPassword" translate="yes" xml:space="preserve">
+          <source>Seems that you did not set up your password yet.&amp;
+#xA;Please, enter one and then verify. Write down 
+your&amp;#xA;password in safe place. If you forget 
+one it will be&amp;#xA;impossible to restore and you'll
+loose all of your&amp;#xA;cloudcoins, unless you 
+haven't written down their&amp;#xA;serial numbers.</source>
+          <target state="new">Seems that you did not set up your password yet.&amp;
+#xA;Please, enter one and then verify. Write down 
+your&amp;#xA;password in safe place. If you forget 
+one it will be&amp;#xA;impossible to restore and you'll
+loose all of your&amp;#xA;cloudcoins, unless you 
+haven't written down their&amp;#xA;serial numbers.</target>
+        </trans-unit>
+        <trans-unit id="SelectOutStackWindowTitle" translate="yes" xml:space="preserve">
+          <source>SelectOutStackWindow</source>
+          <target state="new">SelectOutStackWindow</target>
+        </trans-unit>
+        <trans-unit id="SelectStackWithAmount" translate="yes" xml:space="preserve">
+          <source>Select stack which contains nearest requested amount.</source>
+          <target state="new">Select stack which contains nearest requested amount.</target>
+        </trans-unit>
+        <trans-unit id="Serial" translate="yes" xml:space="preserve">
+          <source>Serial</source>
+          <target state="new">Serial</target>
+        </trans-unit>
+        <trans-unit id="SetPasswordWindowTitle" translate="yes" xml:space="preserve">
+          <source>Enter Password for your CloudCoin Safe</source>
+          <target state="new">Enter Password for your CloudCoin Safe</target>
+        </trans-unit>
+        <trans-unit id="ShortNote" translate="yes" xml:space="preserve">
+          <source>Short note (e.g. For Alex)</source>
+          <target state="new">Short note (e.g. For Alex)</target>
+        </trans-unit>
+        <trans-unit id="Total" translate="yes" xml:space="preserve">
+          <source>Total</source>
+          <target state="new">Total</target>
+        </trans-unit>
+        <trans-unit id="TwoHundredsFifty" translate="yes" xml:space="preserve">
+          <source>250s</source>
+          <target state="new">250s</target>
+        </trans-unit>
+        <trans-unit id="Unknown" translate="yes" xml:space="preserve">
+          <source>Unknown</source>
+          <target state="new">Unknown</target>
+        </trans-unit>
+        <trans-unit id="Value" translate="yes" xml:space="preserve">
+          <source>Value</source>
+          <target state="new">Value</target>
+        </trans-unit>
+        <trans-unit id="With" translate="yes" xml:space="preserve">
+          <source>with</source>
+          <target state="new">with</target>
+        </trans-unit>
+        <trans-unit id="WithdrawDialogTitle" translate="yes" xml:space="preserve">
+          <source>Enter Sum to Give Away</source>
+          <target state="new">Enter Sum to Give Away</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
