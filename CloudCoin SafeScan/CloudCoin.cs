@@ -120,20 +120,22 @@ namespace CloudCoin_SafeScan
         [JsonConstructor]
         public CloudCoin(int nn, int sn, string[] ans, string expired, string[] aoid)
         {
+            this.sn = sn;
+            this.nn = nn;
+            an = ans;
+            ed = expired;
+            this.aoid = aoid;
+
+            detectStatus = new raidaNodeResponse[RAIDA.NODEQNTY];
+            for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = raidaNodeResponse.unknown;
+
             isValidated = Validate();
 
             if (isValidated)
-            {
-                this.sn = sn;
-                this.nn = nn;
-                an = ans;
-                ed = expired;
-                this.aoid = aoid;
+            {    
                 //            filetype = Type.json;
                 //            filename = null;
-                pans = generatePans(sn);
-                detectStatus = new raidaNodeResponse[RAIDA.NODEQNTY];
-                for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = raidaNodeResponse.unknown;
+                pans = generatePans(sn);    
             }
         }
 
@@ -178,7 +180,7 @@ namespace CloudCoin_SafeScan
         public bool Validate()
         {
             if(nn == 1 && sn>=0 && sn < 16777216
-                && aoid.Length > 0 && an.Length > 0 )
+                && aoid != null && an !=null && an.Length > 0 )
             {
                 foreach(var anValue in an)
                 {

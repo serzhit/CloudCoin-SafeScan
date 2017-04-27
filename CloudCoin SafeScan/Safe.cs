@@ -504,7 +504,7 @@ namespace CloudCoin_SafeScan
                 if (isJSON)
                 {
                     string fn = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinExportDir) +
-                    desiredSum + "." + note + "." + DateTime.Now.ToString("dd-MM-yy.HH-mm.") + ".stack";
+                    desiredSum + "." + note + "." + DateTime.Now.ToString("dd-MM-yy.HH-mm") + ".stack";
                     st.SaveInFile(fn);
                     Logger.Write("Exported JSON stack with " + stack.cloudcoin.Count + " coins.\n" +
                                  "Serial numbers:\n" + serialNumbers, Logger.Level.Normal);
