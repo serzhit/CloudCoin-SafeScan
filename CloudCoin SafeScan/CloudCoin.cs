@@ -166,7 +166,7 @@ namespace CloudCoin_SafeScan
             nn = Int16.Parse(jpegHexContent.Substring(902, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
             sn = Int32.Parse(jpegHexContent.Substring(904, 6), System.Globalization.NumberStyles.AllowHexSpecifier);
 
-            pans = generatePans(sn);
+            pans = generatePans();
             detectStatus = new raidaNodeResponse[RAIDA.NODEQNTY];
             for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = raidaNodeResponse.unknown;
         }
