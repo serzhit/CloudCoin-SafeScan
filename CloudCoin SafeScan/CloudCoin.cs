@@ -129,14 +129,8 @@ namespace CloudCoin_SafeScan
             detectStatus = new raidaNodeResponse[RAIDA.NODEQNTY];
             for (int i = 0; i < RAIDA.NODEQNTY; i++) detectStatus[i] = raidaNodeResponse.unknown;
 
+            pans = generatePans();
             isValidated = Validate();
-
-            if (isValidated)
-            {    
-                //            filetype = Type.json;
-                //            filename = null;
-                pans = generatePans(sn);    
-            }
         }
 
         //Constructor from file with Coin
@@ -213,7 +207,7 @@ namespace CloudCoin_SafeScan
                     return result;
                 }
                 */
-        public string[] generatePans(int sn)
+        public string[] generatePans()
         {
             string[] result = new string[RAIDA.NODEQNTY];
             using (var provider = new RNGCryptoServiceProvider())
