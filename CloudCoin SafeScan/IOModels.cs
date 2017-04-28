@@ -108,15 +108,6 @@ namespace CloudCoin_SafeScan
             }
         }
 
-        private bool IsValidFileFormat(CloudCoin coin)
-        {
-            if (coin.an != null && coin.nn != 0 && coin.sn != 0 && coin.pans != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
         private void ParseCloudCoinFile(string fullPath)
         {
             FI = new FileInfo(fullPath);
@@ -135,7 +126,7 @@ namespace CloudCoin_SafeScan
                     {
                         Filetype = Type.jpeg;
                         var coin = ReadJpeg(fsSource);
-                        IsValidFile = IsValidFileFormat(coin);
+                        IsValidFile = coin.Validate();
 
                         if (coin != null && IsValidFile)
                         {
@@ -151,7 +142,7 @@ namespace CloudCoin_SafeScan
                         {
                             foreach (var coin in json)
                             {
-                                if (!IsValidFileFormat(coin))
+                                if (!coin.Validate())
                                 {
                                     IsValidFile = false;
                                     break;
