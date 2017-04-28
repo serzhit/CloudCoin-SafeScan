@@ -1,7 +1,9 @@
-﻿using System.Diagnostics;
+﻿/***
+ * This software is distributed under MIT License
+ * Cloudcoin Consortium, Sergey Gitinsky (c)2017
+ * All rights reserved
+ */
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 using GalaSoft.MvvmLight.Threading;
 
 

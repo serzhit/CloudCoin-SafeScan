@@ -1,5 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/***
+ * This software is distributed under MIT License
+ * Cloudcoin Consortium, Sergey Gitinsky (c)2017
+ * All rights reserved
+ */
+
+using System;
 using System.IO;
 using System.Windows;
 using System.Threading.Tasks;
@@ -39,25 +44,21 @@ namespace CloudCoin_SafeScan
                 {
                     MessageBoxResult mbres = MessageBox.Show(Properties.Resources.CheckOrImport, Properties.Resources.ChangeOwnership, MessageBoxButton.YesNo);
                     if (mbres == MessageBoxResult.Yes)
-
                     {
-                        if (mbres == MessageBoxResult.Yes)
-                        {
-                            CheckCoinsWindow checkWin = new CheckCoinsWindow(coinFile.Coins);
-                            RAIDA.Instance.Detect(coinFile.Coins, true);
-                            checkWin.ShowDialog();
+                        CheckCoinsWindow checkWin = new CheckCoinsWindow(coinFile.Coins);
+                        RAIDA.Instance.Detect(coinFile.Coins, true);
+                        checkWin.ShowDialog();
 
-                            Safe.Instance?.Add(coinFile.Coins);
-                            checkWin.Close();
-                            Safe.Instance?.Show();
-                        }
-                        else
-                        {
-                            CheckCoinsWindow checkWin = new CheckCoinsWindow(coinFile.Coins);
-                            RAIDA.Instance.Detect(coinFile.Coins, false);
-                            checkWin.ShowDialog();
-                            checkWin.Close();
-                        }
+                        Safe.Instance?.Add(coinFile.Coins);
+                        checkWin.Close();
+                        Safe.Instance?.Show();
+                    }
+                    else
+                    {
+                        CheckCoinsWindow checkWin = new CheckCoinsWindow(coinFile.Coins);
+                        RAIDA.Instance.Detect(coinFile.Coins, false);
+                        checkWin.ShowDialog();
+                        checkWin.Close();
                     }
                 }
                 catch (Exception ex)

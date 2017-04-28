@@ -1,9 +1,9 @@
-﻿using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/***
+ * This software is distributed under MIT License
+ * Cloudcoin Consortium, Sergey Gitinsky (c)2017
+ * All rights reserved
+ */
+using GalaSoft.MvvmLight;
 
 namespace CloudCoin_SafeScan
 {

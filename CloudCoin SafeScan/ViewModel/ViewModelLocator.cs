@@ -1,4 +1,8 @@
-﻿using GalaSoft.MvvmLight;
+﻿/***
+ * This software is distributed under MIT License
+ * Cloudcoin Consortium, Sergey Gitinsky (c)2017
+ * All rights reserved
+ */
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 

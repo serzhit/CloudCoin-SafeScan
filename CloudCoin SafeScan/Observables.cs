@@ -1,10 +1,14 @@
-﻿using System;
+﻿/***
+ * This software is distributed under MIT License
+ * Cloudcoin Consortium, Sergey Gitinsky (c)2017
+ * All rights reserved
+ */
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using GalaSoft.MvvmLight;
-
 
 namespace CloudCoin_SafeScan
 {
@@ -79,49 +83,7 @@ namespace CloudCoin_SafeScan
             return value;
         }
     }
-    public class ObservableRaidaNodeResponse : ObservableObject
-    {
-        private CloudCoin.raidaNodeResponse _status;
-        private int raidaNodenumber;
-        private string _message;
-        private int serialNumber;
-        private DateTime dateTime;
-        private TimeSpan responseTime;
 
-        public int server
-        {
-            get { return raidaNodenumber; }
-            set { Set("server", ref raidaNodenumber, value); }
-        }
-        public string status
-        {
-            get { return _status.ToString(); }
-            set
-            {
-                if (!Enum.TryParse(value, out _status))
-                    throw new Exception("Trying to set value out of range");
-                RaisePropertyChanged("status");
-            }
-        }
-        public int sn
-        {
-            get { return serialNumber; }
-            set
-            {
-                Set("sn", ref serialNumber, value);
-            }
-        }
-        public string message
-        {
-            get { return _message; }
-            set { Set("message", ref _message, value); }
-        }
-        public DateTime time
-        {
-            get { return dateTime; }
-            set { Set("time", ref dateTime, value); }
-        }
-    }
 
     public class FullyObservableCollection<T> : ObservableCollection<T>
             where T : INotifyPropertyChanged

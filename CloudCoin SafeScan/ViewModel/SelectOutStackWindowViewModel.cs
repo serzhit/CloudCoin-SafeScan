@@ -1,4 +1,9 @@
-﻿namespace CloudCoin_SafeScan
+﻿/***
+ * This software is distributed under MIT License
+ * Cloudcoin Consortium, Sergey Gitinsky (c)2017
+ * All rights reserved
+ */
+namespace CloudCoin_SafeScan
 {
     public class SelectOutStackWindowViewModel
     {

@@ -1,4 +1,9 @@
-﻿using System.Linq;
+﻿/***
+ * This software is distributed under MIT License
+ * Cloudcoin Consortium, Sergey Gitinsky (c)2017
+ * All rights reserved
+ */
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 

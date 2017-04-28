@@ -1,4 +1,8 @@
-﻿using System;
+﻿/***
+ * This software is distributed under MIT License
+ * Cloudcoin Consortium, Sergey Gitinsky (c)2017
+ * All rights reserved
+ */
 using System.Windows;
 
 //TODO: Make SafeContentViewModel class

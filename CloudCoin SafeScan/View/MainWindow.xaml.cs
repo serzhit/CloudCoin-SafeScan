@@ -1,12 +1,9 @@
-﻿using System;
-using System.IO;
+﻿/***
+ * This software is distributed under MIT License
+ * Cloudcoin Consortium, Sergey Gitinsky (c)2017
+ * All rights reserved
+ */
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using Newtonsoft.Json;
-
-//TODO: Make MainViewModel class
 
 namespace CloudCoin_SafeScan
 {

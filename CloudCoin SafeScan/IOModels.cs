@@ -1,4 +1,9 @@
-﻿using System;
+﻿/***
+ * This software is distributed under MIT License
+ * Cloudcoin Consortium, Sergey Gitinsky (c)2017
+ * All rights reserved
+ */
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
@@ -9,8 +14,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Reflection;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 
@@ -67,6 +70,7 @@ namespace CloudCoin_SafeScan
             string importdir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinImportDir);
             var newFileName = importdir + FI.Name + ".imported-" + dt;
             File.Copy(FI.FullName, newFileName);
+            Logger.Write("File " + FI.FullName + " imported.", Logger.Level.Normal);
         }
 
         public static string[] ChooseInputFile()
@@ -131,6 +135,7 @@ namespace CloudCoin_SafeScan
                         if (coin != null && IsValidFile)
                         {
                             Coins.Add(new CoinStack(coin));
+                            Logger.Write("Coin with SN " + coin.sn + " added for detecting", Logger.Level.Normal);
                         }
                     }
                     else if (reg.IsMatch(sig)) //JSON
@@ -150,6 +155,7 @@ namespace CloudCoin_SafeScan
                                 else
                                 {
                                     IsValidFile = true;
+                                    Logger.Write("Coin with SN " + coin.sn + " added for detecting", Logger.Level.Normal);
                                 }
                             }
                         }
@@ -218,7 +224,7 @@ namespace CloudCoin_SafeScan
             } 
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Write(ex.Message, Logger.Level.Error);
                 return null;
             }
             
