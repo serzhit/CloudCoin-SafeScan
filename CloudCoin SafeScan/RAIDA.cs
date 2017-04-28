@@ -94,7 +94,7 @@ namespace CloudCoin_SafeScan
             }
             Task.Factory.ContinueWhenAll(tasks, ancestors => onEchoStatusChanged(new EchoStatusChangedEventArgs(25)) );
         }
-
+/*
         public async Task Detect(CloudCoin coin)
         {
             Stopwatch sw = new Stopwatch();
@@ -115,7 +115,7 @@ namespace CloudCoin_SafeScan
             });
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
         }
-
+*/
         public void onDetectCoinCompleted(DetectCoinCompletedEventArgs e)
         {
             DetectCoinCompleted?.Invoke(this, e);
@@ -214,7 +214,6 @@ namespace CloudCoin_SafeScan
                 get { return new Uri("https://RAIDA" + Number.ToString() + ".cloudcoin.ch/service"); }
             }
             public EchoResponse LastEchoStatus;
-            public DetectResponse LastDetectResult;
             public string Location
             {
                 get
