@@ -414,11 +414,14 @@ namespace CloudCoin_SafeScan
 
         public void Add(CoinStack stack)
         {
-            Contents.Add(stack);
-            Logger.Write("Coins added to Safe: \n", Logger.Level.Normal);
-            RemoveCounterfeitCoins();
-            onSafeContentChanged(new EventArgs());
-            Save();
+            if (stack.CounterfeitedQuantity != stack.Count()) //if all coins counterfeited do not add them to Safe
+            {
+                Contents.Add(stack);
+                Logger.Write("Coins added to Safe: \n", Logger.Level.Normal);
+                RemoveCounterfeitCoins();
+                onSafeContentChanged(new EventArgs());
+                Save();
+            }
         }
 
         public void Remove(CloudCoin coin)
