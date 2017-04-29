@@ -151,6 +151,7 @@ namespace CloudCoin_SafeScan
                 });
                 ProgressBar += 100;
                 PercentDone = (ProgressBar / Count).ToString() + "%";
+                Logger.Write("Coin with SN: " + e.coin.sn + " scanned. " + e.coin.percentOfRAIDAPass + "% of keys are good. Checked in " + e.sw.ElapsedMilliseconds + " ms.", Logger.Level.Normal);
             });
         }
 
