@@ -118,19 +118,12 @@ namespace CloudCoin_SafeScan
                 if (howMuch.DialogResult == true)
                 {
                     bool isJSON = (bool)howMuch.FormatJSON.IsChecked ? true : false;
-                    bool isFull = (bool)howMuch.FullCoins.IsChecked ? true : false;
+//                    bool isFull = (bool)howMuch.FullCoins.IsChecked ? true : false;
                     bool isExported = false;
                     string note = howMuch.ExportNote.Text;
                     int desiredSum = int.Parse(howMuch.enterSumBox.Text);
 
-                    if(isFull)
-                    {
-                        isExported = safe.SaveOutStack(desiredSum, isJSON, note);
-                    }
-                    else
-                    {
-
-                    }
+                    isExported = safe.SaveOutStack(desiredSum, isJSON, note);
                     
                     if (isExported)
                     {

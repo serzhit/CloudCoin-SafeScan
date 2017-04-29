@@ -44,12 +44,9 @@
         <Button x:Name="OKbutton" Content="{x:Static resx:Resources.Ok}" HorizontalAlignment="Center" Height="34" Margin="90,333,93,0" VerticalAlignment="Top" Width="109" Click="onOKClicked" IsDefault="True"/>
         <Label x:Name="SumInStack" Content="{Binding SumInSafe}" HorizontalAlignment="Left" Height="54" Margin="35,10,0,0" VerticalAlignment="Top" Width="79" FontWeight="Bold" FontSize="18"/>
         <Label x:Name="label2" Content="{x:Static resx:Resources.CCinSafe}" HorizontalAlignment="Left" Height="54" Margin="119,10,0,0" VerticalAlignment="Top" Width="142" FontWeight="Bold" FontSize="18"/>
-        <RadioButton x:Name="FormatJSON" GroupName="Format" Content="{x:Static resx:Resources.JSON}" HorizontalAlignment="Left" Margin="35,171,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <RadioButton x:Name="FormatJPEG" GroupName="Format" Content="{x:Static resx:Resources.JPEG}" HorizontalAlignment="Left" Margin="35,191,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label" Content="{x:Static resx:Resources.Format}" HorizontalAlignment="Left" Height="25" Margin="35,141,0,0" VerticalAlignment="Top" Width="85"/>
-        <RadioButton x:Name="HalfCoins" GroupName="Security" Content="{x:Static resx:Resources.HalfCoins}" HorizontalAlignment="Left" Height="15" Margin="149,171,0,0" VerticalAlignment="Top" Width="111"/>
-        <RadioButton x:Name="FullCoins" GroupName="Security" Content="{x:Static resx:Resources.FullCoins}" IsChecked="True" HorizontalAlignment="Left" Height="15" Margin="149,191,0,0" VerticalAlignment="Top" Width="86"/>
-        <Label x:Name="label_Copy" Content="{x:Static resx:Resources.Security}" HorizontalAlignment="Left" Height="25" Margin="149,141,0,0" VerticalAlignment="Top" Width="85"/>
+        <RadioButton x:Name="FormatJSON" GroupName="Format" Content="{x:Static resx:Resources.JSON}" HorizontalAlignment="Left" Margin="90,165,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <RadioButton x:Name="FormatJPEG" GroupName="Format" Content="{x:Static resx:Resources.JPEG}" HorizontalAlignment="Left" Margin="90,185,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label" Content="{x:Static resx:Resources.Format}" HorizontalAlignment="Left" Height="25" Margin="90,135,0,0" VerticalAlignment="Top" Width="85"/>
         <Label x:Name="label1" Content="Note:" HorizontalAlignment="Left" Height="27" Margin="35,223,0,0" VerticalAlignment="Top" Width="40" RenderTransformOrigin="0.625,0.63"/>
         <TextBox x:Name="ExportNote" Style="{StaticResource placeHolder}" HorizontalAlignment="Left" Height="28" Margin="80,222,0,0" TextWrapping="Wrap" Tag="{x:Static resx:Resources.ShortNote}"  Text="" VerticalAlignment="Top" Width="180"/>
     </Grid>
