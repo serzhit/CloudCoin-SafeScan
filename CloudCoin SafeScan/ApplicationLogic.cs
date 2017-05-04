@@ -160,6 +160,7 @@ namespace CloudCoin_SafeScan
             });
 
             fpw.ShowDialog();
+            fpw.Close();
             
         }
     }

@@ -490,7 +490,8 @@ namespace CloudCoin_SafeScan
 
         private void RemoveCounterfeitCoins()
         {
-            foreach(CloudCoin coin in Contents)
+            CoinStack coinstack = new CoinStack(Contents);
+            foreach(CloudCoin coin in coinstack)
             {
                 if(coin.Verdict == CloudCoin.Status.Counterfeit)
                     Contents.cloudcoin.Remove(coin);
