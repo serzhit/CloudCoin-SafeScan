@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CloudCoin_SafeScan"
         xmlns:resx="clr-namespace:CloudCoin_SafeScan.Properties"
         mc:Ignorable="d"
-        Title="{x:Static resx:Resources.FixProcessWindowTitle}" Height="200" Width="auto">
+        Title="{x:Static resx:Resources.FixProcessWindowTitle}" Height="257" Width="744">
     <Window.Resources>
         <DataTemplate x:Key="CoinItemTemplate">
             <Grid x:Name="mainGrid" Background="White" Width="auto">

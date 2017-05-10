@@ -70,7 +70,7 @@ namespace CloudCoin_SafeScan
             string dt = DateTime.Now.ToString("dd-MM-yy_HH-mm");
             string importdir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinImportDir);
             var newFileName = importdir + FI.Name + ".imported-" + dt;
-            File.Copy(FI.FullName, newFileName);
+            File.Move(FI.FullName, newFileName);
             Logger.Write("File " + FI.FullName + " imported.", Logger.Level.Normal);
         }
 
