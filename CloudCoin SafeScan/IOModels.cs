@@ -30,7 +30,7 @@ namespace CloudCoin_SafeScan
             string backupdir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinBackupDir);
             string logdir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinLogDir);
             string tmpDir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.UserCloudcoinTemplateDir);
-            string safedir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.SafeFileName);
+            string safedir = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.SafeDir);
 
             foreach (string path in new string[] { safedir, homedir, importdir, exportdir, backupdir, logdir, tmpDir})
             {

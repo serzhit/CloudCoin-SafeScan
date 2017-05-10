@@ -106,5 +106,17 @@ namespace CloudCoin_SafeScan.Properties {
                 this["UserCloudcoinTemplateDir"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("%APPDATA%\\Cloudcoin\\")]
+        public string SafeDir {
+            get {
+                return ((string)(this["SafeDir"]));
+            }
+            set {
+                this["SafeDir"] = value;
+            }
+        }
     }
 }

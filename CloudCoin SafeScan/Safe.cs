@@ -34,16 +34,14 @@ namespace CloudCoin_SafeScan
         private static string userEnteredPassword;
         private static byte[] encryptedUserEnteredPassword;
         private static byte[] salt = Encoding.UTF8.GetBytes(SLOGAN);
+        static string safe_FilePath = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.SafeFileName);
+        static string bkpSafeFilePath = safe_FilePath + ".bkp";
 
         private static Safe GetInstance()
         {
-            string settingsSafeFilePath = Properties.Settings.Default.SafeFileName;
-            string filePath = Environment.ExpandEnvironmentVariables(settingsSafeFilePath);
-            string bkpFilePath = filePath + ".bkp";
-
-            var fileInfo = new FileInfo(filePath);
-            var bkpFileInfo = new FileInfo(bkpFilePath);
-            if (!bkpFileInfo.Exists)
+            var fileInfo = new FileInfo(safe_FilePath);
+//            var bkpFileInfo = new FileInfo(bkpSafeFilePath);
+/*            if (!bkpFileInfo.Exists)
             {
                 var coins = new CoinStack();
                 using (var tmp = bkpFileInfo.Create())
@@ -52,6 +50,7 @@ namespace CloudCoin_SafeScan
                 }
 
             }
+*/
             if (!fileInfo.Exists)
             { //Safe does not exist, create one
                 userEnteredPassword = UserInteract.SetPassword(); //get user password for Safe
@@ -92,12 +91,19 @@ namespace CloudCoin_SafeScan
 
         private static bool CreateSafeFile(FileInfo fi, CoinStack stack)
         {
+        //    var fi = new FileInfo(safe_FilePath);
+            var bkp_fi = new FileInfo(bkpSafeFilePath);
             try
             {
-                Directory.CreateDirectory(fi.DirectoryName);
+                fi.Directory.Create();
                 var json = JsonConvert.SerializeObject(stack);
                 var cryptedjson = Utils.Encrypt(json, userEnteredPassword, salt);
                 using (var fs = fi.Create())
+                {
+                    fs.Write(encryptedUserEnteredPassword, 0, 60);
+                    fs.Write(cryptedjson, 0, cryptedjson.Length);
+                }
+                using (var fs = bkp_fi.Create())
                 {
                     fs.Write(encryptedUserEnteredPassword, 0, 60);
                     fs.Write(cryptedjson, 0, cryptedjson.Length);

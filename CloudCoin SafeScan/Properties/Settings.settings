@@ -23,5 +23,8 @@
     <Setting Name="UserCloudcoinTemplateDir" Type="System.String" Scope="User">
       <Value Profile="(Default)">%USERPROFILE%\Cloudcoin\Templates\</Value>
     </Setting>
+    <Setting Name="SafeDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">%APPDATA%\Cloudcoin\</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
