@@ -245,7 +245,7 @@
     <value>您的Windows版本太低. 此应用程序适用于Windows 7及更高版本</value>
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
-    <value>CloudCoin Scan&amp;amp;Safe</value>
+    <value>CloudCoin Scan&amp;Safe</value>
   </data>
   <data name="NearestValue" xml:space="preserve">
     <value>最近可能的价值.</value>

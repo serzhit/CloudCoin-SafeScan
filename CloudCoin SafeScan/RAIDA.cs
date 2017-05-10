@@ -233,7 +233,7 @@ namespace CloudCoin_SafeScan
                 var client = new RestClient();
                 client.BaseUrl = BaseUri;
                 var request = new RestRequest("echo");
-                request.Timeout = 2000;
+                request.Timeout = 3000;
                 EchoResponse getEcho = new EchoResponse();
 
                 Stopwatch sw = new Stopwatch();
@@ -268,7 +268,7 @@ namespace CloudCoin_SafeScan
                 request.AddQueryParameter("an", coin.an[Number]);
                 request.AddQueryParameter("pan", coin.pans[Number]);
                 request.AddQueryParameter("denomination", Utils.Denomination2Int(coin.denomination).ToString());
-                request.Timeout = 2000;
+                request.Timeout = 3000;
                 DetectResponse getDetectResult = new DetectResponse();
 
                 Stopwatch sw = new Stopwatch();

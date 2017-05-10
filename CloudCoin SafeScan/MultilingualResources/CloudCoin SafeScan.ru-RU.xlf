@@ -315,8 +315,8 @@ haven't written down their&amp;#xA;serial numbers.</target>
           <target state="new">FixProcessWindow</target>
         </trans-unit>
         <trans-unit id="MainWindowTitle" translate="yes" xml:space="preserve">
-          <source>CloudCoin Scan&amp;amp;Safe</source>
-          <target state="new">CloudCoin Scan&amp;amp;Safe</target>
+          <source>CloudCoin Scan&amp;Safe</source>
+          <target state="new">CloudCoin Scan&amp;Safe</target>
         </trans-unit>
         <trans-unit id="SafeContentWindowTitle" translate="yes" xml:space="preserve">
           <source>Safe Content</source>

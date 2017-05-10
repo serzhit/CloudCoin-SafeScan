@@ -434,7 +434,7 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CloudCoin Scan&amp;amp;Safe.
+        ///   Looks up a localized string similar to CloudCoin Scan&amp;Safe.
         /// </summary>
         public static string MainWindowTitle {
             get {

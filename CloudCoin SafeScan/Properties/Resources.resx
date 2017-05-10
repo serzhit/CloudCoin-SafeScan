@@ -279,7 +279,7 @@ Work with local Safe is still possible"</value>
     <value>JSON</value>
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
-    <value>CloudCoin Scan&amp;amp;Safe</value>
+    <value>CloudCoin Scan&amp;Safe</value>
   </data>
   <data name="NearestValue" xml:space="preserve">
     <value>nearest possible value.</value>
