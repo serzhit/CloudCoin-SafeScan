@@ -315,8 +315,8 @@ namespace CloudCoin_SafeScan
             Graphics graphics = Graphics.FromImage(bitmapimage);
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
             graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            PointF drawPointAddress = new PointF(10.0F, 10.0F);
-            graphics.DrawString(String.Format("{0:N0}", cc.sn) + " of 16,777,216 on Network: 1", new Font("Arial", 20), System.Drawing.Brushes.White, drawPointAddress);
+            PointF drawPointAddress = new PointF(30.0F, 25.0F);
+            graphics.DrawString(String.Format("{0:N0}", cc.sn) + " of 16,777,216 on Network: 1", new Font("Arial", 10), Brushes.White, drawPointAddress);
 
             ImageConverter converter = new ImageConverter();
             byte[] snBytes = (byte[])converter.ConvertTo(bitmapimage, typeof(byte[]));
