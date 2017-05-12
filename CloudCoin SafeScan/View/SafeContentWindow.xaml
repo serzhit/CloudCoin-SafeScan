@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:CloudCoin_SafeScan"
         xmlns:resx="clr-namespace:CloudCoin_SafeScan.Properties"
         mc:Ignorable="d"
-        Title="{x:Static resx:Resources.SafeContentWindowTitle}" Height="380.769" Width="427.919" ResizeMode="NoResize">
-    <Grid Height="246" VerticalAlignment="Top" DataContext="{Binding SafeContent, Source={StaticResource Locator}}" >
+        SizeToContent="Height"
+        Title="{x:Static resx:Resources.SafeContentWindowTitle}" Height="280" Width="427.919" ResizeMode="NoResize">
+    <Grid DataContext="{Binding SafeContent, Source={StaticResource Locator}}" Margin="0,0,0,101" >
         <ListView x:Name="SafeView" Margin="20,62,18,15" Width="365" ItemsSource="{Binding Rows}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -27,6 +28,6 @@
             </ListView.View>
         </ListView>
         <TextBox x:Name="totalTextBox" HorizontalAlignment="Left" Height="52" Margin="20,10,0,0" TextWrapping="Wrap" Text="{Binding StatusText}" VerticalAlignment="Top" Width="353" FontSize="32" BorderThickness="0"/>
-        <Button x:Name="FixButton" Content="{x:Static resx:Resources.FixFracked}" HorizontalAlignment="Left" Height="35" Margin="131,280,0,-69" VerticalAlignment="Top" Width="124" Command="{Binding BeginFix}"/>
+        <Button x:Name="FixButton" Content="{x:Static resx:Resources.FixFracked}" Visibility="{Binding IsFixButtonVisible}" HorizontalAlignment="Left" Height="35" Margin="131,280,0,-69" VerticalAlignment="Top" Width="124" Command="{Binding BeginFix}"/>
     </Grid>
 </Window>

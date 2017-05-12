@@ -6,6 +6,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
+using System.Windows;
 
 namespace CloudCoin_SafeScan
 {
@@ -20,6 +21,13 @@ namespace CloudCoin_SafeScan
             public int Good { get; set; }
             public int Fractioned { get; set; }
             public int Total { get; set; }
+        }
+
+        private Visibility fixButton;
+        public Visibility IsFixButtonVisible
+        {
+            get { return fixButton; }
+            set { fixButton = value; RaisePropertyChanged("IsFixButtonVisible"); }
         }
 
         private ShelfString[] _rows = new ShelfString[6];
@@ -43,12 +51,17 @@ namespace CloudCoin_SafeScan
             DetectFracked = new RelayCommand(ApplicationLogic.DetectFracked);
             Safe.Instance.SafeChanged += SafeContentChanged;
             Safe.Instance.onSafeContentChanged(new EventArgs());
+            IsFixButtonVisible = Visibility.Hidden;
         }
         
         private void SafeContentChanged(object sender, EventArgs e)
         {
             Safe safe = Safe.Instance;
             StatusText = safe.Contents.SumInStack.ToString() + " CC in Safe";
+            if (Safe.Instance.Contents.FractionedQuantity > 0)
+            {
+                IsFixButtonVisible = Visibility.Visible;
+            }
             Rows = new ShelfString[6]
             {
                 new ShelfString { Value = "Ones", Good = safe.Ones.GoodQuantity,
