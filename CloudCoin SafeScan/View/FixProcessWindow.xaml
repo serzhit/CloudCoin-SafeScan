@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:CloudCoin_SafeScan"
         xmlns:resx="clr-namespace:CloudCoin_SafeScan.Properties"
         mc:Ignorable="d"
-        Title="{x:Static resx:Resources.FixProcessWindowTitle}" Height="257" Width="744">
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        MaxHeight="700"
+        Title="{x:Static resx:Resources.FixProcessWindowTitle}" Height="122" Width="798">
     <Window.Resources>
         <DataTemplate x:Key="CoinItemTemplate">
             <Grid x:Name="mainGrid" Background="White" Width="auto">
@@ -41,7 +44,7 @@
             </Grid>
         </DataTemplate>
     </Window.Resources>
-    <Grid DataContext="{Binding FixStack, Source={StaticResource Locator}}">
+    <Grid DataContext="{Binding FixStack, Source={StaticResource Locator}}" Margin="0,0,2,0">
         <ListView x:Name="listView" Height="auto" Margin="0,51,0,0" Width="auto"
                   VerticalAlignment="Top" ItemTemplate="{StaticResource CoinItemTemplate}" ItemsSource="{Binding FixingCoins}">
         </ListView>

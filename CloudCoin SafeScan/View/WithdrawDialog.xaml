@@ -47,7 +47,6 @@
         <RadioButton x:Name="FormatJSON" GroupName="Format" Content="{x:Static resx:Resources.JSON}" HorizontalAlignment="Left" Margin="90,165,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <RadioButton x:Name="FormatJPEG" GroupName="Format" Content="{x:Static resx:Resources.JPEG}" HorizontalAlignment="Left" Margin="90,185,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label" Content="{x:Static resx:Resources.Format}" HorizontalAlignment="Left" Height="25" Margin="90,135,0,0" VerticalAlignment="Top" Width="85"/>
-        <Label x:Name="label1" Content="Note:" HorizontalAlignment="Left" Height="27" Margin="35,223,0,0" VerticalAlignment="Top" Width="40" RenderTransformOrigin="0.625,0.63"/>
-        <TextBox x:Name="ExportNote" Style="{StaticResource placeHolder}" HorizontalAlignment="Left" Height="28" Margin="80,222,0,0" TextWrapping="Wrap" Tag="{x:Static resx:Resources.ShortNote}"  Text="" VerticalAlignment="Top" Width="180"/>
+        <TextBox x:Name="ExportNote" Style="{StaticResource placeHolder}" HorizontalAlignment="Left" Height="28" Margin="35,222,0,0" TextWrapping="Wrap" Tag="{x:Static resx:Resources.ShortNote}"  Text="" VerticalAlignment="Top" Width="225"/>
     </Grid>
 </Window>

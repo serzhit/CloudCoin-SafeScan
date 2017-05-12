@@ -318,12 +318,11 @@ Work with local Safe is still possible"</value>
     <value>Security</value>
   </data>
   <data name="SeemsNotSetPassword" xml:space="preserve">
-    <value>Seems that you did not set up your password yet.&amp;
-#xA;Please, enter one and then verify. Write down 
-your&amp;#xA;password in safe place. If you forget 
-one it will be&amp;#xA;impossible to restore and you'll
-loose all of your&amp;#xA;cloudcoins, unless you 
-haven't written down their&amp;#xA;serial numbers.</value>
+    <value>Seems that you did not set up your password yet. Please, enter one and then verify. Write down 
+your password in safe place. If you forget 
+one it will be impossible to restore and you'll
+loose all of your cloudcoins, unless you 
+haven't written down their serial numbers.</value>
   </data>
   <data name="SelectOutStackWindowTitle" xml:space="preserve">
     <value>SelectOutStackWindow</value>
@@ -338,7 +337,7 @@ haven't written down their&amp;#xA;serial numbers.</value>
     <value>Enter Password for your CloudCoin Safe</value>
   </data>
   <data name="ShortNote" xml:space="preserve">
-    <value>Short note (e.g. For Alex)</value>
+    <value>Enter short note (e.g. For Alex)</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>Total</value>

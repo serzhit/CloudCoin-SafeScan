@@ -225,18 +225,16 @@ Work with local Safe is still possible"</target>
           <target state="new">OK</target>
         </trans-unit>
         <trans-unit id="SeemsNotSetPassword" translate="yes" xml:space="preserve">
-          <source>Seems that you did not set up your password yet.&amp;
-#xA;Please, enter one and then verify. Write down 
-your&amp;#xA;password in safe place. If you forget 
-one it will be&amp;#xA;impossible to restore and you'll
-loose all of your&amp;#xA;cloudcoins, unless you 
-haven't written down their&amp;#xA;serial numbers.</source>
-          <target state="new">Seems that you did not set up your password yet.&amp;
-#xA;Please, enter one and then verify. Write down 
-your&amp;#xA;password in safe place. If you forget 
-one it will be&amp;#xA;impossible to restore and you'll
-loose all of your&amp;#xA;cloudcoins, unless you 
-haven't written down their&amp;#xA;serial numbers.</target>
+          <source>Seems that you did not set up your password yet. Please, enter one and then verify. Write down 
+your password in safe place. If you forget 
+one it will be impossible to restore and you'll
+loose all of your cloudcoins, unless you 
+haven't written down their serial numbers.</source>
+          <target state="new">Seems that you did not set up your password yet. Please, enter one and then verify. Write down 
+your password in safe place. If you forget 
+one it will be impossible to restore and you'll
+loose all of your cloudcoins, unless you 
+haven't written down their serial numbers.</target>
         </trans-unit>
         <trans-unit id="CCinSafe" translate="yes" xml:space="preserve">
           <source>CC in your Safe</source>
@@ -287,8 +285,8 @@ haven't written down their&amp;#xA;serial numbers.</target>
           <target state="new">Note:</target>
         </trans-unit>
         <trans-unit id="ShortNote" translate="yes" xml:space="preserve">
-          <source>Short note (e.g. For Alex)</source>
-          <target state="new">Short note (e.g. For Alex)</target>
+          <source>Enter short note (e.g. For Alex)</source>
+          <target state="new">Enter short note (e.g. For Alex)</target>
         </trans-unit>
         <trans-unit id="Authenticated" translate="yes" xml:space="preserve">
           <source>Authenticated</source>

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CloudCoin_SafeScan"
         xmlns:resx="clr-namespace:CloudCoin_SafeScan.Properties"
+        ResizeMode="NoResize"
         mc:Ignorable="d"
         Title="{x:Static resx:Resources.SelectOutStackWindowTitle}" Height="300" Width="413">
     <Grid DataContext="{Binding SelectOutStack, Source={StaticResource Locator}}">
