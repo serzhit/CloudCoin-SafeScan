@@ -7,9 +7,10 @@
         xmlns:resx="clr-namespace:CloudCoin_SafeScan.Properties"
         mc:Ignorable="d"
         SizeToContent="Height"
-        Title="{x:Static resx:Resources.SafeContentWindowTitle}" Height="280" Width="427.919" ResizeMode="NoResize">
-    <Grid DataContext="{Binding SafeContent, Source={StaticResource Locator}}" Margin="0,0,0,101" >
-        <ListView x:Name="SafeView" Margin="20,62,18,15" Width="365" ItemsSource="{Binding Rows}">
+        Title="{x:Static resx:Resources.SafeContentWindowTitle}" Height="auto" Width="428" ResizeMode="NoResize">
+    <StackPanel DataContext="{Binding SafeContent, Source={StaticResource Locator}}" Margin="0,0,0,0" >
+        <TextBox x:Name="totalTextBox" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="10,10,10,0" Text="{Binding StatusText}" VerticalAlignment="Top" Width="408" FontSize="32" BorderThickness="0"/>
+        <ListView x:Name="SafeView" HorizontalAlignment="Center" Margin="10" Width="370" ItemsSource="{Binding Rows}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -17,17 +18,13 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
-                    <GridView.ColumnHeaderContextMenu>
-                        <ContextMenu HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
-                    </GridView.ColumnHeaderContextMenu>
-                    <GridViewColumn Header="{x:Static resx:Resources.Value}" DisplayMemberBinding="{Binding Value}" Width="80"/>
-                    <GridViewColumn Header="{x:Static resx:Resources.Good}" DisplayMemberBinding="{Binding Good}" Width="100" />
-                    <GridViewColumn Header="{x:Static resx:Resources.Fractioned}" DisplayMemberBinding="{Binding Fractioned}" Width="100"/>
+                    <GridViewColumn Header="{x:Static resx:Resources.Value}" DisplayMemberBinding="{Binding Value}" Width="110"/>
+                    <GridViewColumn Header="{x:Static resx:Resources.Good}" DisplayMemberBinding="{Binding Good}" Width="90" />
+                    <GridViewColumn Header="{x:Static resx:Resources.Fractioned}" DisplayMemberBinding="{Binding Fractioned}" Width="90"/>
                     <GridViewColumn Header="{x:Static resx:Resources.Total}" DisplayMemberBinding="{Binding Total}" Width="70"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBox x:Name="totalTextBox" HorizontalAlignment="Left" Height="52" Margin="20,10,0,0" TextWrapping="Wrap" Text="{Binding StatusText}" VerticalAlignment="Top" Width="353" FontSize="32" BorderThickness="0"/>
-        <Button x:Name="FixButton" Content="{x:Static resx:Resources.FixFracked}" Visibility="{Binding IsFixButtonVisible}" HorizontalAlignment="Left" Height="35" Margin="131,280,0,-69" VerticalAlignment="Top" Width="124" Command="{Binding BeginFix}"/>
-    </Grid>
+        <Button x:Name="FixButton" Content="{x:Static resx:Resources.FixFracked}" Visibility="{Binding IsFixButtonVisible}" HorizontalAlignment="Center" Height="35" Margin="10,10,10,20" VerticalAlignment="Top" Width="124" Command="{Binding BeginFix}"/>
+    </StackPanel>
 </Window>
