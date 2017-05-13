@@ -111,8 +111,9 @@ Try again.</source>
           <target state="final">CloudCoin Scan&amp;Safe</target>
         </trans-unit>
         <trans-unit id="CloudCoinDescription" translate="yes" xml:space="preserve">
-          <source>You get cloudcoins (new worldwide currency) in form of files from anywhere - sites, emails, USB Sticks, Smartphones... This app just checks them for counterfeit, loads and keeps 'em in safe and makes stacks for payments or gifts.</source>
-          <target state="final">Вы можете получить клаудкойны (новую виртуальныю валюту CloudCoin) в форме файлов откуда угодно - с сайтов, по электронной почте, с USB-накопителя, со смартфона или в соцсетях...Эта программа проверит их на подлинность, зашифрует с вашим паролем и сохранит на диске и позволит выгрузить из сейфа любое количество для передачи другим.</target>
+          <source>CloudCoin is a new form of worldwide digital currency that you can get in the form of files from virtually anywhere. Sites, emails, USB drives, smartphones… the list goes on! The Scan&amp;Safe app checks these mediums for counterfeit CloudCoin currency, loads and stores accumulated CloudCoins into the Safe, and makes stacks available to be used as payment or gifts.</source>
+          <target state="needs-review-translation">Вы можете получить клаудкойны (новую виртуальныю валюту CloudCoin) в форме файлов откуда угодно - с сайтов, по электронной почте, с USB-накопителя, со смартфона или в соцсетях...Эта программа проверит их на подлинность, зашифрует с вашим паролем и сохранит на диске и позволит выгрузить из сейфа любое количество для передачи другим.</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="CheckInternet" translate="yes" xml:space="preserve">
           <source>"The RAIDA does not respond.
@@ -223,14 +224,11 @@ Work with local Safe is still possible"</source>
           <target state="final">OK</target>
         </trans-unit>
         <trans-unit id="SeemsNotSetPassword" translate="yes" xml:space="preserve">
-          <source>Seems that you did not set up your password yet. Please, enter one and then verify. Write down 
-your password in safe place. If you forget 
-one it will be impossible to restore and you'll
-loose all of your cloudcoins, unless you 
-haven't written down their serial numbers.</source>
-          <target state="final">Похоже вы еще не назначили пароль для сейфа. Пожалуйста, введите пароль 2 раза для проверки.
+          <source>A password has not been set up yet. Please enter and verify your password in the fields below. Make sure to keep a copy of the password in a secure place. The application cannot restore a lost/forgotten password. Loss of a password will result in loss of any stored CloudCoins.</source>
+          <target state="needs-review-translation">Похоже вы еще не назначили пароль для сейфа. Пожалуйста, введите пароль 2 раза для проверки.
 Запишите его и созраните в безопасном месте. Если вы потеряете пароль, то восстановить сейф будет невозможно!
 Пароль знаете только вы! Все монеты могут быть потеряны при утере пароля!</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="CCinSafe" translate="yes" xml:space="preserve">
           <source>CC in your Safe</source>
@@ -340,6 +338,14 @@ haven't written down their serial numbers.</source>
         <trans-unit id="ССinSafe" translate="yes" xml:space="preserve">
           <source> CC in Safe</source>
           <target state="final"> CC в Сейфе</target>
+        </trans-unit>
+        <trans-unit id="Pasword" translate="yes" xml:space="preserve">
+          <source>Password</source>
+          <target state="new">Password</target>
+        </trans-unit>
+        <trans-unit id="PswdVerify" translate="yes" xml:space="preserve">
+          <source>Verify Password</source>
+          <target state="new">Verify Password</target>
         </trans-unit>
       </group>
     </body>

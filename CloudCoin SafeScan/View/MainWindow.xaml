@@ -10,7 +10,7 @@
         xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Name="CloudCoin_Scan_Safe"
         mc:Ignorable="d" 
         d:DesignHeight="350" d:DesignWidth="525" Background="White"
-        ResizeMode="NoResize"
+        ResizeMode="CanMinimize"
         Title="{x:Static resx:Resources.MainWindowTitle}" Width="525" Height="350">
 
     <Grid DataContext="{Binding Main, Source={StaticResource Locator} }">

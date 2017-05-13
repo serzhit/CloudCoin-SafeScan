@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:CloudCoin_SafeScan"
       xmlns:resx="clr-namespace:CloudCoin_SafeScan.Properties"
       mc:Ignorable="d"
-      Title="{x:Static resx:Resources.CheckCoinsWindowTitle}" Width="545" Height="396" Background="White" ResizeMode="NoResize">
+      Title="{x:Static resx:Resources.CheckCoinsWindowTitle}" Width="545" Height="396" Background="White" ResizeMode="CanMinimize">
     <Window.Resources>
 
     </Window.Resources>

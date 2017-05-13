@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CloudCoin_SafeScan"
         xmlns:resx="clr-namespace:CloudCoin_SafeScan.Properties"
         mc:Ignorable="d"
-        ResizeMode="NoResize"
+        ResizeMode="CanMinimize"
         SizeToContent="WidthAndHeight"
         MaxHeight="700"
         Title="{x:Static resx:Resources.FixProcessWindowTitle}" Height="122" Width="798">

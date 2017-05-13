@@ -154,7 +154,7 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You get cloudcoins (new worldwide currency) in form of files from anywhere - sites, emails, USB Sticks, Smartphones... This app just checks them for counterfeit, loads and keeps &apos;em in safe and makes stacks for payments or gifts..
+        ///   Looks up a localized string similar to CloudCoin is a new form of worldwide digital currency that you can get in the form of files from virtually anywhere. Sites, emails, USB drives, smartphones… the list goes on! The Scan&amp;Safe app checks these mediums for counterfeit CloudCoin currency, loads and stores accumulated CloudCoins into the Safe, and makes stacks available to be used as payment or gifts..
         /// </summary>
         public static string CloudCoinDescription {
             get {
@@ -524,11 +524,29 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string Pasword {
+            get {
+                return ResourceManager.GetString("Pasword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pay.
         /// </summary>
         public static string Pay {
             get {
                 return ResourceManager.GetString("Pay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verify Password.
+        /// </summary>
+        public static string PswdVerify {
+            get {
+                return ResourceManager.GetString("PswdVerify", resourceCulture);
             }
         }
         
@@ -623,11 +641,7 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seems that you did not set up your password yet. Please, enter one and then verify. Write down 
-        ///your password in safe place. If you forget 
-        ///one it will be impossible to restore and you&apos;ll
-        ///loose all of your cloudcoins, unless you 
-        ///haven&apos;t written down their serial numbers..
+        ///   Looks up a localized string similar to A password has not been set up yet. Please enter and verify your password in the fields below. Make sure to keep a copy of the password in a secure place. The application cannot restore a lost/forgotten password. Loss of a password will result in loss of any stored CloudCoins..
         /// </summary>
         public static string SeemsNotSetPassword {
             get {

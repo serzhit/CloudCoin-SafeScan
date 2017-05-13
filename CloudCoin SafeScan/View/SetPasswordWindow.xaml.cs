@@ -42,15 +42,5 @@ namespace CloudCoin_SafeScan
                 okButtonClicked(this, e);
             }
         }
-
-        private void onTextInput(object sender, TextCompositionEventArgs e)
-        {
-
-        }
-
-        private void onVerifyTextInput(object sender, TextCompositionEventArgs e)
-        {
-
-        }
     }
 }

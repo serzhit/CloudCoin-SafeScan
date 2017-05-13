@@ -213,7 +213,7 @@ Work with local Safe is still possible"</value>
     <value>Close</value>
   </data>
   <data name="CloudCoinDescription" xml:space="preserve">
-    <value>You get cloudcoins (new worldwide currency) in form of files from anywhere - sites, emails, USB Sticks, Smartphones... This app just checks them for counterfeit, loads and keeps 'em in safe and makes stacks for payments or gifts.</value>
+    <value>CloudCoin is a new form of worldwide digital currency that you can get in the form of files from virtually anywhere. Sites, emails, USB drives, smartphones… the list goes on! The Scan&amp;Safe app checks these mediums for counterfeit CloudCoin currency, loads and stores accumulated CloudCoins into the Safe, and makes stacks available to be used as payment or gifts.</value>
   </data>
   <data name="Comment" xml:space="preserve">
     <value>Comment</value>
@@ -318,11 +318,7 @@ Work with local Safe is still possible"</value>
     <value>Security</value>
   </data>
   <data name="SeemsNotSetPassword" xml:space="preserve">
-    <value>Seems that you did not set up your password yet. Please, enter one and then verify. Write down 
-your password in safe place. If you forget 
-one it will be impossible to restore and you'll
-loose all of your cloudcoins, unless you 
-haven't written down their serial numbers.</value>
+    <value>A password has not been set up yet. Please enter and verify your password in the fields below. Make sure to keep a copy of the password in a secure place. The application cannot restore a lost/forgotten password. Loss of a password will result in loss of any stored CloudCoins.</value>
   </data>
   <data name="SelectOutStackWindowTitle" xml:space="preserve">
     <value>SelectOutStackWindow</value>
@@ -365,5 +361,11 @@ haven't written down their serial numbers.</value>
   </data>
   <data name="ССinSafe" xml:space="preserve">
     <value> CC in Safe</value>
+  </data>
+  <data name="Pasword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PswdVerify" xml:space="preserve">
+    <value>Verify Password</value>
   </data>
 </root>
