@@ -128,10 +128,11 @@ namespace CloudCoin_SafeScan
 
         public void Detect(CoinStack stack, bool isCoinToBeImported)
         {
+            int coinsAmount = stack.Count();
             Stopwatch total = new Stopwatch();
             total.Start();
-            Task[] checkStackTasks = new Task[stack.cloudcoin.Count()];
-            Stopwatch[] tw = new Stopwatch[stack.cloudcoin.Count()];
+            Task[] checkStackTasks = new Task[coinsAmount];
+            Stopwatch[] tw = new Stopwatch[coinsAmount];
             int k = 0;
             foreach(CloudCoin coin in stack)    // int k = 0; k < stack.cloudcoin.Count(); k++)
             {
@@ -145,11 +146,12 @@ namespace CloudCoin_SafeScan
                 t.Start();
                 foreach (Node node in Instance.NodesArray)
                 {
-                    checkCoinTasks[node.Number] = Task.Factory.StartNew(() => node.Detect(coin));
-                    checkCoinTasks[node.Number].ContinueWith((anc) =>
+                    int n = node.Number;
+                    checkCoinTasks[n] = Task.Factory.StartNew(() => node.Detect(coin));
+                    checkCoinTasks[n].ContinueWith((anc) =>
                     {
                         var tmp = anc.Result;
-                        coin.detectStatus[node.Number] = (tmp.status == "pass") ? CloudCoin.raidaNodeResponse.pass : (tmp.status == "fail") ? CloudCoin.raidaNodeResponse.fail : CloudCoin.raidaNodeResponse.error;
+                        coin.detectStatus[n] = (tmp.status == "pass") ? CloudCoin.raidaNodeResponse.pass : (tmp.status == "fail") ? CloudCoin.raidaNodeResponse.fail : CloudCoin.raidaNodeResponse.error;
                     });
                 }
                 checkStackTasks[k] = Task.Factory.ContinueWhenAll(checkCoinTasks, (ancs) => 
@@ -161,6 +163,7 @@ namespace CloudCoin_SafeScan
             }
             Task.Factory.ContinueWhenAll(checkStackTasks, (ancs) =>
             {
+                total.Stop();
                 onStackScanCompleted(new StackScanCompletedEventArgs(stack, total));
             });
         }
@@ -271,8 +274,8 @@ namespace CloudCoin_SafeScan
                 request.Timeout = 3000;
                 DetectResponse getDetectResult = new DetectResponse();
 
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
+//                Stopwatch sw = new Stopwatch();
+//                sw.Start();
                 try
                 {
                     IRestResponse response = client.Execute(request);
@@ -286,8 +289,8 @@ namespace CloudCoin_SafeScan
                 if (getDetectResult.ErrorException != null)
                     getDetectResult = new DetectResponse(Name, coin.sn.ToString(), "Network problem", "Problems with network connection", DateTime.Now.ToString());
 
-                sw.Stop();
-                getDetectResult.responseTime = sw.Elapsed;
+//                sw.Stop();
+//                getDetectResult.responseTime = sw.Elapsed;
 
                 if (getDetectResult.status == "pass")
                 {
