@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:CloudCoin_SafeScan"
         xmlns:resx="clr-namespace:CloudCoin_SafeScan.Properties"
         mc:Ignorable="d"
-        Title="{x:Static resx:Resources.WithdrawDialogTitle}" Height="412" Width="300">
+        SizeToContent="Height"
+        Title="{x:Static resx:Resources.WithdrawDialogTitle}" Height="auto" Width="300">
     <Window.Resources>
         <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Template">
@@ -38,15 +39,17 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid Margin="0,0,0,4" DataContext="{Binding Withdraw, Source={StaticResource Locator}}">
-        <TextBlock x:Name="Text" Height="71" Margin="35,69,31,0" VerticalAlignment="Top" FontSize="14" TextAlignment="Justify"><Run Text="{x:Static resx:Resources.EnterSumWithdraw}"/><LineBreak/><Run Text="{x:Static resx:Resources.ExportStackCoins}"/><Run Text="{x:Static resx:Resources.With}"/><LineBreak/><Run Text="{x:Static resx:Resources.NearestValue}"/></TextBlock>
-        <TextBox x:Name="enterSumBox" HorizontalAlignment="Center" Height="73" Margin="35,255,31,0" VerticalAlignment="Top" Width="226" FontSize="36" TextAlignment="Center" MaxLines="1"/>
-        <Button x:Name="OKbutton" Content="{x:Static resx:Resources.Ok}" HorizontalAlignment="Center" Height="34" Margin="90,333,93,0" VerticalAlignment="Top" Width="109" Click="onOKClicked" IsDefault="True"/>
-        <Label x:Name="SumInStack" Content="{Binding SumInSafe}" HorizontalAlignment="Left" Height="54" Margin="35,10,0,0" VerticalAlignment="Top" Width="79" FontWeight="Bold" FontSize="18"/>
-        <Label x:Name="label2" Content="{x:Static resx:Resources.CCinSafe}" HorizontalAlignment="Left" Height="54" Margin="119,10,0,0" VerticalAlignment="Top" Width="142" FontWeight="Bold" FontSize="18"/>
-        <RadioButton x:Name="FormatJSON" GroupName="Format" Content="{x:Static resx:Resources.JSON}" HorizontalAlignment="Left" Margin="90,165,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <RadioButton x:Name="FormatJPEG" GroupName="Format" Content="{x:Static resx:Resources.JPEG}" HorizontalAlignment="Left" Margin="90,185,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label" Content="{x:Static resx:Resources.Format}" HorizontalAlignment="Left" Height="25" Margin="90,135,0,0" VerticalAlignment="Top" Width="85"/>
-        <TextBox x:Name="ExportNote" Style="{StaticResource placeHolder}" HorizontalAlignment="Left" Height="28" Margin="35,222,0,0" TextWrapping="Wrap" Tag="{x:Static resx:Resources.ShortNote}"  Text="" VerticalAlignment="Top" Width="225"/>
-    </Grid>
+    <StackPanel x:Name="OuterVerticalStack" Margin="0,10,0,10" DataContext="{Binding Withdraw, Source={StaticResource Locator}}">
+        <StackPanel x:Name="HorisontalStack" RenderTransformOrigin="0.479,0.464" HorizontalAlignment="Center" Margin="10,0,10,0" Orientation="Horizontal">
+            <Label x:Name="SumInStack" Content="{Binding SumInSafe}"  HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto" FontWeight="Bold" FontSize="18"/>
+            <Label x:Name="label2" Content="{x:Static resx:Resources.CCinSafe}" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto" FontWeight="Bold" FontSize="18"/>
+        </StackPanel>
+        <TextBlock x:Name="Text" Height="auto" Width="auto" Margin="35,0,35,0" VerticalAlignment="Top" FontSize="14" TextAlignment="Justify" Text="{x:Static resx:Resources.EnterSumWithdraw}" TextWrapping="Wrap"/>
+        <Label x:Name="label" Content="{x:Static resx:Resources.Format}" HorizontalAlignment="Center" Height="auto" Margin="35,5,35,0" VerticalAlignment="Top" Width="auto"/>
+        <RadioButton x:Name="FormatJSON" GroupName="Format" Content="{x:Static resx:Resources.JSON}" HorizontalAlignment="Center" Margin="35,0,35,0" VerticalAlignment="Top" IsChecked="True"/>
+        <RadioButton x:Name="FormatJPEG" GroupName="Format" Content="{x:Static resx:Resources.JPEG}" HorizontalAlignment="Center" Margin="35,0,35,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="ExportNote" Style="{StaticResource placeHolder}" HorizontalAlignment="Left" Height="auto" Margin="35,10,35,0" TextWrapping="Wrap" Tag="{x:Static resx:Resources.ShortNote}"  Text="" VerticalAlignment="Top" Width="220"/>
+        <TextBox x:Name="enterSumBox" HorizontalAlignment="Left" Height="auto" Margin="35,10,35,0" VerticalAlignment="Top" Width="220" FontSize="36" TextAlignment="Center" MaxLines="1"/>
+        <Button x:Name="OKbutton" Content="{x:Static resx:Resources.Ok}" HorizontalAlignment="Center" Height="35" Margin="35,10,35,0" VerticalAlignment="Top" Width="110" Click="onOKClicked" IsDefault="True"/>
+    </StackPanel>
 </Window>

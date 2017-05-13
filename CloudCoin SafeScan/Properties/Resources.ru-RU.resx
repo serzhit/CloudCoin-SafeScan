@@ -16,27 +16,203 @@
     <value>Произошла ошибка при попытке проверить версию Windows, программа была закрыта.</value>
   </data>
   <data name="LowWinVer" xml:space="preserve">
-    <value>Ваша версия Windows является слишком низкой. Этот app работает на Windows7 и выше</value>
+    <value>Ваша версия Windows является слишком низкой. Эта программа работает на Windows7 и выше</value>
   </data>
   <data name="UnhandledException" xml:space="preserve">
-    <value>Необработанное исключение catched:</value>
+    <value>Получено необработанное исключение</value>
   </data>
   <data name="ChangeOwnership" xml:space="preserve">
-    <value>Смена владельца?</value>
+    <value>Сменить пароли?</value>
   </data>
   <data name="CheckOrImport" xml:space="preserve">
-    <value>Хотели бы вы изменить право собственности и импорта деньги в сейфе? \nChoosing \"No\» будет просто сканировать монеты без смены паролей.</value>
+    <value>Сменить пароли у выбранных монет и положить их в сейф? Если вы выберете "Нет",  то программа просто проверит подлинность монет без смены паролей.</value>
   </data>
   <data name="FnF" xml:space="preserve">
     <value>Файл не найден: </value>
   </data>
   <data name="JpegExported" xml:space="preserve">
-    <value>Фотографии с xoins, сохраненные в Директория экспорта dir\n</value>
+    <value>Изображения с закодированными монетами сохранены в папке Export</value>
   </data>
   <data name="NothingExported" xml:space="preserve">
-    <value>Ничего для экспорта!</value>
+    <value>Нечего сохранять!</value>
   </data>
   <data name="StackExported" xml:space="preserve">
-    <value>JSON стопка монет, сохраненные в Директория экспорта dir\n</value>
+    <value>JSON файл со стеком монет сохранен в папке Export</value>
+  </data>
+  <data name="LessThen5Password" xml:space="preserve">
+    <value>Пароль не может быть короче 5 символов</value>
+  </data>
+  <data name="NotMatchPassword" xml:space="preserve">
+    <value>Пароли не совпадают</value>
+  </data>
+  <data name="TooShortPassword" xml:space="preserve">
+    <value>Пароь слишком короткий. Должно быть больше 5 символов.</value>
+  </data>
+  <data name="WrongPassword" xml:space="preserve">
+    <value>Неправильный пароль от сейфа.
+Попробуйте снова.</value>
+  </data>
+  <data name="CloudCoinTitle" xml:space="preserve">
+    <value>CloudCoin Scan&amp;Safe</value>
+  </data>
+  <data name="CloudCoinDescription" xml:space="preserve">
+    <value>Вы можете получить клаудкойны (новую виртуальныю валюту CloudCoin) в форме файлов откуда угодно - с сайтов, по электронной почте, с USB-накопителя, со смартфона или в соцсетях...Эта программа проверит их на подлинность, зашифрует с вашим паролем и сохранит на диске и позволит выгрузить из сейфа любое количество для передачи другим.</value>
+  </data>
+  <data name="CheckInternet" xml:space="preserve">
+    <value>Сервера RAIDA не отвечают.
+Проверьте ваше соединение с интернет
+Работа с сейфом по-прежнему возможна</value>
+  </data>
+  <data name="DoneRAIDA" xml:space="preserve">
+    <value>Готово. Наведите на узел.</value>
+  </data>
+  <data name="EchoRAIDA" xml:space="preserve">
+    <value>Опрашиваю RAIDA-облака...</value>
+  </data>
+  <data name="NodeNotRespond" xml:space="preserve">
+    <value>Узел еще не ответил...</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Плати</value>
+  </data>
+  <data name="Safe" xml:space="preserve">
+    <value>Храни</value>
+  </data>
+  <data name="Scan" xml:space="preserve">
+    <value>Проверь</value>
+  </data>
+  <data name="EnterSafePassword" xml:space="preserve">
+    <value>Введите пароль от вашего сейфа</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Fail" xml:space="preserve">
+    <value>Неудачно</value>
+  </data>
+  <data name="Fixing" xml:space="preserve">
+    <value>Исправление</value>
+  </data>
+  <data name="Passed" xml:space="preserve">
+    <value>Успех</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Неизвестно</value>
+  </data>
+  <data name="Fractioned" xml:space="preserve">
+    <value>Искажено</value>
+  </data>
+  <data name="Good" xml:space="preserve">
+    <value>Проверено</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Всего</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Цкнность</value>
+  </data>
+  <data name="DetectFracked" xml:space="preserve">
+    <value>Проверить искаженные</value>
+  </data>
+  <data name="FixFracked" xml:space="preserve">
+    <value>Исправить искаженные</value>
+  </data>
+  <data name="Fives" xml:space="preserve">
+    <value>Пятерки (5)</value>
+  </data>
+  <data name="Hundreds" xml:space="preserve">
+    <value>Сотни (100)</value>
+  </data>
+  <data name="Ones" xml:space="preserve">
+    <value>Монеты (1)</value>
+  </data>
+  <data name="Quarters" xml:space="preserve">
+    <value>Четвертаки (25)</value>
+  </data>
+  <data name="SelectStackWithAmount" xml:space="preserve">
+    <value>Выберите строку с ближайшим возможным количеством.</value>
+  </data>
+  <data name="TwoHundredsFifty" xml:space="preserve">
+    <value>Килочетверть (250)</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SeemsNotSetPassword" xml:space="preserve">
+    <value>Похоже вы еще не назначили пароль для сейфа. Пожалуйста, введите пароль 2 раза для проверки.
+Запишите его и созраните в безопасном месте. Если вы потеряете пароль, то восстановить сейф будет невозможно!
+Пароль знаете только вы! Все монеты могут быть потеряны при утере пароля!</value>
+  </data>
+  <data name="CCinSafe" xml:space="preserve">
+    <value>CC в вашем Сейфе</value>
+  </data>
+  <data name="EnterSumWithdraw" xml:space="preserve">
+    <value>Введите сумму, которую хотите снять. Если эту сумму невозможно составить, программа предложит ближайшие варианты.</value>
+  </data>
+  <data name="ExportStackCoins" xml:space="preserve">
+    <value>Программа экспортирует стек монет.</value>
+  </data>
+  <data name="NearestValue" xml:space="preserve">
+    <value>ближайшее возможное число.</value>
+  </data>
+  <data name="With" xml:space="preserve">
+    <value>с</value>
+  </data>
+  <data name="Format" xml:space="preserve">
+    <value>Формат:</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Безопасность</value>
+  </data>
+  <data name="FullCoins" xml:space="preserve">
+    <value>Целые монеты</value>
+  </data>
+  <data name="HalfCoins" xml:space="preserve">
+    <value>Полумонеты (безопасно)</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Примечание:</value>
+  </data>
+  <data name="ShortNote" xml:space="preserve">
+    <value>Ввкдите короткое примечание (напрмер, для Славы)</value>
+  </data>
+  <data name="Authenticated" xml:space="preserve">
+    <value>Проверено</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Примечание</value>
+  </data>
+  <data name="Serial" xml:space="preserve">
+    <value>Серийный N</value>
+  </data>
+  <data name="CheckCoinsWindowTitle" xml:space="preserve">
+    <value>CloudCoin Scan&amp;Safe - Проверка Монет</value>
+  </data>
+  <data name="FixProcessWindowTitle" xml:space="preserve">
+    <value>Окно исправления искаженных монет</value>
+  </data>
+  <data name="SafeContentWindowTitle" xml:space="preserve">
+    <value>Содержимое вашего Сейфа</value>
+  </data>
+  <data name="SelectOutStackWindowTitle" xml:space="preserve">
+    <value>Окно экспорта</value>
+  </data>
+  <data name="SetPasswordWindowTitle" xml:space="preserve">
+    <value>Введите пароль от вашего Сейфа с клайдкойнами</value>
+  </data>
+  <data name="WithdrawDialogTitle" xml:space="preserve">
+    <value>Введите сумму, котрую хотите снять</value>
+  </data>
+  <data name="Kiloquarters" xml:space="preserve">
+    <value>ЧетвертьК (250)</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Всего:</value>
+  </data>
+  <data name="ССinSafe" xml:space="preserve">
+    <value> CC в Сейфе</value>
   </data>
 </root>

@@ -6,6 +6,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Threading;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace CloudCoin_SafeScan
 {
@@ -117,6 +118,11 @@ namespace CloudCoin_SafeScan
                 coinBeingFixed = FixingCoins[e.coinindex];
                 coinBeingFixed.StatusText = "Key on node " + e.NodeNumber + " was " + (e.result == CloudCoin.raidaNodeResponse.pass ? "" : "not") + " fixed!";
                 coinBeingFixed.NodeStatus[e.NodeNumber] = new ObservableStatus(e.result);
+/*                Thread.Sleep(1000);
+                if(e.result == CloudCoin.raidaNodeResponse.pass)
+                {
+                    FixingCoins.RemoveAt(e.coinindex);
+                } */
             });
         }
     }

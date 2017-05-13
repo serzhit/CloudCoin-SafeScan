@@ -8,221 +8,219 @@
       <group id="CLOUDCOIN SAFESCAN/PROPERTIES/RESOURCES.RESX" datatype="resx">
         <trans-unit id="ErrWinVer" translate="yes" xml:space="preserve">
           <source>There was an error trying to check Windows version The program was closed.</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Произошла ошибка при попытке проверить версию Windows, программа была закрыта.</target>
+          <target state="final" state-qualifier="mt-suggestion">Произошла ошибка при попытке проверить версию Windows, программа была закрыта.</target>
         </trans-unit>
         <trans-unit id="LowWinVer" translate="yes" xml:space="preserve">
           <source>Your Windows version is too low. This app works on Windows7 and higher</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Ваша версия Windows является слишком низкой. Этот app работает на Windows7 и выше</target>
+          <target state="final">Ваша версия Windows является слишком низкой. Эта программа работает на Windows7 и выше</target>
         </trans-unit>
         <trans-unit id="UnhandledException" translate="yes" xml:space="preserve">
           <source>Unhandled exception catched:</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Необработанное исключение catched:</target>
+          <target state="final">Получено необработанное исключение</target>
         </trans-unit>
         <trans-unit id="ChangeOwnership" translate="yes" xml:space="preserve">
           <source>Change Ownership?</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Смена владельца?</target>
+          <target state="final">Сменить пароли?</target>
         </trans-unit>
         <trans-unit id="CheckOrImport" translate="yes" xml:space="preserve">
           <source>Would you like to change ownership and import money in Safe?
 Choosing "No" will simply scan coins without changing passwords.</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Хотели бы вы изменить право собственности и импорта деньги в сейфе? \nChoosing \"No\» будет просто сканировать монеты без смены паролей.</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="final">Сменить пароли у выбранных монет и положить их в сейф? Если вы выберете "Нет",  то программа просто проверит подлинность монет без смены паролей.</target>
         </trans-unit>
         <trans-unit id="FnF" translate="yes" xml:space="preserve">
           <source>File not found: </source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Файл не найден: </target>
+          <target state="final" state-qualifier="mt-suggestion">Файл не найден: </target>
         </trans-unit>
         <trans-unit id="JpegExported" translate="yes" xml:space="preserve">
           <source>Pictures with coins saved in Export dir
 </source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Фотографии с xoins, сохраненные в Директория экспорта dir\n</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="final">Изображения с закодированными монетами сохранены в папке Export</target>
         </trans-unit>
         <trans-unit id="NothingExported" translate="yes" xml:space="preserve">
           <source>Nothing to export!</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Ничего для экспорта!</target>
+          <target state="final">Нечего сохранять!</target>
         </trans-unit>
         <trans-unit id="StackExported" translate="yes" xml:space="preserve">
           <source>JSON stack of coins saved in Export dir\n</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">JSON стопка монет, сохраненные в Директория экспорта dir\n</target>
+          <target state="final">JSON файл со стеком монет сохранен в папке Export</target>
         </trans-unit>
-        <trans-unit id="SaveIOException" translate="yes" xml:space="preserve">
+        <trans-unit id="SaveIOException" translate="no" xml:space="preserve">
           <source>CloudStackOut.SaveInFile IO exception: </source>
-          <target state="new">CloudStackOut.SaveInFile IO exception: </target>
+          <target state="final">CloudStackOut.SaveInFile IO exception: </target>
         </trans-unit>
-        <trans-unit id="SaveSerializeException" translate="yes" xml:space="preserve">
+        <trans-unit id="SaveSerializeException" translate="no" xml:space="preserve">
           <source>CloudStackOut.SaveInFile Serialize exception: </source>
-          <target state="new">CloudStackOut.SaveInFile Serialize exception: </target>
+          <target state="final">CloudStackOut.SaveInFile Serialize exception: </target>
         </trans-unit>
-        <trans-unit id="AddDecryptingException" translate="yes" xml:space="preserve">
+        <trans-unit id="AddDecryptingException" translate="no" xml:space="preserve">
           <source>Safe.Add() decrypting exception: </source>
-          <target state="new">Safe.Add() decrypting exception: </target>
+          <target state="final">Safe.Add() decrypting exception: </target>
         </trans-unit>
-        <trans-unit id="AddIOException" translate="yes" xml:space="preserve">
+        <trans-unit id="AddIOException" translate="no" xml:space="preserve">
           <source>Safe.Add() IO write exception:</source>
-          <target state="new">Safe.Add() IO write exception:</target>
+          <target state="final">Safe.Add() IO write exception:</target>
         </trans-unit>
-        <trans-unit id="AddJsonException" translate="yes" xml:space="preserve">
+        <trans-unit id="AddJsonException" translate="no" xml:space="preserve">
           <source>Safe.Add() JSON serialize exception: </source>
-          <target state="new">Safe.Add() JSON serialize exception: </target>
+          <target state="final">Safe.Add() JSON serialize exception: </target>
         </trans-unit>
-        <trans-unit id="CreateEncryptionException" translate="yes" xml:space="preserve">
+        <trans-unit id="CreateEncryptionException" translate="no" xml:space="preserve">
           <source>Safe.CreateSafeFile() encryption exception: </source>
-          <target state="new">Safe.CreateSafeFile() encryption exception: </target>
+          <target state="final">Safe.CreateSafeFile() encryption exception: </target>
         </trans-unit>
-        <trans-unit id="CreateJsonException" translate="yes" xml:space="preserve">
+        <trans-unit id="CreateJsonException" translate="no" xml:space="preserve">
           <source>Safe.CreateSafeFile() JSON exception: </source>
-          <target state="new">Safe.CreateSafeFile() JSON exception: </target>
+          <target state="final">Safe.CreateSafeFile() JSON exception: </target>
         </trans-unit>
-        <trans-unit id="CreateWriteException" translate="yes" xml:space="preserve">
+        <trans-unit id="CreateWriteException" translate="no" xml:space="preserve">
           <source>Safe.CreateSafeFile() IO write exception: </source>
-          <target state="new">Safe.CreateSafeFile() IO write exception: </target>
+          <target state="final">Safe.CreateSafeFile() IO write exception: </target>
         </trans-unit>
         <trans-unit id="LessThen5Password" translate="yes" xml:space="preserve">
           <source>Password cannot be less than 5 characters</source>
-          <target state="new">Password cannot be less than 5 characters</target>
+          <target state="final">Пароль не может быть короче 5 символов</target>
         </trans-unit>
         <trans-unit id="NotMatchPassword" translate="yes" xml:space="preserve">
           <source>Passwords don't match</source>
-          <target state="new">Passwords don't match</target>
+          <target state="final">Пароли не совпадают</target>
         </trans-unit>
-        <trans-unit id="ReadDecryptingException" translate="yes" xml:space="preserve">
+        <trans-unit id="ReadDecryptingException" translate="no" xml:space="preserve">
           <source>Safe.ReadSafeFile() decrypting exception: </source>
-          <target state="new">Safe.ReadSafeFile() decrypting exception: </target>
+          <target state="final">Safe.ReadSafeFile() decrypting exception: </target>
         </trans-unit>
-        <trans-unit id="ReadIOException" translate="yes" xml:space="preserve">
+        <trans-unit id="ReadIOException" translate="no" xml:space="preserve">
           <source>Safe.ReadSafeFile() IO read exception: </source>
-          <target state="new">Safe.ReadSafeFile() IO read exception: </target>
+          <target state="final">Safe.ReadSafeFile() IO read exception: </target>
         </trans-unit>
-        <trans-unit id="ReadJsonException" translate="yes" xml:space="preserve">
+        <trans-unit id="ReadJsonException" translate="no" xml:space="preserve">
           <source>Safe.ReadSafeFile() JSON deserialize exception: </source>
-          <target state="new">Safe.ReadSafeFile() JSON deserialize exception: </target>
+          <target state="final">Safe.ReadSafeFile() JSON deserialize exception: </target>
         </trans-unit>
         <trans-unit id="TooShortPassword" translate="yes" xml:space="preserve">
           <source>Password is too short. Use more than 5 characters</source>
-          <target state="new">Password is too short. Use more than 5 characters</target>
+          <target state="final">Пароь слишком короткий. Должно быть больше 5 символов.</target>
         </trans-unit>
         <trans-unit id="WrongPassword" translate="yes" xml:space="preserve">
           <source>Wrong password from safe.
 Try again.</source>
-          <target state="new">Wrong password from safe.
-Try again.</target>
+          <target state="final">Неправильный пароль от сейфа.
+Попробуйте снова.</target>
         </trans-unit>
         <trans-unit id="CloudCoinTitle" translate="yes" xml:space="preserve">
           <source>CloudCoin Scan&amp;amp;Safe</source>
-          <target state="new">CloudCoin Scan&amp;amp;Safe</target>
+          <target state="final">CloudCoin Scan&amp;Safe</target>
         </trans-unit>
         <trans-unit id="CloudCoinDescription" translate="yes" xml:space="preserve">
           <source>You get cloudcoins (new worldwide currency) in form of files from anywhere - sites, emails, USB Sticks, Smartphones... This app just checks them for counterfeit, loads and keeps 'em in safe and makes stacks for payments or gifts.</source>
-          <target state="new">You get cloudcoins (new worldwide currency) in form of files from anywhere - sites, emails, USB Sticks, Smartphones... This app just checks them for counterfeit, loads and keeps 'em in safe and makes stacks for payments or gifts.</target>
+          <target state="final">Вы можете получить клаудкойны (новую виртуальныю валюту CloudCoin) в форме файлов откуда угодно - с сайтов, по электронной почте, с USB-накопителя, со смартфона или в соцсетях...Эта программа проверит их на подлинность, зашифрует с вашим паролем и сохранит на диске и позволит выгрузить из сейфа любое количество для передачи другим.</target>
         </trans-unit>
         <trans-unit id="CheckInternet" translate="yes" xml:space="preserve">
           <source>"The RAIDA does not respond.
 Check your internet connection
 Work with local Safe is still possible"</source>
-          <target state="new">"The RAIDA does not respond.
-Check your internet connection
-Work with local Safe is still possible"</target>
+          <target state="final">Сервера RAIDA не отвечают.
+Проверьте ваше соединение с интернет
+Работа с сейфом по-прежнему возможна</target>
         </trans-unit>
         <trans-unit id="DoneRAIDA" translate="yes" xml:space="preserve">
           <source>Done. Hover for status.</source>
-          <target state="new">Done. Hover for status.</target>
+          <target state="final">Готово. Наведите на узел.</target>
         </trans-unit>
         <trans-unit id="EchoRAIDA" translate="yes" xml:space="preserve">
           <source>Echoing RAIDA nodes...</source>
-          <target state="new">Echoing RAIDA nodes...</target>
+          <target state="final">Опрашиваю RAIDA-облака...</target>
         </trans-unit>
         <trans-unit id="NodeNotRespond" translate="yes" xml:space="preserve">
           <source>Node hasn't respond yet...</source>
-          <target state="new">Node hasn't respond yet...</target>
+          <target state="final">Узел еще не ответил...</target>
         </trans-unit>
         <trans-unit id="Pay" translate="yes" xml:space="preserve">
           <source>Pay</source>
-          <target state="new">Pay</target>
+          <target state="final">Плати</target>
         </trans-unit>
         <trans-unit id="Safe" translate="yes" xml:space="preserve">
           <source>Safe</source>
-          <target state="new">Safe</target>
+          <target state="final">Храни</target>
         </trans-unit>
         <trans-unit id="Scan" translate="yes" xml:space="preserve">
           <source>Scan</source>
-          <target state="new">Scan</target>
+          <target state="final">Проверь</target>
         </trans-unit>
         <trans-unit id="EnterSafePassword" translate="yes" xml:space="preserve">
           <source>Enter Your Safe Password</source>
-          <target state="new">Enter Your Safe Password</target>
+          <target state="final">Введите пароль от вашего сейфа</target>
         </trans-unit>
         <trans-unit id="Error" translate="yes" xml:space="preserve">
           <source>Error</source>
-          <target state="new">Error</target>
+          <target state="final">Ошибка</target>
         </trans-unit>
         <trans-unit id="Fail" translate="yes" xml:space="preserve">
           <source>Fail</source>
-          <target state="new">Fail</target>
+          <target state="final">Неудачно</target>
         </trans-unit>
         <trans-unit id="Fixing" translate="yes" xml:space="preserve">
           <source>Fixing</source>
-          <target state="new">Fixing</target>
+          <target state="final">Исправление</target>
         </trans-unit>
         <trans-unit id="Passed" translate="yes" xml:space="preserve">
           <source>Passed</source>
-          <target state="new">Passed</target>
+          <target state="final">Успех</target>
         </trans-unit>
         <trans-unit id="Unknown" translate="yes" xml:space="preserve">
           <source>Unknown</source>
-          <target state="new">Unknown</target>
+          <target state="final">Неизвестно</target>
         </trans-unit>
         <trans-unit id="Fractioned" translate="yes" xml:space="preserve">
           <source>Fractioned</source>
-          <target state="new">Fractioned</target>
+          <target state="final">Искажено</target>
         </trans-unit>
         <trans-unit id="Good" translate="yes" xml:space="preserve">
           <source>Good</source>
-          <target state="new">Good</target>
+          <target state="final">Проверено</target>
         </trans-unit>
         <trans-unit id="Total" translate="yes" xml:space="preserve">
           <source>Total</source>
-          <target state="new">Total</target>
+          <target state="final">Всего</target>
         </trans-unit>
         <trans-unit id="Value" translate="yes" xml:space="preserve">
           <source>Value</source>
-          <target state="new">Value</target>
+          <target state="final">Цкнность</target>
         </trans-unit>
         <trans-unit id="DetectFracked" translate="yes" xml:space="preserve">
           <source>Detect Fracked Again</source>
-          <target state="new">Detect Fracked Again</target>
+          <target state="final">Проверить искаженные</target>
         </trans-unit>
         <trans-unit id="FixFracked" translate="yes" xml:space="preserve">
           <source>Fix Fracked</source>
-          <target state="new">Fix Fracked</target>
+          <target state="final">Исправить искаженные</target>
         </trans-unit>
         <trans-unit id="Fives" translate="yes" xml:space="preserve">
           <source>Fives</source>
-          <target state="new">Fives</target>
+          <target state="final">Пятерки (5)</target>
         </trans-unit>
         <trans-unit id="Hundreds" translate="yes" xml:space="preserve">
           <source>Hundreds</source>
-          <target state="new">Hundreds</target>
+          <target state="final">Сотни (100)</target>
         </trans-unit>
         <trans-unit id="Ones" translate="yes" xml:space="preserve">
           <source>Ones</source>
-          <target state="new">Ones</target>
+          <target state="final">Монеты (1)</target>
         </trans-unit>
         <trans-unit id="Quarters" translate="yes" xml:space="preserve">
           <source>Quarters</source>
-          <target state="new">Quarters</target>
+          <target state="final">Четвертаки (25)</target>
         </trans-unit>
         <trans-unit id="SelectStackWithAmount" translate="yes" xml:space="preserve">
           <source>Select stack which contains nearest requested amount.</source>
-          <target state="new">Select stack which contains nearest requested amount.</target>
+          <target state="final">Выберите строку с ближайшим возможным количеством.</target>
         </trans-unit>
         <trans-unit id="TwoHundredsFifty" translate="yes" xml:space="preserve">
           <source>250s</source>
-          <target state="new">250s</target>
+          <target state="final">Килочетверть (250)</target>
         </trans-unit>
         <trans-unit id="Ok" translate="yes" xml:space="preserve">
           <source>OK</source>
-          <target state="new">OK</target>
+          <target state="final">OK</target>
         </trans-unit>
         <trans-unit id="SeemsNotSetPassword" translate="yes" xml:space="preserve">
           <source>Seems that you did not set up your password yet. Please, enter one and then verify. Write down 
@@ -230,107 +228,118 @@ your password in safe place. If you forget
 one it will be impossible to restore and you'll
 loose all of your cloudcoins, unless you 
 haven't written down their serial numbers.</source>
-          <target state="new">Seems that you did not set up your password yet. Please, enter one and then verify. Write down 
-your password in safe place. If you forget 
-one it will be impossible to restore and you'll
-loose all of your cloudcoins, unless you 
-haven't written down their serial numbers.</target>
+          <target state="final">Похоже вы еще не назначили пароль для сейфа. Пожалуйста, введите пароль 2 раза для проверки.
+Запишите его и созраните в безопасном месте. Если вы потеряете пароль, то восстановить сейф будет невозможно!
+Пароль знаете только вы! Все монеты могут быть потеряны при утере пароля!</target>
         </trans-unit>
         <trans-unit id="CCinSafe" translate="yes" xml:space="preserve">
           <source>CC in your Safe</source>
-          <target state="new">CC in your Safe</target>
+          <target state="final">CC в вашем Сейфе</target>
         </trans-unit>
         <trans-unit id="EnterSumWithdraw" translate="yes" xml:space="preserve">
-          <source>Enter Sum you want to withdraw.</source>
-          <target state="new">Enter Sum you want to withdraw.</target>
+          <source>Enter Sum you want to withdraw. The app will export coins with nearest possible value.</source>
+          <target state="needs-review-translation">Введите сумму, которую хотите снять. Если эту сумму невозможно составить, программа предложит ближайшие варианты.</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="ExportStackCoins" translate="yes" xml:space="preserve">
           <source>App will export stack of coins </source>
-          <target state="new">App will export stack of coins </target>
+          <target state="final">Программа экспортирует стек монет.</target>
         </trans-unit>
         <trans-unit id="NearestValue" translate="yes" xml:space="preserve">
           <source>nearest possible value.</source>
-          <target state="new">nearest possible value.</target>
+          <target state="final">ближайшее возможное число.</target>
         </trans-unit>
         <trans-unit id="With" translate="yes" xml:space="preserve">
           <source>with</source>
-          <target state="new">with</target>
+          <target state="final">с</target>
         </trans-unit>
         <trans-unit id="Format" translate="yes" xml:space="preserve">
           <source>Format</source>
-          <target state="new">Format</target>
+          <target state="final">Формат:</target>
         </trans-unit>
         <trans-unit id="Security" translate="yes" xml:space="preserve">
           <source>Security</source>
-          <target state="new">Security</target>
+          <target state="final">Безопасность</target>
         </trans-unit>
         <trans-unit id="FullCoins" translate="yes" xml:space="preserve">
           <source>Full coins</source>
-          <target state="new">Full coins</target>
+          <target state="final">Целые монеты</target>
         </trans-unit>
         <trans-unit id="HalfCoins" translate="yes" xml:space="preserve">
           <source>Half coins (safe)</source>
-          <target state="new">Half coins (safe)</target>
+          <target state="final">Полумонеты (безопасно)</target>
         </trans-unit>
-        <trans-unit id="JPEG" translate="yes" xml:space="preserve">
+        <trans-unit id="JPEG" translate="no" xml:space="preserve">
           <source>JPEG</source>
-          <target state="new">JPEG</target>
+          <target state="final" state-qualifier="tm-suggestion">JPEG</target>
         </trans-unit>
-        <trans-unit id="JSON" translate="yes" xml:space="preserve">
+        <trans-unit id="JSON" translate="no" xml:space="preserve">
           <source>JSON</source>
-          <target state="new">JSON</target>
+          <target state="final" state-qualifier="tm-suggestion">JSON</target>
         </trans-unit>
         <trans-unit id="Note" translate="yes" xml:space="preserve">
           <source>Note:</source>
-          <target state="new">Note:</target>
+          <target state="final">Примечание:</target>
         </trans-unit>
         <trans-unit id="ShortNote" translate="yes" xml:space="preserve">
           <source>Enter short note (e.g. For Alex)</source>
-          <target state="new">Enter short note (e.g. For Alex)</target>
+          <target state="final">Ввкдите короткое примечание (напрмер, для Славы)</target>
         </trans-unit>
         <trans-unit id="Authenticated" translate="yes" xml:space="preserve">
           <source>Authenticated</source>
-          <target state="new">Authenticated</target>
+          <target state="final">Проверено</target>
         </trans-unit>
         <trans-unit id="Close" translate="yes" xml:space="preserve">
           <source>Close</source>
-          <target state="new">Close</target>
+          <target state="final">Закрыть</target>
         </trans-unit>
         <trans-unit id="Comment" translate="yes" xml:space="preserve">
           <source>Comment</source>
-          <target state="new">Comment</target>
+          <target state="final">Примечание</target>
         </trans-unit>
         <trans-unit id="Serial" translate="yes" xml:space="preserve">
           <source>Serial</source>
-          <target state="new">Serial</target>
+          <target state="final">Серийный N</target>
         </trans-unit>
         <trans-unit id="CheckCoinsWindowTitle" translate="yes" xml:space="preserve">
           <source>CloudCoin Scan&amp;Safe - CheckCoins</source>
-          <target state="new">CloudCoin Scan&amp;Safe - CheckCoins</target>
+          <target state="final">CloudCoin Scan&amp;Safe - Проверка Монет</target>
         </trans-unit>
         <trans-unit id="FixProcessWindowTitle" translate="yes" xml:space="preserve">
           <source>FixProcessWindow</source>
-          <target state="new">FixProcessWindow</target>
+          <target state="final">Окно исправления искаженных монет</target>
         </trans-unit>
-        <trans-unit id="MainWindowTitle" translate="yes" xml:space="preserve">
+        <trans-unit id="MainWindowTitle" translate="no" xml:space="preserve">
           <source>CloudCoin Scan&amp;Safe</source>
-          <target state="new">CloudCoin Scan&amp;Safe</target>
+          <target state="final">CloudCoin Scan&amp;Safe</target>
         </trans-unit>
         <trans-unit id="SafeContentWindowTitle" translate="yes" xml:space="preserve">
           <source>Safe Content</source>
-          <target state="new">Safe Content</target>
+          <target state="final">Содержимое вашего Сейфа</target>
         </trans-unit>
         <trans-unit id="SelectOutStackWindowTitle" translate="yes" xml:space="preserve">
           <source>SelectOutStackWindow</source>
-          <target state="new">SelectOutStackWindow</target>
+          <target state="final">Окно экспорта</target>
         </trans-unit>
         <trans-unit id="SetPasswordWindowTitle" translate="yes" xml:space="preserve">
           <source>Enter Password for your CloudCoin Safe</source>
-          <target state="new">Enter Password for your CloudCoin Safe</target>
+          <target state="final">Введите пароль от вашего Сейфа с клайдкойнами</target>
         </trans-unit>
         <trans-unit id="WithdrawDialogTitle" translate="yes" xml:space="preserve">
           <source>Enter Sum to Give Away</source>
-          <target state="new">Enter Sum to Give Away</target>
+          <target state="final">Введите сумму, котрую хотите снять</target>
+        </trans-unit>
+        <trans-unit id="Kiloquarters" translate="yes" xml:space="preserve">
+          <source>KQuarters</source>
+          <target state="final">ЧетвертьК (250)</target>
+        </trans-unit>
+        <trans-unit id="Sum" translate="yes" xml:space="preserve">
+          <source>Sum:</source>
+          <target state="final">Всего:</target>
+        </trans-unit>
+        <trans-unit id="ССinSafe" translate="yes" xml:space="preserve">
+          <source> CC in Safe</source>
+          <target state="final"> CC в Сейфе</target>
         </trans-unit>
       </group>
     </body>

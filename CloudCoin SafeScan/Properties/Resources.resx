@@ -231,7 +231,7 @@ Work with local Safe is still possible"</value>
     <value>Enter Your Safe Password</value>
   </data>
   <data name="EnterSumWithdraw" xml:space="preserve">
-    <value>Enter Sum you want to withdraw.</value>
+    <value>Enter Sum you want to withdraw. The app will export coins with nearest possible value.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
@@ -356,5 +356,14 @@ haven't written down their serial numbers.</value>
   </data>
   <data name="WithdrawDialogTitle" xml:space="preserve">
     <value>Enter Sum to Give Away</value>
+  </data>
+  <data name="Kiloquarters" xml:space="preserve">
+    <value>KQuarters</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Sum:</value>
+  </data>
+  <data name="ССinSafe" xml:space="preserve">
+    <value> CC in Safe</value>
   </data>
 </root>

@@ -643,6 +643,7 @@ namespace CloudCoin_SafeScan
         public void Show()
         {
             (new SafeContentWindow()).Show();
+            onSafeContentChanged(new EventArgs());
             Save();
         }
     }

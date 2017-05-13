@@ -57,24 +57,27 @@ namespace CloudCoin_SafeScan
         private void SafeContentChanged(object sender, EventArgs e)
         {
             Safe safe = Safe.Instance;
-            StatusText = safe.Contents.SumInStack.ToString() + " CC in Safe";
+            StatusText = safe.Contents.SumInStack.ToString() + " " + Properties.Resources.CCinSafe;
             if (Safe.Instance.Contents.FractionedQuantity > 0)
             {
                 IsFixButtonVisible = Visibility.Visible;
+            } else
+            {
+                IsFixButtonVisible = Visibility.Hidden;
             }
             Rows = new ShelfString[6]
             {
-                new ShelfString { Value = "Ones", Good = safe.Ones.GoodQuantity,
+                new ShelfString { Value = Properties.Resources.Ones, Good = safe.Ones.GoodQuantity,
                 Fractioned = safe.Ones.FractionedQuantity, Total = safe.Ones.TotalQuantity },
-                new ShelfString { Value = "Fives", Good = safe.Fives.GoodQuantity,
+                new ShelfString { Value = Properties.Resources.Fives, Good = safe.Fives.GoodQuantity,
                 Fractioned = safe.Fives.FractionedQuantity, Total = safe.Fives.TotalQuantity },
-                new ShelfString { Value = "Quarters", Good = safe.Quarters.GoodQuantity,
+                new ShelfString { Value = Properties.Resources.Quarters, Good = safe.Quarters.GoodQuantity,
                 Fractioned = safe.Quarters.FractionedQuantity, Total = safe.Quarters.TotalQuantity },
-                new ShelfString { Value = "Hundreds", Good = safe.Hundreds.GoodQuantity,
+                new ShelfString { Value = Properties.Resources.Hundreds, Good = safe.Hundreds.GoodQuantity,
                 Fractioned = safe.Hundreds.FractionedQuantity, Total = safe.Hundreds.TotalQuantity },
-                new ShelfString { Value = "250s", Good = safe.KiloQuarters.GoodQuantity,
+                new ShelfString { Value = Properties.Resources.Kiloquarters, Good = safe.KiloQuarters.GoodQuantity,
                 Fractioned = safe.KiloQuarters.FractionedQuantity, Total = safe.KiloQuarters.TotalQuantity },
-                new ShelfString { Value = "Sum:",
+                new ShelfString { Value = Properties.Resources.Sum,
                 Good = safe.KiloQuarters.GoodQuantity*250+safe.Hundreds.GoodQuantity*100+safe.Quarters.GoodQuantity*25+safe.Fives.GoodQuantity*5+safe.Ones.GoodQuantity,
                 Fractioned = safe.KiloQuarters.FractionedQuantity*250+safe.Hundreds.FractionedQuantity*100+safe.Quarters.FractionedQuantity*25+safe.Fives.FractionedQuantity*5+safe.Ones.FractionedQuantity,
                 Total = safe.KiloQuarters.TotalQuantity*250+safe.Hundreds.TotalQuantity*100+safe.Quarters.TotalQuantity*25+safe.Fives.TotalQuantity*5+safe.Ones.TotalQuantity }

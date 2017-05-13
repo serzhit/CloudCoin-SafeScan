@@ -14,11 +14,10 @@
         Title="{x:Static resx:Resources.MainWindowTitle}" Width="525" Height="350">
 
     <Grid DataContext="{Binding Main, Source={StaticResource Locator} }">
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="35" Margin="10,10,0,0" TextWrapping="Wrap" Text="CloudCoin Scan&amp;Safe" VerticalAlignment="Top" Width="255" FontSize="24" Cursor="Arrow"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="107" Margin="10,50,0,0" TextWrapping="Wrap" Text="{x:Static resx:Resources.CloudCoinDescription}" VerticalAlignment="Top" Width="260" FontWeight="Bold" BorderThickness="0" Cursor="Arrow"/>
-        <Label x:Name="labelCheck" Content="{x:Static resx:Resources.Scan}" HorizontalAlignment="Left" Margin="35,0,0,10" VerticalAlignment="Bottom" Width="65" Height="39" FontSize="20"/>
-        <Label x:Name="labelStore" Content="{x:Static resx:Resources.Safe}" Margin="232,0,229,10" VerticalAlignment="Bottom" Height="39" FontSize="20"/>
-        <Label x:Name="labelPay" Content="{x:Static resx:Resources.Pay}" Margin="0,0,47,10" VerticalAlignment="Bottom" Height="39" FontSize="20" HorizontalAlignment="Right" Width="40"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="147" Margin="10,10,0,0" TextWrapping="Wrap" Text="{x:Static resx:Resources.CloudCoinDescription}" VerticalAlignment="Top" Width="260" FontWeight="Bold" BorderThickness="0" Cursor="Arrow"/>
+        <Label x:Name="labelCheck" Content="{x:Static resx:Resources.Scan}" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="22,0,0,10" VerticalAlignment="Bottom" Width="100" Height="39" FontSize="20"/>
+        <Label x:Name="labelStore" Content="{x:Static resx:Resources.Safe}" Margin="205,0,202,10" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Height="39" FontSize="20"/>
+        <Label x:Name="labelPay" Content="{x:Static resx:Resources.Pay}" Margin="0,0,10,10" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Height="39" FontSize="20" HorizontalAlignment="Right" Width="91"/>
         <Image x:Name="CounterImage" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" 
                Width="100" Source="pack://application:,,,/Resources/CashCount.png" Margin="0,0,397,49" 
                Cursor="Hand">

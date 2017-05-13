@@ -244,7 +244,7 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter Sum you want to withdraw..
+        ///   Looks up a localized string similar to Enter Sum you want to withdraw. The app will export coins with nearest possible value..
         /// </summary>
         public static string EnterSumWithdraw {
             get {
@@ -412,6 +412,15 @@ namespace CloudCoin_SafeScan.Properties {
         public static string JSON {
             get {
                 return ResourceManager.GetString("JSON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KQuarters.
+        /// </summary>
+        public static string Kiloquarters {
+            get {
+                return ResourceManager.GetString("Kiloquarters", resourceCulture);
             }
         }
         
@@ -681,6 +690,15 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sum:.
+        /// </summary>
+        public static string Sum {
+            get {
+                return ResourceManager.GetString("Sum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password is too short. Use more than 5 characters.
         /// </summary>
         public static string TooShortPassword {
@@ -759,6 +777,15 @@ namespace CloudCoin_SafeScan.Properties {
         public static string WrongPassword {
             get {
                 return ResourceManager.GetString("WrongPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  CC in Safe.
+        /// </summary>
+        public static string ССinSafe {
+            get {
+                return ResourceManager.GetString("ССinSafe", resourceCulture);
             }
         }
     }
