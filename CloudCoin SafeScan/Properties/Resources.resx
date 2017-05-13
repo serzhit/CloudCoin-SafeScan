@@ -199,7 +199,7 @@ Try again.</value>
     <value>Authenticated</value>
   </data>
   <data name="CCinSafe" xml:space="preserve">
-    <value>CC in your Safe</value>
+    <value>CC in the Safe</value>
   </data>
   <data name="CheckCoinsWindowTitle" xml:space="preserve">
     <value>CloudCoin Scan&amp;Safe - CheckCoins</value>
@@ -243,7 +243,7 @@ Work with local Safe is still possible"</value>
     <value>Fail</value>
   </data>
   <data name="Fives" xml:space="preserve">
-    <value>Fives</value>
+    <value>5</value>
   </data>
   <data name="FixFracked" xml:space="preserve">
     <value>Fix Fracked</value>
@@ -270,7 +270,7 @@ Work with local Safe is still possible"</value>
     <value>Half coins (safe)</value>
   </data>
   <data name="Hundreds" xml:space="preserve">
-    <value>Hundreds</value>
+    <value>100</value>
   </data>
   <data name="JPEG" xml:space="preserve">
     <value>JPEG</value>
@@ -294,7 +294,7 @@ Work with local Safe is still possible"</value>
     <value>OK</value>
   </data>
   <data name="Ones" xml:space="preserve">
-    <value>Ones</value>
+    <value>1</value>
   </data>
   <data name="Passed" xml:space="preserve">
     <value>Passed</value>
@@ -303,13 +303,13 @@ Work with local Safe is still possible"</value>
     <value>Pay</value>
   </data>
   <data name="Quarters" xml:space="preserve">
-    <value>Quarters</value>
+    <value>25</value>
   </data>
   <data name="Safe" xml:space="preserve">
     <value>Safe</value>
   </data>
   <data name="SafeContentWindowTitle" xml:space="preserve">
-    <value>Safe Content</value>
+    <value>Current Balance in the Safe</value>
   </data>
   <data name="Scan" xml:space="preserve">
     <value>Scan</value>
@@ -339,7 +339,7 @@ Work with local Safe is still possible"</value>
     <value>Total</value>
   </data>
   <data name="TwoHundredsFifty" xml:space="preserve">
-    <value>250s</value>
+    <value>250</value>
   </data>
   <data name="Unknown" xml:space="preserve">
     <value>Unknown</value>
@@ -354,7 +354,7 @@ Work with local Safe is still possible"</value>
     <value>Enter Sum to Give Away</value>
   </data>
   <data name="Kiloquarters" xml:space="preserve">
-    <value>KQuarters</value>
+    <value>250</value>
   </data>
   <data name="Sum" xml:space="preserve">
     <value>Sum:</value>
@@ -367,5 +367,8 @@ Work with local Safe is still possible"</value>
   </data>
   <data name="PswdVerify" xml:space="preserve">
     <value>Verify Password</value>
+  </data>
+  <data name="YouHave" xml:space="preserve">
+    <value>You have </value>
   </data>
 </root>

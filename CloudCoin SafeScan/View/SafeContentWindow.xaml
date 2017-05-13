@@ -9,7 +9,7 @@
         SizeToContent="Height"
         Title="{x:Static resx:Resources.SafeContentWindowTitle}" Height="auto" Width="428" ResizeMode="NoResize">
     <StackPanel DataContext="{Binding SafeContent, Source={StaticResource Locator}}" Margin="0,0,0,0" >
-        <TextBox x:Name="totalTextBox" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="10,10,10,0" Text="{Binding StatusText}" VerticalAlignment="Top" Width="408" FontSize="32" BorderThickness="0"/>
+        <TextBox x:Name="totalTextBox" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="10,10,10,0" Text="{Binding StatusText}" VerticalAlignment="Top" Width="408" FontSize="20" BorderThickness="0"/>
         <ListView x:Name="SafeView" HorizontalAlignment="Center" Margin="10" Width="370" ItemsSource="{Binding Rows}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -18,7 +18,7 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
-                    <GridViewColumn Header="{x:Static resx:Resources.Value}" DisplayMemberBinding="{Binding Value}" Width="110"/>
+                    <GridViewColumn Header="Denomination" DisplayMemberBinding="{Binding Value}" Width="110"/>
                     <GridViewColumn Header="{x:Static resx:Resources.Good}" DisplayMemberBinding="{Binding Good}" Width="90" />
                     <GridViewColumn Header="{x:Static resx:Resources.Fractioned}" DisplayMemberBinding="{Binding Fractioned}" Width="90"/>
                     <GridViewColumn Header="{x:Static resx:Resources.Total}" DisplayMemberBinding="{Binding Total}" Width="70"/>

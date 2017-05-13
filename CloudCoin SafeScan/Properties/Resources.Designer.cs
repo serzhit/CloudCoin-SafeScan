@@ -97,7 +97,7 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CC in your Safe.
+        ///   Looks up a localized string similar to CC in the Safe.
         /// </summary>
         public static string CCinSafe {
             get {
@@ -289,7 +289,7 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fives.
+        ///   Looks up a localized string similar to 5.
         /// </summary>
         public static string Fives {
             get {
@@ -379,7 +379,7 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hundreds.
+        ///   Looks up a localized string similar to 100.
         /// </summary>
         public static string Hundreds {
             get {
@@ -416,7 +416,7 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to KQuarters.
+        ///   Looks up a localized string similar to 250.
         /// </summary>
         public static string Kiloquarters {
             get {
@@ -506,7 +506,7 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ones.
+        ///   Looks up a localized string similar to 1.
         /// </summary>
         public static string Ones {
             get {
@@ -551,7 +551,7 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quarters.
+        ///   Looks up a localized string similar to 25.
         /// </summary>
         public static string Quarters {
             get {
@@ -596,7 +596,7 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Safe Content.
+        ///   Looks up a localized string similar to Current Balance in the Safe.
         /// </summary>
         public static string SafeContentWindowTitle {
             get {
@@ -731,7 +731,7 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 250s.
+        ///   Looks up a localized string similar to 250.
         /// </summary>
         public static string TwoHundredsFifty {
             get {
@@ -791,6 +791,15 @@ namespace CloudCoin_SafeScan.Properties {
         public static string WrongPassword {
             get {
                 return ResourceManager.GetString("WrongPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have .
+        /// </summary>
+        public static string YouHave {
+            get {
+                return ResourceManager.GetString("YouHave", resourceCulture);
             }
         }
         

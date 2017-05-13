@@ -196,28 +196,33 @@ Work with local Safe is still possible"</source>
           <target state="final">Исправить искаженные</target>
         </trans-unit>
         <trans-unit id="Fives" translate="yes" xml:space="preserve">
-          <source>Fives</source>
-          <target state="final">Пятерки (5)</target>
+          <source>5</source>
+          <target state="needs-review-translation">Пятерки (5)</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="Hundreds" translate="yes" xml:space="preserve">
-          <source>Hundreds</source>
-          <target state="final">Сотни (100)</target>
+          <source>100</source>
+          <target state="needs-review-translation">Сотни (100)</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="Ones" translate="yes" xml:space="preserve">
-          <source>Ones</source>
-          <target state="final">Монеты (1)</target>
+          <source>1</source>
+          <target state="needs-review-translation">Монеты (1)</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="Quarters" translate="yes" xml:space="preserve">
-          <source>Quarters</source>
-          <target state="final">Четвертаки (25)</target>
+          <source>25</source>
+          <target state="needs-review-translation">Четвертаки (25)</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="SelectStackWithAmount" translate="yes" xml:space="preserve">
           <source>Select stack which contains nearest requested amount.</source>
           <target state="final">Выберите строку с ближайшим возможным количеством.</target>
         </trans-unit>
         <trans-unit id="TwoHundredsFifty" translate="yes" xml:space="preserve">
-          <source>250s</source>
-          <target state="final">Килочетверть (250)</target>
+          <source>250</source>
+          <target state="needs-review-translation">Килочетверть (250)</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="Ok" translate="yes" xml:space="preserve">
           <source>OK</source>
@@ -231,8 +236,9 @@ Work with local Safe is still possible"</source>
           <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="CCinSafe" translate="yes" xml:space="preserve">
-          <source>CC in your Safe</source>
-          <target state="final">CC в вашем Сейфе</target>
+          <source>CC in the Safe</source>
+          <target state="needs-review-translation">CC в вашем Сейфе</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="EnterSumWithdraw" translate="yes" xml:space="preserve">
           <source>Enter Sum you want to withdraw. The app will export coins with nearest possible value.</source>
@@ -312,8 +318,9 @@ Work with local Safe is still possible"</source>
           <target state="final">CloudCoin Scan&amp;Safe</target>
         </trans-unit>
         <trans-unit id="SafeContentWindowTitle" translate="yes" xml:space="preserve">
-          <source>Safe Content</source>
-          <target state="final">Содержимое вашего Сейфа</target>
+          <source>Current Balance in the Safe</source>
+          <target state="needs-review-translation">Содержимое вашего Сейфа</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="SelectOutStackWindowTitle" translate="yes" xml:space="preserve">
           <source>SelectOutStackWindow</source>
@@ -328,8 +335,9 @@ Work with local Safe is still possible"</source>
           <target state="final">Введите сумму, котрую хотите снять</target>
         </trans-unit>
         <trans-unit id="Kiloquarters" translate="yes" xml:space="preserve">
-          <source>KQuarters</source>
-          <target state="final">ЧетвертьК (250)</target>
+          <source>250</source>
+          <target state="needs-review-translation">ЧетвертьК (250)</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="Sum" translate="yes" xml:space="preserve">
           <source>Sum:</source>
@@ -346,6 +354,10 @@ Work with local Safe is still possible"</source>
         <trans-unit id="PswdVerify" translate="yes" xml:space="preserve">
           <source>Verify Password</source>
           <target state="new">Verify Password</target>
+        </trans-unit>
+        <trans-unit id="YouHave" translate="yes" xml:space="preserve">
+          <source>You have </source>
+          <target state="new">You have </target>
         </trans-unit>
       </group>
     </body>

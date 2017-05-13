@@ -57,7 +57,7 @@ namespace CloudCoin_SafeScan
         private void SafeContentChanged(object sender, EventArgs e)
         {
             Safe safe = Safe.Instance;
-            StatusText = safe.Contents.SumInStack.ToString() + " " + Properties.Resources.CCinSafe;
+            StatusText = Properties.Resources.YouHave + safe.Contents.SumInStack.ToString() + " " + Properties.Resources.CCinSafe;
             if (Safe.Instance.Contents.FractionedQuantity > 0)
             {
                 IsFixButtonVisible = Visibility.Visible;
