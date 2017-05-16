@@ -37,7 +37,7 @@
     <value>Нечего сохранять!</value>
   </data>
   <data name="StackExported" xml:space="preserve">
-    <value>JSON файл со стеком монет сохранен в папке Export</value>
+    <value>JSON файл со стеком монет сохранен в папке CloudCoin\Export</value>
   </data>
   <data name="LessThen5Password" xml:space="preserve">
     <value>Пароль не может быть короче 5 символов</value>
@@ -223,5 +223,35 @@
   </data>
   <data name="YouHave" xml:space="preserve">
     <value>У вас </value>
+  </data>
+  <data name="CoinsScanned" xml:space="preserve">
+    <value> монет просканировано.</value>
+  </data>
+  <data name="Counterfeited" xml:space="preserve">
+    <value>Не прошло проверку: </value>
+  </data>
+  <data name="ms" xml:space="preserve">
+    <value> мсек.</value>
+  </data>
+  <data name="Ncoins" xml:space="preserve">
+    <value> монет...</value>
+  </data>
+  <data name="PercentOfGood" xml:space="preserve">
+    <value>% ключей верны. Проверено за </value>
+  </data>
+  <data name="Scanning" xml:space="preserve">
+    <value>Проверка </value>
+  </data>
+  <data name="ScanResults" xml:space="preserve">
+    <value>Резкльтаты сканирования:</value>
+  </data>
+  <data name="TotalScanTime" xml:space="preserve">
+    <value>Полное время сканирования: </value>
+  </data>
+  <data name="TotalValue" xml:space="preserve">
+    <value>Полная стоимость проверенных монет: </value>
+  </data>
+  <data name="units" xml:space="preserve">
+    <value>единиц.</value>
   </data>
 </root>

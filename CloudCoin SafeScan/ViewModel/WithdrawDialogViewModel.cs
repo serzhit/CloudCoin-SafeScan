@@ -4,6 +4,7 @@
  * All rights reserved
  */
 using GalaSoft.MvvmLight;
+using System;
 
 namespace CloudCoin_SafeScan
 {
@@ -22,8 +23,13 @@ namespace CloudCoin_SafeScan
 
         public WithdrawDialogViewModel()
         {
+            Safe.Instance.SafeChanged += SafeContentChanged;
             SumInSafe = Safe.Instance.Contents.SumInStack;
         }
 
+        private void SafeContentChanged(object sender, EventArgs e)
+        {
+            SumInSafe = Safe.Instance.Contents.SumInStack;
+        }
     }
 }
