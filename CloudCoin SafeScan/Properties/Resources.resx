@@ -183,7 +183,7 @@ Choosing "No" will simply scan coins without changing passwords.</value>
     <value>CloudStackOut.SaveInFile Serialize exception: </value>
   </data>
   <data name="StackExported" xml:space="preserve">
-    <value>JSON stack of coins saved in Export dir\n</value>
+    <value>JSON stack of coins saved in Export dir</value>
   </data>
   <data name="TooShortPassword" xml:space="preserve">
     <value>Password is too short. Use more than 5 characters</value>
@@ -370,5 +370,38 @@ Work with local Safe is still possible"</value>
   </data>
   <data name="YouHave" xml:space="preserve">
     <value>You have </value>
+  </data>
+  <data name="CoinsScanned" xml:space="preserve">
+    <value> coins scanned.</value>
+  </data>
+  <data name="Counterfeited" xml:space="preserve">
+    <value>Counterfeited: </value>
+  </data>
+  <data name="ms" xml:space="preserve">
+    <value> ms.</value>
+  </data>
+  <data name="Ncoins" xml:space="preserve">
+    <value> coins...</value>
+  </data>
+  <data name="PercentOfGood" xml:space="preserve">
+    <value>% of keys are good. Checked in </value>
+  </data>
+  <data name="PercentSign" xml:space="preserve">
+    <value>%</value>
+  </data>
+  <data name="Scanning" xml:space="preserve">
+    <value>Checking </value>
+  </data>
+  <data name="ScanResults" xml:space="preserve">
+    <value>Results of scanning:</value>
+  </data>
+  <data name="TotalScanTime" xml:space="preserve">
+    <value>Total scan time: </value>
+  </data>
+  <data name="TotalValue" xml:space="preserve">
+    <value>Total value of good coins: </value>
+  </data>
+  <data name="units" xml:space="preserve">
+    <value> units.</value>
   </data>
 </root>

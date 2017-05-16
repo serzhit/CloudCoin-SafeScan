@@ -109,7 +109,7 @@
     <value>Всего</value>
   </data>
   <data name="Value" xml:space="preserve">
-    <value>Цкнность</value>
+    <value>Ценность</value>
   </data>
   <data name="DetectFracked" xml:space="preserve">
     <value>Проверить искаженные</value>
@@ -118,22 +118,22 @@
     <value>Исправить искаженные</value>
   </data>
   <data name="Fives" xml:space="preserve">
-    <value>Пятерки (5)</value>
+    <value>5</value>
   </data>
   <data name="Hundreds" xml:space="preserve">
-    <value>Сотни (100)</value>
+    <value>100</value>
   </data>
   <data name="Ones" xml:space="preserve">
-    <value>Монеты (1)</value>
+    <value>1</value>
   </data>
   <data name="Quarters" xml:space="preserve">
-    <value>Четвертаки (25)</value>
+    <value>25</value>
   </data>
   <data name="SelectStackWithAmount" xml:space="preserve">
     <value>Выберите строку с ближайшим возможным количеством.</value>
   </data>
   <data name="TwoHundredsFifty" xml:space="preserve">
-    <value>Килочетверть (250)</value>
+    <value>250</value>
   </data>
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
@@ -168,13 +168,13 @@
     <value>Целые монеты</value>
   </data>
   <data name="HalfCoins" xml:space="preserve">
-    <value>Полумонеты (безопасно)</value>
+    <value>Half coins (safe)</value>
   </data>
   <data name="Note" xml:space="preserve">
     <value>Примечание:</value>
   </data>
   <data name="ShortNote" xml:space="preserve">
-    <value>Ввкдите короткое примечание (напрмер, для Славы)</value>
+    <value>Введите короткое примечание (напрмер, для Славы)</value>
   </data>
   <data name="Authenticated" xml:space="preserve">
     <value>Проверено</value>
@@ -192,7 +192,7 @@
     <value>CloudCoin Scan&amp;Safe - Проверка Монет</value>
   </data>
   <data name="FixProcessWindowTitle" xml:space="preserve">
-    <value>Окно исправления искаженных монет</value>
+    <value>Починка искаженных клаудкойнов</value>
   </data>
   <data name="SafeContentWindowTitle" xml:space="preserve">
     <value>Содержимое вашего Сейфа</value>
@@ -201,18 +201,27 @@
     <value>Окно экспорта</value>
   </data>
   <data name="SetPasswordWindowTitle" xml:space="preserve">
-    <value>Введите пароль от вашего Сейфа с клайдкойнами</value>
+    <value>Введите пароль от вашего Сейфа с клаудкойнами</value>
   </data>
   <data name="WithdrawDialogTitle" xml:space="preserve">
     <value>Введите сумму, котрую хотите снять</value>
   </data>
   <data name="Kiloquarters" xml:space="preserve">
-    <value>ЧетвертьК (250)</value>
+    <value>250</value>
   </data>
   <data name="Sum" xml:space="preserve">
     <value>Всего:</value>
   </data>
   <data name="ССinSafe" xml:space="preserve">
     <value> CC в Сейфе</value>
+  </data>
+  <data name="Pasword" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="PswdVerify" xml:space="preserve">
+    <value>Проверка пароля</value>
+  </data>
+  <data name="YouHave" xml:space="preserve">
+    <value>У вас </value>
   </data>
 </root>

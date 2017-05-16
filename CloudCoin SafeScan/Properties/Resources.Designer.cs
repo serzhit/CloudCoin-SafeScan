@@ -172,11 +172,29 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  coins scanned..
+        /// </summary>
+        public static string CoinsScanned {
+            get {
+                return ResourceManager.GetString("CoinsScanned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comment.
         /// </summary>
         public static string Comment {
             get {
                 return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Counterfeited: .
+        /// </summary>
+        public static string Counterfeited {
+            get {
+                return ResourceManager.GetString("Counterfeited", resourceCulture);
             }
         }
         
@@ -452,6 +470,24 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  ms..
+        /// </summary>
+        public static string ms {
+            get {
+                return ResourceManager.GetString("ms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  coins....
+        /// </summary>
+        public static string Ncoins {
+            get {
+                return ResourceManager.GetString("Ncoins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to nearest possible value..
         /// </summary>
         public static string NearestValue {
@@ -538,6 +574,24 @@ namespace CloudCoin_SafeScan.Properties {
         public static string Pay {
             get {
                 return ResourceManager.GetString("Pay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to % of keys are good. Checked in .
+        /// </summary>
+        public static string PercentOfGood {
+            get {
+                return ResourceManager.GetString("PercentOfGood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to %.
+        /// </summary>
+        public static string PercentSign {
+            get {
+                return ResourceManager.GetString("PercentSign", resourceCulture);
             }
         }
         
@@ -632,6 +686,24 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checking .
+        /// </summary>
+        public static string Scanning {
+            get {
+                return ResourceManager.GetString("Scanning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results of scanning:.
+        /// </summary>
+        public static string ScanResults {
+            get {
+                return ResourceManager.GetString("ScanResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Security.
         /// </summary>
         public static string Security {
@@ -695,7 +767,7 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to JSON stack of coins saved in Export dir\n.
+        ///   Looks up a localized string similar to JSON stack of coins saved in Export dir.
         /// </summary>
         public static string StackExported {
             get {
@@ -731,6 +803,24 @@ namespace CloudCoin_SafeScan.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total scan time: .
+        /// </summary>
+        public static string TotalScanTime {
+            get {
+                return ResourceManager.GetString("TotalScanTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total value of good coins: .
+        /// </summary>
+        public static string TotalValue {
+            get {
+                return ResourceManager.GetString("TotalValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 250.
         /// </summary>
         public static string TwoHundredsFifty {
@@ -745,6 +835,15 @@ namespace CloudCoin_SafeScan.Properties {
         public static string UnhandledException {
             get {
                 return ResourceManager.GetString("UnhandledException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  units..
+        /// </summary>
+        public static string units {
+            get {
+                return ResourceManager.GetString("units", resourceCulture);
             }
         }
         

@@ -41,8 +41,8 @@ Choosing "No" will simply scan coins without changing passwords.</source>
           <target state="final">Нечего сохранять!</target>
         </trans-unit>
         <trans-unit id="StackExported" translate="yes" xml:space="preserve">
-          <source>JSON stack of coins saved in Export dir\n</source>
-          <target state="final">JSON файл со стеком монет сохранен в папке Export</target>
+          <source>JSON stack of coins saved in Export dir</source>
+          <target state="final">JSON файл со стеком монет сохранен в папке CloudCoin\Export</target>
         </trans-unit>
         <trans-unit id="SaveIOException" translate="no" xml:space="preserve">
           <source>CloudStackOut.SaveInFile IO exception: </source>
@@ -112,8 +112,7 @@ Try again.</source>
         </trans-unit>
         <trans-unit id="CloudCoinDescription" translate="yes" xml:space="preserve">
           <source>CloudCoin is a new form of worldwide digital currency that you can get in the form of files from virtually anywhere. Sites, emails, USB drives, smartphones… the list goes on! The Scan&amp;Safe app checks these mediums for counterfeit CloudCoin currency, loads and stores accumulated CloudCoins into the Safe, and makes stacks available to be used as payment or gifts.</source>
-          <target state="needs-review-translation">Вы можете получить клаудкойны (новую виртуальныю валюту CloudCoin) в форме файлов откуда угодно - с сайтов, по электронной почте, с USB-накопителя, со смартфона или в соцсетях...Эта программа проверит их на подлинность, зашифрует с вашим паролем и сохранит на диске и позволит выгрузить из сейфа любое количество для передачи другим.</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="final">Вы можете получить клаудкойны (новую виртуальныю валюту CloudCoin) в форме файлов откуда угодно - с сайтов, по электронной почте, с USB-накопителя, со смартфона или в соцсетях...Эта программа проверит их на подлинность, зашифрует с вашим паролем и сохранит на диске и позволит выгрузить из сейфа любое количество для передачи другим.</target>
         </trans-unit>
         <trans-unit id="CheckInternet" translate="yes" xml:space="preserve">
           <source>"The RAIDA does not respond.
@@ -185,7 +184,7 @@ Work with local Safe is still possible"</source>
         </trans-unit>
         <trans-unit id="Value" translate="yes" xml:space="preserve">
           <source>Value</source>
-          <target state="final">Цкнность</target>
+          <target state="final">Ценность</target>
         </trans-unit>
         <trans-unit id="DetectFracked" translate="yes" xml:space="preserve">
           <source>Detect Fracked Again</source>
@@ -197,23 +196,19 @@ Work with local Safe is still possible"</source>
         </trans-unit>
         <trans-unit id="Fives" translate="yes" xml:space="preserve">
           <source>5</source>
-          <target state="needs-review-translation">Пятерки (5)</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="final">5</target>
         </trans-unit>
         <trans-unit id="Hundreds" translate="yes" xml:space="preserve">
           <source>100</source>
-          <target state="needs-review-translation">Сотни (100)</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="final">100</target>
         </trans-unit>
         <trans-unit id="Ones" translate="yes" xml:space="preserve">
           <source>1</source>
-          <target state="needs-review-translation">Монеты (1)</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="final">1</target>
         </trans-unit>
         <trans-unit id="Quarters" translate="yes" xml:space="preserve">
           <source>25</source>
-          <target state="needs-review-translation">Четвертаки (25)</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="final">25</target>
         </trans-unit>
         <trans-unit id="SelectStackWithAmount" translate="yes" xml:space="preserve">
           <source>Select stack which contains nearest requested amount.</source>
@@ -221,8 +216,7 @@ Work with local Safe is still possible"</source>
         </trans-unit>
         <trans-unit id="TwoHundredsFifty" translate="yes" xml:space="preserve">
           <source>250</source>
-          <target state="needs-review-translation">Килочетверть (250)</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="final">250</target>
         </trans-unit>
         <trans-unit id="Ok" translate="yes" xml:space="preserve">
           <source>OK</source>
@@ -230,20 +224,17 @@ Work with local Safe is still possible"</source>
         </trans-unit>
         <trans-unit id="SeemsNotSetPassword" translate="yes" xml:space="preserve">
           <source>A password has not been set up yet. Please enter and verify your password in the fields below. Make sure to keep a copy of the password in a secure place. The application cannot restore a lost/forgotten password. Loss of a password will result in loss of any stored CloudCoins.</source>
-          <target state="needs-review-translation">Похоже вы еще не назначили пароль для сейфа. Пожалуйста, введите пароль 2 раза для проверки.
+          <target state="final">Похоже вы еще не назначили пароль для сейфа. Пожалуйста, введите пароль 2 раза для проверки.
 Запишите его и созраните в безопасном месте. Если вы потеряете пароль, то восстановить сейф будет невозможно!
 Пароль знаете только вы! Все монеты могут быть потеряны при утере пароля!</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="CCinSafe" translate="yes" xml:space="preserve">
           <source>CC in the Safe</source>
-          <target state="needs-review-translation">CC в вашем Сейфе</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="final">CC в вашем Сейфе</target>
         </trans-unit>
         <trans-unit id="EnterSumWithdraw" translate="yes" xml:space="preserve">
           <source>Enter Sum you want to withdraw. The app will export coins with nearest possible value.</source>
-          <target state="needs-review-translation">Введите сумму, которую хотите снять. Если эту сумму невозможно составить, программа предложит ближайшие варианты.</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="final">Введите сумму, которую хотите снять. Если эту сумму невозможно составить, программа предложит ближайшие варианты.</target>
         </trans-unit>
         <trans-unit id="ExportStackCoins" translate="yes" xml:space="preserve">
           <source>App will export stack of coins </source>
@@ -271,7 +262,7 @@ Work with local Safe is still possible"</source>
         </trans-unit>
         <trans-unit id="HalfCoins" translate="yes" xml:space="preserve">
           <source>Half coins (safe)</source>
-          <target state="final">Полумонеты (безопасно)</target>
+          <target state="needs-review-translation">Half coins (safe)</target>
         </trans-unit>
         <trans-unit id="JPEG" translate="no" xml:space="preserve">
           <source>JPEG</source>
@@ -287,7 +278,7 @@ Work with local Safe is still possible"</source>
         </trans-unit>
         <trans-unit id="ShortNote" translate="yes" xml:space="preserve">
           <source>Enter short note (e.g. For Alex)</source>
-          <target state="final">Ввкдите короткое примечание (напрмер, для Славы)</target>
+          <target state="final">Введите короткое примечание (напрмер, для Славы)</target>
         </trans-unit>
         <trans-unit id="Authenticated" translate="yes" xml:space="preserve">
           <source>Authenticated</source>
@@ -311,7 +302,7 @@ Work with local Safe is still possible"</source>
         </trans-unit>
         <trans-unit id="FixProcessWindowTitle" translate="yes" xml:space="preserve">
           <source>FixProcessWindow</source>
-          <target state="final">Окно исправления искаженных монет</target>
+          <target state="final">Починка искаженных клаудкойнов</target>
         </trans-unit>
         <trans-unit id="MainWindowTitle" translate="no" xml:space="preserve">
           <source>CloudCoin Scan&amp;Safe</source>
@@ -319,8 +310,7 @@ Work with local Safe is still possible"</source>
         </trans-unit>
         <trans-unit id="SafeContentWindowTitle" translate="yes" xml:space="preserve">
           <source>Current Balance in the Safe</source>
-          <target state="needs-review-translation">Содержимое вашего Сейфа</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="final">Содержимое вашего Сейфа</target>
         </trans-unit>
         <trans-unit id="SelectOutStackWindowTitle" translate="yes" xml:space="preserve">
           <source>SelectOutStackWindow</source>
@@ -328,7 +318,7 @@ Work with local Safe is still possible"</source>
         </trans-unit>
         <trans-unit id="SetPasswordWindowTitle" translate="yes" xml:space="preserve">
           <source>Enter Password for your CloudCoin Safe</source>
-          <target state="final">Введите пароль от вашего Сейфа с клайдкойнами</target>
+          <target state="final">Введите пароль от вашего Сейфа с клаудкойнами</target>
         </trans-unit>
         <trans-unit id="WithdrawDialogTitle" translate="yes" xml:space="preserve">
           <source>Enter Sum to Give Away</source>
@@ -336,8 +326,7 @@ Work with local Safe is still possible"</source>
         </trans-unit>
         <trans-unit id="Kiloquarters" translate="yes" xml:space="preserve">
           <source>250</source>
-          <target state="needs-review-translation">ЧетвертьК (250)</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="final">250</target>
         </trans-unit>
         <trans-unit id="Sum" translate="yes" xml:space="preserve">
           <source>Sum:</source>
@@ -349,15 +338,59 @@ Work with local Safe is still possible"</source>
         </trans-unit>
         <trans-unit id="Pasword" translate="yes" xml:space="preserve">
           <source>Password</source>
-          <target state="new">Password</target>
+          <target state="final">Пароль</target>
         </trans-unit>
         <trans-unit id="PswdVerify" translate="yes" xml:space="preserve">
           <source>Verify Password</source>
-          <target state="new">Verify Password</target>
+          <target state="final">Проверка пароля</target>
         </trans-unit>
         <trans-unit id="YouHave" translate="yes" xml:space="preserve">
           <source>You have </source>
-          <target state="new">You have </target>
+          <target state="final">У вас </target>
+        </trans-unit>
+        <trans-unit id="CoinsScanned" translate="yes" xml:space="preserve">
+          <source> coins scanned.</source>
+          <target state="final"> монет просканировано.</target>
+        </trans-unit>
+        <trans-unit id="Counterfeited" translate="yes" xml:space="preserve">
+          <source>Counterfeited: </source>
+          <target state="final">Не прошло проверку: </target>
+        </trans-unit>
+        <trans-unit id="ms" translate="yes" xml:space="preserve">
+          <source> ms.</source>
+          <target state="final" state-qualifier="tm-suggestion"> мсек.</target>
+        </trans-unit>
+        <trans-unit id="Ncoins" translate="yes" xml:space="preserve">
+          <source> coins...</source>
+          <target state="final"> монет...</target>
+        </trans-unit>
+        <trans-unit id="PercentOfGood" translate="yes" xml:space="preserve">
+          <source>% of keys are good. Checked in </source>
+          <target state="final">% ключей верны. Проверено за </target>
+        </trans-unit>
+        <trans-unit id="PercentSign" translate="yes" xml:space="preserve">
+          <source>%</source>
+          <target state="new">%</target>
+        </trans-unit>
+        <trans-unit id="Scanning" translate="yes" xml:space="preserve">
+          <source>Checking </source>
+          <target state="final">Проверка </target>
+        </trans-unit>
+        <trans-unit id="ScanResults" translate="yes" xml:space="preserve">
+          <source>Results of scanning:</source>
+          <target state="final">Резкльтаты сканирования:</target>
+        </trans-unit>
+        <trans-unit id="TotalScanTime" translate="yes" xml:space="preserve">
+          <source>Total scan time: </source>
+          <target state="final">Полное время сканирования: </target>
+        </trans-unit>
+        <trans-unit id="TotalValue" translate="yes" xml:space="preserve">
+          <source>Total value of good coins: </source>
+          <target state="final">Полная стоимость проверенных монет: </target>
+        </trans-unit>
+        <trans-unit id="units" translate="yes" xml:space="preserve">
+          <source> units.</source>
+          <target state="final">единиц.</target>
         </trans-unit>
       </group>
     </body>

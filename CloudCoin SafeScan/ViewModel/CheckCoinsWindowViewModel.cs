@@ -118,7 +118,7 @@ namespace CloudCoin_SafeScan
 */
         public CheckCoinsWindowViewModel(CoinStack stack)
         {
-            LeftTopText = "Checking " + stack.Count().ToString() + " coins...";
+            LeftTopText = Properties.Resources.Scanning + stack.Count().ToString() + Properties.Resources.Ncoins;
             Count = stack.cloudcoin.Count;
             TotalPercent = Count * 100;
             TextOnMap = "Authenticating coins...";
@@ -138,19 +138,19 @@ namespace CloudCoin_SafeScan
         {
             DispatcherHelper.CheckBeginInvokeOnUI(() =>
             {
-/*                for (int i = 0; i < RAIDA.NODEQNTY; i++)
-                {
-                    NodeStatus[i] = (e.coin.detectStatus[i] == CloudCoin.raidaNodeResponse.pass);
-                } */
+                /*                for (int i = 0; i < RAIDA.NODEQNTY; i++)
+                                {
+                                    NodeStatus[i] = (e.coin.detectStatus[i] == CloudCoin.raidaNodeResponse.pass);
+                                } */
                 CheckLog.Add(new Coin4Display()
                 {
                     Serial = e.coin.sn,
                     Value = Utils.Denomination2Int(e.coin.denomination),
                     Check = e.coin.isPassed,
-                    Comment = e.coin.percentOfRAIDAPass + "% of keys are good. Checked in " + e.sw.ElapsedMilliseconds + " ms."
+                    Comment = e.coin.percentOfRAIDAPass + Properties.Resources.PercentOfGood + e.sw.ElapsedMilliseconds + Properties.Resources.ms
                 });
                 ProgressBar += 100;
-                PercentDone = (ProgressBar / Count).ToString() + "%";
+                PercentDone = (ProgressBar / Count).ToString() + Properties.Resources.PercentSign;
                 Logger.Write("Coin with SN: " + e.coin.sn + " scanned. " + e.coin.percentOfRAIDAPass + "% of keys are good. Checked in " + e.sw.ElapsedMilliseconds + " ms.", Logger.Level.Normal);
             });
         }
@@ -159,23 +159,23 @@ namespace CloudCoin_SafeScan
         {
             DispatcherHelper.CheckBeginInvokeOnUI(() =>
             {
-                TextOnMap = e.stack.cloudcoin.Count.ToString() + " coins scanned.";
-                LeftTopText = e.stack.cloudcoin.Count.ToString() + " coins scanned.";
-                TextOnImage = "Results of scanning:\n";
+                TextOnMap = e.stack.cloudcoin.Count.ToString() + Properties.Resources.CoinsScanned;
+                LeftTopText = e.stack.cloudcoin.Count.ToString() + Properties.Resources.CoinsScanned;
+                TextOnImage = Properties.Resources.ScanResults + "\n";
                 if(e.stack.AuthenticatedQuantity > 0)
                 {
-                    TextOnImage += "Authenticated: " + e.stack.AuthenticatedQuantity + " units\n";
+                    TextOnImage += Properties.Resources.Authenticated +": " + e.stack.AuthenticatedQuantity + Properties.Resources.units + "\n";
                 }
                 if (e.stack.CounterfeitedQuantity > 0)
                 {
-                    TextOnImage += "Counterfeited: " + e.stack.CounterfeitedQuantity + " units\n";
+                    TextOnImage += Properties.Resources.Counterfeited + e.stack.CounterfeitedQuantity + Properties.Resources.units + "\n";
                 }
                 if (e.stack.FractionedQuantity > 0)
                 {
-                    TextOnImage += "Fractioned: " + e.stack.FractionedQuantity + " units\n";
+                    TextOnImage += Properties.Resources.Fractioned +": " + e.stack.FractionedQuantity + Properties.Resources.units + "\n";
                 }
-                TextOnImage += "Total value of good coins: " + e.stack.SumOfGoodCoins + "\n";
-                TextOnImage += "Total scan time: " + e.sw.ElapsedMilliseconds + " ms.";
+                TextOnImage += Properties.Resources.TotalValue + e.stack.SumOfGoodCoins + "\n";
+                TextOnImage += Properties.Resources.TotalScanTime + e.sw.ElapsedMilliseconds + Properties.Resources.ms;
             });
         }
 
